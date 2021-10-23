@@ -116,8 +116,9 @@
 			                android:orientation="horizontal" >
 						   <Spinner
 							   android:id="@+id/SpMunicipioCliente"
-							   style="@style/list_item_text_small"
+							   style="@style/text_spinner_small"
 							   android:layout_width="200dp"
+							   android:textSize="12dp"
 							   android:layout_marginLeft="5dp"
 							   android:layout_marginTop="5dp"
 							   android:spinnerMode="dropdown" />

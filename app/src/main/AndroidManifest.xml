@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:icon="@drawable/estrella"
+        android:icon="@drawable/estrella2"
         android:label="@string/app_names"
         android:largeHeap="true"
         android:theme="@style/AppTheme">

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_names" translatable="false">PossMovil</string>
+    <string name="app_names" translatable="false">StarLap</string>
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="menu_settings" translatable="false">Principal</string>
-    <string name="title_activity_principal" translatable="false">P.O.S</string>
+    <string name="title_activity_principal" translatable="false">StarLap</string>
     <string name="boton" translatable="false">Acceder</string>
     <string name="title_activity_fechas" translatable="false">Fechas</string>
     <string name="title_activity_admin_pedidos" translatable="false">Menu</string>

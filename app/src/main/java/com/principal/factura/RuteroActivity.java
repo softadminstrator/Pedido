@@ -88,6 +88,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 	static BixolonPrinter mBixolonPrinter;
 
 	private String operacionBixolon;
+	private Municipio municipio;
 
 	PagoPrestamo pagoPrestamo=new PagoPrestamo();
 	Prestamo prestamo =new Prestamo();
@@ -328,9 +329,10 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 			bd = new creaBD(this);
 			bd.openDB();
 			listaMunicipios = bd.getMunicipiosClientes(this, usuario.cedula);
+			municipio=listaMunicipios.get(0);
 			bd.close();
 			cargarListaMunicipios();
-			cargarClientes("TODOS", false, rbFiltroNit.isChecked());
+			cargarClientes(municipio.getMunicipio(), false, rbFiltroNit.isChecked());
 
 			btBuscar.setOnClickListener(this);
 			btVerTodos.setOnClickListener(this);
@@ -502,7 +504,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 														SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 														cliente.setFechaUltimaVisita(sdf.format(fecha));
 														bd.ActualizarCliente(cliente, true, false);//
-														cargarClientes(SpMunicipioCliente.getSelectedItem().toString(), false, rbFiltroNit.isChecked());
+														cargarClientes(municipio.getMunicipio(), false, rbFiltroNit.isChecked());
 													}
 												}
 										);
@@ -524,8 +526,9 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 
 			SpMunicipioCliente.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 				public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+					municipio=listaMunicipios.get(position);
 					//Carga clientes del municipio
-					cargarClientes(SpMunicipioCliente.getSelectedItem().toString(), false, rbFiltroNit.isChecked());
+					cargarClientes(municipio.getMunicipio(), false, rbFiltroNit.isChecked());
 				}
 
 				public void onNothingSelected(AdapterView<?> parent) {
@@ -582,11 +585,11 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 		
 		 if(v.equals(btBuscar))
 		{	
-			cargarClientes(SpMunicipioCliente.getSelectedItem().toString(), true,rbFiltroNit.isChecked());
+			cargarClientes(municipio.getMunicipio(), true,rbFiltroNit.isChecked());
 		}
 		else if(v.equals(btVerTodos))
 		{
-	    	cargarClientes(SpMunicipioCliente.getSelectedItem().toString(),false,rbFiltroNit.isChecked());
+	    	cargarClientes(municipio.getMunicipio(),false,rbFiltroNit.isChecked());
 		}
 		else if(v.equals(btMenuR))
 		{
@@ -644,7 +647,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 		    	}
 		    	else
 		    	{
-		    		cargarClientes(SpMunicipioCliente.getSelectedItem().toString(), true,rbFiltroNit.isChecked());
+		    		cargarClientes(municipio.getMunicipio(), true,rbFiltroNit.isChecked());
 					etNombreCliente.selectAll();
 					etNombreCliente.requestFocus();
 					return true;					
@@ -698,7 +701,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
         
         //ESTADISTICAS
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
+        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
         String fechaActual=sdf.format(c.getTime());
         
         long clientesTotales = bd.getNumeroClientes(this, municipio, usuario.cedula);
@@ -849,7 +852,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 				if(res.equals("true"))
 				{						
 						mostrarMensaje("Clientes Actualizados Correctamente.","l");
-						cargarClientes(SpMunicipioCliente.getSelectedItem().toString(),false,rbFiltroNit.isChecked());
+						cargarClientes(municipio.getMunicipio(),false,rbFiltroNit.isChecked());
 						
 						
 				}

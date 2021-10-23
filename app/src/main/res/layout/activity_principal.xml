@@ -16,11 +16,11 @@
 
          <ImageView
              android:id="@+id/ivlogo"
-             android:layout_width="wrap_content"
-             android:layout_height="70dp"
+             android:layout_width="188dp"
+             android:layout_height="138dp"
              android:layout_gravity="center"
              android:layout_marginTop="50dp"
-             android:src="@drawable/logoprincipal" />
+             android:src="@drawable/logo4" />
 
          <TextView
              android:id="@+id/tvVersion"
