@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuResultadoAls"
+        android:title="Ver Consolidado Articulos"
+        android:icon="@drawable/pedidos" >
+    </item>
+    <item android:id="@+id/menuResultadoCategoriasAls"
+        android:title="Ver Consolidado Categorias"
+        android:icon="@drawable/catalogo" >
+    </item>
+</menu>

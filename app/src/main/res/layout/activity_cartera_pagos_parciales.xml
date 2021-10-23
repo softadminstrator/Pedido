@@ -1,0 +1,314 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"  
+    tools:context=".CarteraPagosParcialesActivity" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >      
+
+          <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		         android:layout_marginTop="5dp"
+		        android:orientation="horizontal" >
+		          <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent" 	       
+		        android:orientation="vertical" >
+		        <TextView
+				android:id="@+id/tvNombreClienteCartera"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_marginLeft="5dp"
+				android:gravity="bottom"
+				android:text="Cliente"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textSize="14sp" />
+          </LinearLayout>
+         <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"    
+		        android:layout_marginTop="2dp" 
+		        android:layout_marginLeft="50dp"   
+		        android:orientation="vertical" >
+				      <Button
+				         android:id="@+id/btVolverCPP"
+				       	 android:layout_gravity="right"
+				         android:layout_marginTop="2dp"
+				         android:layout_width="120dp"
+					     android:layout_height="30dp"	
+				          style="@style/button_layout"
+						  android:background="@drawable/blue_button"
+					     android:drawableRight="@drawable/volver"
+				         android:text="Volver" />
+			         
+				     </LinearLayout>
+          </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvNombreClientePP"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="NOMBRE Y APELLIDO COMPLETO DEL CLIENTE CARTERA"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14dp" />        
+			<LinearLayout
+			        android:id="@+id/llFatosFac"
+			        android:orientation="horizontal"  
+			        android:layout_width="match_parent"
+			    	android:layout_height="wrap_content"  
+			    	>
+
+						      <TextView
+			            android:id="@+id/tvTextSubTotalPP"
+			            android:layout_width="70dp"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="2dp"
+			            android:layout_marginLeft="2dp"
+			            android:gravity="right"
+			            android:text="No. Fac"
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:textSize="14dp" />
+						           <TextView
+			            android:id="@+id/tvNFacturaC"
+			            android:layout_width="80dp"
+			            android:layout_marginLeft="2dp"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="2dp"
+			            android:gravity="center"
+			            android:text="1.000.000 "
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:textSize="14dp" />
+						<TextView
+			            android:id="@+id/tvTextSubTotal"
+			            android:layout_width="85dp"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="2dp"
+			            android:gravity="right"
+			            android:text="Caja"
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:textSize="14dp" />	
+			         <TextView
+			            android:id="@+id/tvNCajaC"
+			            android:layout_width="80dp"
+			            android:layout_marginLeft="2dp"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="2dp"
+			            android:gravity="center"
+			            android:text="1.000.000 "
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:textSize="14dp" />
+			</LinearLayout>
+			<LinearLayout
+			        android:id="@+id/llDatosFac2"
+			        android:orientation="horizontal"  
+			        android:layout_width="match_parent"
+			    	android:layout_height="wrap_content"  
+			    	>
+
+						      <TextView
+			            android:id="@+id/tvTextSubTotalPPC"
+			            android:layout_width="70dp"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="2dp"
+			            android:layout_marginLeft="2dp"
+			            android:gravity="right"
+			            android:text="V. Total"
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:textSize="14dp" />
+						           <TextView
+			            android:id="@+id/tvValFacturaC"
+			            android:layout_width="80dp"
+			            android:layout_marginLeft="2dp"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="2dp"
+			            android:gravity="center"
+			            android:text="1.000.000 "
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:textSize="14dp" />
+						<TextView
+			            android:id="@+id/tvTextSubTotalC"
+			            android:layout_width="85dp"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="2dp"
+			            android:gravity="right"
+			            android:text="Saldo"
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:textSize="14dp" />	
+			         <TextView
+			            android:id="@+id/tvSaldoFacC"
+			            android:layout_width="80dp"
+			            android:layout_marginLeft="2dp"
+			            android:layout_height="wrap_content"
+			            android:layout_marginTop="2dp"
+			            android:gravity="center"
+			            android:text="1.000.000 "
+			            android:textAppearance="?android:attr/textAppearanceLarge"
+			            android:textSize="14dp" />
+			</LinearLayout>
+			  <LinearLayout
+			        android:id="@+id/llSubtotal"
+			        android:orientation="horizontal"  
+			        android:layout_marginTop="4dp"
+			        android:layout_width="match_parent"
+			    	android:layout_height="wrap_content"  
+			    	>
+ 					<TextView
+		            android:id="@+id/tvTextTotalCartera"
+		            android:layout_width="70dp"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="2dp"
+		            android:layout_marginLeft="2dp"	            
+		            android:text="V. Pagar"
+		            android:textAppearance="?android:attr/textAppearanceLarge"
+		            android:textSize="14dp"
+		            android:gravity="right" />	
+		             <TextView
+		            android:id="@+id/tvValorPagarC"
+		            android:layout_width="80dp"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="2dp"
+		            android:layout_marginLeft="1dp"
+		            android:gravity="center"
+		            android:text="1.000.000"
+		            android:textAppearance="?android:attr/textAppearanceLarge"
+		            android:textSize="14dp" />	
+			     
+			<TextView
+            android:id="@+id/tvTextSubTotalPC"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="right"
+            android:text="Descuento"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14dp" />
+
+			<EditText
+			    android:id="@+id/etDescuentoPP"
+			    android:layout_width="80dp"
+			    android:layout_height="40dp"
+			    android:layout_weight="1"
+			    android:layout_marginTop="4dp"
+			    android:ems="10"
+			    android:inputType="number"
+			    android:text="1000000" >
+			  
+			</EditText>
+			        
+			</LinearLayout>
+			 <LinearLayout
+			        android:orientation="horizontal"  
+			        android:layout_width="match_parent"
+			    	android:layout_height="wrap_content" 
+			    	android:id="@+id/lltotal" 
+			    	>
+
+
+				    <TextView
+		            android:id="@+id/tvTextTotalCarteraC"
+		            android:layout_width="70dp"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="2dp"
+		            android:layout_marginLeft="2dp"	            
+		            android:text="N. Saldo"
+		            android:textAppearance="?android:attr/textAppearanceLarge"
+		            android:textSize="14dp"
+		            android:gravity="right" />	
+		             <TextView
+		            android:id="@+id/tvNuevoSaldoC"
+		            android:layout_width="80dp"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="2dp"
+		            android:layout_marginLeft="1dp"
+		            android:gravity="center"
+		            android:text="1.000.000"
+		            android:textAppearance="?android:attr/textAppearanceLarge"
+		            android:textSize="14dp" />	
+		             <Button
+			        android:id="@+id/btGenerarPagoParcial"
+			        	 android:layout_gravity="right"
+				         android:layout_marginTop="2dp"
+				         android:layout_width="150dp"
+					     android:layout_height="30dp"	
+					     android:layout_marginLeft="10dp"
+					  	 style="@style/button_layout"
+						 android:background="@drawable/blue_button"
+					     android:drawableRight="@drawable/pedidos"
+				         android:text="Generar Pago"			       
+			    />   
+			    
+		              
+           </LinearLayout>
+           <LinearLayout
+			        android:id="@+id/linearLayout1"
+			        android:layout_width="300dp"
+			        android:layout_height="wrap_content"
+			        android:layout_gravity="center"
+			        android:layout_marginTop="5dp"
+			        android:background="@drawable/bordecliente"
+			        android:orientation="vertical" >
+		             
+                <LinearLayout
+			        android:id="@+id/llPagosParciales"
+			        android:orientation="horizontal"  
+			        android:layout_width="match_parent"
+			    	android:layout_height="40dp"  
+			    	>			      
+		            
+					<TextView
+		            android:id="@+id/tvTextSubTotalPPCC"
+		            android:layout_width="60dp"
+		            android:layout_height="40dp"		          
+		            android:gravity="right"
+		            android:text="Vl. Pagar"
+		            android:textSize="14dp" />
+		
+					<EditText
+					    android:id="@+id/etValorAPagar"
+					    android:layout_width="60dp"
+					    android:layout_height="40dp"
+					    android:layout_weight="1"
+					    android:ems="10"					    
+					    android:inputType="number"
+					    android:text="10000000" >
+					  
+					</EditText>
+				    <EditText
+			         android:id="@+id/etFormaPago"
+			         android:layout_width="110dp"
+					 android:layout_height="40dp"					 
+			         android:drawableRight="@drawable/flecha"
+			           android:text="EFECTIVO"
+			           android:textSize="12dp" 
+		         >
+		     </EditText>     
+							        
+			</LinearLayout>
+                <Button
+			        android:id="@+id/btAgregarPago"
+			        	 android:layout_gravity="center_horizontal"
+				         android:layout_marginTop="4dp"
+				         android:layout_width="120dp"
+					     android:layout_height="30dp"					   
+					  	 style="@style/button_layout"
+					android:background="@drawable/blue_button"
+					     android:drawableRight="@drawable/agregar"
+				         android:text="Agregar"			       
+			    />   
+		   </LinearLayout>
+			    <ListView
+			        android:id="@+id/lvPagosFactura"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="5dp" >
+
+		    </ListView>
+			 
+    </LinearLayout>
+</RelativeLayout>

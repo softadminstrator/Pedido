@@ -1,0 +1,354 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.principal.factura.AbonoPrestamos">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/tvTituloAbono"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="ABONO A PRESTAMO"
+                android:gravity="center"
+                style="@style/text_Titulo_small_Titulos"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="left">
+                <TextView
+                    android:id="@+id/tvClientePrestamo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Cliente:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvTClientePrestamoText"
+                    style="@style/list_item_text_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="NOMBRE DEL CLIENTE"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="left">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_gravity="left">
+
+                        <TextView
+                            android:id="@+id/tvNitClientePrestamo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="2dp"
+                            android:text="C.C./Nit:"
+                            android:gravity="left"
+                            style="@style/text_Titulo_small_alistamiento"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                        <TextView
+                            android:id="@+id/tvTNitClientePrestamoText"
+                            style="@style/list_item_text_small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="5dp"
+                            android:text="000000000"
+                            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_gravity="left">
+
+                    <TextView
+                        android:id="@+id/tvDiasGraciaClientePrestamo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="2dp"
+                        android:text="Dias de Mora:"
+                        android:gravity="left"
+                        style="@style/text_Titulo_small_alistamiento"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                    <TextView
+                        android:id="@+id/tvDiasGraciaClientePrestamoText"
+                        style="@style/list_item_text_alistamiento_small_agotados2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="000000000"
+                       />
+
+
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="right">
+                    <Button
+                        android:id="@+id/btVerLibro"
+                        android:layout_width="220dp"
+                        android:layout_height="50dp"
+                        style="@style/button_layout_Pagos"
+                        android:background="@drawable/blue_button"
+
+                        android:drawableRight="@drawable/pedidos"
+                        android:text="Ver Libro"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/tvDeudaClientePrestamo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="DEUDA ACTUAL:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvDeudaClientePrestamoText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="99.999.999"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvObjetoPrestamo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Ingrese el Concepto del prestamo:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="2dp"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etConceptoPrestamo"
+                    android:layout_width="220dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:inputType="text"
+                    android:text="1000000"
+                    android:textSize="22dp">
+
+                </EditText>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvValorNuevoAbono"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Ingrese el valor del abono:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etValorAbonoPrestamo"
+                        android:layout_width="220dp"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:inputType="number"
+                        android:text="1000000"
+                        android:textSize="22dp">
+
+                    </EditText>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <Button
+                        android:id="@+id/btGenerarAbonoPrestamo"
+                        android:layout_width="220dp"
+                        android:layout_height="50dp"
+                        style="@style/button_layout_Pagos"
+                        android:background="@drawable/blue_button"
+
+                        android:drawableRight="@drawable/pedidos"
+                        android:text="Generar Prestamo"
+                        />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvTituloUltimosAbonos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="ULTIMOS MOVIMIENTOS REALIZADOS"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
+
+
+        <ListView
+            android:id="@+id/lvAbonosPreatamo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

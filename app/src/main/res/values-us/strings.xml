@@ -1,0 +1,10 @@
+<resources>
+
+    <string  name="app_names">PossMovile</string>
+    <string  name="hello_world">Hello world!</string>
+    <string  name="menu_settings">Settings</string>
+    <string  name="title_activity_principal">PossMovile</string>
+    <string  name="boton">Español</string>
+    
+
+</resources>

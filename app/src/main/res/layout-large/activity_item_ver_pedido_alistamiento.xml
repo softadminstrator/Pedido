@@ -1,0 +1,128 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_margin_pos_consolidado"
+    android:paddingLeft="@dimen/activity_margin_pos"
+    android:paddingRight="@dimen/activity_margin_pos"
+    android:paddingTop="@dimen/activity_margin_pos"
+    tools:context="com.principal.factura.ItemVerPedidoAlistamientoActivity">
+
+
+    <LinearLayout
+        android:id="@+id/LLItemVerPedido"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/LLDatoPedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCantidadPedidoAls"
+                style="@style/list_item_text_alistamiento"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="0000" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLDatoCliente"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNombreArticuloPedidoAls"
+                style="@style/list_item_text_alistamiento_articulo"
+                android:layout_width="320dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical|left"
+                android:text="ARTICULO CON SU NOMBRE COMPLETO POR UNIDAD MAS COLOR MAS FARAGANCIA" />
+
+            <TextView
+                android:id="@+id/tvObservacionItemPedidoAls"
+                style="@style/list_item_text_alistamiento_small_observacion_item"
+                android:layout_width="320dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical|left"
+                android:text="OBSERVACION ITEM DEL ARTICULO AMARILLO AZUL BLANCO ROJO MORADO MARACUYA FRESA PIÑA" />
+            <TextView
+                android:id="@+id/tvObservacionAlistamientoPedidoAls"
+                style="@style/list_item_text_alistamiento_small_observacion_item_alistamiento"
+                android:layout_width="320dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical|left"
+                android:text="OBSERVACION DEL USUARIO ALISTAMEINTO" />
+            <TextView
+                android:id="@+id/tvCodigoPedidoAls"
+                style="@style/list_item_text_alistamiento_codigo"
+                android:layout_width="320dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical|left"
+                android:text="CODIGO ARTICULO" />
+            <TextView
+                android:id="@+id/tvStockPedidoAls"
+                style="@style/list_item_text_alistamiento_codigo"
+                android:layout_width="320dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical|left"
+                android:text="STOCK ARTICULO" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLTotalPedidou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvValorUnitarioPedidoAls"
+                style="@style/list_item_text_alistamiento_articulo"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|right"
+                android:text="999.999" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLTotalPedidout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvTTotalPedidoAls"
+                style="@style/list_item_text_alistamiento_articulo"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical|right"
+                android:text="9.999.999" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

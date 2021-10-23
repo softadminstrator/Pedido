@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: ./app/libs/zebra.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/libs/zebra.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,143 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+     <ImageView
+         android:id="@+id/ivtienda"
+         android:layout_width="150dp"
+         android:layout_height="70dp"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentRight="true"
+         android:layout_marginTop="10dp"
+         android:src="@drawable/tienda" />
+
+     <TextView
+        android:id="@+id/tvClienteInfo"
+        android:layout_width="85dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp"
+        android:text="Cliente"
+        android:textSize="20sp"
+        android:gravity="left|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+     <TextView
+        android:id="@+id/tvClienteInfoN"
+        android:layout_width="260dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="130dp"
+        android:ems="10"
+        android:textSize="15sp"
+        android:text="Texto del nombre del cliente"
+        android:gravity="left|center_vertical"
+        />
+     
+     <TextView
+        android:id="@+id/tvNegocioInfo"
+        android:layout_width="240dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="160dp"
+        android:text="Nombre del Negocio"
+        android:textSize="20sp"
+        android:gravity="left|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+     <TextView
+        android:id="@+id/tvNegocioInfoN"
+        android:layout_width="260dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="190dp"
+        android:ems="10"
+        android:textSize="15sp"
+        android:text="Texto del nombre del Negocio"
+        android:gravity="left|center_vertical"
+        />
+     
+     <TextView
+        android:id="@+id/tvDireccionInfo"
+        android:layout_width="195dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="220dp"
+        android:text="Direccion"
+        android:textSize="20sp"
+        android:gravity="left|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+     <TextView
+        android:id="@+id/tvDireccionInfoN"
+        android:layout_width="260dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="250dp"
+        android:ems="10"
+        android:textSize="15sp"
+        android:text="Texto del nombre del Direccion"
+        android:gravity="left|center_vertical"
+        />
+     
+     
+      <TextView
+        android:id="@+id/tvTelefonoInfo"
+        android:layout_width="195dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="280dp"
+        android:text="Telefono"
+        android:textSize="20sp"
+        android:gravity="left|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+     <TextView
+        android:id="@+id/tvTelefonoInfoN"
+        android:layout_width="260dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="310dp"
+        android:ems="10"
+        android:textSize="15sp"
+        android:text="Texto del nombre del Telefono"
+        android:gravity="left|center_vertical"
+        />
+     
+     <TextView
+        android:id="@+id/tvBarrioInfo"
+        android:layout_width="85dp"
+	    android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="340dp"
+        android:text="Barrio"
+        android:textSize="20sp"
+        android:gravity="left|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+        android:id="@+id/tvBarrioInfoN"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="370dp"
+        android:layout_width="190dp"
+	    android:layout_height="50dp"
+        android:ems="10"
+        android:textSize="15sp"
+        android:text="Texto del nombre del Barrio"
+        android:gravity="left|center_vertical"
+        />
+        
+        <Button
+         android:id="@+id/btVolverInfo"
+         android:layout_marginLeft="210dp"
+         android:layout_marginTop="370dp"
+         android:layout_width="120dp"
+	     android:layout_height="40dp"
+	     android:drawableRight="@drawable/volver"
+	     style="@style/button_layout"
+			android:background="@drawable/blue_button"
+         android:text="Volver" />
+     
+    
+
+</RelativeLayout>

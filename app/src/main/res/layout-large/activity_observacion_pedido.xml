@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.principal.factura.ObservacionPedidoActivity">
+
+    <LinearLayout
+        android:id="@+id/LLItemObservacionPedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/LLDatoPedido"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNombreObservacion"
+                style="@style/list_item_text_alistamiento"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="NOMBRE OBSERVACION" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLDatoCliente"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCantidadObservacion"
+                style="@style/list_item_text_alistamiento_articulo"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical|left"
+                android:text="CANTIDAD" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLTotalPedidou"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btMas"
+                style="@style/button_text_ObservacionPeiddo"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/blue_button"
+
+                android:text="+" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LLTotalPedidout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btMenos"
+                style="@style/button_text_ObservacionPeiddo"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/blue_button"
+                android:text="-" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

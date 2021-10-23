@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"  
+     >
+
+   <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="60dp"
+		android:orientation="vertical">
+        
+	     <TextView
+	         android:id="@+id/tvNombreClienteCt"
+	         android:layout_width="230dp"
+	         android:layout_height="wrap_content"
+	         android:layout_marginLeft="2dp"
+	         android:layout_marginTop="5dp"
+	         android:text="Nombre Cliente"
+	         android:textSize="12sp"
+	          />
+		<TextView
+			android:id="@+id/tvFechaUltimoPago"
+			android:layout_width="230dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="2dp"
+			android:layout_marginTop="5dp"
+			android:text="Fecha Ultimo pago"
+			android:textSize="12sp"
+			style="@style/list_item_text_alistamiento_small_agotados"
+			/>
+	</LinearLayout>
+	     <TextView
+	         android:id="@+id/tvDeudaCt"
+	         android:layout_width="80dp"
+	         android:layout_height="50dp"
+	         android:layout_marginLeft="2dp"
+	         android:layout_marginTop="5dp"
+	         android:text="Deuda"
+	         android:textSize="12sp"
+	         android:gravity="right"
+	          />
+	     
+     </LinearLayout>
+
+</RelativeLayout>

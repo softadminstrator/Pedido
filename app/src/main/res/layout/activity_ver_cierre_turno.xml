@@ -1,0 +1,266 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:id="@+id/rlVerProductos">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <TextView
+	        android:id="@+id/tvOperacionCierreTurno"
+	        android:layout_width="fill_parent"
+	        android:layout_height="20dp"				        		       
+	        android:text="Cierre Turno"
+	        android:textSize="16dp"
+	        android:gravity="center"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+       <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		         android:layout_marginTop="5dp"
+		        android:orientation="horizontal" >
+
+			 <Button
+				 android:id="@+id/btImprimirCierreTurno"
+				 android:layout_width="120dp"
+				 android:layout_height="40dp"
+				 android:layout_marginLeft="10dp"
+				 android:drawableLeft="@drawable/print"
+				 android:text="Imprimir"
+				 android:textSize="14sp"
+				 android:background="@drawable/blue_button"
+				 style="@style/button_layout"
+				 android:gravity="center|center_vertical" />
+         <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"    
+		        android:layout_marginTop="2dp" 
+		        android:layout_marginLeft="50dp"   
+		        android:orientation="vertical" >
+				      <Button
+				         android:id="@+id/btVolverCierreTurno"
+				       	 android:layout_gravity="right"
+				         android:layout_marginTop="2dp"
+				         android:layout_width="120dp"
+					     android:layout_height="35dp"
+						  android:background="@drawable/blue_button"
+				          style="@style/button_layout"
+
+					     android:drawableRight="@drawable/volver"
+				         android:text="Volver" />
+			         
+				     </LinearLayout>
+          </LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:background="@color/BackItem"
+			android:orientation="horizontal">
+
+			<LinearLayout
+				android:id="@+id/llClientes"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:background="@color/TextItem"
+				android:layout_marginTop="2dp"
+				android:layout_marginLeft="2dp"
+				android:layout_marginRight="2dp"
+				android:layout_marginBottom="2dp"
+				android:orientation="horizontal"
+				android:weightSum="1">
+
+
+
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="vertical" >
+					<TextView
+						android:id="@+id/tvNCierre"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+
+						android:gravity="center_horizontal"
+						android:text="No. Cierre"
+						android:textSize="12sp"
+						android:textColor="#01579D"
+						/>
+					<TextView
+						android:id="@+id/tvTextNCierre"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:layout_marginTop="1dp"
+						android:gravity="left"
+						android:text="Text No. Cierre"
+						android:textSize="14sp"
+						/>
+					<TextView
+						android:id="@+id/tvFechaCierre"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+
+						android:gravity="center_horizontal"
+						android:text="Fecha"
+						android:textSize="12sp"
+						android:textColor="#01579D"
+						/>
+					<TextView
+						android:id="@+id/tvTextFecha"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:layout_marginTop="1dp"
+						android:gravity="left"
+						android:text="Texto fecha"
+						android:textSize="14sp"
+						/>
+					<TextView
+						android:id="@+id/tvFacturaInicial"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+
+						android:gravity="center_horizontal"
+						android:text="Factura inicial"
+						android:textSize="12sp"
+						android:textColor="#01579D"
+						/>
+					<TextView
+						android:id="@+id/tvTextFacturaInicial"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:layout_marginTop="1dp"
+						android:gravity="left"
+						android:text="Texto Factura inicial"
+						android:textSize="14sp"
+						/>
+					<TextView
+						android:id="@+id/tvNTransacciones"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+
+						android:gravity="center_horizontal"
+						android:text="No. Transacciones"
+						android:textSize="12sp"
+						android:textColor="#01579D"
+						/>
+					<TextView
+						android:id="@+id/tvTextNTransacciones"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:layout_marginTop="1dp"
+						android:gravity="left"
+						android:text="Texto No. Transacciones"
+						android:textSize="14sp"
+						/>
+				</LinearLayout>
+				<LinearLayout
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="5dp"
+					android:orientation="vertical" >
+
+					<TextView
+						android:id="@+id/tvNCaja"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+
+						android:gravity="center_horizontal"
+						android:text="No. Caja"
+						android:textColor="#01579D"
+						android:textSize="12sp" />
+					<TextView
+						android:id="@+id/tvTextoNCaja"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:layout_marginTop="1dp"
+						android:gravity="left"
+						android:text="Texto No. Caja"
+						android:textSize="14sp"
+						/>
+					<TextView
+						android:id="@+id/tvHoraCierre"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:gravity="center_horizontal"
+						android:text="Hora"
+						android:textSize="12sp"
+						android:textColor="#01579D"
+						/>
+					<TextView
+						android:id="@+id/tvTextHoraCierre"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:layout_marginTop="1dp"
+						android:gravity="left"
+						android:text="Texto Hora"
+						android:textSize="14sp"
+						/>
+
+					<TextView
+						android:id="@+id/tvFacturaFinal"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:gravity="center_horizontal"
+						android:text="Factura final"
+						android:textColor="#01579D"
+						android:textSize="12sp" />
+					<TextView
+						android:id="@+id/tvTextFacturaFinal"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:layout_marginTop="1dp"
+						android:gravity="left"
+						android:text="Texto factura final"
+						android:textSize="14sp"
+						/>
+					<TextView
+						android:id="@+id/tvValorCierre"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:gravity="center_horizontal"
+						android:text="Valor"
+						android:textSize="12sp"
+						android:textColor="#01579D"
+						/>
+					<TextView
+						android:id="@+id/tvTextValorCierre"
+						android:layout_width="170dp"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="2dp"
+						android:layout_marginTop="1dp"
+						android:gravity="left"
+						android:text="Texto valor cierre"
+						android:textSize="14sp"
+						/>
+				</LinearLayout>
+			</LinearLayout>
+		</LinearLayout>
+
+
+		<ListView
+       			android:id="@+id/lvFacturasCierre"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="5dp"		        
+		         >
+		    </ListView>
+    </LinearLayout>
+
+</RelativeLayout>

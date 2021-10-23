@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\acer\Documents\Pedido\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="75a59bc3c3a315d1508f85293a48df7d023b6065">
+        <dex dex="C:\Users\acer\Documents\Pedido\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_9c5e6887102b6bc9fd48bb353965e92f25bcae6d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\acer\Documents\Pedido\app\libs\bxlprint.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a6f276af8da57bf269148b645e95d2c21674638f">
+        <dex dex="C:\Users\acer\Documents\Pedido\app\build\intermediates\transforms\dex\debug\folders\1000\2\bxlprint_33ad9f770008881f948e78e231cba150d492f3d1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\acer\Documents\Pedido\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="C:\Users\acer\Documents\Pedido\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_8de3ced05dfc4a156a147b8214a74720e9a52a63\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\acer\Documents\Pedido\app\libs\zebra.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3284cad67e61b5dcd7708a2014950111a202eab4">
+        <dex dex="C:\Users\acer\Documents\Pedido\app\build\intermediates\transforms\dex\debug\folders\1000\2\zebra_9cc2c57d41ffd62849b4ddb375ac3a7778f70f21\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\acer\Documents\Pedido\app\libs\urlimageviewhelper-1.0.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="67125d743e0035a1b157ba8210c2abf1ff374e10">
+        <dex dex="C:\Users\acer\Documents\Pedido\app\build\intermediates\transforms\dex\debug\folders\1000\2\urlimageviewhelper-1.0.4_8684fe61a6710739838766ca5fa347237fd916c2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\acer\Documents\Pedido\app\libs\ksoap2-android-assembly-2.6.0-jar-with-dependencies.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="400a2afc7073b2e68c3841db8b9b71d4182f242d">
+        <dex dex="C:\Users\acer\Documents\Pedido\app\build\intermediates\transforms\dex\debug\folders\1000\2\ksoap2-android-assembly-2.6.0-jar-with-dependencies_e2e9b54072a0dccb3f24832424926b21bab505f1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\acer\.android\build-cache\681f46ffa36c2a4dfeb76d53f342eb9ef77d1602\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="C:\Users\acer\Documents\Pedido\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_852c3d1a43d2fe7c455384f2a9365c8fa20c9f93\classes.dex" />
+    </item>
+
+</items>

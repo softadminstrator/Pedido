@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+	android:paddingBottom="@dimen/activity_margin_pos"
+	android:paddingLeft="@dimen/activity_margin_pos"
+	android:paddingRight="@dimen/activity_margin_pos"
+	android:paddingTop="@dimen/activity_margin_pos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/BackItem"
+		android:orientation="horizontal">
+
+	<LinearLayout
+		android:id="@+id/llClientes"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/TextItem"
+		android:layout_marginTop="2dp"
+		android:layout_marginLeft="2dp"
+		android:layout_marginRight="2dp"
+		android:layout_marginBottom="2dp"
+		android:orientation="horizontal"
+		android:weightSum="1">
+
+	<LinearLayout
+		android:id="@+id/llVerArticulo"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true">
+
+		<LinearLayout
+			android:id="@+id/llCodigoCantidad"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			>
+
+			<LinearLayout
+				android:id="@+id/llCodigoStock"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_marginTop="1dp"
+				>
+
+				<TextView
+					android:id="@+id/tvCantPedir"
+					android:layout_width="50dp"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:text="0000"
+					android:layout_marginLeft="1dp"
+					android:textColor="@android:color/background_dark"
+					android:textSize="14sp"
+					android:textStyle="bold" />
+				<TextView
+					android:id="@+id/tvCodigoVA"
+					style="@style/list_item_text"
+					android:layout_width="80dp"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_marginLeft="2dp"
+					android:text="00000000000"
+					android:textColor="#990000"
+					android:textSize="12sp" />
+				<TextView
+					android:id="@+id/tvStockVA"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="2dp"
+					android:text="000000"
+					android:textSize="12sp"
+					android:textColor="#0C5716"
+					android:gravity="center"
+					/>
+
+				<TextView
+					android:id="@+id/tvPrecioVA"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="2dp"
+					android:text="999.999.999"
+					android:gravity="right"
+					style="@style/list_item_text"
+					/>
+
+			</LinearLayout>
+			<TextView
+				android:id="@+id/tvNombreVA"
+				style="@style/list_item_text"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="10dp"
+				android:layout_marginLeft="5dp"
+				android:layout_marginTop="1dp"
+				android:text="Nombre" />
+		</LinearLayout>
+
+
+
+	</LinearLayout>
+	</LinearLayout>
+	</LinearLayout>
+     
+
+</RelativeLayout>

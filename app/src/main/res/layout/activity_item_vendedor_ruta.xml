@@ -1,0 +1,32 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_margin_pos_consolidado"
+    android:paddingLeft="@dimen/activity_margin_pos_consolidado"
+    android:paddingRight="@dimen/activity_margin_pos_consolidado"
+    android:paddingTop="@dimen/activity_margin_pos_consolidado"
+    tools:context="com.principal.factura.ItemVendedorRutaActivity">
+
+    <LinearLayout
+        android:id="@+id/LLNombreRuta"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvNombreRuta"
+            style="@style/list_item_text_alistamiento"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="nombre completo de ruta" />
+
+
+    </LinearLayout>
+</LinearLayout>

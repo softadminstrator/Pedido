@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+     >
+
+
+    <ViewFlipper
+        android:id="@+id/view_flipper"
+        
+        android:layout_width="500dp"
+        android:layout_height="670dp"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        >    
+     
+    </ViewFlipper>
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+     android:layout_centerVertical="true"
+        android:src="@drawable/syback" />
+
+    <ImageView
+        android:id="@+id/ivNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" 
+        android:layout_alignParentRight="true"
+        android:src="@drawable/synext" />
+       <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="180dp"
+            android:id="@+id/llMenu"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true" >
+
+           <HorizontalScrollView
+               android:id="@+id/scrollView"
+               android:layout_width="fill_parent"
+               android:layout_height="180dp" >
+
+               <LinearLayout
+                   android:layout_width="fill_parent"
+                   android:layout_height="180dp"
+                   android:id="@+id/llDettalleCatalog"
+                   android:orientation="horizontal" >                 
+               </LinearLayout>
+           </HorizontalScrollView>
+
+         
+
+        </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,475 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+      <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        
+         >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"    
+        android:orientation="vertical" >
+         <LinearLayout
+        android:id="@+id/linearLayout15646"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"    
+        android:orientation="horizontal" >
+		          <TextView
+		        android:id="@+id/tvRutaA"
+		        android:layout_width="40dp"
+		        android:layout_height="20dp"
+		        android:text="Ruta."
+		        android:textSize="13dp"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		    
+		    <TextView
+		        android:id="@+id/tvRutaAN"
+		        android:layout_width="40dp"
+		        android:layout_height="20dp"
+		        android:layout_marginLeft="5dp"
+		        android:text="00000"
+		        android:textSize="13dp"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+        
+        <TextView
+        android:id="@+id/tvTituloMenu"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+         android:layout_gravity="center"
+        android:text="MENU"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					      <Button
+					        android:id="@+id/btPedidoMesa"
+					         android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"
+							android:background="@drawable/blue_button"
+						    style="@style/button_layout"
+					        android:drawableRight="@drawable/ruta"   
+					        android:text="Pedido de Mesa"
+					        android:onClick="sendPedidoPesaMovil" />
+			        </LinearLayout>
+        </LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:orientation="vertical"
+			>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_gravity="center">
+				<Button
+					android:id="@+id/btAlistamiento"
+					android:layout_width="180dp"
+					android:layout_height="50dp"
+					android:layout_marginTop="15dp"
+					android:layout_gravity="center"
+					android:background="@drawable/blue_button"
+					style="@style/button_layout"
+					android:drawableRight="@drawable/ruta"
+					android:text="Alistamiento"
+					android:onClick="sendPedidoPesaMovil" />
+			</LinearLayout>
+		</LinearLayout>
+        
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+			        </LinearLayout>
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					      <Button
+					        android:id="@+id/btFactura"	
+					        android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="20dp"
+					        android:layout_gravity="center"
+						    android:background="@drawable/blue_button"
+					        style="@style/button_layout"
+					        android:drawableRight="@drawable/ruta"   
+					        android:text="Factura" />
+			        </LinearLayout>
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					      <Button
+					        android:id="@+id/btFacturasRealizadas"
+					       android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"
+							  android:background="@drawable/blue_button"
+						    style="@style/button_layout"
+					        android:drawableRight="@drawable/pedidos"   
+					        android:text="Facturas Realizadas" />
+			        </LinearLayout>
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					      <Button
+					        android:id="@+id/btPedido"
+					         android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"
+							  android:background="@drawable/blue_button"
+						    style="@style/button_layout"
+					        android:drawableRight="@drawable/ruta"   
+					        android:text="Pedido" />
+			        </LinearLayout>
+        </LinearLayout>
+          <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					     <Button
+					        android:id="@+id/btPedidosRealizados"
+					         android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"
+							 android:background="@drawable/blue_button"
+						    style="@style/button_layout"
+					        android:drawableRight="@drawable/pedidos"  
+					        android:text="Pedidos Realizados" />
+			        </LinearLayout>
+        </LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:orientation="vertical"
+			>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_gravity="center">
+				<Button
+					android:id="@+id/btRemision"
+					android:background="@drawable/blue_button"
+
+					android:layout_width="180dp"
+					android:layout_height="50dp"
+					android:layout_marginTop="15dp"
+					android:layout_gravity="center"
+					style="@style/button_layout"
+					android:drawableRight="@drawable/ruta"
+					android:text="Cotización" />
+			</LinearLayout>
+		</LinearLayout>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:orientation="vertical"
+			>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_gravity="center">
+				<Button
+					android:id="@+id/btRemisionesRealizadas"
+					android:layout_width="180dp"
+					android:layout_height="50dp"
+					android:layout_marginTop="15dp"
+					android:layout_gravity="center"
+					android:background="@drawable/blue_button"
+					style="@style/button_layout"
+					android:drawableRight="@drawable/pedidos"
+					android:text="Cotizaciones Realizadas" />
+			</LinearLayout>
+		</LinearLayout>
+
+		<LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					     <Button
+					        android:id="@+id/btTraslados"
+							 android:background="@drawable/blue_button"
+							 android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"
+							 style="@style/button_layout"
+					        android:drawableRight="@drawable/ruta"   
+					        android:text="Traslados" />
+			        </LinearLayout>
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					     <Button
+					        android:id="@+id/btTrasladosRealizados"
+							 android:background="@drawable/blue_button"
+
+							 android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"
+					        style="@style/button_layout"
+					        android:drawableRight="@drawable/pedidos"  
+					        android:text="Traslados Realizados" />
+			        </LinearLayout>
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					      <Button
+						        android:id="@+id/btVerListaArticulos"
+							  android:background="@drawable/blue_button"
+							  android:layout_width="180dp"
+						        android:layout_height="50dp"
+						        android:layout_marginTop="15dp"
+						        android:layout_gravity="center"
+						        style="@style/button_layout"
+						        android:drawableRight="@drawable/consultar"  
+						        android:text="Consultar Articulo" />
+			        </LinearLayout>
+        </LinearLayout>
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					      <Button
+					        android:id="@+id/btAdministraInventario"
+							  android:background="@drawable/blue_button"
+							  android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"		    
+
+						    style="@style/button_layout"
+					        android:drawableRight="@drawable/ruta"   
+					        android:text="Administrar Inventario" />
+			        </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					        <Button
+					        android:id="@+id/btZFinanciera"
+								android:background="@drawable/blue_button"
+
+								android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"					       
+					  	    style="@style/button_layout"
+					        android:drawableRight="@drawable/catalogo"  
+					        android:text="Z Financiera" />
+			        </LinearLayout>
+        </LinearLayout>
+        
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					        <Button
+					        android:id="@+id/btCartera"
+								android:background="@drawable/blue_button"
+								android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"					       
+
+						    style="@style/button_layout"						    
+					        android:drawableRight="@drawable/ruta"  
+					        android:text="Cartera" />
+			        </LinearLayout>
+        </LinearLayout>
+ 		 <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					        <Button
+					        android:id="@+id/btPagosRealizados"
+								android:background="@drawable/blue_button"
+
+								android:layout_width="180dp"
+					        android:layout_height="50dp"
+					        android:layout_marginTop="15dp"
+					        android:layout_gravity="center"					       
+
+						    style="@style/button_layout"						    
+					        android:drawableRight="@drawable/pedidos"  
+					        android:text="Pagos Realizados" />
+			        </LinearLayout>
+        </LinearLayout>
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:orientation="vertical"
+			>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_gravity="center">
+				<Button
+					android:id="@+id/btPrestamos"
+					android:background="@drawable/blue_button"
+
+					android:layout_width="180dp"
+					android:layout_height="50dp"
+					android:layout_marginTop="20dp"
+					android:layout_gravity="center"
+
+					style="@style/button_layout"
+					android:drawableRight="@drawable/ruta"
+					android:text="Prestamos" />
+			</LinearLayout>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="5dp"
+			android:orientation="vertical"
+			>
+			<LinearLayout
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:layout_gravity="center">
+				<Button
+					android:id="@+id/btPrestamosRealizados"
+					android:background="@drawable/blue_button"
+
+					android:layout_width="180dp"
+					android:layout_height="50dp"
+					android:layout_marginTop="20dp"
+					android:layout_gravity="center"
+
+					style="@style/button_layout"
+					android:drawableRight="@drawable/pedidos"
+					android:text="Movimientos Realizados" />
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+ </ScrollView>
+  
+</RelativeLayout>

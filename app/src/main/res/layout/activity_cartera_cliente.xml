@@ -1,0 +1,204 @@
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CarteraClienteActivity" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:android1="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >      
+
+          <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		         android:layout_marginTop="5dp"
+		        android:orientation="horizontal" >
+		          <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent" 	       
+		        android:orientation="vertical" >
+		         <TextView
+				android:id="@+id/tvNombreClienteCartera"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_marginLeft="5dp"
+				android:gravity="bottom"
+				android:text="Cliente"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textSize="16sp" />
+          </LinearLayout>
+         <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"    
+		        android:layout_marginTop="2dp" 
+		        android:layout_marginLeft="50dp"   
+		        android:orientation="vertical" >
+				      <Button
+				         android:id="@+id/btVolverCPT"
+				       	 android:layout_gravity="right"
+				         android:layout_marginTop="2dp"
+				         android:layout_width="120dp"
+					     android:layout_height="30dp"	
+				          style="@style/button_layout"
+						  android:background="@drawable/blue_button"
+
+						  android:drawableRight="@drawable/volver"
+				         android:text="Volver" />
+			         
+				     </LinearLayout>
+          </LinearLayout>
+        <TextView
+            android:id="@+id/tvNombreCliente"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="NOMBRE Y APELLIDO COMPLETO DEL CLIENTE CARTERA"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14dp" />
+
+     
+
+        <TextView
+            android:id="@+id/tvTextoDeuda"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:gravity="bottom"
+            android:text="Deuda"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvDeuda"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="1.000.000"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14dp" />
+			<RadioGroup
+			            android1:id="@+id/radioGroup1"
+			            android1:layout_width="wrap_content"
+			            android1:layout_height="wrap_content" >
+			             <LinearLayout
+			        android:orientation="horizontal"  
+			        android:layout_width="match_parent"
+			    	android:layout_height="wrap_content"  
+			    	>
+  					
+				        <RadioButton
+				            android1:id="@+id/rbPagosParciales"
+				            android1:layout_width="wrap_content"
+				            android1:layout_height="wrap_content"
+				            android1:checked="false"
+				            android1:focusable="false"
+				            android1:text="Pagos Parciales" />
+
+				        <RadioButton
+				            android1:id="@+id/rbPagosTotales"
+				            android1:layout_width="wrap_content"
+				            android1:layout_height="wrap_content"
+				            android1:text="Pagos Totales" />
+			          
+			</LinearLayout>
+			 </RadioGroup>
+			  <LinearLayout
+			        android:id="@+id/llSubtotal"
+			        android:orientation="horizontal"  
+			        android:layout_width="match_parent"
+			    	android:layout_height="wrap_content"  
+			    	>
+
+			      <TextView
+            android:id="@+id/tvTextSubTotal"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android1:layout_marginLeft="2dp"
+            android:gravity="right"
+            android:text="SUBTOTAL"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14dp" />
+			           <TextView
+            android:id="@+id/tvSubTotal"
+            android:layout_width="80dp"
+            android1:layout_marginLeft="2dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="100.000 "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14dp" />
+			<TextView
+            android:id="@+id/tvTextSubTotalC"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="right"
+            android:text="DESCUENTO"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="14dp" />
+
+			<EditText
+			    android1:id="@+id/etDescuento"
+			    android:layout_width="80dp"
+			    android1:layout_height="40dp"
+			    android1:layout_weight="1"
+			    android1:ems="10"
+			    android1:inputType="number"
+			    android1:text="0" >
+			  
+			</EditText>
+			        
+			</LinearLayout>
+		    <LinearLayout
+			        android:orientation="horizontal"  
+			        android:layout_width="match_parent"
+			    	android:layout_height="wrap_content" 
+			    	android:id="@+id/lltotal" 
+			    	>
+				    <TextView
+		            android:id="@+id/tvTextTotalCartera"
+		            android:layout_width="70dp"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="2dp"
+		            android:layout_marginLeft="2dp"	            
+		            android:text="TOTAL"
+		            android:textAppearance="?android:attr/textAppearanceLarge"
+		            android:textSize="14dp"
+		            android:gravity="right" />	
+		             <TextView
+		            android:id="@+id/tvTotalPago"
+		            android:layout_width="80dp"
+		            android:layout_height="wrap_content"
+		            android:layout_marginTop="2dp"
+		            android:gravity="center"
+		            android:text="100.000"
+		            android:textAppearance="?android:attr/textAppearanceLarge"
+		            android:textSize="14dp" />	
+		             <Button
+			        android:id="@+id/btGenerarPago"
+			        	 android:layout_gravity="right"
+				         android:layout_marginTop="2dp"
+				         android:layout_width="150dp"
+					     android:layout_height="30dp"	
+					  	 style="@style/button_layout"
+						 android:background="@drawable/blue_button"
+					     android:drawableRight="@drawable/pedidos"
+				         android:text="Generar Pago"			       
+			    />     
+           </LinearLayout>
+
+			    <ListView
+			        android:id="@+id/lvFacturasPend"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_marginLeft="5dp" >
+
+		    </ListView>
+			 
+    </LinearLayout>
+
+</RelativeLayout>

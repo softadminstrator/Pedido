@@ -1,0 +1,1393 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+	    android:id="@+id/scrollView1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	 >
+	<LinearLayout
+	       android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+    	 android:orientation="vertical">
+    	    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/lbWs"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	       <CheckBox
+	         android:id="@+id/cbWs"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_marginLeft="10dp"	         
+	         android:layout_gravity="center_horizontal"
+	         android:text="WS Posstar"
+	         android:textSize="20sp" />	   
+		</LinearLayout>
+	     <TextView
+        android:id="@+id/tvIpSys"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="left|center_vertical"
+        android:text="IP pública Cash"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp" />
+	     
+	    <LinearLayout
+	          	android:layout_width="match_parent"
+	          		android:id="@+id/llIpCash"
+    	 		android:layout_height="wrap_content"
+    	 		android:orientation="horizontal" >
+    	 		<EditText
+			        android:id="@+id/etIpSys1"
+			        android:layout_width="55dp"
+			        android:layout_height="40dp"
+			        android:layout_marginLeft="15dp"
+			        android:layout_marginTop="10dp"       
+			        android:inputType="number"
+			        android:maxLength="3"
+			        android:text="000"
+			        android:textSize="18sp" >
+			        <requestFocus />
+			    </EditText>
+			     <TextView
+			        android:id="@+id/tvIpSysPunto1"
+			        android:layout_width="10dp"
+			        android:layout_height="40dp"			      
+			        android:gravity="left|center_vertical"
+			        android:layout_marginLeft="2dp"
+			        android:layout_marginTop="10dp"
+			        android:text="."
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+  					<EditText
+					        android:id="@+id/etIpSys2"
+					        android:layout_width="55dp"
+					        android:layout_height="40dp"
+					        android:layout_marginLeft="2dp"
+			       			android:layout_marginTop="10dp"
+					        android:inputType="number"
+					        android:maxLength="3"
+					        android:text="000"
+					        android:textSize="18sp" />
+				    <TextView
+				        android:id="@+id/tvIpSysPunto2"
+				        android:layout_width="10dp"
+				        android:layout_height="40dp"				      
+				        android:layout_marginLeft="2dp"
+			        	android:layout_marginTop="10dp"
+				        android:gravity="left|center_vertical"
+				        android:text="."
+				        android:textAppearance="?android:attr/textAppearanceLarge"
+				        android:textSize="20sp" />
+				     <EditText
+					        android:id="@+id/etIpSys3"
+					        android:layout_width="55dp"
+					        android:layout_height="40dp"
+					        android:layout_marginLeft="2dp"
+			        		android:layout_marginTop="10dp"
+					        android:inputType="number"
+					        android:maxLength="3"
+					        android:text="000"
+					        android:textSize="18sp" />
+
+					    <TextView
+					        android:id="@+id/tvIpSysPunto3"
+					        android:layout_width="10dp"
+					        android:layout_height="40dp"
+					        android:layout_marginLeft="2dp"
+			        		android:layout_marginTop="10dp"
+					        android:gravity="left|center_vertical"
+					        android:text="."
+					        android:textAppearance="?android:attr/textAppearanceLarge"
+					        android:textSize="20sp" />				
+					    <EditText
+					        android:id="@+id/etIpSys4"
+					        android:layout_width="55dp"
+					        android:layout_height="40dp"
+					        android:layout_marginLeft="2dp"
+			        		android:layout_marginTop="10dp"
+					        android:inputType="number"
+					        android:maxLength="3"
+					        android:text="000"
+					        android:textSize="18sp" />
+	        
+	    </LinearLayout> 
+	    <TextView
+        android:id="@+id/tvIPInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:gravity="left|center_vertical"
+        android:text="IP pública PosStar"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp" />
+	     <LinearLayout
+	          	android:layout_width="match_parent"
+    	 		android:layout_height="wrap_content"
+    	 		android:id="@+id/llIpPosstar"
+    	 		android:orientation="horizontal" >
+
+			 <EditText
+				 android:id="@+id/etIP1"
+				 android:layout_width="55dp"
+				 android:layout_height="40dp"
+				 android:layout_marginLeft="15dp"
+				 android:layout_marginTop="10dp"
+				 android:inputType="number"
+				 android:maxLength="3"
+				 android:text="000"
+				 android:textSize="18sp"></EditText>
+			 <TextView
+			        android:id="@+id/tvIPPunto1"
+			        android:layout_width="10dp"
+			        android:layout_height="40dp"
+			        android:layout_marginLeft="2dp"
+			        android:layout_marginTop="10dp" 
+			        android:gravity="left|center_vertical"
+			        android:text="."
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+			        android:id="@+id/etIP2"
+			        android:layout_width="55dp"
+			        android:layout_height="40dp"
+			        android:layout_marginLeft="2dp"
+			        android:layout_marginTop="10dp"
+			        android:inputType="number"
+			        android:maxLength="3"
+			        android:text="000"
+			        android:textSize="18sp" >
+			    </EditText>
+			     <TextView
+			        android:id="@+id/tvIPPunto2"
+			        android:layout_width="10dp"
+			        android:layout_height="40dp"
+			        android:layout_marginLeft="2dp"
+			        android:layout_marginTop="10dp"
+			        android:gravity="left|center_vertical"
+			        android:text="."
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			
+			    <EditText
+			        android:id="@+id/etIP3"
+			        android:layout_width="55dp"
+			        android:layout_height="40dp"
+			        android:layout_marginLeft="2dp"
+			        android:layout_marginTop="10dp"
+			        android:inputType="number"
+			        android:maxLength="3"
+			        android:text="000"
+			        android:textSize="18sp" >
+			    </EditText>
+			 <TextView
+			        android:id="@+id/tvIPPunto3"
+			        android:layout_width="10dp"
+			        android:layout_height="40dp"
+			        android:layout_marginLeft="2dp"
+			        android:layout_marginTop="10dp"
+			        android:gravity="left|center_vertical"
+			        android:text="."
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+			        android:id="@+id/etIP4"
+			        android:layout_width="55dp"
+			        android:layout_height="40dp"
+			        android:layout_marginLeft="2dp"
+			        android:layout_marginTop="10dp"
+			        android:inputType="number"
+			        android:maxLength="3"
+			        android:text="000"
+			        android:textSize="18sp" >
+			    </EditText>			   
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/tvWebid"
+			android:layout_width="fill_parent"
+			android:layout_height="30dp"
+			android:layout_marginLeft="20dp"
+			android:gravity="left|center_vertical"
+			android:text="Identificador web"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textSize="20sp" />
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:id="@+id/llWebid"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+			<EditText
+				android:id="@+id/etWebid"
+				android:layout_width="155dp"
+				android:layout_height="40dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="10dp"
+				android:inputType="number"
+				android:maxLength="3"
+				android:text="000"
+				android:textSize="18sp" >
+				<requestFocus />
+			</EditText>
+
+		</LinearLayout>
+
+
+
+		<LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	    <CheckBox
+	         android:id="@+id/cbModifica"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_marginLeft="10dp"	         
+	         android:layout_gravity="center_horizontal"
+	         android:text="Modifica Precio"
+	         android:textSize="20sp" />	     
+	      </LinearLayout>
+	         <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	    <CheckBox
+	         android:id="@+id/cbPrecioLibre"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_marginLeft="10dp"	         
+	         android:layout_gravity="center_horizontal"
+	         android:text="Precio Libre"
+	         android:textSize="20sp" />
+
+			 </LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+			<CheckBox
+				android:id="@+id/cbControlaPrecioLibre"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Controla Precio Libre"
+				android:textSize="20sp" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		>
+		<CheckBox
+			android:id="@+id/cbSelectDocumentoPedido"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="10dp"
+			android:layout_marginLeft="10dp"
+			android:layout_gravity="center_horizontal"
+			android:text="Selec Doc Pedido"
+			android:textSize="20sp" />
+
+	</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+			<CheckBox
+				android:id="@+id/cbRealizaAlistamiento"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Realiza Alistamiento"
+				android:textSize="20sp" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+			<CheckBox
+				android:id="@+id/cbSelectFormaPagoPedido"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Select Forma Pago Pedido"
+				android:textSize="20sp" />
+
+		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+			<CheckBox
+				android:id="@+id/cbUsaPrestamos"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Usa Prestamos"
+				android:textSize="20sp" />
+
+		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+			<CheckBox
+				android:id="@+id/cbUsaCantDecimal"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:layout_marginTop="10dp"
+				android:text="Usa Decimal en Cant"
+				android:textSize="20sp" />
+		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+			<CheckBox
+				android:id="@+id/cbModificaValorTotal"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:layout_marginTop="10dp"
+				android:text="Modifica Valor Total"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+			<CheckBox
+				android:id="@+id/cbUsaSelecMultipleArt"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Selec Mult Articulo"
+				android:textSize="20sp" />
+		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:weightSum="1">
+
+			<TextView
+				android:id="@+id/tvPrecioMinimo"
+				android:layout_width="181dp"
+				android:layout_height="match_parent"
+				android:text="Precio Minimo"
+				android:textSize="20sp"
+				android:layout_marginLeft="10dp"
+				tools:gravity="center_vertical" />
+
+
+			<Spinner
+				android:id="@+id/spPrecioMinimo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="20sp"
+				android:gravity="center_vertical|center_horizontal"
+				android:layout_weight="0.50" />
+		</LinearLayout>
+
+	      
+		      <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbUsaPrecio123"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Usa Precio 1-3"
+	         android:textSize="20sp" />
+	      </LinearLayout>
+	      
+		        <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbRealizaPedidosMesa"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Realiza Pedidos de Mesa"
+	         android:textSize="20sp" />
+	      </LinearLayout>
+	      	        <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbUsaTodasLasCategorias"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Usa Todas las Categorias"
+	         android:textSize="20sp" />
+	      </LinearLayout>
+	      
+	      
+		      
+		      
+	        <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbUsaCatalogo"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Factura Credito"
+	         android:textSize="20sp" />
+	      </LinearLayout>
+
+	      <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	 android:id="@+id/llStocken0"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbStocken0"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Permite Stock en 0"
+	         android:textSize="20sp" />
+	      </LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/llUsaObservMasMenos"
+			>
+
+			<CheckBox
+				android:id="@+id/cbUsaObservMasMenos"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Observación + - Mesa"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/llDescuentoPedido"
+			>
+
+			<CheckBox
+				android:id="@+id/cbDescuentoPedido"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Descuento en Pedido"
+				android:textSize="20sp" />
+		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/llImprimePedido"
+			>
+
+			<CheckBox
+				android:id="@+id/cbImprimePedido"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Imprime Pedido En Sitio"
+				android:textSize="20sp" />
+		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/llConsultaCosto"
+			>
+
+			<CheckBox
+				android:id="@+id/cbConsultaCosto"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Consulta Costo"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+			<CheckBox
+				android:id="@+id/cbConsultaArtOnline"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Consulta Articulo en linea"
+				android:textSize="20sp" />
+		</LinearLayout>
+	   <LinearLayout 
+	    android:id="@+id/llFechaActualizacion"
+	    android:orientation="horizontal"
+	    android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:layout_marginLeft="20dp"
+		android:layout_marginTop="10dp"   >
+	     <TextView
+		        android:id="@+id/tvFecha"
+		        android:layout_width="80dp"
+		        android:layout_height="30dp"		      
+		        android:gravity="left|center_vertical"
+		        android:text="Fecha"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="20sp" />
+	   
+	       <EditText
+	        android:id="@+id/etFecha"
+	        android:layout_width="150dp"
+	        android:layout_height="40dp"
+	  		android:layout_marginLeft="10dp"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:inputType="number"
+	        android:maxLength="12"
+	        android:text="201201011200"
+	        android:textSize="18sp" >
+	    </EditText>
+	</LinearLayout>
+	      <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbAdministraInventario"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Administra Inventario"
+	         android:textSize="20sp" />
+	      </LinearLayout>
+	       <LinearLayout
+	            android:id="@+id/llModificaStock"
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	    <CheckBox
+	         android:id="@+id/cbModificaStock"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_marginLeft="10dp"	         
+	         android:layout_gravity="center_horizontal"
+	         android:text="Modifica Stock"
+	         android:textSize="20sp" />	     
+	      </LinearLayout>
+	       <LinearLayout
+	            android:id="@+id/llBodegaInventario"
+    	    	android:layout_width="match_parent"
+       		  	android:layout_height="wrap_content"       		  
+        		android:orientation="horizontal">
+		     
+		     <TextView
+		        android:id="@+id/tvBodegaAdmInvOmision"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="20dp"		     
+		        android:gravity="left|center_vertical"
+		        android:text="B. Adm Inv:"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="20sp" />
+
+		     <EditText
+		         android:id="@+id/etBodegaAdmInvOmision"
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content" 
+		         android:drawableRight="@drawable/flecha"
+		         android:layout_marginLeft="20dp">
+		     </EditText>     
+    	    
+    	</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+			<CheckBox
+				android:id="@+id/cbRealizaRemision"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Realiza Remisión"
+				android:textSize="20sp" />
+		</LinearLayout>
+		<LinearLayout
+			android:id="@+id/llBodegaRemision"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:id="@+id/tvBodegaRemision"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="20dp"
+				android:gravity="left|center_vertical"
+				android:text="B. Remisión:"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textSize="20sp" />
+
+			<EditText
+				android:id="@+id/etBodegaRemision"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:drawableRight="@drawable/flecha"
+				android:layout_marginLeft="20dp">
+			</EditText>
+
+		</LinearLayout>
+	      
+		          
+	      
+		             <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbRealizaPedidos"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Realiza pedidos"
+	         android:textSize="20sp" />
+	      </LinearLayout>
+	      <LinearLayout
+	           android:id="@+id/llBodegaPedidos"
+    	    	android:layout_width="match_parent"
+       		  	android:layout_height="wrap_content"       		  
+        		android:orientation="horizontal">
+		     
+		     <TextView
+		        android:id="@+id/tvBodegaPedidos"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="20dp"		     
+		        android:gravity="left|center_vertical"
+		        android:text="B. Pedidos:"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="20sp" />
+
+		     <EditText
+		         android:id="@+id/etBodegaPedidos"
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content" 
+		         android:drawableRight="@drawable/flecha"
+		         android:layout_marginLeft="20dp">
+		     </EditText>     
+    	    
+    	</LinearLayout>
+		<LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+		      
+	    <CheckBox
+	         android:id="@+id/cbFactura"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_marginLeft="10dp"	         
+	         android:layout_gravity="center_horizontal"
+	         android:text="Factura en sitio"
+	         android:textSize="20sp" />	     
+	      </LinearLayout>
+	       <LinearLayout
+	           android:id="@+id/llBodegaFactura"
+    	    	android:layout_width="match_parent"
+       		  	android:layout_height="wrap_content"       		  
+        		android:orientation="horizontal">
+		     
+		     <TextView
+		        android:id="@+id/tvBodegaFacturas"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="20dp"		     
+		        android:gravity="left|center_vertical"
+		        android:text="B. Pedidos:"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="20sp" />
+
+		     <EditText
+		         android:id="@+id/etBodegaFacturas"
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content" 
+		         android:drawableRight="@drawable/flecha"
+		         android:layout_marginLeft="20dp">
+		     </EditText>     
+    	    
+    	</LinearLayout>
+		  <LinearLayout
+		       android:id="@+id/llNCaja"
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content" 
+    	 android:layout_marginLeft="20dp"
+		android:layout_marginTop="10dp"     
+		>
+		    <TextView
+		        android:id="@+id/tvNCaja"
+		        android:layout_width="80dp"
+		        android:layout_height="30dp"		       
+		        android:gravity="left|center_vertical"
+		        android:text="No. Caja"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="20sp" />
+		    <EditText
+	        android:id="@+id/etNCajaN"
+	        android:layout_width="150dp"
+	        android:layout_height="40dp"
+	         android:layout_marginLeft="10dp"	        
+	        android:gravity="center_vertical|center_horizontal"
+	        android:inputType="number"
+	        android:maxLength="12"
+	        android:text="0"
+	        android:textSize="18sp" >
+			         </EditText>
+		   
+    	</LinearLayout>
+    	  <LinearLayout
+    	      android:id="@+id/llUsaPrintZebra"
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbUsaPrintCebra"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Usa Impr Zebra"
+	         android:textSize="20sp" />
+	  </LinearLayout>
+    	
+    	<LinearLayout 
+    	    android:id="@+id/llConnPrintZebra"
+	    android:orientation="horizontal"
+	    android:layout_width="match_parent"
+    	android:layout_height="wrap_content">
+		   <Button
+	        android:id="@+id/btConnPrint"
+	        android:layout_width="140dp"
+	        android:layout_height="50dp"
+	        android:layout_marginTop="10dp"
+	        android:layout_gravity="center_horizontal"
+	        android:text="Conn Print"
+	        android:textSize="18sp" />
+		   <EditText
+		        android:id="@+id/tvMac"
+			   android:layout_width="140dp"
+			   android:layout_height="50dp"
+		        android:gravity="left|center_vertical"
+		        android:layout_marginLeft="20dp"
+			    android:layout_marginTop="10dp"
+		        android:text="Mac Addr"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="20sp" />
+	</LinearLayout>
+
+
+		<LinearLayout
+			android:id="@+id/llUsaPrintEpson"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+			<CheckBox
+				android:id="@+id/cbUsaPrintEpson"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Usa Impr Epson"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/llConnPrintEpson"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<Button
+				android:id="@+id/btConnPrintEpson"
+				android:layout_width="140dp"
+				android:layout_height="50dp"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Conn Print"
+				android:textSize="18sp" />
+			<EditText
+				android:id="@+id/tvMacEpson"
+				android:layout_width="140dp"
+				android:layout_height="50dp"
+				android:gravity="left|center_vertical"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="10dp"
+				android:text="Mac Addr"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+
+		<LinearLayout
+			android:id="@+id/llUsaPrintBixolon"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+			<CheckBox
+				android:id="@+id/cbUsaPrintBixolon"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Usa Impr Bixolon"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/llConnPrintBixolon"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<Button
+				android:id="@+id/btConnPrintBixolon"
+				android:layout_width="140dp"
+				android:layout_height="50dp"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Conn Print"
+				android:textSize="18sp" />
+			<EditText
+				android:id="@+id/tvMacBixolon"
+				android:layout_width="140dp"
+				android:layout_height="50dp"
+				android:gravity="left|center_vertical"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="10dp"
+				android:text="Mac Addr"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+    <LinearLayout
+    	      android:id="@+id/llFacturaOnline"
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	        <CheckBox
+	         android:id="@+id/cbFacturaOnline"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_marginLeft="10dp"	         
+	         android:layout_gravity="center_horizontal"
+	         android:text="Factura en Linea"
+	         android:textSize="20sp" />	
+	  </LinearLayout>
+	    <LinearLayout
+		       android:id="@+id/llRazonSocial"
+		       android:orientation="horizontal"  
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content" 
+		       android:layout_marginLeft="20dp"
+			   android:layout_marginTop="10dp"     
+				>
+			    <TextView
+			        android:id="@+id/tvRazonSocial"
+			        android:layout_width="80dp"
+			        android:layout_height="30dp"		       
+			        android:gravity="left|center_vertical"
+			        android:text="Razon Social"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+		        android:id="@+id/etRazonSocial"
+		         	android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		         android:layout_marginLeft="10dp"	        
+		        android:gravity="center_vertical|center_horizontal"	   
+		        android:maxLength="100"
+		        android:text="0"
+		        android:textSize="18sp" >
+				         </EditText>		   
+    	</LinearLayout>    
+    	 <LinearLayout
+		       android:id="@+id/llRepresentante"
+		       android:orientation="horizontal"  
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content" 
+		       android:layout_marginLeft="20dp"
+			   android:layout_marginTop="10dp"     
+				>
+			    <TextView
+			        android:id="@+id/tvRepresentante"
+			        android:layout_width="80dp"
+			        android:layout_height="30dp"		       
+			        android:gravity="left|center_vertical"
+			        android:text="Representante"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+		        android:id="@+id/etRepresentante"
+		         	android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		         android:layout_marginLeft="10dp"	        
+		        android:gravity="center_vertical|center_horizontal"	   
+		        android:maxLength="100"
+		        android:text="0"
+		        android:textSize="18sp" >
+				         </EditText>		   
+    	</LinearLayout>        
+      <LinearLayout
+		       android:id="@+id/llRegimenNit"
+		       android:orientation="horizontal"  
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content" 
+		       android:layout_marginLeft="20dp"
+			   android:layout_marginTop="10dp"     
+				>
+			    <TextView
+			        android:id="@+id/tvRegimenNit"
+			        android:layout_width="80dp"
+			        android:layout_height="30dp"		       
+			        android:gravity="left|center_vertical"
+			        android:text="Regimen Nit"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+		        android:id="@+id/etRegimenNit"
+		         	android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		         android:layout_marginLeft="10dp"	        
+		        android:gravity="center_vertical|center_horizontal"	   
+		        android:maxLength="100"
+		        android:text="0"
+		        android:textSize="18sp" >
+				         </EditText>		   
+    	</LinearLayout> 
+    	
+       <LinearLayout
+		       android:id="@+id/llDireccionTel"
+		       android:orientation="horizontal"  
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content" 
+		       android:layout_marginLeft="20dp"
+			   android:layout_marginTop="10dp"     
+				>
+			    <TextView
+			        android:id="@+id/tvDireccionTel"
+			        android:layout_width="80dp"
+			        android:layout_height="30dp"		       
+			        android:gravity="left|center_vertical"
+			        android:text="Direccion Tel"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+		        android:id="@+id/etDireccionTel"
+		         	android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		         android:layout_marginLeft="10dp"	        
+		        android:gravity="center_vertical|center_horizontal"	   
+		        android:maxLength="100"
+		        android:text="0"
+		        android:textSize="18sp" >
+				         </EditText>		   
+    	</LinearLayout> 
+      
+        <LinearLayout
+		       android:id="@+id/llResDian"
+		       android:orientation="horizontal"  
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content" 
+		       android:layout_marginLeft="20dp"
+			   android:layout_marginTop="10dp"     
+				>
+			    <TextView
+			        android:id="@+id/tvResDian"
+			        android:layout_width="80dp"
+			        android:layout_height="30dp"		       
+			        android:gravity="left|center_vertical"
+			        android:text="Res. Dian"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+		        android:id="@+id/etResDian"
+		         	android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		         android:layout_marginLeft="10dp"	        
+		        android:gravity="center_vertical|center_horizontal"	   
+		        android:maxLength="100"
+		        android:text="0"
+		        android:textSize="18sp" >
+				         </EditText>		   
+    	</LinearLayout> 
+    	
+        <LinearLayout
+		       android:id="@+id/llRango"
+		       android:orientation="horizontal"  
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content" 
+		       android:layout_marginLeft="20dp"
+			   android:layout_marginTop="10dp"     
+				>
+			    <TextView
+			        android:id="@+id/tvRango"
+			        android:layout_width="80dp"
+			        android:layout_height="30dp"		       
+			        android:gravity="left|center_vertical"
+			        android:text="Rango"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+		        android:id="@+id/etRango"
+		         	android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		         android:layout_marginLeft="10dp"	        
+		        android:gravity="center_vertical|center_horizontal"	   
+		        android:maxLength="100"
+		        android:text="0"
+		        android:textSize="18sp" >
+				         </EditText>		   
+    	</LinearLayout> 
+    	
+             <LinearLayout 
+		       android:id="@+id/llNombreVendedor"
+		       android:orientation="horizontal"  
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content" 
+		       android:layout_marginLeft="20dp"
+			   android:layout_marginTop="10dp"     
+				>
+			    <TextView
+			        android:id="@+id/tvNombreVendedor"
+			        android:layout_width="80dp"
+			        android:layout_height="30dp"		       
+			        android:gravity="left|center_vertical"
+			        android:text="Vendedor"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+		        android:id="@+id/etNombreVendedor"
+		         	android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		         android:layout_marginLeft="10dp"	        
+		        android:gravity="center_vertical|center_horizontal"	   
+		        android:maxLength="100"
+		        android:text="0"
+		        android:textSize="18sp" >
+				         </EditText>		   
+    	</LinearLayout> 
+    	       <LinearLayout
+		       android:id="@+id/llPrefijo"
+		       android:orientation="horizontal"  
+		       android:layout_width="match_parent"
+		       android:layout_height="wrap_content" 
+		       android:layout_marginLeft="20dp"
+			   android:layout_marginTop="10dp"     
+				>
+			    <TextView
+			        android:id="@+id/tvPrefijo"
+			        android:layout_width="80dp"
+			        android:layout_height="30dp"		       
+			        android:gravity="left|center_vertical"
+			        android:text="Prefijo"
+			        android:textAppearance="?android:attr/textAppearanceLarge"
+			        android:textSize="20sp" />
+			    <EditText
+		        android:id="@+id/etPrefijo"
+		         	android:layout_width="match_parent"
+		        android:layout_height="40dp"
+		         android:layout_marginLeft="10dp"	        
+		        android:gravity="center_vertical|center_horizontal"	   
+		        android:maxLength="100"
+		        android:text="0"
+		        android:textSize="18sp" >
+				         </EditText>		   
+    	</LinearLayout> 
+	   <LinearLayout
+    	      android:id="@+id/llConsultaZ"
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbConsultaZ"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Consulta Z Financiera"
+	         android:textSize="20sp" />
+	  </LinearLayout>
+	    <LinearLayout
+    	      android:id="@+id/llGeneraCierre"
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbGeneraCierre"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Genera Cierre"
+	         android:textSize="20sp" />
+	  </LinearLayout>
+
+
+		<LinearLayout
+			android:id="@+id/llCarteraOnline"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+			<CheckBox
+				android:id="@+id/cbCarteraOnline"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_marginLeft="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Cartera en Linea"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+
+
+		<LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"      
+		>
+	  
+	      <CheckBox
+	         android:id="@+id/cbRealizaTranslados"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_marginTop="10dp"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginLeft="10dp"
+	         android:text="Realiza Traslados"
+	         android:textSize="20sp" />
+	  </LinearLayout>
+	  
+	  <LinearLayout
+	      android:id="@+id/llBodegaTranslados"
+    	    	android:layout_width="match_parent"
+       		  	android:layout_height="wrap_content"       		  
+        		android:orientation="horizontal">
+		     
+		     <TextView
+		        android:id="@+id/tvBodegaTranslados"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="20dp"		     
+		        android:gravity="left|center_vertical"
+		        android:text="B. Translados:"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="20sp" />
+
+		     <EditText
+		         android:id="@+id/etBodegaTranslados"
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content" 
+		         android:drawableRight="@drawable/flecha"
+		         android:layout_marginLeft="20dp">
+		     </EditText>
+	    </LinearLayout>
+	    <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content" 
+    	android:layout_marginLeft="20dp"
+		android:layout_marginTop="10dp"        
+		>
+		    <TextView
+		        android:id="@+id/tvNRuta"
+		        android:layout_width="80dp"
+		        android:layout_height="30dp"
+		        android:gravity="left|center_vertical"
+		        android:text="No. Ruta"
+		        android:textAppearance="?android:attr/textAppearanceLarge"
+		        android:textSize="20sp" />
+		    <EditText
+	        android:id="@+id/etNRutaN"
+	        android:layout_width="150dp"
+	        android:layout_height="40dp"	        
+	        android:gravity="center_vertical|center_horizontal"
+	        android:inputType="number"
+	         android:layout_marginLeft="10dp"
+	        android:maxLength="12"
+	        android:text="0000"
+	        android:textSize="18sp" >
+			         </EditText>
+		   
+    	</LinearLayout>
+    	
+	 <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" 
+            android:layout_marginTop="5dp"
+            android:orientation="vertical"
+             >
+			        <LinearLayout
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content" 
+			            android:orientation="vertical"			          
+			            android:layout_gravity="center">
+					        <Button
+					         android:id="@+id/btCargarXml"
+					         android:layout_gravity="center"	
+					         style="@style/button_layout"
+								android:background="@drawable/blue_button"
+					         android:layout_width="140dp"
+						     android:layout_height="50dp"
+						     android:text="Cargar Articulos desde XML" />
+			        </LinearLayout>
+        </LinearLayout>
+	 <LinearLayout
+        android:orientation="horizontal"  
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"  
+    	android:layout_marginTop="10dp"    
+		>
+			    <Button
+						        android:id="@+id/btCategorias"
+						        android:layout_width="140dp"
+						        android:layout_height="50dp"
+						        android:layout_marginTop="10dp"
+						        android:layout_marginLeft="10dp"
+						        android:layout_gravity="center_horizontal"
+								android:background="@drawable/blue_button"
+						        style="@style/button_layout"
+						        android:text="Categorias"
+						        android:textSize="18sp"/>
+				<Button
+						        android:id="@+id/btGuardar"
+						        android:layout_width="140dp"
+						        android:layout_height="50dp"
+								android:background="@drawable/blue_button"
+						        style="@style/button_layout"
+						        android:layout_marginTop="10dp"
+						        android:layout_marginLeft="20dp"
+						        android:layout_gravity="center_horizontal"
+						        android:text="Guardar"
+						        android:textSize="18sp" />
+		 </LinearLayout>
+    </LinearLayout>	  
+	</ScrollView>
+
+</RelativeLayout>

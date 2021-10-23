@@ -1,0 +1,342 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.principal.factura.VerPedidoAlistamientoActivity">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/tvDetallePedidoAls"
+                android:layout_width="fill_parent"
+                android:layout_height="20dp"
+                android:text="DETALLE PEDIDO"
+                android:gravity="center"
+                style="@style/text_Titulo_small"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="left">
+
+                <Button
+                    android:id="@+id/btGuardarPedidoAls"
+                    style="@style/button_text_small_alistamiento"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/blue_button"
+                    android:drawableRight="@drawable/catalogo"
+                    android:text="Guardar" />
+
+                <Button
+                    android:id="@+id/btConfirmarPedidoAls"
+                    style="@style/button_text_small_alistamiento"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="40dp"
+                    android:background="@drawable/blue_button"
+                    android:drawableRight="@drawable/pedidos"
+                    android:text="Confirmar" />
+
+
+
+                <Button
+                    android:id="@+id/btVolverPedidoAls"
+                    style="@style/button_text_small_alistamiento"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="40dp"
+                    android:background="@drawable/blue_button"
+                    android:drawableRight="@drawable/volver"
+                    android:text="Volver" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="left">
+                <TextView
+                    android:id="@+id/tvClientePedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Cliente:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvTClientePedidoAls"
+                    style="@style/list_item_text_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="NOMBRE DEL CLIENTE"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                <TextView
+                    android:id="@+id/tvPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Pedido:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvTPedidoAls"
+                    style="@style/list_item_text_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="00000"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                <TextView
+                    android:id="@+id/tvCajaPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Caja:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvTCajaPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="00"
+                    style="@style/list_item_text_small"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="left">
+                <TextView
+                    android:id="@+id/tvNitPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="2dp"
+                    android:text="C.C./Nit:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvTNitPedidoAls"
+                    style="@style/list_item_text_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="00000"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                <TextView
+                    android:id="@+id/tvMunicipioPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Municipio:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvTMunicipioPedidoAls"
+                    style="@style/list_item_text_small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Nombre Municipio"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/btObservacionesPedidoAls"
+                    style="@style/button_text_small_alistamiento"
+                    android:layout_width="180dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/blue_button"
+                    android:drawableRight="@drawable/fecha"
+                    android:text="Observaciones" />
+
+
+
+                <Button
+                    android:id="@+id/btAgregarArticuloAls"
+                    style="@style/button_text_small_alistamiento"
+                    android:layout_width="190dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/blue_button"
+                    android:drawableRight="@drawable/fecha"
+                    android:text="Agregar Articulo" />
+                <TextView
+                    android:id="@+id/tvTotPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Total:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvTTotPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="5dp"
+                    android:text="99.999.999"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_gravity="left">
+                <TextView
+                    android:id="@+id/tvVendedorPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Vendedor:"
+                    android:gravity="left"
+                    style="@style/text_Titulo_small_alistamiento"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/tvTVendedorPedidoAls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:text="NOMBRE DEL VENDEDOR"
+                    style="@style/list_item_text_small"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_gravity="left">
+            <TextView
+                android:id="@+id/tvObservacionPedidoAls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Observación:"
+                android:gravity="left"
+                style="@style/text_Titulo_small_alistamiento"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/tvTObservacionPedidoAls"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:text="DETALLE DE LA OBSERVACION DEL PEDIDO"
+                style="@style/list_item_text_small"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+
+
+        <ListView
+            android:id="@+id/lvArticulosPedidoAls"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp" />
+    </LinearLayout>
+</LinearLayout>

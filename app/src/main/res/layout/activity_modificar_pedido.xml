@@ -1,0 +1,200 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/TVModificaValor"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:text="Ingrese el valor total del articulo" />
+
+            <EditText
+            android:id="@+id/etModificaValor"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+                android:background="@drawable/edit_text_design"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+        </LinearLayout>
+    </LinearLayout>
+        <LinearLayout
+        android:layout_width="fill_parent"
+            android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+        <Button
+            android:id="@+id/btMVCancelar"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/blue_button"
+            style="@style/button_text_small"
+
+            android:text="Cancelar" />
+        <Button
+            android:id="@+id/btMVAceptar"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="2dp"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/blue_button"
+            style="@style/button_text_small"
+
+            android:text="Aceptar" />
+            </LinearLayout>
+    </LinearLayout>
+        <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/btMV10000"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+
+            android:layout_marginBottom="2dp"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:background="@drawable/blue_button"
+            style="@style/button_text_small"
+
+            android:text="10.000" />
+
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/btMV20000"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/blue_button"
+                style="@style/button_text_small"
+
+                android:text="20.000" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/btMV50000"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/blue_button"
+                style="@style/button_text_small"
+
+                android:text="50.000" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/btMV100000"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/blue_button"
+                style="@style/button_text_small"
+
+                android:text="100.000" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/btMV200000"
+                android:layout_width="180dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:textSize="18sp"
+                android:textColor="#ffffff"
+                android:background="@drawable/blue_button"
+                style="@style/button_text_small"
+
+                android:text="200.000" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:gravity="top" >    
+
+      <LinearLayout
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"       
+          android:orientation="vertical"
+		  android:layout_alignParentTop="true"
+		  android:layout_alignParentLeft="true">
+			               <ImageView
+					        android:id="@+id/ivlogo"
+					        android:layout_width="300dp"
+					        android:layout_height="100dp" 
+					        android:layout_gravity="center"
+					        android:layout_marginTop="30dp"			    	
+					        android:src="@drawable/logoprincipal" />
+
+			                  <TextView
+			                      android:id="@+id/tvVersion"
+			                      android:layout_width="fill_parent"
+			                      android:layout_height="wrap_content"
+			                      android:layout_marginTop="30dp"
+			                      android:gravity="center_vertical|center_horizontal"
+			                      android:text="Versión 33"
+			                      android:textSize="16dp" />
+  
+					       <TextView
+					          android:id="@+id/tvCajaAsignada"
+					          android:layout_width="fill_parent"
+					          android:layout_height="wrap_content"			       
+					          android:layout_marginTop="40dp"			         
+					          android:gravity="center"
+					          android:textSize="26dp"
+					          android:text="Caja 000" /> 
+					        <TextView
+					          android:id="@+id/tvRutaAsignada"
+					          android:layout_width="fill_parent"
+					          android:layout_height="wrap_content"			       
+					          android:layout_marginTop="40dp"			         
+					          android:gravity="center"
+					          android:textSize="26dp"
+					          android:text="Ruta Asignada 0000" /> 
+					          
+
+			           <EditText
+				        android:id="@+id/txtClave"
+				        android:layout_width="300dp"
+				        android:layout_height="wrap_content"				      
+				        android:layout_marginTop="40dp"
+						   android:background="@drawable/edit_text_design"
+				        android:ems="10" 
+				        android:hint="Contraseña"
+				        android:inputType="number"
+				        android:layout_gravity="center"
+				        android:password="true"       
+				        />
+			             <Button
+				        android:id="@+id/btAcceder"
+					 	android:background="@drawable/blue_button"
+				        style="@style/button_text_small"
+				        android:layout_width="300dp"
+				        android:layout_height="60dp"
+				        android:layout_marginTop="40dp"
+				        android:layout_gravity="center"
+				        android:textSize="20dp"
+				        android:textColor="#ffffff"
+				        android:drawableRight="@drawable/acceder"       
+				        android:text="Acceder" 
+				        />
+
+			           
+  
+      </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menuResultado" 
+          android:title="Ver Resultados"
+          android:icon="@drawable/resultado" >        
+    </item>
+     <item android:id="@+id/menuEnviarRepresados" 
+          android:title="Enviar Pedidos Represados"
+          android:icon="@drawable/enviar" >        
+    </item>
+    <item android:id="@+id/menuPrintDocument" 
+          android:title="Imprimir Informe"
+          android:icon="@drawable/pedidos" >        
+    </item>
+</menu>

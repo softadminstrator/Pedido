@@ -1,0 +1,84 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@color/TextItem"
+    android:gravity="top" >
+
+     <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent"
+         android:background="@color/TextItem"
+         android:layout_alignParentLeft="true"
+         android:layout_alignParentTop="true"
+         android:orientation="vertical" >
+
+         <ImageView
+             android:id="@+id/ivlogo"
+             android:layout_width="wrap_content"
+             android:layout_height="70dp"
+             android:layout_gravity="center"
+             android:layout_marginTop="50dp"
+             android:src="@drawable/logoprincipal" />
+
+         <TextView
+             android:id="@+id/tvVersion"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginTop="20dp"
+             android:text="Versión 33"
+             android:textAppearance="?android:attr/textAppearanceLarge"
+             android:textSize="12dp" />
+
+         <TextView
+             android:id="@+id/tvCajaAsignada"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginTop="30dp"
+             android:gravity="center"
+             android:text="Caja 000"
+             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+         <TextView
+             android:id="@+id/tvRutaAsignada"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:layout_marginTop="20dp"
+             android:gravity="center"
+             android:text="Ruta Asignada 0000"
+             android:textAppearance="?android:attr/textAppearanceLarge" />
+
+         <EditText
+             android:id="@+id/txtClave"
+             android:layout_width="220dp"
+             android:layout_height="40dp"
+             android:layout_gravity="center"
+             android:layout_marginTop="20dp"
+             android:background="@drawable/edit_text_design"
+             android:ems="10"
+             android:hint="Contraseña"
+             android:inputType="number"
+             android:password="true" >
+
+             <requestFocus />
+         </EditText>
+
+         <Button
+             android:id="@+id/btAcceder"
+             android:layout_width="220dp"
+             android:layout_height="50dp"
+             android:layout_gravity="center"
+             android:layout_marginTop="40dp"
+             android:textSize="18sp"
+             android:textColor="#ffffff"
+             android:background="@drawable/blue_button"
+             style="@style/button_text_small"
+             android:drawableRight="@drawable/acceder"
+             android:text="Acceder" />
+     </LinearLayout>
+    
+</RelativeLayout>

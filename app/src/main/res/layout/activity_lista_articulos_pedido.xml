@@ -1,0 +1,306 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rlListaArticulos" >
+
+     
+
+    
+     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="2dp"    
+        android:orientation="vertical" >   
+           <TextView
+	        android:id="@+id/tvOperacionListaArticulos"
+	        android:layout_width="fill_parent"
+	        android:layout_height="20dp"				        		       
+	        android:text="OPERACIÓN"
+	        android:textSize="16dp"
+	        android:gravity="center"
+	        android:textAppearance="?android:attr/textAppearanceLarge" /> 
+
+         <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"    
+        android:layout_marginTop="2dp"    
+        android:orientation="horizontal" >
+
+		    <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"    
+		        android:layout_marginTop="2dp"    
+		        android:orientation="vertical" >
+		        <TextView
+		        android:id="@+id/tvRutaLP"
+		        android:layout_width="70dp"
+			    android:layout_height="20dp"
+		        android:layout_marginLeft="5dp"       
+		        android:text="Ruta."
+		        android:textSize="13dp"
+		        android:gravity="left"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		        <TextView
+		        android:id="@+id/tvReferenciaLAP"
+		        android:layout_width="70dp"
+			    android:layout_height="20dp"
+		    	android:layout_marginLeft="5dp"  
+		        android:text="No. Pedido"
+		        android:gravity="left"
+		        android:textSize="12sp"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />		    
+			     </LinearLayout>
+			     <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"    
+		        android:layout_marginTop="2dp" 
+		        android:layout_marginLeft="10dp"   
+		        android:orientation="vertical" >
+			    <TextView
+			        android:id="@+id/tvRutaLPN"
+			        android:layout_width="wrap_content"
+				    android:layout_height="20dp"	        
+			        android:text="00000"
+			        android:textSize="13dp"
+			        android:textAppearance="?android:attr/textAppearanceLarge" />
+				     <TextView
+			        android:id="@+id/tvReferenciaTR"
+			        android:layout_width="60dp"
+				    android:layout_height="20dp"
+			        android:ems="10"
+			        android:text="####."
+			        android:gravity="top|left"
+			        />	         
+			     </LinearLayout>
+			     <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"    
+		        android:layout_marginTop="2dp" 
+		        android:layout_marginLeft="50dp"   
+		        android:orientation="vertical" >
+				      <Button
+				         android:id="@+id/btVolver"
+				       	 android:layout_gravity="right"
+				         android:layout_marginTop="2dp"
+				         android:layout_width="120dp"
+					     android:layout_height="40dp"
+						  android:background="@drawable/blue_button"
+				          style="@style/button_layout"				       			    
+						 android:drawableRight="@drawable/volver"
+				         android:text="Volver" />
+			         
+				     </LinearLayout>
+         </LinearLayout>
+
+		 <LinearLayout
+			 android:layout_width="fill_parent"
+			 android:layout_height="wrap_content"
+			 android:background="@color/BackItem"
+			 android:orientation="horizontal">
+
+			 <LinearLayout
+				 android:id="@+id/llDetalleCliente"
+				 android:layout_width="fill_parent"
+				 android:layout_height="wrap_content"
+				 android:background="@color/TextItem"
+				 android:layout_marginTop="2dp"
+				 android:layout_marginLeft="2dp"
+				 android:layout_marginRight="2dp"
+				 android:layout_marginBottom="2dp"
+				 android:orientation="horizontal"
+				 android:weightSum="1">
+				 <LinearLayout
+					 android:layout_width="fill_parent"
+					 android:layout_height="wrap_content"
+					 android:orientation="vertical" >
+					 <LinearLayout
+						 android:layout_width="fill_parent"
+						 android:layout_height="wrap_content"
+						 android:orientation="horizontal" >
+
+						 <TextView
+							 android:id="@+id/tvClienteLAP"
+							 android:layout_width="wrap_content"
+							 android:layout_height="wrap_content"
+							 android:layout_marginLeft="2dp"
+							 android:text="Cliente"
+							 android:textSize="10sp"
+							 android:gravity="right|center_vertical"
+							 android:textColor="#01579D"
+							 android:textAppearance="?android:attr/textAppearanceLarge" />
+						 <TextView
+							 android:id="@+id/tvClienteTAP"
+							 android:layout_width="fill_parent"
+							 android:layout_height="wrap_content"
+							 android:layout_marginLeft="2dp"
+							 android:gravity="center"
+							 android:text="NOMBRE COMPLETO DEL CLIENTE"
+							 android:ems="10"
+							 />
+					 </LinearLayout>
+					 <LinearLayout
+						 android:layout_width="fill_parent"
+						 android:layout_height="wrap_content"
+						 android:orientation="horizontal" >
+
+						 <TextView
+							 android:id="@+id/tvDireccionClientex"
+							 android:layout_width="wrap_content"
+							 android:layout_height="wrap_content"
+							 android:layout_marginLeft="2dp"
+							 android:text="  Datos"
+							 android:textSize="10sp"
+							 android:gravity="right|center_vertical"
+							 android:textColor="#01579D"
+							 android:textAppearance="?android:attr/textAppearanceLarge" />
+						 <TextView
+							 android:id="@+id/tvDatosCliente"
+							 android:layout_width="fill_parent"
+							 android:layout_height="wrap_content"
+							 android:layout_marginLeft="2dp"
+							 android:gravity="center"
+							 android:text="Demas datos del cliente"
+							 android:textSize="12sp"
+							 android:ems="10"
+							 />
+					 </LinearLayout>
+				 </LinearLayout>
+			 </LinearLayout>
+		 </LinearLayout>
+
+		 <LinearLayout
+			 android:layout_width="fill_parent"
+			 android:layout_height="wrap_content"
+			 android:layout_marginTop="2dp"
+			 android:orientation="horizontal" >
+			 <Button
+				 android:id="@+id/btEnviar"
+				 android:layout_width="120dp"
+				 android:layout_height="40dp"
+				 android:textSize="20sp"
+				 android:drawableRight="@drawable/enviar"
+				 android:background="@drawable/blue_button"
+				 style="@style/button_layout"
+				 android:text="  Enviar  " />
+
+			 <LinearLayout
+				 android:layout_width="fill_parent"
+				 android:layout_height="wrap_content"
+				 android:layout_marginTop="2dp"
+				 android:layout_marginLeft="5dp"
+				 android:orientation="vertical" >
+				 <TextView
+					 android:id="@+id/tvObservaciones"
+					 android:layout_width="wrap_content"
+					 android:layout_height="wrap_content"
+					 android:text="Observacíon"
+					 android:gravity="left"
+					 android:textSize="12sp"
+					 android:textAppearance="?android:attr/textAppearanceLarge" />
+				 <EditText
+					 android:id="@+id/etObservacion"
+					 android:layout_width="fill_parent"
+					 android:background="@drawable/edit_text_design"
+					 android:layout_height="35dp"
+					 android:ems="10">
+				 </EditText>
+			 </LinearLayout>
+
+		 </LinearLayout>
+
+
+
+         <LinearLayout
+             android:layout_width="fill_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="2dp"
+             android:orientation="vertical" >
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="2dp"
+                 android:layout_gravity="right"
+                 android:orientation="horizontal" >
+                 <TextView
+                     android:id="@+id/tvSubTotal"
+                     android:layout_width="100dp"
+                     android:layout_height="20dp"
+                     android:text="SUBTOTAL"
+                     android:gravity="left"
+                     android:textSize="16sp"
+                     android:textAppearance="?android:attr/textAppearanceLarge" />
+                 <TextView
+                     android:id="@+id/tvDescuento"
+                     android:layout_width="100dp"
+                     android:layout_height="20dp"
+					 android:layout_marginLeft="5dp"
+                     android:text="DESCUENTO"
+                     android:gravity="left"
+                     android:textSize="16sp"
+                     android:textAppearance="?android:attr/textAppearanceLarge" />
+                 <TextView
+                     android:id="@+id/tvTotal"
+                     android:layout_width="100dp"
+                     android:layout_height="20dp"
+					 android:layout_marginLeft="5dp"
+					 android:layout_marginRight="5dp"
+                     android:text="TOTAL"
+                     android:gravity="right"
+                     android:textSize="16sp"
+                     android:textAppearance="?android:attr/textAppearanceLarge" />
+             </LinearLayout>
+         </LinearLayout>
+		 <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"    
+		        android:layout_marginTop="2dp" 		       
+		        android:orientation="vertical" >
+					       <LinearLayout
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"    
+				        android:layout_marginTop="2dp"
+				        android:layout_gravity="right"    
+				        android:orientation="horizontal" >
+				        <TextView
+				        android:id="@+id/tvValSubTotal"
+				        android:layout_width="100dp"
+					    android:layout_height="25dp"
+				        android:text="#.###.###"
+				        android:gravity="right"
+				        android:textSize="18sp"
+				        android:textAppearance="?android:attr/textAppearanceLarge" />
+                               <Button
+                                   android:id="@+id/btDescuento"
+                                   android:layout_gravity="right"
+                                   android:layout_width="100dp"
+                                   android:layout_height="25dp"
+								   android:layout_marginLeft="5dp"
+								   android:background="@drawable/blue_button"
+                                   style="@style/button_layout"
+                                   android:text="0" />
+				        
+					  <TextView
+					        android:id="@+id/tvValorLA"
+					        android:layout_width="wrap_content"
+						    android:layout_height="25dp"
+					  		android:layout_marginLeft="5dp"
+						  android:layout_marginRight="5dp"
+					        android:text="#.###.###"
+					        android:gravity="right"
+					        android:textSize="18sp"
+					        android:textAppearance="?android:attr/textAppearanceLarge" />  
+					        </LinearLayout>
+		 </LinearLayout>
+		 <ListView
+			 android:id="@+id/lvArticulosPedidoN"
+			 android:layout_width="fill_parent"
+			 android:layout_height="fill_parent"
+			 android:layout_marginLeft="5dp"
+			 android:layout_marginTop="5dp"
+			 />
+
+    </LinearLayout>          
+
+    
+</RelativeLayout>
