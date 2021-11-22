@@ -5245,6 +5245,7 @@ public class creaBD extends SQLiteOpenHelper {
 			for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
 				{
 					Pago pag=new Pago();
+
 					pag.setIdPago(c.getLong(0));
 					pag.setValor(c.getLong(1));
 					pag.setFecha(c.getString(2));

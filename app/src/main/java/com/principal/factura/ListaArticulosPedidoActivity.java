@@ -1107,7 +1107,9 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	        etAlertValor.setInputType(InputType.TYPE_CLASS_NUMBER);
 	        llVertical.addView(etAlertValor);
 	        //ingresa el valor que le pagan en el cuadro de texto
-			etAlertValor.setText(""+factura.valor);
+		if(!isCredito) {
+			etAlertValor.setText("" + factura.valor);
+		}
 			//---------------------------------------------------
 
 

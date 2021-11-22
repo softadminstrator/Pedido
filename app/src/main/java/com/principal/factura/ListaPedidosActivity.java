@@ -358,7 +358,7 @@ public class ListaPedidosActivity extends Activity implements OnClickListener,St
         
         Bundle obtenerDatos=new Bundle();
         obtenerDatos = this.getIntent().getExtras();     
-        usuario.cedula=obtenerDatos.getString("cedula"); 
+        usuario.cedula=obtenerDatos.getString("cedula");
         operacion=obtenerDatos.getInt("operacion");
         changeDate=obtenerDatos.getBoolean("changeDate"); 
         print=obtenerDatos.getBoolean("print");
@@ -3085,6 +3085,12 @@ public class ListaPedidosActivity extends Activity implements OnClickListener,St
 		xml +="<DatosPagoFactura>\n";
 		for (int i=0;i<pago.getListaPagosFactura().size();i++){
 			pagosFactura=pago.getListaPagosFactura().get(i);
+
+			//Asigna numero de caja asignada al vendedor
+			pagosFactura.setNCajaQRecibe(parametrosSys.getCaja());
+			pagosFactura.setIdVendedor(usuario.cedula);
+			pagosFactura.setCuenta(1001);
+
 			xml +="<Datos>\n";
 			for (int j = 0; j < pagosFactura.getPropertyCount(); j++) {
 				if(pagosFactura.getPropertyName(j).equals("listaPagoFac"))
