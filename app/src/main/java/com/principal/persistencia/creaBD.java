@@ -4252,7 +4252,7 @@ public class creaBD extends SQLiteOpenHelper {
 	{
 
 		String filtroMunicipio ="";
-		if(!municipio.equals("Todos"))
+		if(!municipio.equals("TODOS"))
 		{
 			filtroMunicipio="AND municipio='"+municipio+"' ";
 		}
