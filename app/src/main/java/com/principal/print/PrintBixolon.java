@@ -436,7 +436,7 @@ public class PrintBixolon {
         asignaValorBixolon("  Orden de pedido: "+getFillText(ALIGN_LEFT, 10,  ""+pedido_in.idCodigoInterno),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);
         asignaValorBixolon("            Fecha: "+getFillText(ALIGN_LEFT, 10, pedido_in.getFecha())+"     Hora: "+getFillText(ALIGN_LEFT, 5, pedido_in.getHora()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);
         asignaValorBixolon("          Cliente: "+getFillText(ALIGN_LEFT, 42, pedido_in.getNombreCliente()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);
-        asignaValorBixolon("            Placa: "+getFillText(ALIGN_LEFT, 42, pedido_in.getObservaciones()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT );
+        asignaValorBixolon("             Nota: "+getFillText(ALIGN_LEFT, 42, pedido_in.getObservaciones()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT );
 
         asignaValorBixolon("CANT          ARTICULO                        VR-UNT     TOTAL",BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);
         for (int i = 0; i < listaAPedido.size(); i++) {
@@ -444,9 +444,9 @@ public class PrintBixolon {
             asignaValorBixolon(""+getFillText(ALIGN_LEFT, 6, ""+ap.getCantidad())+" "+getFillText(ALIGN_LEFT, 32, ""+ap.getNombre())+"    "+getFillText(ALIGN_RIGHT, 9, ap.getValorUnitarioText())+" "+getFillText(ALIGN_RIGHT, 9, ap.getValorText()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B,Builder.FALSE,BixolonPrinter.ALIGNMENT_CENTER);
 
         }
-        asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "SUBTOTAL: "+pedido_in.getFormatoDecimal(pedido_in.getSubTotal())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
-        asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "DESCUENTO: "+pedido_in.getFormatoDecimal(pedido_in.getDescuentoTotal())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
-        asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "TOTAL: "+pedido_in.getFormatoDecimal(pedido_in.getValor())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+       // asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "SUBTOTAL: "+pedido_in.getFormatoDecimal(pedido_in.getSubTotal())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        //asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "DESCUENTO: "+pedido_in.getFormatoDecimal(pedido_in.getDescuentoTotal())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "TOTAL.: "+pedido_in.getFormatoDecimal(pedido_in.getValor())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
         asignaValorBixolon(" "+" LO ATENDIO: "+getFillText(ALIGN_LEFT, 30, parametrosPos.getNombreVendedor()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
 
         asignaValorBixolon(" "+getFillText(ALIGN_CENTER, 64, " "),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B,Builder.FALSE,BixolonPrinter.ALIGNMENT_CENTER);
