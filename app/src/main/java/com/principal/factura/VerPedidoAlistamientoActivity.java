@@ -87,6 +87,8 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
     private ItemPedido itemPedido;
     private   ArrayList<ObservacionPedido> listaObservacionesPedidoSistema;
 
+    private Boolean isLoading=false;
+
 
 
     private Button btGuardarPedidoAls, btConfirmarPedidoAls, btVolverPedidoAls, btAgregarArticuloAls, btObservacionesPedidoAls
@@ -397,17 +399,20 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
         }
         else if(v.equals(btObservacionesPedidoAls))
         {
+            btObservacionesPedidoAls.setEnabled(false);
             new GetObservacionesSistema().execute("");
             pdu=ProgressDialog.show(this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo Datos.."), true,false);
 
         }
         else  if(v.equals(btGuardarPedidoAls))
         {
+            btGuardarPedidoAls.setEnabled(false);
             confirmapedido=false;
             confirmaPedido("guardar");
         }
         else  if(v.equals(btConfirmarPedidoAls))
         {
+            btConfirmarPedidoAls.setEnabled(false);
             confirmapedido=true;
             confirmaPedido("confirmar");
         }
@@ -914,6 +919,7 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
 
     private class EnviarPedido extends AsyncTask<String, Void, Object>
     {
+
         String res="";
         @Override
         protected Integer doInBackground(String... params)
@@ -929,6 +935,12 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
             try
             {
                 pdu.dismiss();
+
+                //Activa botones
+                btGuardarPedidoAls.setEnabled(true);
+                btConfirmarPedidoAls.setEnabled(true);
+
+
 
                 if(res.equals(pedidoin.getNPedido()))
                 {
@@ -953,6 +965,7 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
             catch (Exception e) {
                 System.out.println("jaja "+e.toString());
             }
+            isLoading=false;
 
         }
     }
@@ -981,8 +994,11 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
         dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-                new EnviarPedido().execute("");
-                pdu=ProgressDialog.show(VerPedidoAlistamientoActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido.."), true,false);
+                if (!isLoading) {
+                    isLoading=true;
+                    new EnviarPedido().execute("");
+                    pdu = ProgressDialog.show(VerPedidoAlistamientoActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido.."), true, false);
+                }
                 dialog.cancel();
             }
         });
@@ -1018,8 +1034,11 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
                 {
                     cambiaEstadoPedido();
                 }
-                new EnviarPedido().execute("");
-                pdu=ProgressDialog.show(VerPedidoAlistamientoActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido.."), true,false);
+                if (!isLoading) {
+                    isLoading = true;
+                    new EnviarPedido().execute("");
+                    pdu = ProgressDialog.show(VerPedidoAlistamientoActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido.."), true, false);
+                }
                 dialog.cancel();
             }
         });
@@ -1028,6 +1047,17 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
 
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
+                if(opcion.equals("guardar"))
+                {
+                    btGuardarPedidoAls.setEnabled(true);
+
+                }
+                else  if(opcion.equals("confirmar"))
+                {
+                    btConfirmarPedidoAls.setEnabled(true);
+
+                }
+
 
 
             }
