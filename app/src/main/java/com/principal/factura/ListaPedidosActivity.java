@@ -10,9 +10,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
@@ -20,6 +22,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
@@ -86,9 +89,16 @@ import com.principal.mundo.sysws.PutRemisionSys;
 import com.principal.mundo.sysws.RemisionEnviarSys;
 import com.principal.persistencia.creaBD;
 import com.principal.print.PrintBixolon;
+import com.principal.print.PrintDigitaPos;
 import com.principal.print.PrintEpson;
 import com.principal.print.PrintFactura;
 import com.principal.print.PrintZebra;
+
+import net.posprinter.posprinterface.IMyBinder;
+import net.posprinter.posprinterface.UiExecute;
+import net.posprinter.service.PosprinterService;
+import net.posprinter.utils.DataForSendToPrinterPos80;
+
 /**
  * 
  * 
@@ -97,7 +107,7 @@ import com.principal.print.PrintZebra;
  *
  */
 @SuppressLint("SimpleDateFormat")
-public class ListaPedidosActivity extends Activity implements OnClickListener,StatusChangeEventListener, BatteryStatusChangeEventListener {
+public class ListaPedidosActivity extends  Activity implements OnClickListener,StatusChangeEventListener, BatteryStatusChangeEventListener {
 	//-------------------------------------------------------
 	//--------------------CONSTANTES-------------------------
 	//-------------------------------------------------------
@@ -119,7 +129,32 @@ public class ListaPedidosActivity extends Activity implements OnClickListener,St
 	static BixolonPrinter mBixolonPrinter;
 
 	private String operacionBixolon;
-	
+
+	//Variables para impresora digital pos
+	//IMyBinder interface，All methods that can be invoked to connect and send data are encapsulated within this interface
+	public static IMyBinder binder;
+	public static boolean ISCONNECT;
+
+	//bindService connection
+	ServiceConnection conn= new ServiceConnection() {
+
+		public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+			//Bind successfully
+			binder= (IMyBinder) iBinder;
+			Log.e("binder","connected");
+		}
+
+
+		public void onServiceDisconnected(ComponentName componentName) {
+			Log.e("disbinder","disconnected");
+		}
+	};
+
+
+
+
+
+
 	String ressul="..";
 	/**
 	 * Atributo pedidos referente al arrego que contiene la lista de pedidos realizados
@@ -321,7 +356,14 @@ public class ListaPedidosActivity extends Activity implements OnClickListener,St
 	 */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState); 
+    	super.onCreate(savedInstanceState);
+
+
+    	//variables para impresora digital pos
+		//bind service，get ImyBinder object
+		Intent intent=new Intent(this, PosprinterService.class);
+		bindService(intent, conn, BIND_AUTO_CREATE);
+
     	
     	try
     	{
@@ -731,10 +773,12 @@ public class ListaPedidosActivity extends Activity implements OnClickListener,St
 																			}
 																			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
 																			{
+																				mostrarMensaje("Enviando datos digital pos", "l");
 																				try
 																				{
 																					operacionBixolon="pedido";
-																					printBixolonsppr310();
+																					printDigitalPos810();
+																					//printBixolonsppr310();
 																				}catch(Exception e){
 																					mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
 																					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -904,10 +948,12 @@ public class ListaPedidosActivity extends Activity implements OnClickListener,St
 																		 }
 																		 else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
 																		 {
+																			 mostrarMensaje("Enviando datos digital pos", "l");
 																			 try
 																			 {
 																				 operacionBixolon="pedido";
-																				 printBixolonsppr310();
+																				 printDigitalPos810();
+																				 //printBixolonsppr310();
 																			 }catch(Exception e){
 																				 mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
 																				 mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -4693,5 +4739,102 @@ public class ListaPedidosActivity extends Activity implements OnClickListener,St
 			return true;
 		}
 	});
+
+
+
+	private void printDigitalPos810(){
+		String bleAdrress=parametrosPos.getMacAddBixolon();
+
+		if(!ISCONNECT) {
+			if (bleAdrress.equals(null) || bleAdrress.equals("")) {
+				//Muestra error donde no encuentre el aderess
+			} else {
+				binder.connectBtPort(bleAdrress, new UiExecute() {
+					public void onsucess() {
+						ISCONNECT = true;
+						PrintDigitaPos printDigitaPos = new PrintDigitaPos();
+						printDigitaPos.printPedido(binder, pedido, listaAPedido, parametrosSys);
+
+
+						binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
+
+							public void onsucess() {
+								binder.acceptdatafromprinter(new UiExecute() {
+
+									public void onsucess() {
+									}
+
+
+									public void onfailed() {
+										ISCONNECT=false;
+									}
+								});
+							}
+
+
+							public void onfailed() {
+								ISCONNECT=false;
+							}
+						});
+
+
+					}
+
+					public void onfailed() {
+						mostrarMensaje("desconectado impresora", "l");
+					}
+				});
+			/*binder.connectBtPort(bleAdrress, new UiExecute() {
+
+				public void onsucess() {
+					ISCONNECT=true;
+					//muestra mensaje conectado
+					PrintDigitaPos printDigitaPos=new PrintDigitaPos();
+					printDigitaPos.printPedido(binder,pedido,listaAPedido,parametrosSys);
+
+					binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
+
+						public void onsucess() {
+							binder.acceptdatafromprinter(new UiExecute() {
+
+								public void onsucess() {
+
+								}
+
+
+								public void onfailed() {
+									ISCONNECT=false;
+									//muestra error sin conexion
+								}
+							});
+						}
+
+
+						public void onfailed() {
+
+						}
+					});
+
+
+				}
+
+
+				public void onfailed() {
+
+					ISCONNECT=false;
+					//muestra error sin conexion
+				}
+			});*/
+			}
+		}
+		else
+		{
+			PrintDigitaPos printDigitaPos = new PrintDigitaPos();
+			printDigitaPos.printPedido(binder, pedido, listaAPedido, parametrosSys);
+		}
+
+
+	}
+
 
 }

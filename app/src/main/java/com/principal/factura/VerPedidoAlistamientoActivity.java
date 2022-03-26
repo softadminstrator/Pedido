@@ -443,6 +443,8 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
         protected void onPostExecute(Object result)
         {
             pdu.dismiss();
+            btObservacionesPedidoAls.setEnabled(true);
+
             if(listaObservacionesPedidoSistema!=null)
             {
                 if(listaObservacionesPedidoSistema.size()>0) {

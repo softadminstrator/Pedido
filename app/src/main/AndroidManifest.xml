@@ -22,6 +22,12 @@
         android:label="@string/app_names"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
+
+        <service android:name="net.posprinter.service.PosprinterService" />
+
+
+
+
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"></activity>
