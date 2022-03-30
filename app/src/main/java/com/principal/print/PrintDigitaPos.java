@@ -27,7 +27,7 @@ public class PrintDigitaPos {
     public void printPedido(IMyBinder binder, Pedido_in pedido_in, ArrayList<ArticulosPedido> listaAPedido, Parametros parametrosPos)
     {
         this.binder=binder;
-        asignaValor("Hola Mundo");
+        asignaValor("Hola Mundo ");
     }
 
 
