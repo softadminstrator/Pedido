@@ -677,7 +677,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 	        if(print)
            	 {
            		              	
-           		 PrintDocumentIdPago(obtenerDatos.getLong("idPago"));
+           		// PrintDocumentIdPago(obtenerDatos.getLong("idPago"));
            	 }     	
              
          }    
@@ -2091,7 +2091,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
     	if(pago.getListaPagosFactura().size()>0)
     	{
     		pagosFactura=pago.getListaPagosFactura().get(idlistaPagos);
-    		if(bd.getValidaFacturaEnviada(pagosFactura.getNFactura(),pagosFactura.getNCaja()) || bd.getValidaRemisionEnviada(pagosFactura.getNFactura(),pagosFactura.getNCaja()))
+    		if(bd.getValidaFacturaEnviada(pagosFactura.getNFactura(),pagosFactura.getNCaja()))// || bd.getValidaRemisionEnviada(pagosFactura.getNFactura(),pagosFactura.getNCaja()))
     		{
     			pagosFactura.setListaPagoFac(bd.getAllItemPagosFacturaPorNFactura(this,pagosFactura.getIdPagosFactura()));
 
@@ -3607,7 +3607,35 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 		    	
 		    	if(valid)
 		    	{
-					if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0)
+		    		if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
+				{
+					try
+					{
+						operacionBixolon = "factura";
+						if(operacion==REMISION) {
+							operacionBixolon = "remision";
+						}
+						printBixolonsppr310();
+					}catch(Exception e){
+						mostrarMensaje("No fue posible Enviar la impresion", "l");
+						mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+					}
+				}
+				else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+				{
+					try
+					{
+						operacionDigitalPos = "factura";
+						if(operacion==REMISION) {
+							operacionDigitalPos = "remision";
+						}
+						printDigitalPos810();
+					}catch(Exception e){
+						mostrarMensaje("No fue posible Enviar la impresion", "l");
+						mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+					}
+				}
+					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0)
 					{
 						pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
 						printFactura=new PrintFactura();
@@ -3778,9 +3806,9 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						 try
 						 {
 							 operacionDigitalPos="factura";
-							 printDigitalPos810();
+							 //printDigitalPos810();
 						 }catch(Exception e){
-							 mostrarMensaje("No fue posible Enviar la impresion", "l");
+							 mostrarMensaje(factura.getNFactura()+e.toString()+"No fue posible Enviar la impresion", "l");
 							 mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
 						 }
 					 }
@@ -4321,7 +4349,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 		    	
 		    	if(valid)
 		    	{
-					if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0)
+					if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0)
 					{
 						pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
 						printFactura=new PrintFactura();
@@ -4902,7 +4930,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 
 
 	private void printDigitalPos810(){
-		String bleAdrress=parametrosPos.getMacAddBixolon();
+		String bleAdrress=parametrosPos.getMacAddDigitalPos();
 				binder.connectBtPort(bleAdrress, new UiExecute() {
 					public void onsucess() {
 						ISCONNECT = true;

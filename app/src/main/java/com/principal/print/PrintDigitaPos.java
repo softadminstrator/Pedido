@@ -31,6 +31,7 @@ import net.posprinter.utils.DataForSendToPrinterPos80;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.Normalizer;
 
 public class PrintDigitaPos {
 
@@ -288,7 +289,7 @@ public class PrintDigitaPos {
             asignaValor(" No.          CLIENTE    FECHA Y HORA    TOTAL");
             for (int i = 0; i < listaRemisiones.size(); i++) {
                 Remision_in f =listaRemisiones.get(i);
-                asignaValor(""+getFillText(ALIGN_LEFT, 4, ""+f.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 22, ""+f.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, f.getFecha()+" "+f.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                asignaValor(""+getFillText(ALIGN_LEFT, 4, ""+f.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 20, ""+f.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, f.getFecha()+" "+f.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
 
             }
         }
@@ -297,7 +298,7 @@ public class PrintDigitaPos {
             asignaValor(" No.          CLIENTE    FECHA Y HORA    TOTAL ");
             for (int i = 0; i < listaPedidos.size(); i++) {
                 Pedido_in p =listaPedidos.get(i);
-                asignaValor(""+getFillText(ALIGN_LEFT, 4, ""+p.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 22, ""+p.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, p.getFecha()+" "+p.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(p.valor)));
+                asignaValor(""+getFillText(ALIGN_LEFT, 4, ""+p.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 20, ""+p.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, p.getFecha()+" "+p.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(p.valor)));
 
 
             }
@@ -445,7 +446,7 @@ public class PrintDigitaPos {
                 {
                     for (int j = 0; j < pagosFactura.getListaPagoFac().size(); j++) {
                         ItemPagoFac itemPagoFac=pagosFactura.getListaPagoFac().get(j);
-                        asignaValor(getFillText(ALIGN_CENTER, 48, " "+getFillText(ALIGN_LEFT, 20, ""+itemPagoFac.getFormaPago())+" "+getFillText(ALIGN_LEFT, 30, getDecTxt(itemPagoFac.getValor()))));
+                        asignaValor(getFillText(ALIGN_CENTER, 48, " "+getFillText(ALIGN_LEFT, 20, ""+itemPagoFac.getFormaPago())+" "+getFillText(ALIGN_LEFT, 20, getDecTxt(itemPagoFac.getValor()))));
                     }
                 }
                 asignaValor(getFillText(ALIGN_CENTER, 48, "                    Descuento: "+getFillText(ALIGN_LEFT, 10, getDecTxt(pagosFactura.getDescuento()))));
@@ -455,13 +456,13 @@ public class PrintDigitaPos {
 
             }
         }
-        asignaValor(" "+getFillText(ALIGN_RIGHT, 48, " _____________________________________________") );
-        asignaValor(" "+getFillText(ALIGN_RIGHT, 40, getFillText(ALIGN_LEFT, 45, "TOTAL: "+getDecTxt(pago.getValor()))) );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 47, " _____________________________________________") );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 47, getFillText(ALIGN_CENTER, 45, "TOTAL: "+getDecTxt(pago.getValor()))) );
         //  asignaValor(" "+getFillText(ALIGN_RIGHT, 40, getFillText(ALIGN_LEFT, 45, "SALDO A LA FECHA: "+getDecTxt(pago.getDeudaCliente()))) );
         asignaValor(" "+getFillText(ALIGN_RIGHT, 40, "LO ATENDIO: "+getFillText(ALIGN_LEFT, 30, parametrosPos.getNombreVendedor())) );
         asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
         asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
-        asignaValor(" "+getFillText(ALIGN_RIGHT, 40, getFillText(ALIGN_CENTER, 66, "FIRMA AUTORIZADA:____________________________________________")) );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 40, getFillText(ALIGN_CENTER, 48, "FIRMA AUTORIZADA:____________________________________________")) );
 
         asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
         asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
@@ -594,6 +595,7 @@ public class PrintDigitaPos {
     private String getFillText(int align, int length,String text)
     {
         String res="";
+        text=nt(text);
         if(text.length()>=length)
         {
             res=text.substring(0, length);
@@ -631,5 +633,9 @@ public class PrintDigitaPos {
     public String getDecTxt(long value) {
         DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
         return decimalFormat.format(value);
+    }
+    private static String nt(String source){
+        source = Normalizer.normalize(source, Normalizer.Form.NFD);
+        return source.replaceAll("[^\\p{ASCII}]", "");
     }
 }

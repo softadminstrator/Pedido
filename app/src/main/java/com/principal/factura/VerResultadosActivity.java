@@ -641,7 +641,7 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 	});
 
 	private void printDigitalPos810(){
-		String bleAdrress=parametros.getMacAddBixolon();
+		String bleAdrress=parametros.getMacAddDigitalPos();
 
 
 				binder.connectBtPort(bleAdrress, new UiExecute() {

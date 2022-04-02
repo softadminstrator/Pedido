@@ -21,10 +21,13 @@ import com.principal.mundo.sysws.GetFacCliente;
 import com.principal.mundo.sysws.PutPagosFacturaSys;
 import com.principal.persistencia.creaBD;
 import com.principal.print.PrintBixolon;
+import com.principal.print.PrintDigitaPos;
 import com.principal.print.PrintEpson;
 import com.principal.print.PrintFactura;
 import com.principal.print.PrintZebra;
 
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -33,7 +36,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -49,6 +54,11 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
+import net.posprinter.posprinterface.IMyBinder;
+import net.posprinter.posprinterface.UiExecute;
+import net.posprinter.service.PosprinterService;
+import net.posprinter.utils.DataForSendToPrinterPos80;
 
 public class CarteraClienteActivity extends Activity implements OnClickListener ,StatusChangeEventListener, BatteryStatusChangeEventListener {
 
@@ -88,11 +98,45 @@ public class CarteraClienteActivity extends Activity implements OnClickListener 
 	
 	Parametros parametrosPos, parametrosSys;
 	private GetFacCliente getFacCliente;
-	
+
+
+
+	//Variables para impresora digital pos
+	//IMyBinder interface?All methods that can be invoked to connect and send data are encapsulated within this interface
+	public static IMyBinder binder;
+	public static boolean ISCONNECT;
+
+
+
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_cartera_cliente);
+
+		//bindService connection
+		ServiceConnection conn= new ServiceConnection() {
+
+			public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+				//Bind successfully
+				binder= (IMyBinder) iBinder;
+				Log.e("binder","connected");
+			}
+
+
+			public void onServiceDisconnected(ComponentName componentName) {
+				Log.e("disbinder","disconnected");
+			}
+		};
+		//variables para impresora digital pos
+		//bind service?get ImyBinder object
+		Intent intent=new Intent(this, PosprinterService.class);
+		bindService(intent, conn, BIND_AUTO_CREATE);
+
+
+
+
 		usuario=new Usuario();
 		cliente=new Cliente();	
 		bd=new creaBD(this);  
@@ -767,7 +811,7 @@ public class CarteraClienteActivity extends Activity implements OnClickListener 
 	    	
 	    	if(valid)
 	    	{
-				if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0)
+				if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0)
 				{
 					//pdu=ProgressDialog.show(CarteraClienteActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
 					PrintFactura printFactura=new PrintFactura();
@@ -775,7 +819,7 @@ public class CarteraClienteActivity extends Activity implements OnClickListener 
 					//pdu.dismiss();
 					mostrarMensaje(printFactura.getMensaje(), "l");
 				}
-				else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==1& parametrosPos.getUsaPrintBixolon()==0)
+				else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==1& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0)
 				{
 
 					Context context =this;
@@ -847,11 +891,21 @@ public class CarteraClienteActivity extends Activity implements OnClickListener 
 
 					}
 				}
-				else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+				else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 				{
 					try
 					{
 						printBixolonsppr310();
+					}catch(Exception e){
+						mostrarMensaje("No fue posible Enviar la impresion", "l");
+						mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+					}
+				}
+				else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+				{
+					try
+					{
+						printDigitalPos810();
 					}catch(Exception e){
 						mostrarMensaje("No fue posible Enviar la impresion", "l");
 						mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -949,6 +1003,47 @@ public class CarteraClienteActivity extends Activity implements OnClickListener 
 			return true;
 		}
 	});
+
+
+	private void printDigitalPos810(){
+		String bleAdrress=parametrosPos.getMacAddDigitalPos();
+		binder.connectBtPort(bleAdrress, new UiExecute() {
+			public void onsucess() {
+				ISCONNECT = true;
+				PrintDigitaPos printDigitaPos = new PrintDigitaPos();
+				printDigitaPos.printPago(binder,pago, parametrosSys);
+
+
+
+				binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
+
+					public void onsucess() {
+						binder.acceptdatafromprinter(new UiExecute() {
+
+							public void onsucess() {
+							}
+
+
+							public void onfailed() {
+								ISCONNECT=false;
+							}
+						});
+					}
+
+
+					public void onfailed() {
+						ISCONNECT=false;
+					}
+				});
+
+
+			}
+
+			public void onfailed() {
+				mostrarMensaje("desconectado impresora", "l");
+			}
+		});
+	}
 
 
 }
