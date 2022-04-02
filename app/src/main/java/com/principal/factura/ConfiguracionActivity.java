@@ -102,7 +102,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 						llBodegaFactura,llNCaja,llUsaPrintZebra,llConnPrintZebra,llBodegaTranslados,
 						llConsultaZ, llGeneraCierre,llIpCash,llIpPosstar,llStocken0,
 						llFacturaOnline,llRazonSocial,llRepresentante,llRegimenNit, llDireccionTel, llResDian, llRango, llNombreVendedor,llPrefijo
-						, llConnPrintEpson, llUsaPrintEpson,llCarteraOnline, llConnPrintBixolon, llUsaPrintBixolon, llBodegaRemision;
+						, llConnPrintEpson, llUsaPrintEpson,llCarteraOnline, llConnPrintBixolon, llUsaPrintBixolon, llBodegaRemision,  llConnPrintDigitalPos, llUsaPrintDigitalPos;
 	
 	/**
 	 * Referencia de la clase Parametros para el envio de informacion
@@ -113,12 +113,12 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 	/**
 	 * Atributo btGuardar referente al boton para guardar la configuracion
 	 */
-	Button btGuardar,btCategorias,btAlertOk,btCargarXml,btConnPrint,btConnPrintEpson ,btConnPrintBixolon;
+	Button btGuardar,btCategorias,btAlertOk,btCargarXml,btConnPrint,btConnPrintEpson ,btConnPrintBixolon,btConnPrintDigitalPos;
 	/**
 	 * Atributo editTexts referente a la clase EditText que guarda las cajas de texto de la actividad
 	 */
 	EditText [] editTexts;
-	EditText tvMacEpson, tvMacBixolon,tvMac,etWebid;
+	EditText tvMacEpson, tvMacBixolon, tvMacDigitalPos,tvMac,etWebid;
 	
 	TextView tvBodegaFacturas,tvNCaja, tvBodegaAdmInvOmision,tvBodegaPedidos,  tvIpSys, tvIPInfo,  tvBodegaRemision;
 
@@ -129,7 +129,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 	 */
 	CheckBox cbModifica,cbPrecioLibre,cbUsaPrecio123, cbAdministraInventario,cbConsultaArtOnline,cbFactura, cbRealizaPedidos,cbUsaCatalogo
 			,cbModificaStock, cbUsaPrintCebra,cbRealizaTranslados,cbConsultaZ, cbGeneraCierre, cbWs, cbRealizaPedidosMesa, cbUsaTodasLasCategorias
-			,cbStocken0,cbFacturaOnline,cbUsaObservMasMenos,cbDescuentoPedido,cbImprimePedido,cbConsultaCosto,cbUsaPrintEpson,cbUsaPrintBixolon
+			,cbStocken0,cbFacturaOnline,cbUsaObservMasMenos,cbDescuentoPedido,cbImprimePedido,cbConsultaCosto,cbUsaPrintEpson,cbUsaPrintBixolon,cbUsaPrintDigitalPos
 			, cbUsaCantDecimal , cbUsaSelecMultipleArt,cbCarteraOnline ,cbControlaPrecioLibre, cbSelectDocumentoPedido,cbRealizaAlistamiento,cbSelectFormaPagoPedido,cbUsaPrestamos
 			,cbRealizaRemision, cbModificaValorTotal;
 	String res ="";
@@ -185,6 +185,9 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 
 		tvMacBixolon=(EditText) findViewById(R.id.tvMacBixolon);
 		tvMacBixolon.setEnabled(true);
+
+		tvMacDigitalPos=(EditText) findViewById(R.id.tvMacDigitalPos);
+		tvMacDigitalPos.setEnabled(true);
 
 		etWebid=(EditText) findViewById(R.id.etWebid);
 		etWebid.setEnabled(true);
@@ -280,6 +283,9 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		llConnPrintBixolon=(LinearLayout)findViewById(R.id.llConnPrintBixolon);
 		llUsaPrintBixolon=(LinearLayout)findViewById(R.id.llUsaPrintBixolon);
 
+		llConnPrintDigitalPos=(LinearLayout)findViewById(R.id.llConnPrintDigitalPos);
+		llUsaPrintDigitalPos=(LinearLayout)findViewById(R.id.llUsaPrintDigitalPos);
+
 		llCarteraOnline=(LinearLayout)findViewById(R.id.llCarteraOnline);
 
 
@@ -325,6 +331,8 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 
 		cbUsaPrintBixolon=(CheckBox)findViewById(R.id.cbUsaPrintBixolon);
 
+		cbUsaPrintDigitalPos=(CheckBox)findViewById(R.id.cbUsaPrintDigitalPos);
+
 		cbCarteraOnline=(CheckBox)findViewById(R.id.cbCarteraOnline);
 
 		cbUsaCantDecimal=(CheckBox)findViewById(R.id.cbUsaCantDecimal);
@@ -342,6 +350,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
         btConnPrint=(Button)findViewById(R.id.btConnPrint);
 		btConnPrintEpson=(Button)findViewById(R.id.btConnPrintEpson);
 		btConnPrintBixolon=(Button)findViewById(R.id.btConnPrintBixolon);
+		btConnPrintDigitalPos=(Button)findViewById(R.id.btConnPrintDigitalPos);
 
 
         
@@ -424,6 +433,20 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		});
 
 		btConnPrintBixolon.setOnClickListener(new OnClickListener() {
+			/**
+			 * metodo que se ejecuta al hacer click en el boton guardar
+			 */
+			public void onClick(View v)
+			{
+				printerItems = new ArrayList<DiscoveredPrinter>();
+				printerSettings = new ArrayList<Map<String, String>>();
+				pdu=ProgressDialog.show(ConfiguracionActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Conectando.."), true,false);
+				getMac();
+
+			}
+		});
+
+		btConnPrintDigitalPos.setOnClickListener(new OnClickListener() {
 			/**
 			 * metodo que se ejecuta al hacer click en el boton guardar
 			 */
@@ -575,6 +598,9 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 				views.add(llUsaPrintBixolon);
 				views.add(llConnPrintBixolon);
 
+				views.add(llUsaPrintDigitalPos);
+				views.add(llConnPrintDigitalPos);
+
 		     	views.add(llConsultaZ);
 		    	views.add(llGeneraCierre);
 		    	
@@ -601,6 +627,10 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 					validCheck(cbUsaPrintEpson.isChecked());
 					views.add(llConnPrintBixolon);
 					validCheck(cbUsaPrintBixolon.isChecked());
+
+					views.add(llConnPrintDigitalPos);
+					validCheck(cbUsaPrintDigitalPos.isChecked());
+
 		    		views.add(llGeneraCierre);
 		    		validCheck(cbConsultaZ.isChecked());
 		    		
@@ -670,6 +700,15 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 				validCheck(isChecked);
 			}
 		});
+
+		cbUsaPrintDigitalPos.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
+				views.add(llConnPrintDigitalPos);
+				validCheck(isChecked);
+			}
+		});
+
 		cbConsultaZ.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			
      			public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
@@ -937,10 +976,13 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
     	cbUsaTodasLasCategorias.setChecked(parametrosPos.isValue(parametrosPos.getUsaTodasLasCategorias()));
 		cbUsaPrintEpson.setChecked(parametrosPos.isValue(parametrosPos.getUsaPrintEpson()));
 		cbUsaPrintBixolon.setChecked(parametrosPos.isValue(parametrosPos.getUsaPrintBixolon()));
+
+		cbUsaPrintDigitalPos.setChecked(parametrosPos.isValue(parametrosPos.getUsaPrintDigitalPos()));
     	
     	tvMac.setText(parametrosPos.getMacAdd());
 		tvMacEpson.setText(parametrosPos.getMacAddEpson());
 		tvMacBixolon.setText(parametrosPos.getMacAddBixolon());
+		tvMacDigitalPos.setText(parametrosPos.getMacAddDigitalPos());
 
 		etWebid.setText(""+parametrosPos.getWebid2());
 
@@ -952,6 +994,10 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		views.add(llConnPrintEpson);
 		views.add(llUsaPrintBixolon);
 		views.add(llConnPrintBixolon);
+
+		views.add(llUsaPrintDigitalPos);
+		views.add(llConnPrintDigitalPos);
+
     	views.add(llConsultaZ);
     	views.add(llGeneraCierre);
 
@@ -973,6 +1019,10 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			validCheck(cbUsaPrintEpson.isChecked());
 			views.add(llConnPrintBixolon);
 			validCheck(cbUsaPrintBixolon.isChecked());
+
+			views.add(llConnPrintDigitalPos);
+			validCheck(cbUsaPrintDigitalPos.isChecked());
+
     		views.add(llGeneraCierre);
     		validCheck(cbConsultaZ.isChecked());
     		
@@ -1122,6 +1172,10 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 
 			parametrosPos.setUsaPrintBixolon(getValueCheck(cbUsaPrintBixolon));
 			parametrosPos.setMacAddBixolon(tvMacBixolon.getText().toString());
+
+			parametrosPos.setUsaPrintDigitalPos(getValueCheck(cbUsaPrintDigitalPos));
+			parametrosPos.setMacAddDigitalPos(tvMacDigitalPos.getText().toString());
+
 			parametrosPos.setWebid(getWebId(etWebid.getText().toString()));
 
 			
@@ -1191,6 +1245,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			parametrosSys.setUsaTodasLasCategorias(getValueCheck(cbUsaTodasLasCategorias));
 			parametrosSys.setMacAddEpson(tvMacEpson.getText().toString());
 			parametrosSys.setMacAddBixolon(tvMacBixolon.getText().toString());
+			parametrosSys.setMacAddDigitalPos(tvMacDigitalPos.getText().toString());
 			parametrosSys.setWebid(getWebId(etWebid.getText().toString()));
 			
 			parametrosSys.setRazonSocial(editTexts[15].getText().toString());
@@ -1448,6 +1503,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 	                tvMac.setText(macAdd);
 					tvMacEpson.setText(macAdd);
 					tvMacBixolon.setText(macAdd);
+					tvMacDigitalPos.setText(macAdd);
   			    	dialogMotivo.cancel();
   			    }
   		}

@@ -88,6 +88,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 	static BixolonPrinter mBixolonPrinter;
 
 	private String operacionBixolon;
+	private String operacionDigitalPos;
 	private Municipio municipio;
 
 	PagoPrestamo pagoPrestamo=new PagoPrestamo();
@@ -1087,7 +1088,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 
 		if(valid)
 		{
-			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 			{
 				try
 				{
@@ -1098,7 +1099,17 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
 				}
 			}
-
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+			{
+				try
+				{
+					operacionDigitalPos="libro";
+					printBixolonsppr310();
+				}catch(Exception e){
+					mostrarMensaje("No fue posible Enviar la impresion", "l");
+					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+				}
+			}
 		}
 	}
 	private void PrintDocumentIdPagoPrestamo(long IdPagoPrestamo)
@@ -1195,6 +1206,11 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 			return true;
 		}
 	});
+
+
+
+
+
 
 private void refreshCliente()
 {

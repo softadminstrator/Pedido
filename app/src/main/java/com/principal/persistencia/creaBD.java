@@ -53,7 +53,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 26);
+		super(context, "BDPEDIDOSYS", null, 27);
 
 	}
 
@@ -129,6 +129,8 @@ public class creaBD extends SQLiteOpenHelper {
 				",bodegaRemisionOmision INGETER" +
 				",ModificaValorTotal INGETER" +
 				",Webid INGETER" +
+				",usaPrintDigitalPos INGETER" +
+				",macAddDigitalPos TEXT" +
 				" ) ";
 		db.execSQL(query);
 
@@ -706,6 +708,11 @@ public class creaBD extends SQLiteOpenHelper {
 		upgradeQuery = "ALTER TABLE CierreTurno ADD COLUMN NCierre TEXT DEFAULT '0'";
 		Actualiza(db, upgradeQuery);
 
+		upgradeQuery = "ALTER TABLE parametro ADD COLUMN usaPrintDigitalPos INGETER ";
+		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE parametro ADD COLUMN macAddDigitalPos TEXT ";
+		Actualiza(db, upgradeQuery);
+
 
 		//}
 
@@ -788,6 +795,8 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("bodegaRemisionOmision", parametros.getBodegaRemisionOmision());
 			valuesIn.put("ModificaValorTotal", parametros.getModificaValorTotal());
 			valuesIn.put("Webid", parametros.getWebid2());
+			valuesIn.put("usaPrintDigitalPos", parametros.getUsaPrintDigitalPos());
+			valuesIn.put("macAddDigitalPos", parametros.getMacAddDigitalPos());
 
 
 			this.getWritableDatabase().insert("parametro", null, valuesIn);
@@ -2299,6 +2308,8 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("bodegaRemisionOmision", parametros.getBodegaRemisionOmision() );
 			valuesIn.put("ModificaValorTotal", parametros.getModificaValorTotal() );
 			valuesIn.put("Webid", parametros.getWebid2() );
+			valuesIn.put("usaPrintDigitalPos", parametros.getUsaPrintDigitalPos() );
+			valuesIn.put("macAddDigitalPos", parametros.getMacAddDigitalPos() );
 
             this.getWritableDatabase().update("parametro", valuesIn," ws ='"+parametros.ws+"'",null);
 			return true;
@@ -3750,7 +3761,7 @@ public class creaBD extends SQLiteOpenHelper {
 					   ",bodegaTransladosOmision ,ruta, generaCierre, consultaZ ,usaWSCash, realizaPedidosMesa, usaTodasLasCategorias, permiteStocken0, precioLibre" +
 					   ",FacturaOnLine ,RazonSocial ,Representante ,RegimenNit ,DireccionTel ,ResDian ,Rango ,NombreVendedor, Prefijo, UsaObservMasMenos, DescuentoPedido, ImprimePedido, ConsultaCosto" +
                        ",usaPrintEpson, macAddEpson, usaCantDecimal, usaSelecMultipleArt, precioMinimo, usaPrintBixolon, macAddBixolon, CarteraOnLine ,ControlaPrecioLibre, SelectDocumentoPedido  , RealizaAlistamiento, SelectFormaPagoPedido, UsaPrestamos, RealizaRemision, bodegaRemisionOmision "+
-				       ", ModificaValorTotal, Webid "+
+				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos "+
 				       " FROM parametro " +
 				       " WHERE ws ='"+ws+"' ";
 
@@ -3822,6 +3833,8 @@ public class creaBD extends SQLiteOpenHelper {
 					parametros.setBodegaRemisionOmision(c.getLong(56)) ;
 					parametros.setModificaValorTotal(c.getLong(57));
 					parametros.setWebid(c.getLong(58));
+					parametros.setUsaPrintDigitalPos(c.getLong(59));
+					parametros.setMacAddDigitalPos(c.getString(60));
 
 
 

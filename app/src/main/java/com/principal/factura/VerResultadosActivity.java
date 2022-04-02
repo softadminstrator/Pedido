@@ -9,11 +9,16 @@ import java.util.Date;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,8 +44,15 @@ import com.principal.mundo.Usuario;
 import com.principal.mundo.sysws.Libro;
 import com.principal.persistencia.creaBD;
 import com.principal.print.PrintBixolon;
+import com.principal.print.PrintDigitaPos;
 import com.principal.print.PrintEpson;
 import com.principal.print.PrintZebra;
+
+import net.posprinter.posprinterface.IMyBinder;
+import net.posprinter.posprinterface.UiExecute;
+import net.posprinter.service.PosprinterService;
+import net.posprinter.utils.DataForSendToPrinterPos80;
+
 /**
  * Clase que se encarga de mostrar los resultado de ventas en una fecha deteminada
  * @author Javier
@@ -106,6 +118,24 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 	TabHost tabHost;
 	private Parametros parametros;
 	private ProgressDialog pdu;
+
+	public static IMyBinder binder;
+	public static boolean ISCONNECT;
+
+	//bindService connection
+	ServiceConnection conn= new ServiceConnection() {
+
+		public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+			//Bind successfully
+			binder= (IMyBinder) iBinder;
+			Log.e("binder","connected");
+		}
+
+
+		public void onServiceDisconnected(ComponentName componentName) {
+			Log.e("disbinder","disconnected");
+		}
+	};
 	
 	/**
 	 * metodo encargado de asignar valores a los atributos de la actividad
@@ -115,6 +145,13 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_resultados);
+
+
+
+		//variables para impresora digital pos
+		//bind service?get ImyBinder object
+		Intent intent=new Intent(this, PosprinterService.class);
+		bindService(intent, conn, BIND_AUTO_CREATE);
 		try {
 			btVolver = (Button) findViewById(R.id.btVolverVR);
 			btVolver.setOnClickListener(this);
@@ -465,7 +502,7 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 						mostrarMensaje("No fue posible Enviar la impresion", "l");
 					}
 				}
-				else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==1)
+				else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==1& parametros.getUsaPrintDigitalPos()==0)
 				{
 					try
 					{
@@ -476,6 +513,17 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 						mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
 					}
 				}
+					else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==0& parametros.getUsaPrintDigitalPos()==1)
+					{
+						try
+						{
+							pdu.dismiss();
+							printDigitalPos810();
+						}catch(Exception e){
+							mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
+							mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+						}
+					}
 				else {
 					pdu.dismiss();
 					Context context =this;
@@ -591,4 +639,52 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 			return true;
 		}
 	});
+
+	private void printDigitalPos810(){
+		String bleAdrress=parametros.getMacAddBixolon();
+
+
+				binder.connectBtPort(bleAdrress, new UiExecute() {
+					public void onsucess() {
+						ISCONNECT = true;
+						PrintDigitaPos printDigitaPos = new PrintDigitaPos();
+						printDigitaPos.printDocumentosRealizados(binder,operacion, true, datos, null, null, null, listaArticulos,null,null);
+
+
+
+
+						binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
+
+							public void onsucess() {
+								binder.acceptdatafromprinter(new UiExecute() {
+
+									public void onsucess() {
+									}
+
+
+									public void onfailed() {
+										ISCONNECT=false;
+									}
+								});
+							}
+
+
+							public void onfailed() {
+								ISCONNECT=false;
+							}
+						});
+
+
+					}
+
+					public void onfailed() {
+						mostrarMensaje("desconectado impresora", "l");
+					}
+				});
+
+
+
+
+
+	}
 }

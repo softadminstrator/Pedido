@@ -2,11 +2,15 @@ package com.principal.factura;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -20,6 +24,12 @@ import com.principal.mundo.Factura_in;
 import com.principal.mundo.Parametros;
 import com.principal.persistencia.creaBD;
 import com.principal.print.PrintBixolon;
+import com.principal.print.PrintDigitaPos;
+
+import net.posprinter.posprinterface.IMyBinder;
+import net.posprinter.posprinterface.UiExecute;
+import net.posprinter.service.PosprinterService;
+import net.posprinter.utils.DataForSendToPrinterPos80;
 
 import java.util.ArrayList;
 
@@ -43,6 +53,24 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
     private ListView lvFacturasCierre;
     private boolean pirntArticulos;
 
+    public static IMyBinder binder;
+    public static boolean ISCONNECT;
+
+    //bindService connection
+    ServiceConnection conn= new ServiceConnection() {
+
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            //Bind successfully
+            binder= (IMyBinder) iBinder;
+            Log.e("binder","connected");
+        }
+
+
+        public void onServiceDisconnected(ComponentName componentName) {
+            Log.e("disbinder","disconnected");
+        }
+    };
+
 
 
     @Override
@@ -51,6 +79,12 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_ver_cierre_turno);
         bd=new creaBD(this);
         parametros=bd.getParametros(this, "W");
+
+
+        //variables para impresora digital pos
+        //bind service?get ImyBinder object
+        Intent intent=new Intent(this, PosprinterService.class);
+        bindService(intent, conn, BIND_AUTO_CREATE);
 
         //inicializa vistas de actividad
         btImprimirCierreTurno=(Button)findViewById(R.id.btImprimirCierreTurno);
@@ -101,7 +135,12 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
                 public void onClick(DialogInterface dialog, int which) {
                     //----------------------------------------------------------------------
                     pirntArticulos=false;
-                    printBixolonsppr310();
+                     if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==1& parametros.getUsaPrintDigitalPos()==0) {
+                         printBixolonsppr310();
+                     }
+                    else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==0& parametros.getUsaPrintDigitalPos()==1) {
+                        printDigitalPos810();
+                    }
                     dialog.cancel();
                 }
             });
@@ -110,7 +149,12 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
 
                 public void onClick(DialogInterface dialog, int which) {
                     pirntArticulos=true;
-                    printBixolonsppr310();
+                    if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==1& parametros.getUsaPrintDigitalPos()==0) {
+                        printBixolonsppr310();
+                    }
+                    else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==0& parametros.getUsaPrintDigitalPos()==1) {
+                        printDigitalPos810();
+                    }
                     dialog.cancel();
                 }
             });
@@ -172,6 +216,51 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
             return true;
         }
     });
+
+    private void printDigitalPos810(){
+        String bleAdrress=parametros.getMacAddBixolon();
+
+
+                binder.connectBtPort(bleAdrress, new UiExecute() {
+                    public void onsucess() {
+                        ISCONNECT = true;
+                        PrintDigitaPos printDigitaPos = new PrintDigitaPos();
+                        printDigitaPos.printCierreTurno(binder,listaFacturas,cierreTurno,pirntArticulos,listaArticulos);
+                        btImprimirCierreTurno.setEnabled(true);
+
+
+
+                        binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
+
+                            public void onsucess() {
+                                binder.acceptdatafromprinter(new UiExecute() {
+
+                                    public void onsucess() {
+                                    }
+
+
+                                    public void onfailed() {
+                                        ISCONNECT=false;
+                                    }
+                                });
+                            }
+
+
+                            public void onfailed() {
+                                ISCONNECT=false;
+                            }
+                        });
+
+
+                    }
+
+                    public void onfailed() {
+                        mostrarMensaje("desconectado impresora", "l");
+                    }
+                });
+    }
+
+
 
     public void mostrarMensaje(String mensaje, String tipo)
     {

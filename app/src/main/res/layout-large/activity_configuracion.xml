@@ -965,6 +965,49 @@
 
 
 		<LinearLayout
+			android:id="@+id/llUsaPrintDigitalPos"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
+
+			<CheckBox
+				android:id="@+id/cbUsaPrintDigitalPos"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Usa Impr DigitalPos"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/llConnPrintDigitalPos"
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<Button
+				android:id="@+id/btConnPrintDigitalPos"
+				android:layout_width="140dp"
+				android:layout_height="50dp"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:text="Conn Print"
+				android:textSize="18sp" />
+			<EditText
+				android:id="@+id/tvMacDigitalPos"
+				android:layout_width="140dp"
+				android:layout_height="50dp"
+				android:gravity="left|center_vertical"
+				android:layout_marginLeft="20dp"
+				android:layout_marginTop="10dp"
+				android:text="Mac Addr"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textSize="20sp" />
+		</LinearLayout>
+
+		<LinearLayout
     	      android:id="@+id/llFacturaOnline"
         android:orientation="horizontal"  
         android:layout_width="match_parent"

@@ -129,26 +129,14 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 	static BixolonPrinter mBixolonPrinter;
 
 	private String operacionBixolon;
+	private String operacionDigitalPos;
 
 	//Variables para impresora digital pos
 	//IMyBinder interface，All methods that can be invoked to connect and send data are encapsulated within this interface
 	public static IMyBinder binder;
 	public static boolean ISCONNECT;
 
-	//bindService connection
-	ServiceConnection conn= new ServiceConnection() {
 
-		public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-			//Bind successfully
-			binder= (IMyBinder) iBinder;
-			Log.e("binder","connected");
-		}
-
-
-		public void onServiceDisconnected(ComponentName componentName) {
-			Log.e("disbinder","disconnected");
-		}
-	};
 
 
 
@@ -359,14 +347,34 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
     	super.onCreate(savedInstanceState);
 
 
-    	//variables para impresora digital pos
-		//bind service，get ImyBinder object
-		Intent intent=new Intent(this, PosprinterService.class);
-		bindService(intent, conn, BIND_AUTO_CREATE);
 
     	
     	try
     	{
+
+			//bindService connection
+			ServiceConnection conn= new ServiceConnection() {
+
+				public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+					//Bind successfully
+					binder= (IMyBinder) iBinder;
+					Log.e("binder","connected");
+				}
+
+
+				public void onServiceDisconnected(ComponentName componentName) {
+					Log.e("disbinder","disconnected");
+				}
+			};
+			//variables para impresora digital pos
+			//bind service，get ImyBinder object
+			Intent intent=new Intent(this, PosprinterService.class);
+			bindService(intent, conn, BIND_AUTO_CREATE);
+
+
+
+
+
         letraEstilo=new LetraEstilo();
         setContentView(R.layout.activity_lista_pedidos);
         listView=(ListView)findViewById(R.id.lvPedidos);        
@@ -763,7 +771,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 																			bd.openDB();
 																			listaAPedido = bd.getArticulosPedido(pedido.idCodigoInterno);
 																			bd.closeDB();
-																			 if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0) {
+																			 if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0) {
 																				pdu = ProgressDialog.show(ListaPedidosActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true, false);
 																				printFactura = new PrintFactura();
 																				printFactura.printPedido(pedido, listaAPedido, parametrosPos);
@@ -771,20 +779,31 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 																				mostrarMensaje(printFactura.getMensaje(), "l");
 
 																			}
-																			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+																			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 																			{
 																				mostrarMensaje("Enviando datos digital pos", "l");
 																				try
 																				{
 																					operacionBixolon="pedido";
-																					printDigitalPos810();
-																					//printBixolonsppr310();
+																					printBixolonsppr310();
 																				}catch(Exception e){
 																					mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
 																					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
 																				}
 																			}
-																			 else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==1& parametrosPos.getUsaPrintBixolon()==0){
+																			 else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+																			 {
+																				 mostrarMensaje("Enviando datos digital pos", "l");
+																				 try
+																				 {
+																					 operacionDigitalPos="pedido";
+																					 printDigitalPos810();
+																				 }catch(Exception e){
+																					 mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
+																					 mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+																				 }
+																			 }
+																			 else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==1& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0){
 
 																				Context context = ListaPedidosActivity.this;
 																				int deviceType = Print.DEVTYPE_BLUETOOTH;
@@ -938,7 +957,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 																		 bd.openDB();
 																		 listaAPedido = bd.getArticulosPedido(pedido.idCodigoInterno);
 																		 bd.closeDB();
-																		 if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0) {
+																		 if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0) {
 																			 pdu = ProgressDialog.show(ListaPedidosActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true, false);
 																			 printFactura = new PrintFactura();
 																			 printFactura.printPedido(pedido, listaAPedido, parametrosPos);
@@ -946,14 +965,26 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 																			 mostrarMensaje(printFactura.getMensaje(), "l");
 
 																		 }
-																		 else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+																		 else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 																		 {
 																			 mostrarMensaje("Enviando datos digital pos", "l");
 																			 try
 																			 {
 																				 operacionBixolon="pedido";
+																				 printBixolonsppr310();
+																			 }catch(Exception e){
+																				 mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
+																				 mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+																			 }
+																		 }
+																		 else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+																		 {
+																			 mostrarMensaje("Enviando datos digital pos", "l");
+																			 try
+																			 {
+																				 operacionDigitalPos="pedido";
 																				 printDigitalPos810();
-																				 //printBixolonsppr310();
+
 																			 }catch(Exception e){
 																				 mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
 																				 mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -1102,7 +1133,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 	      						      			    	}	
 	      						      			    	if(item==1)
 	      						      			    	{
-															if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0)
+															if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0)
 
 															{
 																pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
@@ -1112,12 +1143,23 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 																mostrarMensaje(printFactura.getMensaje(), "l");
 
 															}
-															else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+															else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 															{
 																try
 																{
 																	operacionBixolon="factura";
 																	printBixolonsppr310();
+																}catch(Exception e){
+																	mostrarMensaje("No fue posible Enviar la impresion", "l");
+																	mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+																}
+															}
+															else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+															{
+																try
+																{
+																	operacionDigitalPos="factura";
+																	printDigitalPos810();
 																}catch(Exception e){
 																	mostrarMensaje("No fue posible Enviar la impresion", "l");
 																	mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -1256,7 +1298,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 														}
 														if (item == 2)
 														{
-															if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 0)
+															if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 0& parametrosPos.getUsaPrintDigitalPos()==0)
 
 															{
 																pdu = ProgressDialog.show(ListaPedidosActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true, false);
@@ -1265,7 +1307,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 																pdu.dismiss();
 																mostrarMensaje(printFactura.getMensaje(), "l");
 
-															} else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 1) {
+															} else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 1& parametrosPos.getUsaPrintDigitalPos() == 0) {
 																try {
 																	operacionBixolon = "factura";
 																	printBixolonsppr310();
@@ -1273,7 +1315,15 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 																	mostrarMensaje("No fue posible Enviar la impresion", "l");
 																	mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
 																}
-															} else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 1 & parametrosPos.getUsaPrintBixolon() == 0) {
+															} else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 0& parametrosPos.getUsaPrintDigitalPos() == 1) {
+																try {
+																	operacionDigitalPos = "factura";
+																	printDigitalPos810();
+																} catch (Exception e) {
+																	mostrarMensaje("No fue posible Enviar la impresion", "l");
+																	mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+																}
+															}  else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 1 & parametrosPos.getUsaPrintBixolon() == 0) {
 																//Context context =this;
 																int deviceType = Print.DEVTYPE_BLUETOOTH;
 																int enabled = Print.FALSE;
@@ -1412,7 +1462,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 											}
 											if(item==1)
 											{
-												if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0)
+												if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0)
 
 												{
 													pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
@@ -1422,12 +1472,23 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 													mostrarMensaje(printFactura.getMensaje(), "l");
 
 												}
-												else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+												else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 												{
 													try
 													{
 														operacionBixolon="remision";
 														printBixolonsppr310();
+													}catch(Exception e){
+														mostrarMensaje("No fue posible Enviar la impresion", "l");
+														mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+													}
+												}
+												else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+												{
+													try
+													{
+														operacionDigitalPos="remision";
+														printDigitalPos810();
 													}catch(Exception e){
 														mostrarMensaje("No fue posible Enviar la impresion", "l");
 														mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -1566,7 +1627,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 											}
 											if (item == 2)
 											{
-												if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 0)
+												if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 0& parametrosPos.getUsaPrintDigitalPos()==0)
 
 												{
 													pdu = ProgressDialog.show(ListaPedidosActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true, false);
@@ -1575,7 +1636,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 													pdu.dismiss();
 													mostrarMensaje(printFactura.getMensaje(), "l");
 
-												} else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 1) {
+												} else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 1& parametrosPos.getUsaPrintDigitalPos() == 0) {
 													try {
 														operacionBixolon = "remision";
 														printBixolonsppr310();
@@ -1583,7 +1644,15 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 														mostrarMensaje("No fue posible Enviar la impresion", "l");
 														mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
 													}
-												} else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 1 & parametrosPos.getUsaPrintBixolon() == 0) {
+												}else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 0 & parametrosPos.getUsaPrintBixolon() == 0& parametrosPos.getUsaPrintDigitalPos() == 1) {
+													try {
+														operacionDigitalPos = "remision";
+														printDigitalPos810();
+													} catch (Exception e) {
+														mostrarMensaje("No fue posible Enviar la impresion", "l");
+														mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+													}
+												}  else if (parametrosPos.getUsaImpresoraZebra() == 0 & parametrosPos.getUsaPrintEpson() == 1 & parametrosPos.getUsaPrintBixolon() == 0) {
 													//Context context =this;
 													int deviceType = Print.DEVTYPE_BLUETOOTH;
 													int enabled = Print.FALSE;
@@ -3683,7 +3752,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 		    	
 		    	if(valid)
 		    	{
-					 if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0)
+					 if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0)
 
 					{
 						pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
@@ -3693,7 +3762,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						mostrarMensaje(printFactura.getMensaje(), "l");
 
 					}
-					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 					{
 						try
 						{
@@ -3704,6 +3773,17 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 							mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
 						}
 					}
+					 else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+					 {
+						 try
+						 {
+							 operacionDigitalPos="factura";
+							 printDigitalPos810();
+						 }catch(Exception e){
+							 mostrarMensaje("No fue posible Enviar la impresion", "l");
+							 mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+						 }
+					 }
 					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==1& parametrosPos.getUsaPrintBixolon()==0)
 					{
 						Context context =this;
@@ -3823,7 +3903,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 
 		if(valid)
 		{
-			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0)
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0)
 
 			{
 				pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
@@ -3833,12 +3913,23 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				mostrarMensaje(printFactura.getMensaje(), "l");
 
 			}
-			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 			{
 				try
 				{
 					operacionBixolon="remision";
 					printBixolonsppr310();
+				}catch(Exception e){
+					mostrarMensaje("No fue posible Enviar la impresion", "l");
+					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+				}
+			}
+			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+			{
+				try
+				{
+					operacionDigitalPos="remision";
+					printDigitalPos810();
 				}catch(Exception e){
 					mostrarMensaje("No fue posible Enviar la impresion", "l");
 					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -3963,7 +4054,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 
 		if(valid)
 		{
-			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0)
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0)
 			{
 				pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
 				printFactura=new PrintFactura();
@@ -3979,12 +4070,24 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				mostrarMensaje(printFactura.getMensaje(), "l");
 
 			}
-			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 			{
 				try
 				{
 					operacionBixolon="pedido";
 					printBixolonsppr310();
+				}catch(Exception e){
+					mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
+					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+				}
+			}
+
+			else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+			{
+				try
+				{
+					operacionDigitalPos="pedido";
+					printDigitalPos810();
 				}catch(Exception e){
 					mostrarMensaje(e.toString()+"No fue posible Enviar la impresion", "l");
 					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -4049,12 +4152,23 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 
 		if(valid)
 		{
-			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 			{
 				try
 				{
 					operacionBixolon="pagoPrestamo";
 					printBixolonsppr310();
+				}catch(Exception e){
+					mostrarMensaje("No fue posible Enviar la impresion", "l");
+					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+				}
+			}
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0 & parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+			{
+				try
+				{
+					operacionDigitalPos="pagoPrestamo";
+					printDigitalPos810();
 				}catch(Exception e){
 					mostrarMensaje("No fue posible Enviar la impresion", "l");
 					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -4093,12 +4207,23 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 
 		if(valid)
 		{
-			 if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+			 if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 			{
 				try
 				{
 					operacionBixolon="prestamo";
 					printBixolonsppr310();
+				}catch(Exception e){
+					mostrarMensaje("No fue posible Enviar la impresion", "l");
+					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+				}
+			}
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+			{
+				try
+				{
+					operacionDigitalPos="prestamo";
+					printDigitalPos810();
 				}catch(Exception e){
 					mostrarMensaje("No fue posible Enviar la impresion", "l");
 					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -4138,12 +4263,23 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 
 		if(valid)
 		{
-			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1 & parametrosPos.getUsaPrintDigitalPos()==0)
 			{
 				try
 				{
 					operacionBixolon="libro";
 					printBixolonsppr310();
+				}catch(Exception e){
+					mostrarMensaje("No fue posible Enviar la impresion", "l");
+					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+				}
+			}
+			if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0 & parametrosPos.getUsaPrintDigitalPos()==1)
+			{
+				try
+				{
+					operacionDigitalPos="libro";
+					printDigitalPos810();
 				}catch(Exception e){
 					mostrarMensaje("No fue posible Enviar la impresion", "l");
 					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -4196,12 +4332,23 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						mostrarMensaje(printFactura.getMensaje(), "l");
 
 					}
-					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 					{
 						try
 						{
 							operacionBixolon="pago";
 							printBixolonsppr310();
+						}catch(Exception e){
+							mostrarMensaje("No fue posible Enviar la impresion", "l");
+							mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+						}
+					}
+					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+					{
+						try
+						{
+							operacionDigitalPos="pago";
+							printDigitalPos810();
 						}catch(Exception e){
 							mostrarMensaje("No fue posible Enviar la impresion", "l");
 							mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -4433,7 +4580,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 		  				datos.add(traslado.bodegaDestino.getBodega());
 		  			}
 
-		  			if(parametrosPos.getUsaImpresoraZebra()==1 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0) {
+		  			if(parametrosPos.getUsaImpresoraZebra()==1 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==0) {
 
 						resPrint = pz.printDocumentosRealizados(operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null, listaRemisiones);
 
@@ -4445,13 +4592,25 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 							mostrarMensaje("No fue posible Enviar la impresion", "l");
 						}
 					}
-					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1)
+					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==1& parametrosPos.getUsaPrintDigitalPos()==0)
 					{
 						try
 						{
 							pdu.dismiss();
 							operacionBixolon="documentos";
 							printBixolonsppr310();
+						}catch(Exception e){
+							mostrarMensaje("No fue posible Enviar la impresion", "l");
+							mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+						}
+					}
+					else if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+					{
+						try
+						{
+							pdu.dismiss();
+							operacionDigitalPos="documentos";
+							printDigitalPos810();
 						}catch(Exception e){
 							mostrarMensaje("No fue posible Enviar la impresion", "l");
 							mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -4744,16 +4903,34 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 
 	private void printDigitalPos810(){
 		String bleAdrress=parametrosPos.getMacAddBixolon();
-
-		if(!ISCONNECT) {
-			if (bleAdrress.equals(null) || bleAdrress.equals("")) {
-				//Muestra error donde no encuentre el aderess
-			} else {
 				binder.connectBtPort(bleAdrress, new UiExecute() {
 					public void onsucess() {
 						ISCONNECT = true;
 						PrintDigitaPos printDigitaPos = new PrintDigitaPos();
-						printDigitaPos.printPedido(binder, pedido, listaAPedido, parametrosSys);
+
+						 if(operacionDigitalPos.equals("pago"))
+						{
+							printDigitaPos.printPago(binder,pago, parametrosSys);
+						}
+						else if (operacionDigitalPos.equals("pedido"))
+						{
+							printDigitaPos.printPedido(binder,pedido,listaAPedido,parametrosSys);
+						}
+						else if (operacionDigitalPos.equals("factura"))
+						{
+							printDigitaPos.printFactura(binder, factura);
+							//printBixolon.printFacturaSimplificado(mBixolonPrinter, factura);
+						}
+						else if (operacionDigitalPos.equals("remision"))
+						{
+							printDigitaPos.printRemision(binder, remision);
+							//printBixolon.printFacturaSimplificado(mBixolonPrinter, factura);
+						}
+						else if (operacionDigitalPos.equals("documentos"))
+						{
+							printDigitaPos.printDocumentosRealizados(binder,operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null,listaLibros, listaRemisiones);
+						}
+
 
 
 						binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
@@ -4784,56 +4961,6 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						mostrarMensaje("desconectado impresora", "l");
 					}
 				});
-			/*binder.connectBtPort(bleAdrress, new UiExecute() {
-
-				public void onsucess() {
-					ISCONNECT=true;
-					//muestra mensaje conectado
-					PrintDigitaPos printDigitaPos=new PrintDigitaPos();
-					printDigitaPos.printPedido(binder,pedido,listaAPedido,parametrosSys);
-
-					binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
-
-						public void onsucess() {
-							binder.acceptdatafromprinter(new UiExecute() {
-
-								public void onsucess() {
-
-								}
-
-
-								public void onfailed() {
-									ISCONNECT=false;
-									//muestra error sin conexion
-								}
-							});
-						}
-
-
-						public void onfailed() {
-
-						}
-					});
-
-
-				}
-
-
-				public void onfailed() {
-
-					ISCONNECT=false;
-					//muestra error sin conexion
-				}
-			});*/
-			}
-		}
-		else
-		{
-			PrintDigitaPos printDigitaPos = new PrintDigitaPos();
-			printDigitaPos.printPedido(binder, pedido, listaAPedido, parametrosSys);
-		}
-
-
 	}
 
 

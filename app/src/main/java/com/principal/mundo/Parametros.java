@@ -96,6 +96,9 @@ public class Parametros {
 	private long usaPrintBixolon;
 	private String macAddBixolon;
 
+	private long usaPrintDigitalPos;
+	private String macAddDigitalPos;
+
 	private long CarteraOnLine;
 
 	private long ControlaPrecioLibre;
@@ -168,7 +171,7 @@ public class Parametros {
 			String regimenNit, String direccionTel, String resDian,
 			String rango, String nombreVendedor, String prefijo, long UsaObservMasMenos,long DescuentoPedido, long ImprimePedido ,long ConsultaCosto
 			, long usaPrintEpson ,String macAddEpson, long usaCantDecimal, long usaSelecMultipleArt, long precioMinimo,long usaPrintBixolon,String macAddBixolon, long CarteraOnLine, long ControlaPrecioLibre
-	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid) {
+	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos) {
 		super();
 		this.ws = ws;
 		this.ip = ip;
@@ -230,6 +233,8 @@ public class Parametros {
 		this.bodegaRemisionOmision=bodegaRemisionOmision;
 		this.ModificaValorTotal=ModificaValorTotal;
 		this.Webid=Webid;
+		this.usaPrintDigitalPos=usaPrintDigitalPos;
+		this.macAddDigitalPos=macAddDigitalPos;
 	}
 
 
@@ -896,12 +901,34 @@ public class Parametros {
 		this.usaPrintBixolon = usaPrintBixolon;
 	}
 
+
+
 	public String getMacAddBixolon() {
 		return macAddBixolon;
 	}
 
 	public void setMacAddBixolon(String macAddBixolon) {
 		this.macAddBixolon = macAddBixolon;
+	}
+
+	public long getUsaPrintDigitalPos() {
+		return usaPrintDigitalPos;
+	}
+
+	public void setUsaPrintDigitalPos(long usaPrintDigitalPos) {
+		this.usaPrintDigitalPos = usaPrintDigitalPos;
+	}
+
+	public String getMacAddDigitalPos() {
+		return macAddDigitalPos;
+	}
+
+	public void setMacAddDigitalPos(String macAddDigitalPos) {
+		this.macAddDigitalPos = macAddDigitalPos;
+	}
+
+	public long getWebid() {
+		return Webid;
 	}
 
 	public long getCarteraOnLine() {
