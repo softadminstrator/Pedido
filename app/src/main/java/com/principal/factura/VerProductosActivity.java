@@ -481,22 +481,28 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 	{
 		if(v.equals(btConsultarProductos))
 			{
-				if(validaNombre())
-				{
-						String nombre=etNombreArticulo.getText().toString();
-						if(parametrosPos.getConsultaArticuloEnLinea()==0)
-						{			    						
+				if(parametrosSys.getDescuentaStockEnPedido()==0) {
+					if (validaNombre()) {
+						String nombre = etNombreArticulo.getText().toString();
+						if (parametrosPos.getConsultaArticuloEnLinea() == 0) {
 							bd.openDB();
-							listaArt=bd.getConsultaProducto(this, nombre);
-							bd.close();						            
+							listaArt = bd.getConsultaProducto(this, nombre);
+							bd.close();
 							mostrarArticulos();
-						}
-						else
-						{
+						} else {
 							new getStock().execute("");
-							pdu=ProgressDialog.show(this,"Por Favor Espere", "Obteniendo datos", true,false);
+							pdu = ProgressDialog.show(this, "Por Favor Espere", "Obteniendo datos", true, false);
 						}
-			    		
+
+					}
+				}
+				else
+				{
+					String nombre = etNombreArticulo.getText().toString();
+					bd.openDB();
+					listaArt = bd.getConsultaProducto(this, nombre);
+					bd.close();
+					mostrarArticulos();
 				}
 			}
 		else if(v.equals(btPrecioVer))

@@ -53,7 +53,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 27);
+		super(context, "BDPEDIDOSYS", null, 28);
 
 	}
 
@@ -131,6 +131,7 @@ public class creaBD extends SQLiteOpenHelper {
 				",Webid INGETER" +
 				",usaPrintDigitalPos INGETER" +
 				",macAddDigitalPos TEXT" +
+				",descuentaStockEnPedido INGETER" +
 				" ) ";
 		db.execSQL(query);
 
@@ -713,6 +714,9 @@ public class creaBD extends SQLiteOpenHelper {
 		upgradeQuery = "ALTER TABLE parametro ADD COLUMN macAddDigitalPos TEXT ";
 		Actualiza(db, upgradeQuery);
 
+		upgradeQuery = "ALTER TABLE parametro ADD COLUMN descuentaStockEnPedido INGETER ";
+		Actualiza(db, upgradeQuery);
+
 
 		//}
 
@@ -797,6 +801,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("Webid", parametros.getWebid2());
 			valuesIn.put("usaPrintDigitalPos", parametros.getUsaPrintDigitalPos());
 			valuesIn.put("macAddDigitalPos", parametros.getMacAddDigitalPos());
+			valuesIn.put("descuentaStockEnPedido", parametros.getDescuentaStockEnPedido());
 
 
 			this.getWritableDatabase().insert("parametro", null, valuesIn);
@@ -1220,7 +1225,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param pedidoin
 	 * @return true o false
 	 */
-	public boolean insertPedido( Pedido_in pedidoin)
+	public boolean insertPedido( Pedido_in pedidoin, ArrayList<ArticulosPedido> lista, boolean descuentaStock)
 	{
 		try
 		{
@@ -1248,7 +1253,13 @@ public class creaBD extends SQLiteOpenHelper {
 			else
 			{
 				  this.getWritableDatabase().insert("pedidos", null, valuesIn);
-			}		  
+			}
+			if(descuentaStock)
+			{
+				ActualizaStockArtiulosPedido(lista);
+			}
+
+
 			return true;
 		}
 		catch(Exception e)
@@ -1477,6 +1488,34 @@ public class creaBD extends SQLiteOpenHelper {
 		}
 
 	}
+
+	private boolean ActualizaStockArtiulosPedido(ArrayList<ArticulosPedido> lista)
+	{
+
+		try
+		{
+			ContentValues valuesIn=new ContentValues();
+			for (int i = 0; i < lista.size(); i++)
+			{
+				ArticulosPedido  articulosPedido= lista.get(i);
+
+				double NStock= getStockArticulo(articulosPedido.getIdArticulo())-articulosPedido.cantidad ;
+				valuesIn=new ContentValues();
+				valuesIn.put("stock",NStock);
+
+				this.getWritableDatabase().update("articulos", valuesIn," idArticulo ="+articulosPedido.getIdArticulo(),null);
+			}
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+
+
+
+	}
+
 
 	private boolean ActualizaStockArtiulosFactura(Factura_in facturain)
 	{
@@ -2310,6 +2349,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("Webid", parametros.getWebid2() );
 			valuesIn.put("usaPrintDigitalPos", parametros.getUsaPrintDigitalPos() );
 			valuesIn.put("macAddDigitalPos", parametros.getMacAddDigitalPos() );
+			valuesIn.put("descuentaStockEnPedido", parametros.getDescuentaStockEnPedido());
 
             this.getWritableDatabase().update("parametro", valuesIn," ws ='"+parametros.ws+"'",null);
 			return true;
@@ -3761,7 +3801,7 @@ public class creaBD extends SQLiteOpenHelper {
 					   ",bodegaTransladosOmision ,ruta, generaCierre, consultaZ ,usaWSCash, realizaPedidosMesa, usaTodasLasCategorias, permiteStocken0, precioLibre" +
 					   ",FacturaOnLine ,RazonSocial ,Representante ,RegimenNit ,DireccionTel ,ResDian ,Rango ,NombreVendedor, Prefijo, UsaObservMasMenos, DescuentoPedido, ImprimePedido, ConsultaCosto" +
                        ",usaPrintEpson, macAddEpson, usaCantDecimal, usaSelecMultipleArt, precioMinimo, usaPrintBixolon, macAddBixolon, CarteraOnLine ,ControlaPrecioLibre, SelectDocumentoPedido  , RealizaAlistamiento, SelectFormaPagoPedido, UsaPrestamos, RealizaRemision, bodegaRemisionOmision "+
-				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos "+
+				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos, descuentaStockEnPedido "+
 				       " FROM parametro " +
 				       " WHERE ws ='"+ws+"' ";
 
@@ -3835,6 +3875,7 @@ public class creaBD extends SQLiteOpenHelper {
 					parametros.setWebid(c.getLong(58));
 					parametros.setUsaPrintDigitalPos(c.getLong(59));
 					parametros.setMacAddDigitalPos(c.getString(60));
+					parametros.setDescuentaStockEnPedido(c.getLong(61));
 
 
 
@@ -5199,14 +5240,14 @@ public class creaBD extends SQLiteOpenHelper {
 		creaBD bd= new creaBD(cont);
 		bd.openDB();
 		SQLiteDatabase bds=bd.getWritableDatabase();
-		
-	    String query = " SELECT   MIN(IFNULL(articulo_codigo.codigo,'Sin codigo')), articulos.idArticulo, articulos.nombre, articulos.precio1, articulos.precio2, articulos.precio3, articulos.precio4, articulos.precio5, articulos.precio6, articulos.activo,  articulos.costo, articulos.stock " +
-	    		       " FROM articulos  LEFT OUTER JOIN articulo_codigo ON articulos.idArticulo=articulo_codigo.idArticulo  " +
-	    		       " WHERE articulos.nombre LIKE '%"+nombre+"%' " +
-	    		       " AND articulos.activo = 1 "+
-	    		       " GROUP BY  articulos.idArticulo, articulos.nombre, articulos.precio1, articulos.precio2, articulos.precio3, articulos.precio4, articulos.precio5, articulos.precio6, articulos.activo,  articulos.costo "+
-	    			   " ORDER BY  articulos.nombre";
-	    
+		String query="";
+		 query = " SELECT   MIN(IFNULL(articulo_codigo.codigo,'Sin codigo')), articulos.idArticulo, articulos.nombre, articulos.precio1, articulos.precio2, articulos.precio3, articulos.precio4, articulos.precio5, articulos.precio6, articulos.activo,  articulos.costo, articulos.stock " +
+				" FROM articulos  LEFT OUTER JOIN articulo_codigo ON articulos.idArticulo=articulo_codigo.idArticulo  " +
+				" WHERE articulos.nombre LIKE '%" + nombre + "%' " +
+				" AND articulos.activo = 1 " +
+				" GROUP BY  articulos.idArticulo, articulos.nombre, articulos.precio1, articulos.precio2, articulos.precio3, articulos.precio4, articulos.precio5, articulos.precio6, articulos.activo,  articulos.costo " +
+				" ORDER BY  articulos.nombre";
+
 	    Cursor c= bds.rawQuery(query,null);
 		
 		

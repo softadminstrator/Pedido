@@ -282,7 +282,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 			btCategoria.setBackgroundResource(R.drawable.red_button);
 			btCategoria.setTextColor(Color.WHITE);
 			btCategoria.setTypeface(null, Typeface.BOLD);
-
+             btCategoria.setTextSize(16);
 			 col++;
 			 btCategoria.setBackgroundColor(getNextColor(col));
 			// btCategoria.setBackgroundColor(0xFFF00D21);
@@ -297,8 +297,8 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 		          LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
 		     layoutParams.setMargins(10, 5, 0, 0);
-		     layoutParams.height=60-20;
-		     layoutParams.width=120-30;
+		     layoutParams.height=100-30;
+		     layoutParams.width=140-30;
 		     ll.addView(btCategoria, layoutParams);		    
 
 
@@ -349,7 +349,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 					 btArticulo.setBackgroundResource(R.drawable.red_button);
 					 btArticulo.setTextColor(Color.WHITE);
 					 btArticulo.setTypeface(null, Typeface.BOLD);
-					 btArticulo.setTextSize(12-2);
+					 btArticulo.setTextSize(12);
 					 col++;
 					 btArticulo.setBackgroundColor(getNextColorArticulo(col));
 					 //btArticulo.setBackgroundColor(0xFF000000);
@@ -362,8 +362,8 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				          LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);		
 				     layoutParams.setMargins(10, 5, 0, 0);
-				     layoutParams.height=70-20;
-				     layoutParams.width=100-20;
+				     layoutParams.height=90-20;
+				     layoutParams.width=120-20;
 				     ll.addView(btArticulo, layoutParams);
 				     
 				     if(numcolBt==0)
@@ -552,7 +552,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 	private void guardarPedido()
 	{	
 		bd.openDB();
-		bd.insertPedido(pedido);
+		bd.insertPedido(pedido, null, false);
 		bd.closeDB();
 		Intent intent = new Intent(this, SelecMesaActivity.class );
 		intent.putExtra("cedula", usuario.cedula);
@@ -768,7 +768,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		layoutParamsllVertical.setMargins(10, 5, 0, 0);
 		layoutParamsllVertical.height=(700-200);
-		layoutParamsllVertical.width=(540-200);
+		layoutParamsllVertical.width=(540-50);
 		llVertical.setLayoutParams(layoutParamsllVertical);
 
 		//LINEAR LAYOUT PARA EL BOTON OK
@@ -779,7 +779,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		layoutParamsllHorizontal.setMargins(10, 5, 0, 0);
 		layoutParamsllHorizontal.height=80-20;
-		layoutParamsllHorizontal.width=500-200;
+		layoutParamsllHorizontal.width=500-50;
 		llHorizontal.setLayoutParams(layoutParamsllHorizontal);
 
 		//LIENAR LAYOUT PARA LAS DESCRIPCIIONES DE LAS OBSERVACIONES
@@ -790,7 +790,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		layoutParamsllHorizontal2.setMargins(5, 5, 0, 0);
 		layoutParamsllHorizontal2.height=700-200;
-		layoutParamsllHorizontal2.width=500-200;
+		layoutParamsllHorizontal2.width=500-50;
 		llHorizontal2.setLayoutParams(layoutParamsllHorizontal2);
 
 		ScrollView scView = new ScrollView(CrearPedioMesaActivity.this);
@@ -800,7 +800,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 		layoutParamsscView.setMargins(5, 5, 0, 0);
 		layoutParamsscView.height=700-200;
-		layoutParamsscView.width=500-200;
+		layoutParamsscView.width=500-50;
 
 		scView.setLayoutParams(layoutParamsscView);
 

@@ -1651,7 +1651,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	public void guardarPedido()
 	{	
 		bd.openDB();
-		bd.insertPedido(pedido);
+		bd.insertPedido(pedido, listaAPedido, parametrosSys.getDescuentaStockEnPedido()==1);
 		if(pedido.getEnvio()!=0)
 		{					
 			mostrarMensaje("Pedido Enviado Correctamente ","l");			

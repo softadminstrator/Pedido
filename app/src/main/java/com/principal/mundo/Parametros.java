@@ -83,6 +83,9 @@ public class Parametros {
 	private long UsaObservMasMenos;
 	private long DescuentoPedido;
 	private long ImprimePedido;
+
+	private long descuentaStockEnPedido;
+
 	private long  ConsultaCosto;
 	
 	private String fechaSys;//yyyy-mm-dd
@@ -171,7 +174,7 @@ public class Parametros {
 			String regimenNit, String direccionTel, String resDian,
 			String rango, String nombreVendedor, String prefijo, long UsaObservMasMenos,long DescuentoPedido, long ImprimePedido ,long ConsultaCosto
 			, long usaPrintEpson ,String macAddEpson, long usaCantDecimal, long usaSelecMultipleArt, long precioMinimo,long usaPrintBixolon,String macAddBixolon, long CarteraOnLine, long ControlaPrecioLibre
-	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos) {
+	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos, long descuentaStockEnPedido  ) {
 		super();
 		this.ws = ws;
 		this.ip = ip;
@@ -235,6 +238,7 @@ public class Parametros {
 		this.Webid=Webid;
 		this.usaPrintDigitalPos=usaPrintDigitalPos;
 		this.macAddDigitalPos=macAddDigitalPos;
+		this.descuentaStockEnPedido=descuentaStockEnPedido;
 	}
 
 
@@ -839,6 +843,14 @@ public class Parametros {
 
 	public void setImprimePedido(long imprimePedido) {
 		ImprimePedido = imprimePedido;
+	}
+
+	public long getDescuentaStockEnPedido() {
+		return descuentaStockEnPedido;
+	}
+
+	public void setDescuentaStockEnPedido(long descuentaStockEnPedido) {
+		this.descuentaStockEnPedido = descuentaStockEnPedido;
 	}
 
 	public long getConsultaCosto() {

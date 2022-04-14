@@ -76,7 +76,8 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 	//---------------------ATRIBUTOS----------------------------------
 	//----------------------------------------------------------------
 	/**
-	 * Atributo bd referencia de la clase creaBD 
+	/**
+	 * Atributo bd referencia de la clase creaBD
 	 */
 	creaBD bd;
 	Context context;
@@ -131,7 +132,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			,cbModificaStock, cbUsaPrintCebra,cbRealizaTranslados,cbConsultaZ, cbGeneraCierre, cbWs, cbRealizaPedidosMesa, cbUsaTodasLasCategorias
 			,cbStocken0,cbFacturaOnline,cbUsaObservMasMenos,cbDescuentoPedido,cbImprimePedido,cbConsultaCosto,cbUsaPrintEpson,cbUsaPrintBixolon,cbUsaPrintDigitalPos
 			, cbUsaCantDecimal , cbUsaSelecMultipleArt,cbCarteraOnline ,cbControlaPrecioLibre, cbSelectDocumentoPedido,cbRealizaAlistamiento,cbSelectFormaPagoPedido,cbUsaPrestamos
-			,cbRealizaRemision, cbModificaValorTotal;
+			,cbRealizaRemision, cbModificaValorTotal , cbDescuentaStockEnPedido;
 	String res ="";
 	private ArrayList<DiscoveredPrinter> printerItems;
     private ArrayList<Map<String, String>> printerSettings;
@@ -326,6 +327,10 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		cbUsaObservMasMenos=(CheckBox)findViewById(R.id.cbUsaObservMasMenos);
 		cbDescuentoPedido=(CheckBox)findViewById(R.id.cbDescuentoPedido);
 		cbImprimePedido=(CheckBox)findViewById(R.id.cbImprimePedido);
+
+		cbDescuentaStockEnPedido=(CheckBox)findViewById(R.id.cbDescuentaStockEnPedido);
+
+
 		cbConsultaCosto=(CheckBox)findViewById(R.id.cbConsultaCosto);
 		cbUsaPrintEpson=(CheckBox)findViewById(R.id.cbUsaPrintEpson);
 
@@ -375,6 +380,9 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		cbUsaObservMasMenos.setChecked(false);
 		cbDescuentoPedido.setChecked(false);
 		cbImprimePedido.setChecked(false);
+
+		cbDescuentaStockEnPedido.setChecked(false);
+
 		cbConsultaCosto.setChecked(false);
 		cbCarteraOnline.setChecked(false);
 
@@ -907,6 +915,9 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		cbUsaObservMasMenos.setChecked(parametrosPos.isValue(parametrosPos.getUsaObservMasMenos()));
 		cbDescuentoPedido.setChecked(parametrosPos.isValue(parametrosPos.getDescuentoPedido()));
 		cbImprimePedido.setChecked(parametrosPos.isValue(parametrosPos.getImprimePedido()));
+
+		cbDescuentaStockEnPedido.setChecked(parametrosPos.isValue(parametrosPos.getDescuentaStockEnPedido()));
+
 		cbConsultaCosto.setChecked(parametrosPos.isValue(parametrosPos.getConsultaCosto()));
 
 		cbUsaCantDecimal.setChecked(parametrosPos.isValue(parametrosPos.getUsaCantDecimal()));
@@ -1127,6 +1138,9 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			parametrosPos.setUsaObservMasMenos(getValueCheck(cbUsaObservMasMenos));
 			parametrosPos.setDescuentoPedido(getValueCheck(cbDescuentoPedido));
 			parametrosPos.setImprimePedido(getValueCheck(cbImprimePedido));
+
+			parametrosPos.setDescuentaStockEnPedido(getValueCheck(cbDescuentaStockEnPedido));
+
 			parametrosPos.setConsultaCosto(getValueCheck(cbConsultaCosto));
 
 
@@ -1204,6 +1218,10 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			parametrosSys.setUsaObservMasMenos(getValueCheck(cbUsaObservMasMenos));
 			parametrosSys.setDescuentoPedido(getValueCheck(cbDescuentoPedido));
 			parametrosSys.setImprimePedido(getValueCheck(cbImprimePedido));
+
+
+			parametrosSys.setDescuentaStockEnPedido(getValueCheck(cbDescuentaStockEnPedido));
+
 			parametrosSys.setConsultaCosto(getValueCheck(cbConsultaCosto));
 
 			parametrosSys.setPrecioLibre(getValueCheck(cbPrecioLibre));

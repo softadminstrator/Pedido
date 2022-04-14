@@ -171,7 +171,7 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 //						 btMesa.setBackgroundResource(R.drawable.mesa);
 						 btMesa.setTextColor(Color.WHITE);
 						 btMesa.setTypeface(null, Typeface.BOLD);
-						 btMesa.setTextSize(18-4);
+						 btMesa.setTextSize(18);
 						 
 						 
 						 
@@ -200,8 +200,8 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 					     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 					     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);		
 					     layoutParams.setMargins(20, 20, 0, 0);
-					     layoutParams.height=80-20;
-					     layoutParams.width=120-30;
+					     layoutParams.height=110-20;
+					     layoutParams.width=150-30;
 					     ll.addView(btMesa, layoutParams);
 					     
 					     if(numcolBt==0)
