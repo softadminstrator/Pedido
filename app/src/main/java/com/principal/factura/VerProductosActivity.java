@@ -851,7 +851,8 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 	private boolean validaNombre() {
 								
 				nombreArticulo=etNombreArticulo.getText().toString();
-				if(nombreArticulo.length()<3)
+				return true;
+				/**if(nombreArticulo.length()<3)
 				{
 					mostrarMensaje("Debe ingresar minimo 3 letras del nombre", "l");
 					return false;					
@@ -864,7 +865,8 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 				else
 				{
 					return true;
-				}	
+				}
+				 **/
 	}
 	private boolean validaStock(String var) {
 		if(var.equals(""))

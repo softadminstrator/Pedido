@@ -85,6 +85,8 @@ public class Pedido_in
 
 	public long idClienteSucursal;
 
+	private String Estado;
+
 
 	/**
 	 * metodo que se encarga de asignar valores a los atributos del pedido
@@ -435,5 +437,13 @@ public class Pedido_in
 
 	public void setIdClienteSucursal(long idClienteSucursal) {
 		this.idClienteSucursal = idClienteSucursal;
+	}
+
+	public String getEstado() {
+		return Estado;
+	}
+
+	public void setEstado(String estado) {
+		Estado = estado;
 	}
 }

@@ -108,6 +108,8 @@ public class Factura_in
 
 	public long idClienteSucursal;
 
+	public String Anulada;
+
 
 
 	
@@ -887,5 +889,13 @@ public void setProperty(int i, String data) {
 
 	public void setIdClienteSucursal(long idClienteSucursal) {
 		this.idClienteSucursal = idClienteSucursal;
+	}
+
+	public String getAnulada() {
+		return Anulada;
+	}
+
+	public void setAnulada(String anulada) {
+		Anulada = anulada;
 	}
 }

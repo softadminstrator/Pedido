@@ -53,7 +53,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 28);
+		super(context, "BDPEDIDOSYS", null, 29);
 
 	}
 
@@ -291,6 +291,7 @@ public class creaBD extends SQLiteOpenHelper {
 				"  Documento TEXT " +
 				"  ,FormaPago TEXT " +
 				"  ,idClienteSucursal INGETER" +
+				"  ,Estado TEXT " +
 				") ";
 		db.execSQL(query);
 
@@ -346,8 +347,9 @@ public class creaBD extends SQLiteOpenHelper {
 				"  NFactura INGETER," +
 				"  Pagada TEXT," +
 				"  ValorPagado INTEGER," +
-				"  Observaciones TEXT" +
-				" ,idClienteSucursal INGETER" +
+				"  Observaciones TEXT," +
+				"  idClienteSucursal INGETER," +
+				"  Anulada TEXT" +
 				") ";
 		db.execSQL(query);
 
@@ -715,6 +717,12 @@ public class creaBD extends SQLiteOpenHelper {
 		Actualiza(db, upgradeQuery);
 
 		upgradeQuery = "ALTER TABLE parametro ADD COLUMN descuentaStockEnPedido INGETER ";
+		Actualiza(db, upgradeQuery);
+
+		upgradeQuery = "ALTER TABLE Factura ADD COLUMN Anulada TEXT ";
+		Actualiza(db, upgradeQuery);
+
+		upgradeQuery = "ALTER TABLE pedidos ADD COLUMN Estado TEXT ";
 		Actualiza(db, upgradeQuery);
 
 
@@ -1244,7 +1252,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("Documento", pedidoin.getDocumento());
 			valuesIn.put("FormaPago", pedidoin.getFormaPago());
 			valuesIn.put("idClienteSucursal", pedidoin.idClienteSucursal);
-
+			valuesIn.put("Estado", pedidoin.getEstado());
 			
 			if(getValidaPedido( pedidoin.idCodigoInterno, pedidoin.idCodigoExterno))
 			{
@@ -1400,6 +1408,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("ValorPagado", facturain.ValorPagado);
 			valuesIn.put("Observaciones", facturain.observaciones);
 			valuesIn.put("idClienteSucursal", facturain.idClienteSucursal);
+			valuesIn.put("Anulada", facturain.Anulada);
 						
 			if(getValidaFactura(facturain.idCodigoInterno, facturain.idCodigoExterno))
 			{
@@ -1974,6 +1983,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("Documento", pedido.getDocumento());
 			//valuesIn.put("FormaPago", pedido.getFormaPago());
 			valuesIn.put("idClienteSucursal", pedido.idClienteSucursal);
+			valuesIn.put("Estado", pedido.getEstado());
 		    this.getWritableDatabase().update("pedidos", valuesIn," idCodigoInterno ="+pedido.idCodigoInterno,null);
 			return true;
 		}
