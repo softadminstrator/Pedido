@@ -862,6 +862,10 @@ public class Articulo implements Comparator<Articulo>, Parcelable
 	}
 
 	public String getUnidadDeMedida() {
+		if(unidadDeMedida==null)
+		{
+			return "U";
+		}
 		return unidadDeMedida;
 	}
 

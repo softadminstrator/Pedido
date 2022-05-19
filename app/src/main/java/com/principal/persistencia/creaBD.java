@@ -6846,7 +6846,7 @@ public class creaBD extends SQLiteOpenHelper {
 				   "FROM factura f, factura_articulos fa, articulos a "+
 				   "WHERE f.idCodigoInterno=fa.idFactura "+
     			   "AND fa.idArticulo = a.idArticulo "+    		
-    			   "AND f.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
+    			   "AND f.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' AND (f.Anulada='NO' OR f.Anulada is null) "+
 				   filtroCat+
     			   " GROUP BY a.nombre,a.gramaje,a.unidadDeMedida "+
 				   "ORDER BY SUM(fa.cantidad) DESC";
@@ -6869,7 +6869,7 @@ public class creaBD extends SQLiteOpenHelper {
 		}
 		catch(Exception e)
 		{
-			return null;
+			return lista;
 		}
 	}
 	public ArrayList <Articulo> getVentasCierreFacturasporArticulo(CierreTurno cierreTurno)

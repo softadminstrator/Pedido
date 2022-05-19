@@ -2169,7 +2169,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 			}
 			//asigna numero de caja
 			factura.setNCaja(parametrosPos.getCaja());
-
+			factura.setAnulada("NO");
 
 			//Guarda los articulos en la factura
 			factura.setListaArticulos(listaAFactura);
