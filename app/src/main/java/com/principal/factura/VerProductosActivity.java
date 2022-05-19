@@ -7,18 +7,23 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Parcelable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
@@ -47,6 +52,12 @@ import com.principal.mundo.Parametros;
 import com.principal.mundo.PutStock;
 import com.principal.mundo.sysws.ItemPedido;
 import com.principal.persistencia.creaBD;
+import com.principal.print.PrintDigitaPos;
+
+import net.posprinter.posprinterface.IMyBinder;
+import net.posprinter.posprinterface.UiExecute;
+import net.posprinter.service.PosprinterService;
+import net.posprinter.utils.DataForSendToPrinterPos80;
 
 /**
  * Clase que se encarga de mostrar la descripcion de los articulos a la hora de consultarlos
@@ -84,7 +95,7 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 	/**
 	 * Atributo btConsultarProductos referente al boton de buscar el producto en la base de datos del telefono
 	 */
-	Button btConsultarProductos, btPrecioVer, btVolverP, btAlertOk, btAlertCancelar,btSelecArticulos;
+	Button btConsultarProductos, btPrecioVer, btVolverP, btAlertOk, btAlertCancelar,btSelecArticulos, btMenuVP;
 	/**
 	 * Atributo etNombreArticulo referente a la caja de texto en donde se ingresara el nombre del producto a buscar
 	 */
@@ -114,6 +125,12 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 //	private Opciones [] opciones; 
 	EditText etNuevoStock;
 	private String precioCliente;
+
+
+
+	public static IMyBinder binder;
+	public static boolean ISCONNECT;
+
 	/**
 	 * Atributo letraEstilo referencia a la clase LetraEstilo
 	 */
@@ -126,6 +143,33 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
     
     {    	
         super.onCreate(savedInstanceState);
+
+
+
+		//bindService connection
+		ServiceConnection conn= new ServiceConnection() {
+
+			public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+				//Bind successfully
+				binder= (IMyBinder) iBinder;
+				Log.e("binder","connected");
+			}
+
+
+			public void onServiceDisconnected(ComponentName componentName) {
+				Log.e("disbinder","disconnected");
+			}
+		};
+		//variables para impresora digital pos
+		//bind service?get ImyBinder object
+		Intent intent=new Intent(this, PosprinterService.class);
+		bindService(intent, conn, BIND_AUTO_CREATE);
+
+
+
+
+
+
         setContentView(R.layout.activity_ver_productos);
         rlVerProductos=(RelativeLayout)findViewById(R.id.rlVerProductos);
         
@@ -138,6 +182,10 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
         
         btConsultarProductos=(Button)findViewById(R.id.btConsultarProductos);
         btConsultarProductos.setOnClickListener(this);
+
+		btMenuVP=(Button)findViewById(R.id.btMenuVP);
+		btMenuVP.setOnClickListener(this);
+
         
         btPrecioVer=(Button)findViewById(R.id.btPrecioVer);
         btPrecioVer.setOnClickListener(this);
@@ -335,6 +383,26 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
         tvTituloBodega.setText(bodegaOmision.getBodega());
 		btPrecioVer.setEnabled(parametrosPos.isModificaPrecio());
 	}
+
+
+	/**
+	 * metodo que se ejecuta al seleccionar una de las opciones de menu
+	 */
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId()) {
+			case R.id.menuPrintInventario:
+				printInforme();
+				return true;
+			default:return super.onOptionsItemSelected(item);
+		}
+	}
+
+
+
+
+
+
 	private void modificarArticulo(final Articulo  articulo, final View view2)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -517,6 +585,10 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 			}
 			
 		    			    				
+		}
+		else if(v.equals(btMenuVP))
+		{
+			openOptionsMenu();
 		}
 		else if(v.equals(btVolverP))
 		{
@@ -887,5 +959,58 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 				return false;
 			}
 		}	
+	}
+	private void printInforme()
+	{
+		try
+		{
+			if(listaArt.size()>0) {
+				printDigitalPos810();
+			}
+			else
+			{
+				mostrarMensaje("No se encuentra informacion de articulos en la lista", "l");
+			}
+		}catch(Exception e){
+			mostrarMensaje("No fue posible Enviar la impresion", "l");
+			mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+		}
+	}
+	private void printDigitalPos810(){
+		String bleAdrress=parametrosPos.getMacAddDigitalPos();
+		binder.connectBtPort(bleAdrress, new UiExecute() {
+			public void onsucess() {
+				ISCONNECT = true;
+				PrintDigitaPos printDigitaPos = new PrintDigitaPos();
+				printDigitaPos.printInventario(binder,listaArt, parametrosPos);
+
+				binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
+
+					public void onsucess() {
+						binder.acceptdatafromprinter(new UiExecute() {
+
+							public void onsucess() {
+							}
+
+
+							public void onfailed() {
+								ISCONNECT=false;
+							}
+						});
+					}
+
+
+					public void onfailed() {
+						ISCONNECT=false;
+					}
+				});
+
+
+			}
+
+			public void onfailed() {
+				mostrarMensaje("desconectado impresora", "l");
+			}
+		});
 	}
 }

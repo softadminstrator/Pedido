@@ -43,6 +43,8 @@ public class PutFacturaSys {
 	 * nombre del metodo del servicio que sera llamado
 	 */	
     private static final String METHOD_NAME = "PutFactura";
+
+	private static final String METHOD_NAME_ANULAR = "PutAnularFactura";
 	/**
 	 * referencia para el resultado de la peticion al servicio web
 	 */
@@ -153,4 +155,50 @@ public class PutFacturaSys {
 	    }
 	    return "?";
 	  }
+
+
+
+	public Factura_in setAnularFactura(Factura_in factura_in){
+
+		try {
+			SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_ANULAR);
+
+			PropertyInfo prFactura = new PropertyInfo();
+			prFactura.name="NCaja";
+			prFactura.type=String.class;
+			prFactura.setValue(factura_in.getNCaja());
+			request.addProperty(prFactura);
+
+			PropertyInfo prArticulos = new PropertyInfo();
+			prArticulos.name="NFactura";
+			prArticulos.type=String.class;
+			prArticulos.setValue(factura_in.getNFactura());
+			request.addProperty(prArticulos);
+
+
+
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+			envelope.setOutputSoapObject(request);
+
+			HttpTransportSE ht = new HttpTransportSE(URL);
+			ht.call(NAMESPACE + METHOD_NAME_ANULAR, envelope);
+			SoapPrimitive response = (SoapPrimitive)envelope.getResponse();
+			String resp= response.toString();
+			if(resp!=null)
+			{
+				factura_in.setAnulada("1");
+			}
+			else
+			{
+				factura_in.setAnulada("0");
+			}
+		}
+		catch (Exception e)
+		{
+			res="Error "+e.toString();
+			factura_in.setAnulada("0");
+		}
+		return factura_in;
+//		 return null;
+	}
 }

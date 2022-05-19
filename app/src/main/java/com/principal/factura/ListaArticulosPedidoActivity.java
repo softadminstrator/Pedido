@@ -665,8 +665,14 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 
 						if (pedido.valor > 0) {
 							if(parametrosPos.getSelectFormaPagoPedido()==0&& parametrosPos.getSelectDocumentoPedido()==0) {
-								new enviarPedido().execute("");
-								pdu = ProgressDialog.show(ListaArticulosPedidoActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido"), true, false);
+								if(parametrosPos.getUsaTipoPedido()==1)
+								{
+									selectTipoPedido();
+								}
+								else {
+									new enviarPedido().execute("");
+									pdu = ProgressDialog.show(ListaArticulosPedidoActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido"), true, false);
+								}
 							}
 
 							//PREGUNTA SI SELECCIONA FORMA DE PAGO PARA PEDIDO
@@ -674,6 +680,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 							{
 								selectFormaPagoPedido(parametrosPos.getSelectDocumentoPedido()==1);
 							}
+
 							else
 							{
 								selectTipoDocumento();
@@ -864,6 +871,47 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 				}
 			});
 	        test.show();	
+	}
+	private void selectTipoPedido()
+	{
+		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Tipo de pedido");
+		builder.setMessage("Seleccione el tipo de pedido: ");
+//		         // Use an EditText view to get user input.
+		final AlertDialog test = builder.create();
+		LinearLayout llVertical=new LinearLayout(this);
+		llVertical.setOrientation(LinearLayout.VERTICAL);
+
+		btCredito=new Button(this);
+		btCredito.setText("NORMAL");
+		btCredito.setWidth(100);
+		btContado=new Button(this);
+		btContado.setText("ELECTRONICA-INV");
+		btContado.setWidth(100);
+		llVertical.addView(btCredito);
+		llVertical.addView(btContado);
+		test.setView(llVertical);
+//		        final AlertDialog test = builder.create();
+		btCredito.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				test.cancel();
+					//ENVIA PEDIDO NORMAL
+				new enviarPedido().execute("");
+				pdu = ProgressDialog.show(ListaArticulosPedidoActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido"), true, false);
+
+
+			}
+		});
+		btContado.setOnClickListener(new OnClickListener() {
+			@SuppressLint("NewApi")
+			public void onClick(View v) {
+				test.cancel();
+				new enviarPedidoInventario().execute("");
+				pdu = ProgressDialog.show(ListaArticulosPedidoActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido"), true, false);
+
+			}
+		});
+		test.show();
 	}
 	private void selectTipoDocumento()
 	{
@@ -1796,6 +1844,10 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 				//activa parametro envio del pedido
 				long npedido=putPedidoSys.setPedido(getXmlPedido(), pedidoEnviarSys.getXmlArticulos());
 				pedido.setEnvio(0);
+
+				//Asigna estado de pedido
+				pedido.setEstado("0");
+
 				if(npedido>0)
 				{
 					pedido.idCodigoExterno=npedido;
@@ -1827,6 +1879,53 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 			guardarPedido();			
 		}
 		
+	}
+
+	private class enviarPedidoInventario extends AsyncTask<String, Void, Object>
+	{
+
+		@Override
+		protected Integer doInBackground(String... params)
+		{
+				generarPedidoSys();
+				PutPedidoSys putPedidoSys=new PutPedidoSys(parametrosSys.getIp(),parametrosSys.getWebidText());
+
+				//pedido.idCodigoExterno=putPedidoSys.setPedido(getXmlPedido(), pedidoEnviarSys.getXmlArticulos());
+				//activa parametro envio del pedido
+				long npedido=putPedidoSys.setPedidoInventario(getXmlPedido(), pedidoEnviarSys.getXmlArticulos());
+				pedido.setEnvio(0);
+				pedido.setEstado("1");
+				if(npedido>0)
+				{
+					pedido.idCodigoExterno=npedido;
+					pedido.setEnvio(1);
+				}
+
+				LlamarFechaSys llamarFecha=new LlamarFechaSys(parametrosSys.getIp(),parametrosSys.getWebidText());
+				String fechaSys=llamarFecha.getFecha();
+				if(!fechaSys.equals("Error"))
+				{
+					pedido.setFecha(fechaSys);
+				}
+
+
+
+
+			return 1;
+		}
+
+		protected void onPostExecute(Object result)
+		{
+			pdu.dismiss();
+			etObservacion.setInputType(InputType.TYPE_NULL);
+			Intent i = new Intent();
+			Bundle b = new Bundle();
+			b.putBoolean("Envio", true);
+			i.putExtras(b);
+			setResult( SUB_ACTIVITY_VER_PEDIDOS, i );
+			guardarPedido();
+		}
+
 	}
 	
 	private class enviarFactura extends AsyncTask<String, Void, Object>
@@ -2068,6 +2167,8 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 				catch(Exception e)
 				{  factura.observaciones="Ninguna"; }
 			}
+			//asigna numero de caja
+			factura.setNCaja(parametrosPos.getCaja());
 
 
 			//Guarda los articulos en la factura

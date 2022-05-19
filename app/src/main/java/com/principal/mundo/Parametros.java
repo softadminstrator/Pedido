@@ -128,6 +128,11 @@ public class Parametros {
 	private long Webid;
 
 
+
+
+	private long usaTipoPedido;
+
+
 	/**
 	 * metodo que asigna valores predeterminados a los atributos del sistema
 	 */
@@ -174,7 +179,7 @@ public class Parametros {
 			String regimenNit, String direccionTel, String resDian,
 			String rango, String nombreVendedor, String prefijo, long UsaObservMasMenos,long DescuentoPedido, long ImprimePedido ,long ConsultaCosto
 			, long usaPrintEpson ,String macAddEpson, long usaCantDecimal, long usaSelecMultipleArt, long precioMinimo,long usaPrintBixolon,String macAddBixolon, long CarteraOnLine, long ControlaPrecioLibre
-	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos, long descuentaStockEnPedido  ) {
+	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos, long descuentaStockEnPedido, long usaTipoPedido  ) {
 		super();
 		this.ws = ws;
 		this.ip = ip;
@@ -239,6 +244,7 @@ public class Parametros {
 		this.usaPrintDigitalPos=usaPrintDigitalPos;
 		this.macAddDigitalPos=macAddDigitalPos;
 		this.descuentaStockEnPedido=descuentaStockEnPedido;
+		this.usaTipoPedido=usaTipoPedido;
 	}
 
 
@@ -1030,6 +1036,13 @@ public class Parametros {
 			return  "";
 		}
 		return  ""+Webid;
+	}
+	public long getUsaTipoPedido() {
+		return usaTipoPedido;
+	}
+
+	public void setUsaTipoPedido(long usaTipoPedido) {
+		this.usaTipoPedido = usaTipoPedido;
 	}
 
 }

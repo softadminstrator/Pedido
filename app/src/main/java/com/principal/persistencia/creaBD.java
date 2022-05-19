@@ -132,6 +132,7 @@ public class creaBD extends SQLiteOpenHelper {
 				",usaPrintDigitalPos INGETER" +
 				",macAddDigitalPos TEXT" +
 				",descuentaStockEnPedido INGETER" +
+				",usaTipoPedido INGETER" +
 				" ) ";
 		db.execSQL(query);
 
@@ -725,6 +726,9 @@ public class creaBD extends SQLiteOpenHelper {
 		upgradeQuery = "ALTER TABLE pedidos ADD COLUMN Estado TEXT ";
 		Actualiza(db, upgradeQuery);
 
+		upgradeQuery = "ALTER TABLE parametro ADD COLUMN usaTipoPedido INGETER ";
+		Actualiza(db, upgradeQuery);
+
 
 		//}
 
@@ -810,6 +814,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("usaPrintDigitalPos", parametros.getUsaPrintDigitalPos());
 			valuesIn.put("macAddDigitalPos", parametros.getMacAddDigitalPos());
 			valuesIn.put("descuentaStockEnPedido", parametros.getDescuentaStockEnPedido());
+			valuesIn.put("usaTipoPedido", parametros.getUsaTipoPedido());
 
 
 			this.getWritableDatabase().insert("parametro", null, valuesIn);
@@ -2061,6 +2066,36 @@ public class creaBD extends SQLiteOpenHelper {
 		}
 
 	}
+	public boolean ActualizarAnulacionFactura( Factura_in facturain)
+	{
+		try
+		{
+			ContentValues valuesIn=new ContentValues();
+			valuesIn.put("Anulada", facturain.getAnulada());
+			this.getWritableDatabase().update("factura", valuesIn," idCodigoInterno ="+facturain.idCodigoInterno,null);
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+
+	}
+	public boolean ActualizarAnulacionPedido( Pedido_in pedidoin)
+	{
+		try
+		{
+			ContentValues valuesIn=new ContentValues();
+			valuesIn.put("Estado", pedidoin.getEstado());
+			this.getWritableDatabase().update("pedidos", valuesIn," idCodigoInterno ="+pedidoin.idCodigoInterno,null);
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+
+	}
 	public boolean ActualizarRemision( Factura_in facturain)
 	{
 		try
@@ -2360,6 +2395,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("usaPrintDigitalPos", parametros.getUsaPrintDigitalPos() );
 			valuesIn.put("macAddDigitalPos", parametros.getMacAddDigitalPos() );
 			valuesIn.put("descuentaStockEnPedido", parametros.getDescuentaStockEnPedido());
+			valuesIn.put("usaTipoPedido", parametros.getUsaTipoPedido());
 
             this.getWritableDatabase().update("parametro", valuesIn," ws ='"+parametros.ws+"'",null);
 			return true;
@@ -3811,7 +3847,7 @@ public class creaBD extends SQLiteOpenHelper {
 					   ",bodegaTransladosOmision ,ruta, generaCierre, consultaZ ,usaWSCash, realizaPedidosMesa, usaTodasLasCategorias, permiteStocken0, precioLibre" +
 					   ",FacturaOnLine ,RazonSocial ,Representante ,RegimenNit ,DireccionTel ,ResDian ,Rango ,NombreVendedor, Prefijo, UsaObservMasMenos, DescuentoPedido, ImprimePedido, ConsultaCosto" +
                        ",usaPrintEpson, macAddEpson, usaCantDecimal, usaSelecMultipleArt, precioMinimo, usaPrintBixolon, macAddBixolon, CarteraOnLine ,ControlaPrecioLibre, SelectDocumentoPedido  , RealizaAlistamiento, SelectFormaPagoPedido, UsaPrestamos, RealizaRemision, bodegaRemisionOmision "+
-				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos, descuentaStockEnPedido "+
+				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos, descuentaStockEnPedido, usaTipoPedido "+
 				       " FROM parametro " +
 				       " WHERE ws ='"+ws+"' ";
 
@@ -3886,6 +3922,7 @@ public class creaBD extends SQLiteOpenHelper {
 					parametros.setUsaPrintDigitalPos(c.getLong(59));
 					parametros.setMacAddDigitalPos(c.getString(60));
 					parametros.setDescuentaStockEnPedido(c.getLong(61));
+					parametros.setUsaTipoPedido(c.getLong(62));
 
 
 
@@ -5884,7 +5921,7 @@ public class creaBD extends SQLiteOpenHelper {
 		if(enviaRepresados)
 		{
 			 query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora," +
-					 " p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones, p.DescuentoTotal, p.SubTotal, p.Documento , p.FormaPago, p.idClienteSucursal  " +
+					 " p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones, p.DescuentoTotal, p.SubTotal, p.Documento , p.FormaPago, p.idClienteSucursal, p.Estado  " +
 	    		       " FROM pedidos p, clientes c " +
 	    		       " WHERE p.idCliente = c.idCliente " +
 	    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -5895,7 +5932,7 @@ public class creaBD extends SQLiteOpenHelper {
 		else
 		{
 		    query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora," +
-					" p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones , p.DescuentoTotal, p.SubTotal, p.Documento ,p.FormaPago, p.idClienteSucursal  " +
+					" p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones , p.DescuentoTotal, p.SubTotal, p.Documento ,p.FormaPago, p.idClienteSucursal, p.Estado  " +
 		    		       " FROM pedidos p, clientes c " +
 		    		       " WHERE p.idCliente = c.idCliente " +
 		    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -5922,7 +5959,7 @@ public class creaBD extends SQLiteOpenHelper {
 					ped.setDocumento(c.getString(11));
 					ped.setFormaPago(c.getString(12));
 					ped.idClienteSucursal = validaCampoNull(c,13);
-
+					ped.setEstado( ""+validaCampoNull(c,14));
 					lista.add(ped);
 				}
 				bd.close();
@@ -5956,7 +5993,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			 query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 			 		   ",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones,  p.idClienteSucursal " +
+			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones,  p.idClienteSucursal, p.Anulada " +
 	    		       " FROM factura p, clientes c " +
 	    		       " WHERE p.idCliente = c.idCliente " +
 	    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -5967,7 +6004,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 		    query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 			 		   ",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal " +
+			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal, p.Anulada " +
 	    		      " FROM factura p, clientes c " +
 		    		       " WHERE p.idCliente = c.idCliente " +
 		    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6020,6 +6057,7 @@ public class creaBD extends SQLiteOpenHelper {
 					ped.observaciones=c.getString(37);
 					//ped.idClienteSucursal=c.getLong(38);
 					ped.idClienteSucursal = validaCampoNull(c,38);
+					ped.setAnulada(""+validaCampoNull(c,39));
 					lista.add(ped);					
 				}
 				bd.close();

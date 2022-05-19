@@ -688,32 +688,34 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				        	cargarPedidos(fechaDesde,fechaHasta);
 
 							if(parametrosPos.isValue(parametrosPos.getImprimePedido())) {
-								opcionesEnviado = new Opciones[3];
+								opcionesEnviado = new Opciones[4];
 								opcionesNoEnviado = new Opciones[5];
 								opcionesEnviado[0] = new Opciones("Ver Detalle", getImg(R.drawable.consultar), "Ver Detalle");
 								opcionesEnviado[1] = new Opciones("Editar", getImg(R.drawable.pedidos), "Editar");
-								opcionesEnviado[2] = new Opciones("Imprimir Copia", getImg(R.drawable.print), "Imprimir Copia");
+								opcionesEnviado[2] = new Opciones("Anular", getImg(R.drawable.anular), "Anular");
+								opcionesEnviado[3] = new Opciones("Imprimir Copia", getImg(R.drawable.print), "Imprimir Copia");
+
 
 
 								opcionesNoEnviado[0] = new Opciones("Ver Detalle", getImg(R.drawable.consultar), "Ver Detalle");
 								opcionesNoEnviado[1] = new Opciones("Enviar", getImg(R.drawable.enviar), "Enviar");
 								opcionesNoEnviado[2] = new Opciones("Editar", getImg(R.drawable.pedidos), "Editar");
 								opcionesNoEnviado[3] = new Opciones("Eliminar", getImg(R.drawable.eliminar), "Eliminar");
-								opcionesNoEnviado[4] = new Opciones("Imprimir Copia", getImg(R.drawable.print), "Imprimir Copia");
+								opcionesNoEnviado[4] = new Opciones("Imprimir Copia", getImg(R.drawable.print), "Imprimir Copia");opcionesNoEnviado[4] = new Opciones("Imprimir Copia", getImg(R.drawable.print), "Imprimir Copia");
+
 							}
 							else
 							{
-								opcionesEnviado = new Opciones[2];
+								opcionesEnviado = new Opciones[3];
 								opcionesNoEnviado = new Opciones[4];
 								opcionesEnviado[0] = new Opciones("Ver Detalle", getImg(R.drawable.consultar), "Ver Detalle");
 								opcionesEnviado[1] = new Opciones("Editar", getImg(R.drawable.pedidos), "Editar");
-
+								opcionesEnviado[2] = new Opciones("Anular", getImg(R.drawable.anular), "Anular");
 
 								opcionesNoEnviado[0] = new Opciones("Ver Detalle", getImg(R.drawable.consultar), "Ver Detalle");
 								opcionesNoEnviado[1] = new Opciones("Enviar", getImg(R.drawable.enviar), "Enviar");
 								opcionesNoEnviado[2] = new Opciones("Editar", getImg(R.drawable.pedidos), "Editar");
 								opcionesNoEnviado[3] = new Opciones("Eliminar", getImg(R.drawable.eliminar), "Eliminar");
-
 							}
 
 			listView.setOnItemLongClickListener (new OnItemLongClickListener() {
@@ -747,27 +749,47 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				      						      			    	}				      						      			    		      			    	
 //				      						      			    	
 				      						      			    	else if(item==1)
-				      						      			    	{	
-				      						      			    		 	Intent intent = new Intent(ListaPedidosActivity.this, CrearPedidoActivity.class );
-				      					  				      				cliente = bd.getBuscarClientesin(pedido.idCliente, cliente); 
-				      					  				      				intent.putExtra("nombre", cliente.nombre);
-				      							  				  			intent.putExtra("ordenVisita", cliente.ordenVisita);
-				      							  				  			intent.putExtra("idCliente", cliente.idCliente);
+				      						      			    	{
+				      						      			    		//Valida que el pedido no haya sido enviado para factura electronica
+																		if(pedido.getEstado().equals("1"))
+																		{
+																			mostrarMensaje("No se puede editar el pedido, debido a que ya desconto del inventario", "l");
+																		}
+																		else {
+																			Intent intent = new Intent(ListaPedidosActivity.this, CrearPedidoActivity.class);
+																			cliente = bd.getBuscarClientesin(pedido.idCliente, cliente);
+																			intent.putExtra("nombre", cliente.nombre);
+																			intent.putExtra("ordenVisita", cliente.ordenVisita);
+																			intent.putExtra("idCliente", cliente.idCliente);
 																			intent.putExtra("idClienteSucursal", cliente.idClienteSucursal);
-				      							  				  			intent.putExtra("consulta", false);	
-				      							  				  			intent.putExtra("PrecioDefecto", cliente.PrecioDefecto);
-				      							  				  			intent.putExtra("ubicado",cliente.ubicado);
-				      							  				  			intent.putExtra("cedula", usuario.cedula);			
-				      							  				  		    intent.putExtra("idCodigoExterno",pedido.idCodigoExterno);
-				      					  				      			    intent.putExtra("idCodigoInterno",pedido.idCodigoInterno);
-				      					  				      			    intent.putExtra("operacion", operacion);
-				      					  				      				startActivity(intent);	
-				      					  				      				finish();
-				      					  				      				
+																			intent.putExtra("consulta", false);
+																			intent.putExtra("PrecioDefecto", cliente.PrecioDefecto);
+																			intent.putExtra("ubicado", cliente.ubicado);
+																			intent.putExtra("cedula", usuario.cedula);
+																			intent.putExtra("idCodigoExterno", pedido.idCodigoExterno);
+																			intent.putExtra("idCodigoInterno", pedido.idCodigoInterno);
+																			intent.putExtra("operacion", operacion);
+																			startActivity(intent);
+																			finish();
+																		}
 				      							      				}
+																	else if (item == 2) {//
+																		if(pedido.getEstado().equals("3"))
+																		{
+																			mostrarMensaje("El pedido seleccionado ya fue anulada anteriormente!!", "l");
+																		}
+																		else if(pedido.getEstado().equals("0"))
+																		{
+																			mostrarMensaje("No es posible anular un pedido normal debido a que no ha afectado inventario!!", "l");
+																		}
+																		else {
+																			new enviarAnulacionPedido().execute("");
+																			pdu = ProgressDialog.show(ListaPedidosActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Anulacion"), true, false);
+																		}
+																	}
 																	if(parametrosPos.isValue(parametrosPos.getImprimePedido())) {
 
-																		if(item==2) {
+																		if(item==3) {
 																			bd.openDB();
 																			listaAPedido = bd.getArticulosPedido(pedido.idCodigoInterno);
 																			bd.closeDB();
@@ -925,24 +947,30 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
     					          
 				      						      			    	}
 				      						      			      	else if(item==2)
-				      						      			    	{	
-				      						      			     	  CrearPedidoActivity crearPedidoActivity=new CrearPedidoActivity();
-				      				  				      				Intent intent = new Intent(ListaPedidosActivity.this, CrearPedidoActivity.class );
-				      				  				      				cliente = bd.getBuscarClientesin(pedido.idCliente, cliente);
-				      				  				      			cliente = bd.getBuscarClientesin(pedido.idCliente, cliente); 
-				      			  				      				intent.putExtra("nombre", cliente.nombre);
-				      			  				      				intent.putExtra("ordenVisita", cliente.ordenVisita);
-				      			  				      				intent.putExtra("idCliente", cliente.idCliente);
-				      			  				      				intent.putExtra("idClienteSucursal", cliente.idClienteSucursal);
-				      			  				      				intent.putExtra("PrecioDefecto", cliente.PrecioDefecto);
-				      			  				      				intent.putExtra("cedula", usuario.cedula);
-				      			  				      				intent.putExtra("modifica","NO");
-				      			  				      			    intent.putExtra("ubicado",cliente.ubicado);
-				      			  				      			    intent.putExtra("consulta", false);
-				      			  				      			    intent.putExtra("idCodigoExterno",pedido.idCodigoExterno);
-				      			  				      			    intent.putExtra("idCodigoInterno",pedido.idCodigoInterno);
-				      			  				      			    intent.putExtra("operacion", operacion);
-				      			  				      			    startActivity(intent);
+				      						      			    	{
+																		if(pedido.getEstado().equals("1"))
+																		{
+																			mostrarMensaje("No se puede editar el pedido, debido a que ya desconto del inventario", "l");
+																		}
+																		else {
+																			CrearPedidoActivity crearPedidoActivity = new CrearPedidoActivity();
+																			Intent intent = new Intent(ListaPedidosActivity.this, CrearPedidoActivity.class);
+																			cliente = bd.getBuscarClientesin(pedido.idCliente, cliente);
+																			cliente = bd.getBuscarClientesin(pedido.idCliente, cliente);
+																			intent.putExtra("nombre", cliente.nombre);
+																			intent.putExtra("ordenVisita", cliente.ordenVisita);
+																			intent.putExtra("idCliente", cliente.idCliente);
+																			intent.putExtra("idClienteSucursal", cliente.idClienteSucursal);
+																			intent.putExtra("PrecioDefecto", cliente.PrecioDefecto);
+																			intent.putExtra("cedula", usuario.cedula);
+																			intent.putExtra("modifica", "NO");
+																			intent.putExtra("ubicado", cliente.ubicado);
+																			intent.putExtra("consulta", false);
+																			intent.putExtra("idCodigoExterno", pedido.idCodigoExterno);
+																			intent.putExtra("idCodigoInterno", pedido.idCodigoInterno);
+																			intent.putExtra("operacion", operacion);
+																			startActivity(intent);
+																		}
 				      				  				      								      			    		
 				      							      				}
 					      						      			    else if(item==3)
@@ -1087,16 +1115,17 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
         else
         {
             etapa="2";
-        	 opcionesEnviado=new Opciones[2];
-             opcionesNoEnviado=new Opciones[3]; 
+        	 opcionesEnviado=new Opciones[3];
              
              opcionesEnviado[0]=new Opciones("Ver Detalle", getImg(R.drawable.consultar), "Ver Detalle");
              opcionesEnviado[1]=new Opciones("Imprimir Copia", getImg(R.drawable.pedidos), "Imprimir Copia");
-            
+			 opcionesEnviado[2]=new Opciones("Anular factura", getImg(R.drawable.anular), "Anular factura");
+
+			opcionesNoEnviado=new Opciones[3];
              opcionesNoEnviado[0]=new Opciones("Ver Detalle", getImg(R.drawable.consultar), "Ver Detalle");
              opcionesNoEnviado[1]=new Opciones("Enviar", getImg(R.drawable.enviar), "Enviar");
              opcionesNoEnviado[2]=new Opciones("Imprimir Copia", getImg(R.drawable.pedidos), "Imprimir Copia");
-             
+
              
              if(operacion==FACTURA)
              {
@@ -1262,6 +1291,16 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 																	mostrarMensaje("Imp22 " + e.toString(), "l");
 																}
 															}//
+														}
+														else if (item == 2) {//
+																if(factura.getAnulada().equals("1"))
+																{
+																	mostrarMensaje("La factura seleccionada ya fue anulada anteriormente!!", "l");
+																}
+																else {
+																	new enviarAnulacionFactura().execute("");
+																	pdu = ProgressDialog.show(ListaPedidosActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Anulacion"), true, false);
+																}
 														}
 	      						      			    	
 	      						      			    	
@@ -3048,6 +3087,54 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				}
 				
 			}
+
+	private class enviarAnulacionFactura extends AsyncTask<String, Void, Object>
+	{
+		String rest="";
+
+		@Override
+		protected Integer doInBackground(String... params)
+		{
+
+				PutFacturaSys putFacturaSys=new PutFacturaSys(parametrosSys.getIp(),parametrosSys.getWebidText());
+				factura=putFacturaSys.setAnularFactura(factura);
+				rest=putFacturaSys.getRes();
+
+			return 1;
+		}
+
+		protected void onPostExecute(Object result)
+		{
+			pdu.dismiss();
+			guardarAnulacionFactura();
+		}
+
+	}
+
+	private class enviarAnulacionPedido extends AsyncTask<String, Void, Object>
+	{
+		String rest="";
+
+		@Override
+		protected Integer doInBackground(String... params)
+		{
+
+			PutPedidoSys putPedidoSys=new PutPedidoSys(parametrosSys.getIp(),parametrosSys.getWebidText());
+			long res=putPedidoSys.setAnularPedido(""+parametrosPos.getCaja(),""+pedido.idCodigoInterno,""+ parametrosSys.getBodegaPedidosOmision());
+			if (res>0) {
+				pedido.setEstado("3");
+			}
+
+			return 1;
+		}
+
+		protected void onPostExecute(Object result)
+		{
+			pdu.dismiss();
+			guardarAnulacionPedido();
+		}
+
+	}
 	private class enviarRemision extends AsyncTask<String, Void, Object>
 	{
 		String rest="";
@@ -3415,10 +3502,41 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				}
 			}
 		 
-		 
+		 public void guardarAnulacionFactura()
+		 {
+			 if(factura!=null) {
+
+					 bd.ActualizarAnulacionFactura(factura);
+					 mostrarMensaje("Facturas Anulada Correctamente.", "s");
+				 cargarFacturas(fechaDesde, fechaHasta);
+			 }
+			 else {
+				 mostrarMensaje("No Fue Posible enviar la factura, Fue almacenado en el telefono temporalmente ", "l");
+				 mostrarMensaje("No Fue Posible enviar la factura, Fue almacenado en el telefono temporalmente ", "l");
+				 cargarFacturas(fechaDesde, fechaHasta);
+			 }
+		 }
+	public void guardarAnulacionPedido()
+	{
+		if(pedido.getEstado().equals("3")) {
+
+			bd.ActualizarAnulacionPedido(pedido);
+			mostrarMensaje("Pedido Anulado Correctamente.", "s");
+			cargarPedidos(fechaDesde, fechaHasta);
+		}
+		else {
+			mostrarMensaje("No Fue Posible anular el pedido, Fue almacenado en el telefono temporalmente ", "l");
+			mostrarMensaje("No Fue Posible anular el pedido, Fue almacenado en el telefono temporalmente ", "l");
+			cargarPedidos(fechaDesde, fechaHasta);
+		}
+	}
 		 public void guardarFactura()
 			{
                 if(factura!=null) {
+
+                	//Asigna valor de la caja
+					factura.setNCaja(parametrosPos.getCaja());
+
                     factura.setIdCodigoExterno(factura.getNFactura());
                     if (factura.idCodigoExterno != 0) {
                         if (!parametrosPos.isValue(parametrosPos.getUsaWSCash())) {

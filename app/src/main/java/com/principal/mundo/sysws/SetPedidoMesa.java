@@ -39,6 +39,7 @@ public class SetPedidoMesa {
 	public SetPedidoMesa(String ip, String Webid)
 	{
 		URL="http://"+ip+":8083/WSCashServer" +Webid+"/services/OperatorClass?wsdl";
+		//URL="http://"+ip+":8080/WSCashServer/services/OperatorClass?wsdl";
 		res="";
 	}
 	

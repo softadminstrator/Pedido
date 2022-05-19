@@ -158,6 +158,14 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					{
 						linea.setBackgroundColor(0xFFFF8787);				
 					}
+					else if(ped.getEstado().equals("1"))
+					{
+						linea.setBackgroundColor(0xFF2D8DDD);
+					}
+					else if(ped.getEstado().equals("3"))
+					{
+						linea.setBackgroundColor(0xFFC4D328);
+					}
 					else
 					{
 						linea.setBackgroundColor(0x00000000);				
@@ -186,7 +194,11 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					else
 					{
 						linea.setBackgroundColor(0x00000000);				
-					}		
+					}
+					if(fac.getAnulada().equals("1"))
+					{
+						linea.setBackgroundColor(0xFFC4D328);
+					}
 					//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
 					tvCodigoExterno.setText(Long.toString(fac.NFactura));
 					tvNombreClientep.setText(fac.nombreCliente);

@@ -29,9 +29,13 @@ import net.posprinter.utils.DataForSendToPrinterPos80;
 
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.text.Normalizer;
+import java.util.Locale;
 
 public class PrintDigitaPos {
 
@@ -364,6 +368,32 @@ public class PrintDigitaPos {
         asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
 
         
+    }
+
+    public void printInventario(IMyBinder binder, ArrayList<Articulo> listaArticulos, Parametros parametrosPos)
+    {
+
+        this.listaArticulos=listaArticulos;
+        if(listaArticulos!=null) {
+
+            boolean res = false;
+            this.binder = binder;
+
+            asignaValor(getFillText(ALIGN_CENTER, 48, "INVENTARIO"));
+            asignaValor(" Generado: " + getFillText(ALIGN_LEFT, 10, new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date())) + "    Hora: " + getFillText(ALIGN_LEFT, 5, new SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(new Date())));
+
+            asignaValor(getFillText(ALIGN_CENTER, 48, "CANT        ARTICULO               "));
+            for (int i = 0; i < listaArticulos.size(); i++) {
+                Articulo a = listaArticulos.get(i);
+                asignaValor("" + getFillText(ALIGN_LEFT, 6, "" + a.stock) + " " + getFillText(ALIGN_LEFT, 38, "" + a.nombre) + " ");
+
+            }
+
+            asignaValor(" " + getFillText(ALIGN_CENTER, 64, " "));
+            asignaValor(" " + getFillText(ALIGN_CENTER, 48, " "));
+            asignaValor(" " + getFillText(ALIGN_CENTER, 48, " "));
+        }
+
     }
 
 

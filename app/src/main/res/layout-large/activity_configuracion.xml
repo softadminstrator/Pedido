@@ -582,6 +582,23 @@
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:id="@+id/llUsaTipoPedido"
+			>
+
+			<CheckBox
+				android:id="@+id/cbUsaTipoPedido"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Selec Tipo Pedido"
+				android:textSize="20sp" />
+		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
 			android:id="@+id/llConsultaCosto"
 			>
 

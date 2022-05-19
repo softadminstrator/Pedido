@@ -132,7 +132,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			,cbModificaStock, cbUsaPrintCebra,cbRealizaTranslados,cbConsultaZ, cbGeneraCierre, cbWs, cbRealizaPedidosMesa, cbUsaTodasLasCategorias
 			,cbStocken0,cbFacturaOnline,cbUsaObservMasMenos,cbDescuentoPedido,cbImprimePedido,cbConsultaCosto,cbUsaPrintEpson,cbUsaPrintBixolon,cbUsaPrintDigitalPos
 			, cbUsaCantDecimal , cbUsaSelecMultipleArt,cbCarteraOnline ,cbControlaPrecioLibre, cbSelectDocumentoPedido,cbRealizaAlistamiento,cbSelectFormaPagoPedido,cbUsaPrestamos
-			,cbRealizaRemision, cbModificaValorTotal , cbDescuentaStockEnPedido;
+			,cbRealizaRemision, cbModificaValorTotal , cbDescuentaStockEnPedido, cbUsaTipoPedido;
 	String res ="";
 	private ArrayList<DiscoveredPrinter> printerItems;
     private ArrayList<Map<String, String>> printerSettings;
@@ -330,6 +330,8 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 
 		cbDescuentaStockEnPedido=(CheckBox)findViewById(R.id.cbDescuentaStockEnPedido);
 
+		cbUsaTipoPedido=(CheckBox)findViewById(R.id.cbUsaTipoPedido);
+
 
 		cbConsultaCosto=(CheckBox)findViewById(R.id.cbConsultaCosto);
 		cbUsaPrintEpson=(CheckBox)findViewById(R.id.cbUsaPrintEpson);
@@ -382,6 +384,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		cbImprimePedido.setChecked(false);
 
 		cbDescuentaStockEnPedido.setChecked(false);
+		cbUsaTipoPedido.setChecked(false);
 
 		cbConsultaCosto.setChecked(false);
 		cbCarteraOnline.setChecked(false);
@@ -918,6 +921,8 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 
 		cbDescuentaStockEnPedido.setChecked(parametrosPos.isValue(parametrosPos.getDescuentaStockEnPedido()));
 
+		cbUsaTipoPedido.setChecked(parametrosPos.isValue(parametrosPos.getUsaTipoPedido()));
+
 		cbConsultaCosto.setChecked(parametrosPos.isValue(parametrosPos.getConsultaCosto()));
 
 		cbUsaCantDecimal.setChecked(parametrosPos.isValue(parametrosPos.getUsaCantDecimal()));
@@ -1140,6 +1145,8 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			parametrosPos.setImprimePedido(getValueCheck(cbImprimePedido));
 
 			parametrosPos.setDescuentaStockEnPedido(getValueCheck(cbDescuentaStockEnPedido));
+			parametrosPos.setUsaTipoPedido(getValueCheck(cbUsaTipoPedido));
+
 
 			parametrosPos.setConsultaCosto(getValueCheck(cbConsultaCosto));
 
@@ -1221,6 +1228,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 
 
 			parametrosSys.setDescuentaStockEnPedido(getValueCheck(cbDescuentaStockEnPedido));
+			parametrosSys.setUsaTipoPedido(getValueCheck(cbUsaTipoPedido));
 
 			parametrosSys.setConsultaCosto(getValueCheck(cbConsultaCosto));
 

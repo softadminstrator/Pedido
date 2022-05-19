@@ -26,17 +26,17 @@
 			                      android:layout_height="wrap_content"
 			                      android:layout_marginTop="30dp"
 			                      android:gravity="center_vertical|center_horizontal"
-			                      android:text="Versión 46"
+			                      android:text="Versión 49"
 			                      android:textSize="16dp" />
-  
-					       <TextView
-					          android:id="@+id/tvCajaAsignada"
-					          android:layout_width="fill_parent"
-					          android:layout_height="wrap_content"			       
-					          android:layout_marginTop="40dp"			         
-					          android:gravity="center"
-					          android:textSize="26dp"
-					          android:text="Caja 000" /> 
+
+		  <TextView
+			  android:id="@+id/tvCajaAsignada"
+			  android:layout_width="fill_parent"
+			  android:layout_height="20dp"
+			  android:layout_marginTop="40dp"
+			  android:gravity="center"
+			  android:text="Caja 000"
+			  android:textSize="26dp" />
 					        <TextView
 					          android:id="@+id/tvRutaAsignada"
 					          android:layout_width="fill_parent"

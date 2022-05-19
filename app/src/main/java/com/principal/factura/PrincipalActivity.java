@@ -195,8 +195,8 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
          txtclave.setImeActionLabel("Acceder", KeyEvent.KEYCODE_ENTER);
          txtclave.requestFocus();  
          bodega=new Bodega(10, "Bodega Comboy", "Carr 11 No. 10-21", "7448724", "El Chispazo", "Tunja");
-         parametrosPos=new Parametros("P", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0);
-         parametrosSys=new Parametros("S", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0);
+         parametrosPos=new Parametros("P", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0);
+         parametrosSys=new Parametros("S", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0);
                  
          if(!rota)
          {

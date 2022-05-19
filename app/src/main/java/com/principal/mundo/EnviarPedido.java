@@ -18,6 +18,7 @@ public class EnviarPedido {
 	    private String URL="";
 //		private static String URL="http://190.252.30.230/servicioarticulos/srvarticulos.asmx";
 		private static final String METHOD_NAME = "PutPedido";
+	    private static final String METHOD_NAME_INVENTARIO = "PutPedidoInventario";
 		private static final String SOAP_ACTION ="http://www.elchispazo.com.co/PutPedido";
 		
 	
@@ -72,5 +73,41 @@ public class EnviarPedido {
 	    	 resp=0;
 	     }	
 		return resp;
-	}	
+	}
+
+	public long getEnviarPedidoInventario(Pedido pedido )
+	{
+
+		long resp=0;
+		try
+		{
+			SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME_INVENTARIO);
+
+			PropertyInfo prPedido=new PropertyInfo();
+			prPedido.setName("Pedido");
+			prPedido.setValue(pedido);
+			prPedido.setType(Pedido.class);
+			request.addProperty(prPedido);
+			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+			envelope.dotNet = true; //indicamos que utilizaremos servicios .NET
+			envelope.implicitTypes = true;
+			envelope.setOutputSoapObject(request); //añadimos a la conexión el objeto SoapObject anteriormente creado
+
+			envelope.addMapping(SOAP_ACTION, "Pedido", new Pedido().getClass());
+
+			HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+			androidHttpTransport.debug = true; //nos aseguramos así de que funcione siempre
+			androidHttpTransport.call(SOAP_ACTION, envelope);
+			SoapPrimitive res = (SoapPrimitive) envelope.getResponse();
+			if(res!=null)
+			{
+				resp =Long.parseLong(res.toString());
+			}
+		}
+		catch (Exception e)
+		{
+			resp=0;
+		}
+		return resp;
+	}
 }
