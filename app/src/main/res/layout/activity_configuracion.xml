@@ -604,6 +604,24 @@
 				android:text="Selec Tipo Pedido"
 				android:textSize="20sp" />
 		</LinearLayout>
+
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/llPermiteStockEn0Pedido"
+			>
+
+			<CheckBox
+				android:id="@+id/cbPermiteStockEn0Pedido"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Permite stock en 0 Pedido"
+				android:textSize="20sp" />
+		</LinearLayout>
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="match_parent"

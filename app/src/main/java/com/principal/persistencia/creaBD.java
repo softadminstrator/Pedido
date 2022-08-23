@@ -53,7 +53,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 29);
+		super(context, "BDPEDIDOSYS", null, 30);
 
 	}
 
@@ -133,6 +133,7 @@ public class creaBD extends SQLiteOpenHelper {
 				",macAddDigitalPos TEXT" +
 				",descuentaStockEnPedido INGETER" +
 				",usaTipoPedido INGETER" +
+				",permiteStocken0EnPedido INGETER " +
 				" ) ";
 		db.execSQL(query);
 
@@ -729,6 +730,10 @@ public class creaBD extends SQLiteOpenHelper {
 		upgradeQuery = "ALTER TABLE parametro ADD COLUMN usaTipoPedido INGETER ";
 		Actualiza(db, upgradeQuery);
 
+		upgradeQuery = "ALTER TABLE parametro ADD COLUMN permiteStocken0EnPedido INGETER ";
+		Actualiza(db, upgradeQuery);
+
+
 
 		//}
 
@@ -815,6 +820,8 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("macAddDigitalPos", parametros.getMacAddDigitalPos());
 			valuesIn.put("descuentaStockEnPedido", parametros.getDescuentaStockEnPedido());
 			valuesIn.put("usaTipoPedido", parametros.getUsaTipoPedido());
+			valuesIn.put("permiteStocken0EnPedido", parametros.getPermiteStocken0EnPedido());
+
 
 
 			this.getWritableDatabase().insert("parametro", null, valuesIn);
@@ -2396,6 +2403,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("macAddDigitalPos", parametros.getMacAddDigitalPos() );
 			valuesIn.put("descuentaStockEnPedido", parametros.getDescuentaStockEnPedido());
 			valuesIn.put("usaTipoPedido", parametros.getUsaTipoPedido());
+			valuesIn.put("permiteStocken0EnPedido", parametros.getPermiteStocken0EnPedido());
 
             this.getWritableDatabase().update("parametro", valuesIn," ws ='"+parametros.ws+"'",null);
 			return true;
@@ -3847,7 +3855,7 @@ public class creaBD extends SQLiteOpenHelper {
 					   ",bodegaTransladosOmision ,ruta, generaCierre, consultaZ ,usaWSCash, realizaPedidosMesa, usaTodasLasCategorias, permiteStocken0, precioLibre" +
 					   ",FacturaOnLine ,RazonSocial ,Representante ,RegimenNit ,DireccionTel ,ResDian ,Rango ,NombreVendedor, Prefijo, UsaObservMasMenos, DescuentoPedido, ImprimePedido, ConsultaCosto" +
                        ",usaPrintEpson, macAddEpson, usaCantDecimal, usaSelecMultipleArt, precioMinimo, usaPrintBixolon, macAddBixolon, CarteraOnLine ,ControlaPrecioLibre, SelectDocumentoPedido  , RealizaAlistamiento, SelectFormaPagoPedido, UsaPrestamos, RealizaRemision, bodegaRemisionOmision "+
-				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos, descuentaStockEnPedido, usaTipoPedido "+
+				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos, descuentaStockEnPedido, usaTipoPedido, permiteStocken0EnPedido  "+
 				       " FROM parametro " +
 				       " WHERE ws ='"+ws+"' ";
 
@@ -3923,6 +3931,8 @@ public class creaBD extends SQLiteOpenHelper {
 					parametros.setMacAddDigitalPos(c.getString(60));
 					parametros.setDescuentaStockEnPedido(c.getLong(61));
 					parametros.setUsaTipoPedido(c.getLong(62));
+					parametros.setPermiteStocken0EnPedido(c.getLong(63));
+
 
 
 

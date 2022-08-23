@@ -281,12 +281,43 @@ public class PrintDigitaPos {
         }
         else if(operacion==FACTURA &  !printArticulos)
         {
+            //Divide facturas de credito y contado
+
             asignaValor(" No.         CLIENTE       FECHA Y HORA   TOTAL");
+
+
+            // Facturas de  contado
             for (int i = 0; i < listaFacturas.size(); i++) {
                 Factura_in f =listaFacturas.get(i);
-                asignaValor(""+getFillText(ALIGN_LEFT, 7, ""+f.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 18, ""+f.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, f.getFecha()+" "+f.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
-
+                if(f.getPagada().equals("SI")) {
+                    asignaValor("" + getFillText(ALIGN_LEFT, 7, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 18, "" + f.nombreCliente) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                }
             }
+            //Total facturas contado
+            if(getTotalFacturasContado()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL FACTURAS CONTADO: " + getDecTxt(getTotalFacturasContado())));
+            }
+
+            // Facturas de  credito
+            for (int i = 0; i < listaFacturas.size(); i++) {
+                Factura_in f =listaFacturas.get(i);
+                if(f.getPagada().equals("NO")) {
+                    asignaValor("" + getFillText(ALIGN_LEFT, 7, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 18, "" + f.nombreCliente) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                }
+            }
+            //Total facturas credito
+            if(getTotalFacturasCredito()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL FACTURAS CREDITO: " + getDecTxt(getTotalFacturasCredito())));
+            }
+
+
+
+
+
+
+
+
+
         }
         else if(operacion==REMISION &  !printArticulos)
         {
@@ -562,6 +593,30 @@ public class PrintDigitaPos {
         for (int i = 0; i < listaFacturas.size(); i++) {
             Factura_in f=listaFacturas.get(i);
             res+=f.getValor();
+        }
+        return res;
+    }
+
+    private long getTotalFacturasContado()
+    {
+        long res=0;
+        for (int i = 0; i < listaFacturas.size(); i++) {
+            Factura_in f=listaFacturas.get(i);
+            if(f.getPagada().equals("SI")){
+            res+=f.getValor();
+            }
+        }
+        return res;
+    }
+
+    private long getTotalFacturasCredito()
+    {
+        long res=0;
+        for (int i = 0; i < listaFacturas.size(); i++) {
+            Factura_in f=listaFacturas.get(i);
+            if(f.getPagada().equals("NO")){
+                res+=f.getValor();
+            }
         }
         return res;
     }

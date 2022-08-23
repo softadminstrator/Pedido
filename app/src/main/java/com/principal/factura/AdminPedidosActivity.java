@@ -273,6 +273,7 @@ public class AdminPedidosActivity extends Activity  implements OnClickListener, 
 		{			
 			Intent intent = new Intent(this, VerProductosActivity.class );
 			intent.putExtra("operacion",CONSULTAARTICULO);
+			intent.putExtra("precioCliente",parametrosPos.getPrecioMinimo());
 			startActivity(intent);
 			try {
 				//printBixolonsppr310();

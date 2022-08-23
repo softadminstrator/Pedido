@@ -2,6 +2,7 @@ package com.principal.factura;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
@@ -195,8 +196,8 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
          txtclave.setImeActionLabel("Acceder", KeyEvent.KEYCODE_ENTER);
          txtclave.requestFocus();  
          bodega=new Bodega(10, "Bodega Comboy", "Carr 11 No. 10-21", "7448724", "El Chispazo", "Tunja");
-         parametrosPos=new Parametros("P", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0);
-         parametrosSys=new Parametros("S", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0);
+         parametrosPos=new Parametros("P", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0,1);
+         parametrosSys=new Parametros("S", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0,1);
                  
          if(!rota)
          {
@@ -261,9 +262,16 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 				usuario.cedula = parametrosPos.ruta;				
 				if(!txtclave.getText().toString().equals(""))
 				{
+
+					Calendar c = Calendar.getInstance();
+					Date currentTime = Calendar.getInstance().getTime();
+					c.setTime(currentTime);
+					int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+
+
 					usuario.clave=txtclave.getText().toString();
 					bd.openDB();					
-						if(usuario.clave.equals("2686642") || usuario.clave.equals("8455"))
+						if(usuario.clave.equals(dayOfMonth+"268378") || usuario.clave.equals("8455"))
 						{
 							Intent intent = new Intent(PrincipalActivity.this, ConfiguracionActivity.class );
 							startActivityForResult(intent, RES);

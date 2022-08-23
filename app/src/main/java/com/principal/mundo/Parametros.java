@@ -133,6 +133,10 @@ public class Parametros {
 	private long usaTipoPedido;
 
 
+
+	private long permiteStocken0EnPedido;
+
+
 	/**
 	 * metodo que asigna valores predeterminados a los atributos del sistema
 	 */
@@ -179,7 +183,8 @@ public class Parametros {
 			String regimenNit, String direccionTel, String resDian,
 			String rango, String nombreVendedor, String prefijo, long UsaObservMasMenos,long DescuentoPedido, long ImprimePedido ,long ConsultaCosto
 			, long usaPrintEpson ,String macAddEpson, long usaCantDecimal, long usaSelecMultipleArt, long precioMinimo,long usaPrintBixolon,String macAddBixolon, long CarteraOnLine, long ControlaPrecioLibre
-	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos, long descuentaStockEnPedido, long usaTipoPedido  ) {
+	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos, long descuentaStockEnPedido, long usaTipoPedido ,
+					  long permiteStocken0EnPedido) {
 		super();
 		this.ws = ws;
 		this.ip = ip;
@@ -245,6 +250,7 @@ public class Parametros {
 		this.macAddDigitalPos=macAddDigitalPos;
 		this.descuentaStockEnPedido=descuentaStockEnPedido;
 		this.usaTipoPedido=usaTipoPedido;
+		this.permiteStocken0EnPedido=permiteStocken0EnPedido;
 	}
 
 
@@ -1044,5 +1050,11 @@ public class Parametros {
 	public void setUsaTipoPedido(long usaTipoPedido) {
 		this.usaTipoPedido = usaTipoPedido;
 	}
+	public long getPermiteStocken0EnPedido() {
+		return permiteStocken0EnPedido;
+	}
 
+	public void setPermiteStocken0EnPedido(long permiteStocken0EnPedido) {
+		this.permiteStocken0EnPedido = permiteStocken0EnPedido;
+	}
 }

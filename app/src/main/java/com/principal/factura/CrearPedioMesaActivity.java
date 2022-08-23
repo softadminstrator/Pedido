@@ -153,9 +153,9 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 			      			  	else if(item==1)
 		      			    	{
 
-									//final ItemPedido itemPedido=pedidoMesaIn.getListaArticulos().get(position);
-									//if(itemPedido.getEnCocina().equals("NO"))
-									//{
+									final ItemPedido itemPedido=pedidoMesaIn.getListaArticulos().get(position);
+									if(itemPedido.getEnCocina().equals("NO"))
+									{
 										if(borrarArticulo((int)position))
 										{
 											mostrarMensaje("Articulo Eliminado Satisfactoriamente", "l");
@@ -164,11 +164,11 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 										{
 											mostrarMensaje("Articulo No fue Eliminado", "l");
 										}
-									//}
-									//else
-									//{
-									//	mostrarMensaje("No se puede eliminar el articulo, Ya fue Impreso", "l");
-									//}
+									}
+									else
+									{
+										mostrarMensaje("No se puede eliminar el articulo, Ya fue Impreso", "l");
+									}
 		      			    	}		      			    	
 		      			    	dialog.cancel();			        
 		      			    }

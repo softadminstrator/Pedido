@@ -378,8 +378,8 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
          operacion=obtenerDatos.getInt("operacion");
          cliente.PrecioDefecto=obtenerDatos.getString("PrecioDefecto");
          usuario.cedula=obtenerDatos.getString("cedula");
-         textView[9].setText(usuario.cedula);     
-        
+         textView[9].setText(usuario.cedula);
+		 cliente.ordenVisita=0;
         
          if(operacion==TRANSLADO)
          {        	
@@ -449,8 +449,8 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
          textView[11].setVisibility(View.GONE);
          btPrecio.setText(cliente.getTextoPrecioDefecto());     
          etCodigo.requestFocus(); 
-         etPrecio.setEnabled(parametrosPos.isModificaPrecio());
-      	 btPrecio.setEnabled(parametrosPos.isModificaPrecio());    
+         etPrecio.setEnabled(parametrosPos.isModificaPrecio()&&cliente.idCliente!=2897);
+      	 btPrecio.setEnabled(parametrosPos.isModificaPrecio()&&cliente.idCliente!=2897);
        
     }
     /**
@@ -628,8 +628,9 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 			{
 				   	Intent intent = new Intent(CrearPedidoActivity.this, VerProductosActivity.class );
 					intent.putExtra("operacion",operacion);	
-					intent.putExtra("precioCliente",cliente.PrecioDefecto);	
-					if(operacion==TRANSLADO)
+					intent.putExtra("precioCliente",cliente.PrecioDefecto);
+					intent.putExtra("idCliente",""+cliente.idCliente);
+				if(operacion==TRANSLADO)
 					{
 						intent.putExtra("idBodegaOrigen",traslado.bodegaOrigen.getIdBodega());		
 					}
@@ -729,7 +730,14 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 		 		{		 			
 							if(validaPrecio(precio) )
 							{
-								if(parametrosPos.getConsultaArticuloEnLinea()==1 &parametrosPos.getPermiteStocken0()==0& cantidad>articulo.stock)
+								if (operacion==PEDIDO & parametrosPos.getPermiteStocken0EnPedido() == 0 & cantidad > articulo.stock)
+								{
+									etCodigo.selectAll();
+									etCodigo.requestFocus();
+									existe = false;
+									mostrarMensaje("El Articulo seleccionado esta Agotado","l");
+								}
+								else if(parametrosPos.getConsultaArticuloEnLinea()==1 &parametrosPos.getPermiteStocken0()==0& cantidad>articulo.stock & operacion!=PEDIDO)
 				              	  {
 									 etCodigo.selectAll();
 					        		 etCodigo.requestFocus();	

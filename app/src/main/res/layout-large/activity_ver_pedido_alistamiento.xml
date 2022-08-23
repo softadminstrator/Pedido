@@ -228,12 +228,11 @@
                     android:text="Observaciones" />
 
 
-
                 <Button
                     android:id="@+id/btAgregarArticuloAls"
                     style="@style/button_text_small_alistamiento"
                     android:layout_width="190dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginLeft="8dp"
                     android:background="@drawable/blue_button"

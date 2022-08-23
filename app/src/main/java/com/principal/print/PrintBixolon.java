@@ -434,7 +434,7 @@ public class PrintBixolon {
         asignaValorBixolon(getFillText(ALIGN_CENTER, 46,  parametrosPos.getRazonSocial()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A , BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_CENTER);
         asignaValorBixolon(getFillText(ALIGN_CENTER, 46,  parametrosPos.getRepresentante()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A , BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_CENTER);
         asignaValorBixolon("  Orden de pedido: "+getFillText(ALIGN_LEFT, 10,  ""+pedido_in.idCodigoInterno),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);
-        asignaValorBixolon("            Fecha: "+getFillText(ALIGN_LEFT, 10, pedido_in.getFecha())+"     Hora: "+getFillText(ALIGN_LEFT, 5, pedido_in.getHora()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);
+        asignaValorBixolon("            Fecha: "+getFillText(ALIGN_LEFT, 10, pedido_in.getFecha())+"     .Hora: "+getFillText(ALIGN_LEFT, 5, pedido_in.getHora()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);
         asignaValorBixolon("          Cliente: "+getFillText(ALIGN_LEFT, 42, pedido_in.getNombreCliente()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);
         asignaValorBixolon("             Nota: "+getFillText(ALIGN_LEFT, 42, pedido_in.getObservaciones()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT );
 
@@ -446,7 +446,7 @@ public class PrintBixolon {
         }
        // asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "SUBTOTAL: "+pedido_in.getFormatoDecimal(pedido_in.getSubTotal())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
         //asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "DESCUENTO: "+pedido_in.getFormatoDecimal(pedido_in.getDescuentoTotal())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
-        asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "TOTAL.: "+pedido_in.getFormatoDecimal(pedido_in.getValor())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        asignaValorBixolon(" "+getFillText(ALIGN_RIGHT, 40, "TOTAL.: "+getTotalPedido(listaAPedido)),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
         asignaValorBixolon(" "+" LO ATENDIO: "+getFillText(ALIGN_LEFT, 30, parametrosPos.getNombreVendedor()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
 
         asignaValorBixolon(" "+getFillText(ALIGN_CENTER, 64, " "),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B,Builder.FALSE,BixolonPrinter.ALIGNMENT_CENTER);
@@ -455,6 +455,17 @@ public class PrintBixolon {
 
 
         return builder;
+    }
+    public String getTotalPedido(ArrayList<ArticulosPedido> listaAPedido)
+    {
+        double total=0;
+        for (int i=0; i<listaAPedido.size();i++)
+        {
+            total=total+listaAPedido.get(i).valor;
+        }
+        DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
+        return decimalFormat.format(total);
+
     }
 
     public Builder printPago(BixolonPrinter mBixolonPrinter,Pago pago, Parametros parametros)

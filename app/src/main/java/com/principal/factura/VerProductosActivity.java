@@ -125,6 +125,7 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 //	private Opciones [] opciones; 
 	EditText etNuevoStock;
 	private String precioCliente;
+	private String IdCliente;
 
 
 
@@ -176,7 +177,9 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
         Bundle obtenerDatos=new Bundle();
         obtenerDatos = this.getIntent().getExtras();     
         operacion=obtenerDatos.getInt("operacion"); 
-        precioCliente= obtenerDatos.getString("precioCliente");	
+        precioCliente= ""+obtenerDatos.getLong("precioCliente");
+		IdCliente= obtenerDatos.getString("idCliente");
+
       
         
         
@@ -381,7 +384,10 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
         	 //METODOS PARA CONSULTAR LA CARTERA DE LOS CLIENTES
          }         
         tvTituloBodega.setText(bodegaOmision.getBodega());
-		btPrecioVer.setEnabled(parametrosPos.isModificaPrecio());
+		//btPrecioVer.setEnabled(parametrosPos.isModificaPrecio());
+		if(IdCliente!=null) {
+			btPrecioVer.setEnabled(parametrosPos.isModificaPrecio() && !IdCliente.equals("2897"));
+		}
 	}
 
 
@@ -454,8 +460,11 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 						//if (value >= 0) {
 						test.cancel();
 
-
-						if (parametrosPos.getConsultaArticuloEnLinea() == 1 & parametrosPos.getPermiteStocken0() == 0 & value > articulo.stock) {
+						if (operacion==PEDIDO & parametrosPos.getPermiteStocken0EnPedido() == 0 & value > articulo.stock)
+						{
+							mostrarMensaje("El Articulo seleccionado esta Agotado", "l");
+						}
+						else if (parametrosPos.getConsultaArticuloEnLinea() == 1 & parametrosPos.getPermiteStocken0() == 0 & value > articulo.stock & operacion!=PEDIDO						) {
 							mostrarMensaje("El Articulo seleccionado esta Agotado", "l");
 						}
 						else
