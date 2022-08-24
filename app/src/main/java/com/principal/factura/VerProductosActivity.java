@@ -177,7 +177,7 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
         Bundle obtenerDatos=new Bundle();
         obtenerDatos = this.getIntent().getExtras();     
         operacion=obtenerDatos.getInt("operacion"); 
-        precioCliente= ""+obtenerDatos.getLong("precioCliente");
+        precioCliente= obtenerDatos.getString("precioCliente");
 		IdCliente= obtenerDatos.getString("idCliente");
 
       
