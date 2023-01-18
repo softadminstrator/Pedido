@@ -103,71 +103,74 @@ public class ZFinancieraActivity extends Activity implements OnClickListener {
 	@SuppressLint("SimpleDateFormat")
 	private void generarCierre()
 	{
-		Date fecha=new Date();
-	    SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
-	    textoFecha=sdf.format(fecha);
+		try {
+			Date fecha = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			textoFecha = sdf.format(fecha);
 
-	    //Valida que existan facturas para poder realizar el cierre
-		bd.openDB();
-		final CierreTurno ultimoCierre=bd.obtenerUltimoCierreTurno(""+parametros.getCaja());
-		NTransacciones=bd.obtenerNumeroFacturasCierreTurno(""+parametros.getCaja(),ultimoCierre);
-		bd.close();
-		if (NTransacciones==0)
+			//Valida que existan facturas para poder realizar el cierre
+			bd.openDB();
+			final CierreTurno ultimoCierre = bd.obtenerUltimoCierreTurno("" + parametros.getCaja());
+			NTransacciones = bd.obtenerNumeroFacturasCierreTurno("" + parametros.getCaja(), ultimoCierre);
+			bd.close();
+			if (NTransacciones == 0) {
+				muestraMensajePantalla("No es posible realizar el cierre, debio a que no se encuentran transacciones retistradas");
+
+				return;
+			}
+
+
+			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			String mensaje = "Esta seguro que desea generar el cierre de la caja " + parametros.getCaja();
+
+			//valida si existe algun cierre realizado con la misma fecha, en caso de que exista pregunta si desea realizar cierre nuevamnete
+			// siempre y cuando hayan facturas ralizadas despues del ultimo cierre
+			if (bd.getValidaFechaCierreTurno(parametros.getFechaSys2System())) {
+				mensaje = "Acutualmente existe registrado un cierre con fecha " + textoFecha + ". " + mensaje;
+			}
+			dialog.setMessage(mensaje);
+			dialog.setCancelable(false);
+			dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+
+				public void onClick(DialogInterface dialog, int which) {
+					//Guarda cierre he imprime informe
+					//Crea objeto cierre
+					CierreTurno cierreTurno = new CierreTurno();
+					cierreTurno.setFecha(parametros.getFechaSys());
+					cierreTurno.setFecha2(parametros.getFechaSysSystem2());
+					cierreTurno.setHora(parametros.getHora());
+					cierreTurno.setNCaja("" + parametros.getCaja());
+					cierreTurno.setIdCierreTurno(0);
+
+					cierreTurno.setNCierre("" + ultimoCierre.getSiguienteNCierre());
+					bd.openDB();
+					cierreTurno.setTransacciones("" + bd.obtenerNumeroFacturasCierreTurno("" + parametros.getCaja(), ultimoCierre));
+					bd.obtenerDatosNuevoCierreTurno(cierreTurno, ultimoCierre);
+					bd.close();
+					cierreTurno.setVendedor(parametros.getRuta());
+
+					GuardaCierre(cierreTurno);
+					muestraMensajePantalla("Cierre turno registrado correctamente");
+					Intent intent = new Intent(ZFinancieraActivity.this, VerCierreTurno.class);
+					intent.putExtra("NCaja", cierreTurno.getNCaja());
+					intent.putExtra("NCierre", cierreTurno.getNCierre());
+					startActivity(intent);
+					finish();
+					//---------------------------------------------------------
+				}
+			});
+			dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+				}
+			});
+			dialog.show();
+		}catch (Exception e)
 		{
-			muestraMensajePantalla("No es posible realizar el cierre, debio a que no se encuentran transacciones retistradas");
-
-			return;
+			String text=e.toString();
 		}
-
-
-		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-		String mensaje="Esta seguro que desea generar el cierre de la caja "+parametros.getCaja();
-
-		//valida si existe algun cierre realizado con la misma fecha, en caso de que exista pregunta si desea realizar cierre nuevamnete
-		// siempre y cuando hayan facturas ralizadas despues del ultimo cierre
-    	if(bd.getValidaFechaCierreTurno(parametros.getFechaSys2System()))
-    	{
-    		mensaje="Acutualmente existe registrado un cierre con fecha "+textoFecha+". "+mensaje;
-    	}
-      	dialog.setMessage(mensaje);
-      	dialog.setCancelable(false);
-      	dialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {  	 
-      	
-      	  public void onClick(DialogInterface dialog, int which) {
-      	  	  //Guarda cierre he imprime informe
-			  //Crea objeto cierre
-			  CierreTurno cierreTurno=new CierreTurno();
-			  cierreTurno.setFecha(parametros.getFechaSys());
-			  cierreTurno.setFecha2(parametros.getFechaSysSystem2());
-			  cierreTurno.setHora(parametros.getHora());
-			  cierreTurno.setNCaja(""+parametros.getCaja());
-			  cierreTurno.setIdCierreTurno(0);
-
-			  cierreTurno.setNCierre(""+ultimoCierre.getSiguienteNCierre());
-			  bd.openDB();
-			  cierreTurno.setTransacciones(""+bd.obtenerNumeroFacturasCierreTurno(""+parametros.getCaja(),ultimoCierre));
-			  bd.obtenerDatosNuevoCierreTurno(cierreTurno,ultimoCierre);
-			  bd.close();
-			  cierreTurno.setVendedor(parametros.getRuta());
-
-			  GuardaCierre(cierreTurno);
-			  muestraMensajePantalla("Cierre turno registrado correctamente");
-			  Intent intent = new Intent(ZFinancieraActivity.this, VerCierreTurno.class);
-			  intent.putExtra("NCaja", cierreTurno.getNCaja());
-			  intent.putExtra("NCierre", cierreTurno.getNCierre());
-			  startActivity(intent);
-			  finish();
-			  //---------------------------------------------------------
-      	  }
-      	});
-      	dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-      	 
-      	
-      	   public void onClick(DialogInterface dialog, int which) {
-      	      dialog.cancel();
-      	   }
-      	});
-      	dialog.show();
 	}
 	private void GuardaCierre(CierreTurno cierreTurno)
 	{

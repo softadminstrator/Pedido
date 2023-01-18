@@ -1069,7 +1069,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 		        pedido.idCodigoInterno=bd.obtenerUltimoIdPedido(this);
 		        if(pedido.idCodigoInterno==0)
 		        {
-		        	pedido.idCodigoInterno=1;
+		        	pedido.idCodigoInterno=12000;
 		        }
 		        else
 		        {

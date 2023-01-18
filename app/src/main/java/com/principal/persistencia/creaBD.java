@@ -3295,7 +3295,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 */
 	public int obtenerUltimoIdPedido(Context cont)
 	{
-		int id=1;
+		int id=12000;
 		creaBD bd= new creaBD(cont);
 		bd.openDB();
 		SQLiteDatabase bds=bd.getWritableDatabase();		
@@ -3483,7 +3483,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 */
 	public long obtenerUltimoPedidoArticulo(Context cont, long idPedido)
 	{
-		long id=1;
+		long id=12000;
 		creaBD bd= new creaBD(cont);
 		bd.openDB();
 		try
@@ -6093,7 +6093,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal " +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal,  p.Anulada " +
 					" FROM factura p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.NFactura>="+cierreTurno.getNFacturaInicial()+" AND p.NFactura<="+cierreTurno.getNFacturaFinal()+
@@ -6146,6 +6146,7 @@ public class creaBD extends SQLiteOpenHelper {
 				ped.observaciones=c.getString(37);
 				//ped.idClienteSucursal=c.getLong(38);
 				ped.idClienteSucursal = validaCampoNull(c,38);
+				ped.setAnulada(""+validaCampoNull(c,39));
 				lista.add(ped);
 			}
 

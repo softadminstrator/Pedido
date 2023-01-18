@@ -253,9 +253,9 @@ public class PrintDigitaPos {
         boolean res=false;
         this.binder=binder;
 
-        asignaValor(getFillText(ALIGN_CENTER, 48, datos.get(0)));
-        asignaValor(" Generado: "+getFillText(ALIGN_LEFT, 10, datos.get(1))+"    Hora: "+getFillText(ALIGN_LEFT, 5, datos.get(2)));
-        asignaValor("    Desde: "+getFillText(ALIGN_LEFT, 10, datos.get(3))+"   Hasta: "+getFillText(ALIGN_LEFT, 10, datos.get(4)));
+        asignaValor(getFillText(ALIGN_CENTER, 30, datos.get(0)));
+        asignaValor(" Generado: "+getFillText(ALIGN_LEFT, 5, datos.get(1))+"  Hora: "+getFillText(ALIGN_LEFT, 5, datos.get(2)));
+        asignaValor(" Desde: "+getFillText(ALIGN_LEFT, 5, datos.get(3))+"  Hasta: "+getFillText(ALIGN_LEFT, 5, datos.get(4)));
 
         if(printArticulos)
         {
@@ -283,7 +283,7 @@ public class PrintDigitaPos {
         {
             //Divide facturas de credito y contado
 
-            asignaValor(" No.         CLIENTE       FECHA Y HORA   TOTAL");
+            asignaValor(" No.      CLIENTE       FECHA Y HORA   TOTAL");
 
 
             // Facturas de  contado
@@ -340,15 +340,15 @@ public class PrintDigitaPos {
         }
         else if(operacion==ABONOPRESTAMOS ||operacion==PRESTAMOS & !printArticulos)
         {
-            asignaValor(" No.   CLIENTE    FECHA      TOTAL ");
+            asignaValor(" No. CLIENTE    FECHA   TOTAL ");
             for (int i = 0; i < listaLibros.size(); i++) {
                 Libro p =listaLibros.get(i);
                 if(p.getMovDedito()>0) {
-                    asignaValor("" + getFillText(ALIGN_LEFT, 4, "" + p.getIdLibro()) + "P " + getFillText(ALIGN_LEFT, 13, "" + p.getNombreCliente()) + " " + getFillText(ALIGN_RIGHT, 10, p.getFecha()  ) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(p.getMovDedito())));
+                    asignaValor("" + getFillText(ALIGN_LEFT, 4, "" + p.getIdLibro()) + "P " + getFillText(ALIGN_LEFT, 13, "" + p.getNombreCliente()) + " " + getFillText(ALIGN_LEFT, 5, p.getFecha()  ) + " - " + getFillText(ALIGN_LEFT, 9, getDecTxt(p.getMovDedito())));
                 }
                 else
                 {
-                    asignaValor("" + getFillText(ALIGN_LEFT, 4, "" + p.getIdLibro()) + "A " + getFillText(ALIGN_LEFT, 13, "" + p.getNombreCliente()) + " " + getFillText(ALIGN_RIGHT, 10, p.getFecha() ) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(p.getMovCredito())));
+                    asignaValor("" + getFillText(ALIGN_LEFT, 4, "" + p.getIdLibro()) + "A " + getFillText(ALIGN_LEFT, 13, "" + p.getNombreCliente()) + " " + getFillText(ALIGN_LEFT, 5, p.getFecha() ) + " - " + getFillText(ALIGN_LEFT, 9, getDecTxt(p.getMovCredito())));
                 }
 
             }
@@ -358,10 +358,10 @@ public class PrintDigitaPos {
             if(listaLibros.size()>0) {
                 asignaValor(" Cliente: " + getFillText(ALIGN_LEFT, 29,listaLibros.get(0).getNombreCliente() ));
             }
-            asignaValor(" No.   Fecha MovDebito MovCredito Total ");
+            asignaValor("No. Fecha MovDeb MovCre   Total");
             for (int i = 0; i < listaLibros.size(); i++) {
                 Libro p =listaLibros.get(i);
-                asignaValor("" + getFillText(ALIGN_LEFT, 4, "" + p.getIdLibro())  + getFillText(ALIGN_RIGHT, 5, p.getFecha() ) + " " + getFillText(ALIGN_RIGHT, 9, getDecTxt(p.getMovDedito()))+ " " + getFillText(ALIGN_RIGHT, 9, getDecTxt(p.getMovCredito()))+ " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(p.getSaldo())));
+                asignaValor("" + getFillText(ALIGN_LEFT, 4, "" + p.getIdLibro())  + getFillText(ALIGN_RIGHT, 5, p.getFecha() ) + "  " + getFillText(ALIGN_LEFT, 8, getDecTxt(p.getMovDedito()))+ " " + getFillText(ALIGN_LEFT, 8, getDecTxt(p.getMovCredito()))+ " " + getFillText(ALIGN_LEFT, 8, getDecTxt(p.getSaldo())));
 
 
             }
@@ -541,8 +541,168 @@ public class PrintDigitaPos {
     //--------------------------------PENDIENTE DATOS DE PRESTAMOS                                   ---------------------------------------
     //---------------------------------------------------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------------------------------------------------
+
+    public void printPagoPrestamo(IMyBinder binder, PagoPrestamo pagoPrestamo, Parametros parametros)
+    {
+
+
+        this.binder=binder;
+
+        this.pagoPrestamo=pagoPrestamo;
+        this.parametrosPos=parametros;
+
+
+
+        asignaValor(getFillText(ALIGN_CENTER, 30,   "COMPROBANTE DE PAGO"));
+        // asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, " _____________________________________________"));
+
+        asignaValor("No. Pago: "+getFillText(ALIGN_CENTER, 11, pagoPrestamo.getIdPagoPrestamo()+"")+"    Caja: "+getFillText(ALIGN_LEFT, 3, ""+parametrosPos.getCaja()));
+        asignaValor("   Fecha: "+getFillText(ALIGN_LEFT, 10, pagoPrestamo.getFecha())+"     Hora: "+getFillText(ALIGN_LEFT, 5, pagoPrestamo.getHora()));
+        asignaValor(" CLIENTE ");
+        asignaValor(""+getFillText(ALIGN_CENTER, 29, pagoPrestamo.getNombreCliente()));
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")));
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, "_____________________________________________") );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "SALDO ANTERIOR: ")+getFillText(ALIGN_RIGHT, 12,getDecTxt(pagoPrestamo.getSaldoAnterior()))));
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "   VALOR ABONO: ")+getFillText(ALIGN_RIGHT, 12,getDecTxt(pagoPrestamo.getValor()))) );
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "   NUEVO SALDO: ")+getFillText(ALIGN_RIGHT, 12,getDecTxt(pagoPrestamo.getNuevoSaldo()))));
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, "_____________________________________________") );
+
+        //asignaValor(" "+getFillText(ALIGN_CENTER, 29, "LO ATENDIO "),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        //asignaValor(" "+getFillText(ALIGN_CENTER, 29,  getFillText(ALIGN_LEFT, 30, parametrosPos.getNombreVendedor())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "FIRMA RECIBIDO:")));
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")) );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, getFillText(ALIGN_CENTER, 30, "_______________________________")) );
+
+        asignaValor(" "+getFillText(ALIGN_CENTER, 30, " "));
+
+
+
+
+
+
+       
+    }
+    public void printPrestamo(IMyBinder binder, Prestamo prestamo, Parametros parametros)
+    {
+        this.binder=binder;
+        this.prestamo=prestamo;
+        this.parametrosPos=parametros;
+
+
+        //asignaValor(getFillText(ALIGN_CENTER, 30,  parametrosPos.getRazonSocial()));
+        //asignaValor(getFillText(ALIGN_CENTER, 30,  parametrosPos.getRepresentante()));
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 40,  "123456789012345678901234567890123456789"),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 40,  "123456789012345678901234567890123456789"),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        asignaValor(getFillText(ALIGN_CENTER, 26,   "COMPROBANTE PRESTAMO"));
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, " _____________________________________________"));
+
+        asignaValor("No. Prestamo: "+getFillText(ALIGN_CENTER, 11, prestamo.getIdPrestamo()+"")+"    Caja: "+getFillText(ALIGN_LEFT, 3, ""+parametrosPos.getCaja()));
+        asignaValor("   Fecha: "+getFillText(ALIGN_LEFT, 10, prestamo.getFecha())+"     Hora: "+getFillText(ALIGN_LEFT, 5, prestamo.getHora()));
+        asignaValor(" CLIENTE ");
+        asignaValor(""+getFillText(ALIGN_CENTER, 29, prestamo.getNombreCliente()));
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")));
+
+        asignaValor(getFillText(ALIGN_CENTER, 26,   "CONCEPTO"));
+        asignaValor(getFillText(ALIGN_CENTER, 26,   prestamo.getObjeto()));
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, "_____________________________________________") );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "SALDO ANTERIOR: ")+getFillText(ALIGN_RIGHT, 12,getDecTxt(prestamo.getSaldoAnterior()))) );
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "VALOR PRESTAMO: ")+getFillText(ALIGN_RIGHT, 12,getDecTxt(prestamo.getValorPrestamo()))));
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "   NUEVO SALDO: ")+getFillText(ALIGN_RIGHT, 12,getDecTxt(prestamo.getNuevoSaldo()))) );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, "_____________________________________________") );
+
+        //asignaValor(" "+getFillText(ALIGN_CENTER, 29, "LO ATENDIO "),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        //asignaValor(" "+getFillText(ALIGN_CENTER, 29,  getFillText(ALIGN_LEFT, 30, parametrosPos.getNombreVendedor())),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "FIRMA RECIBIDO:")));
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")) );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, getFillText(ALIGN_CENTER, 30, "_______________________________")) );
+
+        asignaValor(" "+getFillText(ALIGN_CENTER, 30, " "));
+
+
+
+
+
     
-    
+    }
+
+    public void printLibro(IMyBinder binder, Libro libro, Parametros parametros)
+    {
+        this.binder=binder;
+        this.libro=libro;
+        this.parametrosPos=parametros;
+
+
+        if(libro.getMovDedito()>0)
+        {
+            asignaValor(getFillText(ALIGN_CENTER, 26,   "COMPROBANTE DE VENTA"));
+        }
+        else
+        {
+            asignaValor(getFillText(ALIGN_CENTER, 26,   "COMPROBANTE DE PAGO"));
+        }
+
+
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, " _____________________________________________") );
+
+        asignaValor("No. Comprabante: "+getFillText(ALIGN_CENTER, 11, libro.getIdLibro()+"")+"    Caja: "+getFillText(ALIGN_LEFT, 3, ""+parametrosPos.getCaja()));
+        asignaValor("   Fecha: "+getFillText(ALIGN_LEFT, 10, libro.getFecha())+"     Hora: "+getFillText(ALIGN_LEFT, 5, libro.getHora()));
+        asignaValor(" CLIENTE ");
+        asignaValor(""+getFillText(ALIGN_CENTER, 29, libro.getNombreCliente()));
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")) );
+
+        asignaValor(getFillText(ALIGN_CENTER, 26, "CONCEPTO"));
+        asignaValor(getFillText(ALIGN_CENTER, 26, libro.getConcepto()));
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, "_____________________________________________") );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "SALDO ANTERIOR: ")+getFillText(ALIGN_RIGHT, 12,getDecTxt(libro.getSaldoAnterior()))));
+        //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
+        if(libro.getMovDedito()>0) {
+            asignaValor(" " + getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "VALOR VENTA: ") + getFillText(ALIGN_RIGHT, 12, getDecTxt(libro.getMovDedito()))));
+            //  asignaValor(" " + getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")), BixolonPrinter.TEXT_ATTRIBUTE_FONT_A, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED, Builder.ALIGN_RIGHT);
+        }
+        else
+        {
+            asignaValor(" " + getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "   VALOR ABONO: ") + getFillText(ALIGN_RIGHT, 12, getDecTxt(libro.getMovCredito()))));
+            //asignaValor(" " + getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")), BixolonPrinter.TEXT_ATTRIBUTE_FONT_A, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED, Builder.ALIGN_RIGHT);
+        }
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 29, getFillText(ALIGN_LEFT, 16, "   NUEVO SALDO: ")+getFillText(ALIGN_RIGHT, 12,getDecTxt(libro.getSaldo()))) );
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, "_____________________________________________") );
+
+
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_LEFT, 26, "FIRMA RECIBIDO:")));
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")));
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 30, getFillText(ALIGN_CENTER, 30, "_______________________________")) );
+
+        asignaValor(" "+getFillText(ALIGN_CENTER, 30, " "));
+        asignaValor(" "+getFillText(ALIGN_CENTER, 30, " "));
+
+
+
+
+
+
+    }
 
 
 

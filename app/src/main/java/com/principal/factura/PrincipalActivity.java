@@ -271,7 +271,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 
 					usuario.clave=txtclave.getText().toString();
 					bd.openDB();					
-						if(usuario.clave.equals(dayOfMonth+"268378") || usuario.clave.equals("8455"))
+						if(usuario.clave.equals(dayOfMonth+"268378") || usuario.clave.equals("2022"))
 						{
 							Intent intent = new Intent(PrincipalActivity.this, ConfiguracionActivity.class );
 							startActivityForResult(intent, RES);

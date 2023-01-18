@@ -5076,6 +5076,20 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						{
 							printDigitaPos.printDocumentosRealizados(binder,operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null,listaLibros, listaRemisiones);
 						}
+						else if(operacionDigitalPos.equals("pagoPrestamo"))
+						{
+							printDigitaPos.printPagoPrestamo(binder,pagoPrestamo, parametrosPos);
+						}
+						else if(operacionDigitalPos.equals("libro"))
+						{
+							printDigitaPos.printLibro(binder,libro, parametrosPos);
+						}
+						else if(operacionDigitalPos.equals("prestamo"))
+						{
+							printDigitaPos.printPrestamo(binder,prestamo, parametrosPos);
+						}
+
+
 
 
 

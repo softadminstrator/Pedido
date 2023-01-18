@@ -26,7 +26,7 @@ import com.principal.persistencia.creaBD;
 import com.principal.print.PrintBixolon;
 import com.principal.print.PrintDigitaPos;
 
-import net.posprinter.posprinterface.IMyBinder;
+//import net.posprinter.posprinterface.IMyBinder;
 import net.posprinter.posprinterface.UiExecute;
 import net.posprinter.service.PosprinterService;
 import net.posprinter.utils.DataForSendToPrinterPos80;
@@ -53,10 +53,11 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
     private ListView lvFacturasCierre;
     private boolean pirntArticulos;
 
-    public static IMyBinder binder;
+    //public static IMyBinder binder;
     public static boolean ISCONNECT;
 
     //bindService connection
+    /*
     ServiceConnection conn= new ServiceConnection() {
 
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
@@ -70,50 +71,56 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
             Log.e("disbinder","disconnected");
         }
     };
-
+*/
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ver_cierre_turno);
-        bd=new creaBD(this);
-        parametros=bd.getParametros(this, "W");
+        try {
+            setContentView(R.layout.activity_ver_cierre_turno);
+            bd = new creaBD(this);
+            parametros = bd.getParametros(this, "W");
 
 
-        //variables para impresora digital pos
-        //bind service?get ImyBinder object
-        Intent intent=new Intent(this, PosprinterService.class);
-        bindService(intent, conn, BIND_AUTO_CREATE);
+            //variables para impresora digital pos
+            //bind service?get ImyBinder object
+            // Intent intent=new Intent(this, PosprinterService.class);
+            // bindService(intent, conn, BIND_AUTO_CREATE);
 
-        //inicializa vistas de actividad
-        btImprimirCierreTurno=(Button)findViewById(R.id.btImprimirCierreTurno);
-        btVolverCierreTurno=(Button)findViewById(R.id.btVolverCierreTurno);
-        btImprimirCierreTurno.setOnClickListener(this);
-        btVolverCierreTurno.setOnClickListener(this);
+            //inicializa vistas de actividad
+            btImprimirCierreTurno = (Button) findViewById(R.id.btImprimirCierreTurno);
+            btVolverCierreTurno = (Button) findViewById(R.id.btVolverCierreTurno);
+            btImprimirCierreTurno.setOnClickListener(this);
+            btVolverCierreTurno.setOnClickListener(this);
 
-        tvTextNCierre=(TextView)findViewById(R.id.tvTextNCierre);
-        tvTextoNCaja=(TextView)findViewById(R.id.tvTextoNCaja);
-        tvTextFecha=(TextView)findViewById(R.id.tvTextFecha);
-        tvTextHoraCierre=(TextView)findViewById(R.id.tvTextHoraCierre);
-        tvTextFacturaInicial=(TextView)findViewById(R.id.tvTextFacturaInicial);
-        tvTextFacturaFinal=(TextView)findViewById(R.id.tvTextFacturaFinal);
-        tvTextNTransacciones=(TextView)findViewById(R.id.tvTextNTransacciones);
-        tvTextValorCierre=(TextView)findViewById(R.id.tvTextValorCierre);
+            tvTextNCierre = (TextView) findViewById(R.id.tvTextNCierre);
+            tvTextoNCaja = (TextView) findViewById(R.id.tvTextoNCaja);
+            tvTextFecha = (TextView) findViewById(R.id.tvTextFecha);
+            tvTextHoraCierre = (TextView) findViewById(R.id.tvTextHoraCierre);
+            tvTextFacturaInicial = (TextView) findViewById(R.id.tvTextFacturaInicial);
+            tvTextFacturaFinal = (TextView) findViewById(R.id.tvTextFacturaFinal);
+            tvTextNTransacciones = (TextView) findViewById(R.id.tvTextNTransacciones);
+            tvTextValorCierre = (TextView) findViewById(R.id.tvTextValorCierre);
 
-        lvFacturasCierre=(ListView)findViewById(R.id.lvFacturasCierre);
+            lvFacturasCierre = (ListView) findViewById(R.id.lvFacturasCierre);
 
 
-        //Obtiene paramentros del cierre a mostrar
+            //Obtiene paramentros del cierre a mostrar
 
-        Bundle obtenerDatos=new Bundle();
-        obtenerDatos = this.getIntent().getExtras();
-        NCierre=obtenerDatos.getString("NCierre");
-        NCaja=obtenerDatos.getString("NCaja");
+            Bundle obtenerDatos = new Bundle();
+            obtenerDatos = this.getIntent().getExtras();
+            NCierre = obtenerDatos.getString("NCierre");
+            NCaja = obtenerDatos.getString("NCaja");
 
-        //Obtiene cierre turno a consultar
-        cierreTurno=bd.obtenerCierreTurno(NCaja,NCierre);
-        cargarDatosCierre();
+            //Obtiene cierre turno a consultar
+            cierreTurno = bd.obtenerCierreTurno(NCaja, NCierre);
+            cargarDatosCierre();
+        }
+        catch (Exception e)
+        {
+            String t=e.toString();
+        }
     }
 
     public void onClick(View v) {
@@ -135,12 +142,12 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
                 public void onClick(DialogInterface dialog, int which) {
                     //----------------------------------------------------------------------
                     pirntArticulos=false;
-                     if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==1& parametros.getUsaPrintDigitalPos()==0) {
+                     //if( parametros.getUsaPrintBixolon()==1) {
                          printBixolonsppr310();
-                     }
-                    else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==0& parametros.getUsaPrintDigitalPos()==1) {
-                        printDigitalPos810();
-                    }
+                   //  }
+                   /** else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==0& parametros.getUsaPrintDigitalPos()==1) {
+                         //printDigitalPos810();
+                    }**/
                     dialog.cancel();
                 }
             });
@@ -149,12 +156,12 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
 
                 public void onClick(DialogInterface dialog, int which) {
                     pirntArticulos=true;
-                    if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==1& parametros.getUsaPrintDigitalPos()==0) {
+                   // if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==1& parametros.getUsaPrintDigitalPos()==0) {
                         printBixolonsppr310();
-                    }
-                    else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==0& parametros.getUsaPrintDigitalPos()==1) {
-                        printDigitalPos810();
-                    }
+                  //  }
+                  //  else if(parametros.getUsaImpresoraZebra()==0 & parametros.getUsaPrintEpson()==0& parametros.getUsaPrintBixolon()==0& parametros.getUsaPrintDigitalPos()==1) {
+                        //printDigitalPos810();
+                   // }
                     dialog.cancel();
                 }
             });
@@ -216,7 +223,7 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
             return true;
         }
     });
-
+/*
     private void printDigitalPos810(){
         String bleAdrress=parametros.getMacAddBixolon();
 
@@ -259,6 +266,8 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
                     }
                 });
     }
+    */
+
 
 
 

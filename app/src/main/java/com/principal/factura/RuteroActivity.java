@@ -17,8 +17,11 @@ import com.principal.persistencia.creaBD;
 import com.principal.mundo.*;
 import com.principal.mundo.sysws.GetClientexVendedor;
 import com.principal.print.PrintBixolon;
+import com.principal.print.PrintDigitaPos;
 
 import android.annotation.SuppressLint;
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -27,6 +30,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.app.Activity;
@@ -67,6 +71,11 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+import net.posprinter.posprinterface.IMyBinder;
+import net.posprinter.posprinterface.UiExecute;
+import net.posprinter.service.PosprinterService;
+import net.posprinter.utils.DataForSendToPrinterPos80;
+
 /**
  * Clase en la que se muestran los clientes asignados para cada uno de los dias de la semana
  * y muestra los clientes dependiendo del dia de la semana que se seleccione
@@ -81,6 +90,9 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 	private final static int ABONOPRESTAMOS=9;
 	private final static int REMISION=12;
 
+
+	public static IMyBinder binder;
+	public static boolean ISCONNECT;
 
 
 	static final int SEND_TIMEOUT = 10 * 1000;
@@ -230,6 +242,28 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
     public void onCreate(Bundle savedInstanceState) {
 
     	try {
+
+			//bindService connection
+			ServiceConnection conn= new ServiceConnection() {
+
+				public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+					//Bind successfully
+					binder= (IMyBinder) iBinder;
+					Log.e("binder","connected");
+				}
+
+
+				public void onServiceDisconnected(ComponentName componentName) {
+					Log.e("disbinder","disconnected");
+				}
+			};
+			//variables para impresora digital pos
+			//bind service，get ImyBinder object
+			Intent intent=new Intent(this, PosprinterService.class);
+			bindService(intent, conn, BIND_AUTO_CREATE);
+
+
+
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_rutero);
 			letraEstilo = new LetraEstilo();
@@ -1104,7 +1138,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 				try
 				{
 					operacionDigitalPos="libro";
-					printBixolonsppr310();
+					printDigitalPos810();
 				}catch(Exception e){
 					mostrarMensaje("No fue posible Enviar la impresion", "l");
 					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
@@ -1335,6 +1369,47 @@ private void refreshCliente()
 		imm.showSoftInput(lvSucursales, InputMethodManager.SHOW_IMPLICIT);
 		lvSucursales.requestFocus();
 		test.show();
+	}
+
+	private void printDigitalPos810(){
+		String bleAdrress=parametrosPos.getMacAddDigitalPos();
+		binder.connectBtPort(bleAdrress, new UiExecute() {
+			public void onsucess() {
+				ISCONNECT = true;
+				PrintDigitaPos printDigitaPos = new PrintDigitaPos();
+
+				if(operacionDigitalPos.equals("libro"))
+				{
+					printDigitaPos.printLibro(binder,libro, parametrosSys);
+				}
+				binder.write(DataForSendToPrinterPos80.openOrCloseAutoReturnPrintState(0x1f), new UiExecute() {
+
+					public void onsucess() {
+						binder.acceptdatafromprinter(new UiExecute() {
+
+							public void onsucess() {
+							}
+
+
+							public void onfailed() {
+								ISCONNECT=false;
+							}
+						});
+					}
+
+
+					public void onfailed() {
+						ISCONNECT=false;
+					}
+				});
+
+
+			}
+
+			public void onfailed() {
+				mostrarMensaje("desconectado impresora", "l");
+			}
+		});
 	}
 
 

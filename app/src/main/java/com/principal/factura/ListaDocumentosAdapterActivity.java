@@ -199,7 +199,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					{
 						linea.setBackgroundColor(0xFFC4D328);
 					}
-					//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
+										//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
 					tvCodigoExterno.setText(Long.toString(fac.NFactura));
 					tvNombreClientep.setText(fac.nombreCliente);
 					tvHora.setText(fac.hora);			
