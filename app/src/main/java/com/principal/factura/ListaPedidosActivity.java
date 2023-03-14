@@ -4369,6 +4369,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				try
 				{
 					operacionDigitalPos="prestamo";
+					conectprintDigitalPOS();
 					printDigitalPos810();
 				}catch(Exception e){
 					mostrarMensaje("No fue posible Enviar la impresion", "l");
@@ -4377,6 +4378,29 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 			}
 
 		}
+	}
+
+
+	private void conectprintDigitalPOS()
+	{
+		//bindService connection
+		ServiceConnection conn= new ServiceConnection() {
+
+			public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+				//Bind successfully
+				binder= (IMyBinder) iBinder;
+				Log.e("binder","connected");
+			}
+
+
+			public void onServiceDisconnected(ComponentName componentName) {
+				Log.e("disbinder","disconnected");
+			}
+		};
+		//variables para impresora digital pos
+		//bind service，get ImyBinder object
+		Intent intent=new Intent(this, PosprinterService.class);
+		bindService(intent, conn, BIND_AUTO_CREATE);
 	}
 
 	private void PrintDocumentIdLibro(long IdLibro)
@@ -5099,6 +5123,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 								binder.acceptdatafromprinter(new UiExecute() {
 
 									public void onsucess() {
+										ISCONNECT=false;
 									}
 
 

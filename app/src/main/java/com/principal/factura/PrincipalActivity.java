@@ -65,6 +65,7 @@ import com.principal.mundo.sysws.GetPedidoMesa;
 import com.principal.mundo.sysws.GetValidaVendedor;
 import com.principal.mundo.sysws.Pedido;
 import com.principal.mundo.sysws.Ruta;
+import com.principal.mundo.wsstarlap.LLamarVendedores;
 import com.principal.persistencia.creaBD;
 /**
  * Clase principal de la aplicacion en la cual se muestra la actividad inicial
@@ -345,7 +346,10 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 			
 		@Override
 		protected Integer doInBackground(String... params) {			
-				
+
+
+
+
 			if(parametrosPos.isValue(parametrosPos.getUsaWSCash()))
 			{
 				llamarClientes=new LlamarClientes(parametrosPos.getIp());
@@ -796,7 +800,15 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 		String  res ="";		
 		@Override
 			protected Integer doInBackground(String... params) 
-			{	
+			{
+
+			//Se realizan pruebas para obtener datos de la api
+				//LLamarVendedores lLamarVendedores=new LLamarVendedores();
+				//res=lLamarVendedores.GetVendedores();
+
+
+
+
 			if(parametrosPos.isValue(parametrosPos.getUsaWSCash()))
 			{
 				LlamarUsuario llamarUsuario=new LlamarUsuario(parametrosPos.getIp());					

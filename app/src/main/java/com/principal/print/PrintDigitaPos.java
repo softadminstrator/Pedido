@@ -552,7 +552,8 @@ public class PrintDigitaPos {
         this.parametrosPos=parametros;
 
 
-
+        asignaValor(getFillText(ALIGN_CENTER, 30,  parametrosPos.getRazonSocial()));
+        asignaValor(getFillText(ALIGN_CENTER, 30,  parametrosPos.getRepresentante()));
         asignaValor(getFillText(ALIGN_CENTER, 30,   "COMPROBANTE DE PAGO"));
         // asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
         asignaValor(" "+getFillText(ALIGN_RIGHT, 30, " _____________________________________________"));
@@ -603,7 +604,8 @@ public class PrintDigitaPos {
         //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
         //asignaValor(" "+getFillText(ALIGN_RIGHT, 40,  "123456789012345678901234567890123456789"),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
         //asignaValor(" "+getFillText(ALIGN_RIGHT, 40,  "123456789012345678901234567890123456789"),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
-
+        asignaValor(getFillText(ALIGN_CENTER, 26,  parametrosPos.getRazonSocial()));
+        asignaValor(getFillText(ALIGN_CENTER, 26,  parametrosPos.getRepresentante()));
         asignaValor(getFillText(ALIGN_CENTER, 26,   "COMPROBANTE PRESTAMO"));
         //asignaValor(" "+getFillText(ALIGN_RIGHT, 26, getFillText(ALIGN_CENTER, 26, "")),BixolonPrinter.TEXT_ATTRIBUTE_FONT_A ,BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,Builder.ALIGN_RIGHT );
         asignaValor(" "+getFillText(ALIGN_RIGHT, 30, " _____________________________________________"));
@@ -650,7 +652,8 @@ public class PrintDigitaPos {
         this.binder=binder;
         this.libro=libro;
         this.parametrosPos=parametros;
-
+        asignaValor(getFillText(ALIGN_CENTER, 26,  parametrosPos.getRazonSocial()));
+        asignaValor(getFillText(ALIGN_CENTER, 26,  parametrosPos.getRepresentante()));
 
         if(libro.getMovDedito()>0)
         {

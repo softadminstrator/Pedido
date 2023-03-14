@@ -48,6 +48,7 @@
     <orderEntry type="library" name="Gradle: ./app/libs/ePOS-Print.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./app/libs/BixolonPrinterV238.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./app/libs/posprinterconnectandsendsdk.jar" level="project" />
+    <orderEntry type="library" name="Gradle: ./app/libs/java-json.jar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:multidex:1.0.2@aar" level="project" />
   </component>
 </module>
