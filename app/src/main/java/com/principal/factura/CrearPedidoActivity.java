@@ -78,6 +78,8 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 	private final static int TRANSLADO = 3;
 	private final static int REMISION=12;
 	private boolean keyback=false;
+
+	private long tipoPrecio=0;
 	
 	private int intFocus=0;
 
@@ -447,7 +449,8 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 				}	
          } 
          textView[11].setVisibility(View.GONE);
-         btPrecio.setText(cliente.getTextoPrecioDefecto());     
+         btPrecio.setText(cliente.getTextoPrecioDefecto());
+         tipoPrecio=Long.parseLong(cliente.getPrecioDefecto());
          etCodigo.requestFocus(); 
          etPrecio.setEnabled(parametrosPos.isModificaPrecio()&&cliente.idCliente!=2897);
       	 btPrecio.setEnabled(parametrosPos.isModificaPrecio()&&cliente.idCliente!=2897);
@@ -466,18 +469,21 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 				etPrecio.setText("");
 				etPrecio.setText(Long.toString(articulo.precio3));
 				btPrecio.setText("Precio 3");
+				tipoPrecio=3;
 			}
 			else if(btPrecio.getText().toString().equals("Precio 2"))
 			{
 				etPrecio.setText("");
 				etPrecio.setText(Long.toString(articulo.precio1));
 				btPrecio.setText("Precio 1");
+				tipoPrecio=1;
 			}
 			else if(btPrecio.getText().toString().equals("Precio 3"))
 			{
 				etPrecio.setText("");
 				etPrecio.setText(Long.toString(articulo.precio2));
 				btPrecio.setText("Precio 2");
+				tipoPrecio=2;
 			}
 		}
 		else
@@ -487,30 +493,35 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 				etPrecio.setText("");
 				etPrecio.setText(Long.toString(articulo.precio2));
 				btPrecio.setText("Precio 2");
+				tipoPrecio=2;
 			}
 			else if(btPrecio.getText().toString().equals("Precio 2"))
 			{
 				etPrecio.setText("");
 				etPrecio.setText(Long.toString(articulo.precio3));
 				btPrecio.setText("Precio 3");
+				tipoPrecio=3;
 			}
 			else if(btPrecio.getText().toString().equals("Precio 3"))
 			{
 				etPrecio.setText("");
 				etPrecio.setText(Long.toString(articulo.precio4));
 				btPrecio.setText("Precio 4");
+				tipoPrecio=4;
 			}
 			else if(btPrecio.getText().toString().equals("Precio 4"))
 			{
 				etPrecio.setText("");
 				etPrecio.setText(Long.toString(articulo.precio5));
 				btPrecio.setText("Precio 5");
+				tipoPrecio=5;
 			}
 			else if(btPrecio.getText().toString().equals("Precio 5"))
 			{
 				etPrecio.setText("");
 				etPrecio.setText(Long.toString(articulo.precio6));
 				btPrecio.setText("Precio 6");
+				tipoPrecio=6;
 			}
             else  if (btPrecio.getText().toString().equals("Precio 6")) {
                 if(parametrosPos.getConsultaCosto()==1 )
@@ -518,11 +529,13 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
                     mostrarMensaje("Precio Costo Seleccionado  ", "s");
                     etPrecio.setText(Long.toString(articulo.costo));
                     btPrecio.setText("Costo");
+					tipoPrecio=0;
                 }
                 else {
                     mostrarMensaje("Precio 1 Seleccionado  ", "s");
                     etPrecio.setText(Long.toString(articulo.precio1));
                     btPrecio.setText("Precio 1");
+					tipoPrecio=1;
                 }
 
             }
@@ -530,6 +543,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
                 mostrarMensaje("Precio 1 Seleccionado  ", "s");
                 etPrecio.setText(Long.toString(articulo.precio1));
                 btPrecio.setText("Precio 1");
+				tipoPrecio=1;
             }
 		}
 	}
@@ -773,7 +787,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 												{
 
 
-													if(bd.insertPedidoArticulos(pedido.idCodigoInterno, articulo.idArticulo, cantidad, precio,(long) (cantidad*precio),orden+1, articulo.idCodigo,articulo.getStockint(),""));
+													if(bd.insertPedidoArticulos(pedido.idCodigoInterno, articulo.idArticulo, cantidad, precio,(long) (cantidad*precio),orden+1, articulo.idCodigo,articulo.getStockint(),"",tipoPrecio));
 													{
 														mostrarMensaje("Articulo Ingresado Correctamente", "l"); 										
 													}									
@@ -902,7 +916,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 				{
 
 
-					if(bd.insertPedidoArticulos(pedido.idCodigoInterno, art.idArticulo, art.cantPedir, art.getPrecioUnitario(),(long) (art.cantPedir*art.getPrecioUnitario()),orden+1, art.idCodigo,art.getStockint(),""));
+					if(bd.insertPedidoArticulos(pedido.idCodigoInterno, art.idArticulo, art.cantPedir, art.getPrecioUnitario(),(long) (art.cantPedir*art.getPrecioUnitario()),orden+1, art.idCodigo,art.getStockint(),"",art.getTipoPrecio()));
 					{
 						//mostrarMensaje("Articulo Ingresado Correctamente", "l");
 					}
@@ -2411,7 +2425,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 								}
 								else
 								{
-									if(bd.insertPedidoArticulos(pedido.idCodigoInterno, articulo.idArticulo, (double) cant, precio, (long) (cant*precio),orden+1, articulo.idCodigo,(double) articulo.getStockint(),""));
+									if(bd.insertPedidoArticulos(pedido.idCodigoInterno, articulo.idArticulo, (double) cant, precio, (long) (cant*precio),orden+1, articulo.idCodigo,(double) articulo.getStockint(),"",tipoPrecio));
 									{
 										mostrarMensaje("Articulo Ingresado Correctamente", "l");
 									}

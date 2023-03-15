@@ -89,6 +89,7 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 	PutStock putStock;
 	boolean existe =false;
 	private boolean keyback=false;
+
 	
 	
 	public final static int SUCCESS_RETURN_CODE = 1;
@@ -634,6 +635,7 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 			for (int j = 0; j <listaArt.size() ; j++) {
 				if(listaArt.get(j).cantPedir>0)
 				{
+					listaArt.get(j).setTipoPrecio(precioSelect );
 					listSelec.add(listaArt.get(j));
 				}
 			}
@@ -749,6 +751,7 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 					mostrarMensaje("Precio 3 Seleccionado", "s");
 					btPrecioVer.setText("Precio 3");
 					precioSelect = 3;
+
 				} else if (btPrecioVer.getText().toString().equals("Precio 2")) {
 					mostrarMensaje("Precio 1 Seleccionado  ", "s");
 					btPrecioVer.setText("Precio 1");

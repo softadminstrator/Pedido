@@ -29,6 +29,7 @@ public class ItemPedido {
 	private ArrayList<Observacion> listaObservaciones;
 
 	private String Observacion;
+	private long TipoPrecio;
 
 	private String EstadoAls;
 	private String ObservacionAls;
@@ -110,12 +111,12 @@ public class ItemPedido {
 		ImpresoraCategoria = "";
 	    listaObservaciones=new ArrayList<Observacion>();
 	    Observacion=articulosPedido.getObservacion();
-
+		TipoPrecio=articulosPedido.getTipoPrecio();
  }
 
 	public int getPropertyCount() {
 		// TODO Auto-generated method stub
-		return 19;
+		return 20;
 	}
 	public Object getProperty(int i) {
 		switch(i)
@@ -139,6 +140,7 @@ public class ItemPedido {
 			case 16:return getXmlObservaciones();
 			case 17: return NObserArt;
 			case 18: return Observacion;
+			case 19: return TipoPrecio;
 		}
 		return null;
 	}
@@ -165,6 +167,7 @@ public class ItemPedido {
 			case 16: return "ListaObservaciones";
 			case 17: return "NObserArt";
 			case 18: return "Observacion";
+			case 19: return "TipoPrecio";
 		}
 		return null;
 	}
@@ -191,6 +194,7 @@ public class ItemPedido {
 			case 16:  XmlListaObservaciones=data;break;
 			case 17:  NObserArt=Long.parseLong(data);break;
 			case 18:  Observacion=data;break;
+			case 19:  TipoPrecio=Long.parseLong(data);break;
 		}
 	}
 

@@ -96,6 +96,9 @@ public class ArticulosPedido implements KvmSerializable
 	public  String Observacion;
 
 
+	public long tipoPrecio;
+
+
 	
 	/**
 	 * metodo que asigna valores a los atributos de la clase
@@ -592,6 +595,11 @@ public class ArticulosPedido implements KvmSerializable
 		Observacion = observacion;
 	}
 
+	public long getTipoPrecio() {
+		return tipoPrecio;
+	}
 
-
+	public void setTipoPrecio(long tipoPrecio) {
+		this.tipoPrecio = tipoPrecio;
+	}
 }

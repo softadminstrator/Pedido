@@ -53,7 +53,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 30);
+		super(context, "BDPEDIDOSYS", null, 31);
 
 	}
 
@@ -309,7 +309,8 @@ public class creaBD extends SQLiteOpenHelper {
 				"  stock  REAL," +
 				"  impreso  INGETER," +
 				"  NObserArt  INGETER," +
-				"  Observacion TEXT" +
+				"  Observacion TEXT," +
+				"  tipoPrecio INTEGER" +
 				" ) ";
 		db.execSQL(query);
 
@@ -731,6 +732,9 @@ public class creaBD extends SQLiteOpenHelper {
 		Actualiza(db, upgradeQuery);
 
 		upgradeQuery = "ALTER TABLE parametro ADD COLUMN permiteStocken0EnPedido INGETER ";
+		Actualiza(db, upgradeQuery);
+
+		upgradeQuery = "ALTER TABLE pedidos_articulos ADD COLUMN tipoPrecio INGETER ";
 		Actualiza(db, upgradeQuery);
 
 
@@ -1331,7 +1335,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param codigo
 	 * @return true o false
 	 */
-	public boolean insertPedidoArticulos( long idPedido, long idArticulo, double cantidad, long valorUnitario, long valor,long orden, String codigo, double stock, String observacion )
+	public boolean insertPedidoArticulos( long idPedido, long idArticulo, double cantidad, long valorUnitario, long valor,long orden, String codigo, double stock, String observacion, long tipoPrecio )
 	{
 		try
 		{
@@ -1345,7 +1349,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("codigo", codigo);	
 			valuesIn.put("stock", stock);
 			valuesIn.put("Observacion", observacion);
-
+			valuesIn.put("tipoPrecio", tipoPrecio);
 
 		    this.getWritableDatabase().insert("pedidos_articulos", null, valuesIn);
 			return true;
@@ -4705,7 +4709,7 @@ public class creaBD extends SQLiteOpenHelper {
 	    			   " a.nombre, pa.valorUnitario, pa.valor, pa.codigo," +
 	    			   " a.unidad, a.precio1, a.precio2, a.precio3, a.impoconsumo," +
 	    			   " a.iva, pa.stock, a.activo, pa.orden, a.precio4, a.precio5," +
-	    			   " a.precio6, pa.Observacion "+
+	    			   " a.precio6, pa.Observacion, pa.tipoPrecio "+
 					   " FROM pedidos_articulos pa, articulos a"+
 					   " WHERE pa.idPedido ="+idPedido+
 					   " AND pa.idArticulo = a.idArticulo"+
@@ -4737,6 +4741,8 @@ public class creaBD extends SQLiteOpenHelper {
 			articulosPedido.precio5=c.getLong(17);
 			articulosPedido.precio6=c.getLong(18);
 			articulosPedido.Observacion=c.getString(19);
+			articulosPedido.tipoPrecio=c.getLong(20);
+			articulosPedido.tipoPrecio=((c.isNull(20)) ? 1 : c.getLong(20));
 
 			lista.add(articulosPedido);
 		}

@@ -123,6 +123,8 @@ public class Articulo implements Comparator<Articulo>, Parcelable
 
 	public String unidadDeMedida;
 
+	public long TipoPrecio;
+
 
 	
 	/**
@@ -753,6 +755,7 @@ public class Articulo implements Comparator<Articulo>, Parcelable
 		dest.writeLong(activo);
 		dest.writeDouble(stock);
 		dest.writeLong(iva);
+		dest.writeLong(TipoPrecio);
 
 
 
@@ -784,6 +787,7 @@ public class Articulo implements Comparator<Articulo>, Parcelable
 		stock=in.readDouble();
 		activo= in.readLong();
 		iva= in.readLong();
+		TipoPrecio= in.readLong();
 //      reading in a list custom objects: in.readTypedList(someCustomObjectArrayList, someCustomObject.CREATOR )
 
 	}
@@ -871,5 +875,13 @@ public class Articulo implements Comparator<Articulo>, Parcelable
 
 	public void setUnidadDeMedida(String unidadDeMedida) {
 		this.unidadDeMedida = unidadDeMedida;
+	}
+
+	public long getTipoPrecio() {
+		return TipoPrecio;
+	}
+
+	public void setTipoPrecio(long tipoPrecio) {
+		TipoPrecio = tipoPrecio;
 	}
 }
