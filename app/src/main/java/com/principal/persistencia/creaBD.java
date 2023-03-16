@@ -53,7 +53,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 31);
+		super(context, "BDPEDIDOSYS", null, 32);
 
 	}
 
@@ -365,7 +365,8 @@ public class creaBD extends SQLiteOpenHelper {
 				"  valor INGETER, " +
 				"  orden INTEGER," +
 				"  codigo TEXT," +
-				"  stock  REAL" +
+				"  stock  REAL," +
+				"  tipoPrecio INTEGER" +
 				" ) ";
 		db.execSQL(query);
 
@@ -736,6 +737,11 @@ public class creaBD extends SQLiteOpenHelper {
 
 		upgradeQuery = "ALTER TABLE pedidos_articulos ADD COLUMN tipoPrecio INGETER ";
 		Actualiza(db, upgradeQuery);
+
+		upgradeQuery = "ALTER TABLE factura_articulos ADD COLUMN tipoPrecio INGETER ";
+		Actualiza(db, upgradeQuery);
+
+
 
 
 
@@ -1856,7 +1862,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param codigo
 	 * @return true o false
 	 */
-	public boolean insertFacturaArticulos( long idFactura, long idArticulo, double cantidad, long valorUnitario, long valor,long orden, String codigo, double stock )
+	public boolean insertFacturaArticulos( long idFactura, long idArticulo, double cantidad, long valorUnitario, long valor,long orden, String codigo, double stock , long tipoPrecio)
 	{
 		try
 		{
@@ -1868,8 +1874,9 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("valor", valor);
 			valuesIn.put("orden", orden);
 			valuesIn.put("codigo", codigo);	
-			valuesIn.put("stock", stock);	
-		    this.getWritableDatabase().insert("factura_articulos", null, valuesIn);
+			valuesIn.put("stock", stock);
+			valuesIn.put("tipoPrecio", tipoPrecio);
+			this.getWritableDatabase().insert("factura_articulos", null, valuesIn);
 			return true;
 		}
 		catch(Exception e)
@@ -4757,7 +4764,7 @@ public class creaBD extends SQLiteOpenHelper {
 		openDB();
 		SQLiteDatabase bds=getWritableDatabase();
 		
-	    String query = "SELECT fa.idFactura, fa.idArticulo, fa.cantidad, a.nombre, fa.valorUnitario, fa.valor, fa.codigo, fa.cantidad, a.precio1, a.precio2, a.precio3, a.impoconsumo, a.iva, fa.stock, a.activo, fa.orden, a.precio4, a.precio5, a.precio6 "+
+	    String query = "SELECT fa.idFactura, fa.idArticulo, fa.cantidad, a.nombre, fa.valorUnitario, fa.valor, fa.codigo, fa.cantidad, a.precio1, a.precio2, a.precio3, a.impoconsumo, a.iva, fa.stock, a.activo, fa.orden, a.precio4, a.precio5, a.precio6 , fa.tipoPrecio "+
 					   " FROM factura_articulos fa, articulos a"+
 					   " WHERE fa.idFactura ="+idFactura+
 					   " AND fa.idArticulo = a.idArticulo"+
@@ -4788,6 +4795,7 @@ public class creaBD extends SQLiteOpenHelper {
 			articulosFactura.precio4=c.getLong(16);
 			articulosFactura.precio5=c.getLong(17);
 			articulosFactura.precio6=c.getLong(18);
+			articulosFactura.tipoPrecio=((c.isNull(19)) ? 1 : c.getLong(19));
 			lista.add(articulosFactura);
 		}
 		close();

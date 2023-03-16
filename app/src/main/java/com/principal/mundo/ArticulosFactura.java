@@ -93,6 +93,8 @@ public class ArticulosFactura implements KvmSerializable
 	public long orden;
 	
 	public String categoria;
+
+	public long tipoPrecio;
 	
 	/**
 	 * metodo que asigna valores a los atributos de la clase
@@ -584,6 +586,12 @@ public class ArticulosFactura implements KvmSerializable
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
+
+	public long getTipoPrecio() {
+		return tipoPrecio;
+	}
+
+	public void setTipoPrecio(long tipoPrecio) {
+		this.tipoPrecio = tipoPrecio;
+	}
 }

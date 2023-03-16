@@ -811,7 +811,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 												}
 												else
 												{
-													if(bd.insertFacturaArticulos(factura.idCodigoInterno, articulo.idArticulo, cantidad, precio, (long) (cantidad*precio),orden+1, articulo.idCodigo,articulo.getStockint()));
+													if(bd.insertFacturaArticulos(factura.idCodigoInterno, articulo.idArticulo, cantidad, precio, (long) (cantidad*precio),orden+1, articulo.idCodigo,articulo.getStockint(),tipoPrecio ));
 													{
 														mostrarMensaje("Articulo Ingresado Correctamente", "l");
 													}
@@ -940,7 +940,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 				}
 				else
 				{
-					if(bd.insertFacturaArticulos(factura.idCodigoInterno, art.idArticulo, (long) art.cantPedir, art.getPrecioUnitario(), (long) (art.cantPedir*art.getPrecioUnitario()),orden+1, art.idCodigo,art.getStockint()));
+					if(bd.insertFacturaArticulos(factura.idCodigoInterno, art.idArticulo, (long) art.cantPedir, art.getPrecioUnitario(), (long) (art.cantPedir*art.getPrecioUnitario()),orden+1, art.idCodigo,art.getStockint(),art.getTipoPrecio()));
 					{
 						//mostrarMensaje("Articulo Ingresado Correctamente", "l");
 					}
@@ -2205,7 +2205,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 								}
 								else
 								{
-									if(bd.insertFacturaArticulos(factura.idCodigoInterno, articulo.idArticulo, cant, precio, (long) (cant*precio),orden+1, articulo.idCodigo,articulo.getStockint()));
+									if(bd.insertFacturaArticulos(factura.idCodigoInterno, articulo.idArticulo, cant, precio, (long) (cant*precio),orden+1, articulo.idCodigo,articulo.getStockint(),tipoPrecio));
 									{
 										mostrarMensaje("Articulo Ingresado Correctamente", "l");
 									}

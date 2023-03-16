@@ -9,6 +9,7 @@ public class ItemFactura {
     private long TipoIva;
     private long ImpoConsumo;
     private long Costo;
+	private long tipoPrecio;
 
 	public ItemFactura() {
 		// TODO Auto-generated constructor stub
@@ -36,6 +37,7 @@ public class ItemFactura {
 		TipoIva = articuloFactura.getIva();
 		ImpoConsumo = articuloFactura.getIpoConsumo();
 		Costo = articuloFactura.getValorUnitario();
+		tipoPrecio = articuloFactura.getTipoPrecio();
 	}
 
 
@@ -43,7 +45,7 @@ public class ItemFactura {
 
 	public int getPropertyCount() {
 		// TODO Auto-generated method stub
-		return 6;
+		return 7;
 	}
 	public Object getProperty(int i) {
 		switch(i)
@@ -54,6 +56,7 @@ public class ItemFactura {
 		case 3: return TipoIva;
 		case 4: return ImpoConsumo;	
 		case 5: return Costo;
+		case 6: return tipoPrecio;
 		}
 		return null;
 	}
@@ -67,6 +70,7 @@ public class ItemFactura {
 		case 3: return "TipoIva";
 		case 4: return "ImpoConsumo";
 		case 5: return "Costo";
+		case 6: return "tipoPrecio";
 		}
 		return null;
 	}
@@ -80,6 +84,7 @@ public class ItemFactura {
 		case 3:  TipoIva =Long.parseLong(data);break;
 		case 4:  ImpoConsumo =Long.parseLong(data);break;
 		case 5:  Costo=Long.parseLong(data);break;
+		case 6:  tipoPrecio=Long.parseLong(data);break;
 		}	
 	}
 
@@ -141,5 +146,13 @@ public class ItemFactura {
 	}
 	public void setCosto(long costo) {
 		Costo = costo;
-	}	
+	}
+
+	public long getTipoPrecio() {
+		return tipoPrecio;
+	}
+
+	public void setTipoPrecio(long tipoPrecio) {
+		this.tipoPrecio = tipoPrecio;
+	}
 }
