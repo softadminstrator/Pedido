@@ -1388,6 +1388,11 @@ public class creaBD extends SQLiteOpenHelper {
 		}
 
 	}
+
+
+
+
+
 	public boolean insertFactura( Factura_in facturain, boolean online)
 	{
 		try
@@ -1454,6 +1459,32 @@ public class creaBD extends SQLiteOpenHelper {
 		}
 
 	}
+
+
+	public boolean insertListaFacturaArticulos( Factura_in factura_in)
+	{
+		try
+		{
+			//Borra Articulos de la factura
+			eliminarArticulosDeFactura(factura_in.idCodigoInterno);
+
+			for(int i=0; i<factura_in.listaArticulos.size() ; i++)
+			{
+				ArticulosFactura af= factura_in.listaArticulos.get(i);
+				insertFacturaArticulos(factura_in.idCodigoInterno,af.idArticulo,af.cantidad,af.valorUnitario,af.valor,af.orden,af.codigo,af.stock,af.tipoPrecio);
+			}
+
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+		return true;
+
+	}
+
+
+
 	public boolean insertRemision(Remision_in remisionin, boolean online)
 	{
 		try

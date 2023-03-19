@@ -109,7 +109,7 @@ public class PrintDigitaPos {
 
         }
         asignaValor(" "+getFillText(ALIGN_CENTER, 47, "_______________________________________________"));
-        asignaValor(""+getFillText(ALIGN_RIGHT, 48, "TOTAL.: "+pedido_in.getFormatoDecimal(pedido_in.getValor())));
+        asignaValor(""+getFillText(ALIGN_RIGHT, 48, "TOTAL.: "+getTotalPedido(listaAPedido)));
         asignaValor(" "+" LO ATENDIO: "+getFillText(ALIGN_LEFT, 30, parametrosPos.getNombreVendedor()));
 
         asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
@@ -153,7 +153,7 @@ public class PrintDigitaPos {
             }
             //FOOTER
             asignaValor(" "+getFillText(ALIGN_CENTER, 47, "_______________________________________________"));
-            asignaValor(""+getFillText(ALIGN_RIGHT, 48, "TOTAL: "+factura_in.getValorText()));
+            asignaValor(""+getFillText(ALIGN_RIGHT, 48, "TOTAL: "+getTotalFactura(factura_in.getListaArticulos())));
             asignaValor(" "+getFillText(ALIGN_CENTER, 47, "_______________________________________________"));
             asignaValor("    Paga: "+getFillText(ALIGN_LEFT, 10, factura_in.getFormatoDecimal(factura_in.getDineroRecibido()))+"   Cambio: "+getFillText(ALIGN_LEFT, 10, factura_in.getFormatoDecimal(factura_in.getCambio())));
             asignaValor(""+getFillText(ALIGN_CENTER, 48, "MEDIOS DE PAGO"));
@@ -885,5 +885,29 @@ public class PrintDigitaPos {
     private static String nt(String source){
         source = Normalizer.normalize(source, Normalizer.Form.NFD);
         return source.replaceAll("[^\\p{ASCII}]", "");
+    }
+
+
+    public String getTotalPedido(ArrayList<ArticulosPedido> listaAPedido)
+    {
+        double total=0;
+        for (int i=0; i<listaAPedido.size();i++)
+        {
+            total=total+listaAPedido.get(i).valor;
+        }
+        DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
+        return decimalFormat.format(total);
+
+    }
+    public String getTotalFactura(ArrayList<ArticulosFactura> listaAFactura)
+    {
+        double total=0;
+        for (int i=0; i<listaAFactura.size();i++)
+        {
+            total=total+listaAFactura.get(i).valor;
+        }
+        DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
+        return decimalFormat.format(total);
+
     }
 }

@@ -2176,6 +2176,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 
 			//------------------------------
 			bd.insertFactura(factura,true);
+			bd.insertListaFacturaArticulos(factura);
 			if(factura.idCodigoExterno!=0)
 			{
 				mostrarMensaje("Factura enviada correctamente ","l");
@@ -2357,6 +2358,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 
 		        
 		        bd.insertFactura(factura,false);
+		        bd.insertListaFacturaArticulos(factura);
 				mostrarMensaje("Factura guardada correctamente ","l");
 				
 				/**try
