@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 import com.principal.mundo.GetMesasOcupadas;
 import com.principal.mundo.GetNMesas;
+import com.principal.mundo.Mesa;
 import com.principal.mundo.Parametros;
 import com.principal.mundo.Usuario;
+import com.principal.mundo.sysws.GetMesaNombre;
 import com.principal.persistencia.creaBD;
 
 public class SelecMesaActivity extends Activity implements OnClickListener {
@@ -33,6 +35,7 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 	private ProgressDialog pdu;
 	LetraEstilo letraEstilo;
 	private ArrayList<Long> listaMesasOcupadas;
+	private ArrayList<Mesa> listaMesas;
 	private long NMesasPos;
 	private LinearLayout llMesas;
 	Parametros parametrosPos, parametrosSys;
@@ -70,12 +73,13 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 
 	
 	 /** Called when the user touches the button */
-	  public void sendPedidoPesaTablet(String mesa) {
+	  public void sendPedidoMesaTablet(String mesa, String nombreMesa) {
 //		  if(validaNMesa())
 //		  {
 			   Intent intent = new Intent(SelecMesaActivity.this, CrearPedioMesaActivity.class );
 				intent.putExtra("cedula", usuario.cedula);
 				intent.putExtra("NMesa", mesa);
+		  		intent.putExtra("NombreMesa", nombreMesa);
 				startActivity(intent);
 				finish();
 //		  }
@@ -126,6 +130,9 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 				
 				GetMesasOcupadas getMesasOcupadas=new GetMesasOcupadas(parametrosSys.getIp(),parametrosSys.getWebidText());
 				listaMesasOcupadas=getMesasOcupadas.GetMesasOcupadas();
+
+				GetMesaNombre getMesaNombre=new GetMesaNombre(parametrosSys.getIp(),parametrosSys.getWebidText());
+				listaMesas=getMesaNombre.GetMesas();
 				return 1;	
 				}
 			
@@ -159,20 +166,22 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 						
 						 NMesa=i;
 						 final long mesa=i;
+						 final String nombreMesa=GetNombreMesa(""+NMesa);
 						 Button btMesa = new Button(this);
 						 btMesa.setOnClickListener(new OnClickListener() {
 							
 							public void onClick(View v) {
 							    v.startAnimation(anim_scale_mesa);
-								sendPedidoPesaTablet(""+mesa);								
+								sendPedidoMesaTablet(""+mesa, nombreMesa);
 							}
 						});			
-						 btMesa.setText(""+NMesa);
+						 btMesa.setText(nombreMesa);
 //						 btMesa.setBackgroundResource(R.drawable.mesa);
 						 btMesa.setTextColor(Color.WHITE);
 						 btMesa.setTypeface(null, Typeface.BOLD);
 						 btMesa.setTextSize(18);
-						 
+						 btMesa.setTag(NMesa);
+						 String nm=""+btMesa.getTag();
 						 
 						 
 						 col++;
@@ -255,6 +264,18 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 			
 		}
 		
+	}
+	public String GetNombreMesa(String NMesa)
+	{
+		String res=NMesa;
+		for (int i=0; i<listaMesas.size(); i++)
+		{
+			if(NMesa.equals(listaMesas.get(i).getNMesa()))
+			{
+				res=listaMesas.get(i).getNombre();
+			}
+		}
+		return res;
 	}
 		
 }

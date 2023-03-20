@@ -42,43 +42,51 @@ public class PedidoMesaIn {
 		           
 		           ItemPedido itemPedido=new ItemPedido();
 		           for (int j = 0; j < itemPedido.getPropertyCount(); j++) {
-					   if(itemPedido.getPropertyName(j).equals("ListaObservaciones"))
-					   {
-						   NodeList name = element.getElementsByTagName(itemPedido.getPropertyName(j));
-						   for (int k = 0; k < name.getLength(); k++) {
-							   Element elementCM = (Element) name.item(k);
+					   try {
+							   if(itemPedido.getPropertyName(j).equals("ListaObservaciones"))
+							   {
+								   NodeList name = element.getElementsByTagName(itemPedido.getPropertyName(j));
+								   for (int k = 0; k < name.getLength(); k++) {
+									   Element elementCM = (Element) name.item(k);
 
-							   NodeList nameCM = elementCM.getElementsByTagName("Observacion");
+									   NodeList nameCM = elementCM.getElementsByTagName("Observacion");
 
-							   for (int l = 0; l < nameCM.getLength(); l++) {
-								   Observacion observacion=new Observacion();
+									   for (int l = 0; l < nameCM.getLength(); l++) {
+										   Observacion observacion=new Observacion();
 
-								   Element lineCM = (Element) nameCM.item(l);
-								   NodeList nameCMI = lineCM.getElementsByTagName("IdObservacion");
-								   NodeList nameCMCNT = lineCM.getElementsByTagName("Detalle");
-								   if(lineCM!=null)
-								   {
-									   Element lineIAC = (Element) nameCMI.item(0);
-									   Element lineCNTCOM= (Element) nameCMCNT.item(0);
-									   if(nameCMI.item(0)!=null & nameCMCNT.item(0)!=null)
-									   {
-										   observacion.setDetalle(getCharacterDataFromElement(lineCNTCOM));
-										   observacion.setIdObservacion(getCharacterDataFromElement(lineIAC));
-										   itemPedido.getListaObservaciones().add(observacion);
+										   Element lineCM = (Element) nameCM.item(l);
+										   NodeList nameCMI = lineCM.getElementsByTagName("IdObservacion");
+										   NodeList nameCMCNT = lineCM.getElementsByTagName("Detalle");
+										   if(lineCM!=null)
+										   {
+											   Element lineIAC = (Element) nameCMI.item(0);
+											   Element lineCNTCOM= (Element) nameCMCNT.item(0);
+											   if(nameCMI.item(0)!=null & nameCMCNT.item(0)!=null)
+											   {
+												   observacion.setDetalle(getCharacterDataFromElement(lineCNTCOM));
+												   observacion.setIdObservacion(getCharacterDataFromElement(lineIAC));
+												   itemPedido.getListaObservaciones().add(observacion);
+											   }
+										   }
 									   }
 								   }
+
 							   }
-						   }
+							   else
+							   {
+
+									NodeList name = element.getElementsByTagName(itemPedido.getPropertyName(j));
+									Element line = (Element) name.item(0);
+									itemPedido.setProperty(j, getCharacterDataFromElement(line));
+
+							   }
 
 					   }
-					   else
+					   	catch (Exception e)
 					   {
-						   NodeList name = element.getElementsByTagName(itemPedido.getPropertyName(j));
-						   Element line = (Element) name.item(0);
-						   itemPedido.setProperty(j,getCharacterDataFromElement(line));
+						   int o=1;
+						   //Controla tag agregados al final del documento sin datos
 					   }
-
-
 
 
 

@@ -74,6 +74,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 	private boolean isVerMesas=false;
 	EditText etAlertValor,etObservacion;
 	private String mensaje;
+	private String NombreMesa;
 	
 	
 	@Override
@@ -94,7 +95,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
         obtenerDatos = this.getIntent().getExtras();       
 		pedido.setMesa(obtenerDatos.getString("NMesa"));
         usuario.cedula=obtenerDatos.getString("cedula");
-
+        NombreMesa=obtenerDatos.getString("NombreMesa");
 		//	opciones=new Opciones[1];
         opciones=new Opciones[2];
         opciones[0]=new Opciones("Modificar", getImg(R.drawable.modificar), "Modificar");
@@ -108,7 +109,9 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 
         
         
-        tvTextoMesa.setText(pedido.getMesa());
+        //tvTextoMesa.setText(pedido.getMesa());
+
+		tvTextoMesa.setText(NombreMesa);
         
         lvArtPedido=(ListView)findViewById(R.id.lvArtPedidoMesa);
         llCategorias1=(LinearLayout)findViewById(R.id.llCategorias1);
