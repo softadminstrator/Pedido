@@ -2468,7 +2468,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param valor
 	 * @return true o false
 	 */
-	public boolean ActualizarPedidoArticulo( long idPedido, long idArticulo, double cantidad, long valorUnitario, long valor)
+	public boolean ActualizarPedidoArticulo( long idPedido, long idArticulo, double cantidad, long valorUnitario, long valor, long tipoPrecio)
 	{
 		try
 		{
@@ -2476,7 +2476,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("cantidad", cantidad);
 			valuesIn.put("valorUnitario", valorUnitario);
 			valuesIn.put("valor", valor);
-
+			valuesIn.put("tipoPrecio", tipoPrecio);
 
 		    this.getWritableDatabase().update("pedidos_articulos", valuesIn," idPedido ="+idPedido+" AND idArticulo ="+idArticulo,null);
 			return true;
@@ -4779,7 +4779,7 @@ public class creaBD extends SQLiteOpenHelper {
 			articulosPedido.precio5=c.getLong(17);
 			articulosPedido.precio6=c.getLong(18);
 			articulosPedido.Observacion=c.getString(19);
-			articulosPedido.tipoPrecio=c.getLong(20);
+			//articulosPedido.tipoPrecio=c.getLong(20);
 			articulosPedido.tipoPrecio=((c.isNull(20)) ? 1 : c.getLong(20));
 
 			lista.add(articulosPedido);

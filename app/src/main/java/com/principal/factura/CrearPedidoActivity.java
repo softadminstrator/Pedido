@@ -777,7 +777,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 														{
 															cantidad+=cantidadExistente;
 														}
-													if(bd.ActualizarPedidoArticulo(pedido.idCodigoInterno, articulo.idArticulo, cantidad, precio,(long) (cantidad*precio)));
+													if(bd.ActualizarPedidoArticulo(pedido.idCodigoInterno, articulo.idArticulo, cantidad, precio,(long) (cantidad*precio),tipoPrecio));
 													{
 														mostrarMensaje("Articulo Modificado Correctamente", "l");										
 													}											
@@ -906,7 +906,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 					{
 						art.cantPedir+=cantidadExistente;
 					}
-					if(bd.ActualizarPedidoArticulo(pedido.idCodigoInterno, art.idArticulo, art.cantPedir, art.getPrecioUnitario(),(long) (art.cantPedir*art.getPrecioUnitario())));
+					if(bd.ActualizarPedidoArticulo(pedido.idCodigoInterno, art.idArticulo, art.cantPedir, art.getPrecioUnitario(),(long) (art.cantPedir*art.getPrecioUnitario()),art.getTipoPrecio()));
 					{
 						//mostrarMensaje("Articulo Modificado Correctamente", "l");
 					}
@@ -2417,7 +2417,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 									{
 										cant+=cantidadExistente;
 									}
-									if(bd.ActualizarPedidoArticulo(pedido.idCodigoInterno, articulo.idArticulo, cant, precio, (long) (cant*precio)));
+									if(bd.ActualizarPedidoArticulo(pedido.idCodigoInterno, articulo.idArticulo, cant, precio, (long) (cant*precio),tipoPrecio));
 									{
 										mostrarMensaje("Articulo Modificado Correctamente", "l");
 									}

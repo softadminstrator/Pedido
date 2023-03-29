@@ -2962,7 +2962,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 
 
 							if (operacion == PEDIDO ) {
-								if (bd.ActualizarPedidoArticulo(pedido.idCodigoInterno, articulo.idArticulo, articulo.cantidad, articulo.valorUnitario, (long) (articulo.cantidad * articulo.valorUnitario)))
+								if (bd.ActualizarPedidoArticulo(pedido.idCodigoInterno, articulo.idArticulo, articulo.cantidad, articulo.valorUnitario, (long) (articulo.cantidad * articulo.valorUnitario), articulo.tipoPrecio))
 									;
 								{
 									mostrarMensaje("Articulo Modificado Correctamente", "l");
