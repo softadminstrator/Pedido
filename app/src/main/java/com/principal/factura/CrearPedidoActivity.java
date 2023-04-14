@@ -702,10 +702,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
     {
     	if(precio>0)
     	{
-		    	if(parametrosPos.isPrecio123())
-				{
-		    		//if( precio>=articulo.precio3 || parametrosPos.isValue(parametrosPos.getPrecioLibre()) )
-					if( precio>=articulo.getPrecio((int) parametrosPos.getPrecioMinimo()) || (parametrosPos.isValue(parametrosPos.getPrecioLibre()) & !parametrosPos.isValue(parametrosPos.getControlaPrecioLibre())))
+    			if( precio>=articulo.getPrecio((int) parametrosPos.getPrecioMinimo()) || (parametrosPos.isValue(parametrosPos.getPrecioLibre()) & !parametrosPos.isValue(parametrosPos.getControlaPrecioLibre())))
 					{
 		    			return true;
 					}
@@ -714,19 +711,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 		    			mostrarMensaje("El precio del articulo debe ser mayor o igual al precio "+parametrosPos.getPrecioMinimo(), "l");
 		    			return false;
 		    		}
-				}
-		    	else
-		    	{
-		    		if( precio>=0 )
-					{
-		    			return true;
-					}
-		    		else
-		    		{
-		    			mostrarMensaje("El precio del articulo debe ser mayor o igual al a 0", "l");
-		    			return false;
-		    		}
-		    	}
+
     	}
     	else
 		{

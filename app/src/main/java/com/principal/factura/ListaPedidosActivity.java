@@ -3363,7 +3363,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 		try
 		{
 			listaARemision=bd.getArticulosRemision(remision.idCodigoInterno);
-			remisionEnviarsys.setNCaja(""+remision.getNCaja());
+			remisionEnviarsys.setNCaja(""+parametrosPos.getCajaRem());
 			remisionEnviarsys.setIdCliente(""+remision.idCliente);
 			remisionEnviarsys.setIdClienteSucursal(""+remision.idClienteSucursal);
 			remisionEnviarsys.setCedulaVendedor(usuario.cedula);
