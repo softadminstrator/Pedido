@@ -87,6 +87,8 @@ public class Pedido_in
 
 	private String Estado;
 
+	private String TipoPedido;
+
 
 	/**
 	 * metodo que se encarga de asignar valores a los atributos del pedido
@@ -445,5 +447,13 @@ public class Pedido_in
 
 	public void setEstado(String estado) {
 		Estado = estado;
+	}
+
+	public String getTipoPedido() {
+		return TipoPedido;
+	}
+
+	public void setTipoPedido(String tipoPedido) {
+		TipoPedido = tipoPedido;
 	}
 }

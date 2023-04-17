@@ -154,23 +154,35 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 				if (ped != null) {
 					
 					//if(ped.idCodigoExterno== 0)
+					int intbkColor=0x00000000;
 					if(ped.getEnvio()== 0)
 					{
-						linea.setBackgroundColor(0xFFFF8787);				
+						intbkColor=0xFFFF8787;
+						//linea.setBackgroundColor(0xFFFF8787);
 					}
 					else if(ped.getEstado().equals("1"))
 					{
-						linea.setBackgroundColor(0xFF2D8DDD);
+						intbkColor=0xFF2D8DDD;
+						//linea.setBackgroundColor(0xFF2D8DDD);
 					}
 					else if(ped.getEstado().equals("3"))
 					{
-						linea.setBackgroundColor(0xFFC4D328);
+						intbkColor=0xFFC4D328;
+						//linea.setBackgroundColor(0xFFC4D328);
 					}
-					else
+
+					linea.setBackgroundColor(intbkColor);
+					tvCodigoExterno.setBackgroundColor(intbkColor);
+					if(ped.getTipoPedido().equals("E"))
 					{
-						linea.setBackgroundColor(0x00000000);				
-					}		
-					tvCodigoExterno.setText(Long.toString(ped.idCodigoExterno));
+						tvCodigoExterno.setBackgroundColor(0xFF2D8DDD);
+					}
+
+
+
+
+
+					tvCodigoExterno.setText(Long.toString(ped.idCodigoInterno ));
 					tvTipoDocumento.setText(ped.getTipoDocumento());
 					tvFormaPagoPedido.setText(ped.getTipoFormaPago());
 

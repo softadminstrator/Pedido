@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -941,8 +942,19 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 //				      						      			    		comenzarLocalizacion();
 //				      						      						locManager.removeUpdates(locListener);
 				      						      			    	    represados=0;
-				      						      						new enviarPedido().execute("");
-				      						      						pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido"), true,false);
+
+																		if (pedido.getTipoPedido().equals("E"))
+																		{
+																			new enviarPedidoInventario().execute("");
+																			pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
+																		}
+																		else {
+																			new enviarPedido().execute("");
+																			pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
+																		}
+
+				      						      						//new enviarPedido().execute("");
+				      						      						//pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedido"), true,false);
 				      						      							      			    		
     					          
 				      						      			    	}
@@ -2284,8 +2296,15 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				public void onClick(DialogInterface dialog, int which) {
 					listaPedidosRepresados=bd.getPedidosPorFecha(ListaPedidosActivity.this, fechaDesde,fechaHasta, true);
 					pedido = listaPedidosRepresados.get(idlistaRepresado);
-					new enviarPedido().execute("");
-					pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
+					if (pedido.getTipoPedido().equals("E"))
+					{
+						new enviarPedidoInventario().execute("");
+						pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
+					}
+					else {
+						new enviarPedido().execute("");
+						pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
+					}
 				}
 			});
 			dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -2747,6 +2766,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 //					pedido.idCodigoExterno=putPedidoSys.setPedido(getXmlPedido(), pedidoEnviarSys.getXmlArticulos());
 					long npedido=putPedidoSys.setPedido(getXmlPedido(), pedidoEnviarSys.getXmlArticulos());
 					pedido.setEnvio(0);
+					pedido.setTipoPedido("N");
 					if(npedido>0)
 					{
 						pedido.idCodigoExterno=npedido;
@@ -2770,6 +2790,48 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 			}
 			
 		}
+
+	private class enviarPedidoInventario extends AsyncTask<String, Void, Object>
+	{
+
+		@Override
+		protected Integer doInBackground(String... params)
+		{
+			generarPedidoSys();
+			PutPedidoSys putPedidoSys=new PutPedidoSys(parametrosSys.getIp(),parametrosSys.getWebidText());
+
+			//pedido.idCodigoExterno=putPedidoSys.setPedido(getXmlPedido(), pedidoEnviarSys.getXmlArticulos());
+			//activa parametro envio del pedido
+			long npedido=putPedidoSys.setPedidoInventario(getXmlPedido(), pedidoEnviarSys.getXmlArticulos());
+			pedido.setEnvio(0);
+			pedido.setEstado("1");
+			pedido.setTipoPedido("E");
+			if(npedido>0)
+			{
+				pedido.idCodigoExterno=npedido;
+				pedido.setEnvio(1);
+			}
+
+			LlamarFechaSys llamarFecha=new LlamarFechaSys(parametrosSys.getIp(),parametrosSys.getWebidText());
+			String fechaSys=llamarFecha.getFecha();
+			if(!fechaSys.equals("Error"))
+			{
+				pedido.setFecha(fechaSys);
+			}
+
+
+
+
+			return 1;
+		}
+
+		protected void onPostExecute(Object result)
+		{
+			pdu.dismiss();
+			guardarPedido();
+		}
+
+	}
 	  
 	  public void generarPedidoSys()
 		{
@@ -2837,8 +2899,17 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 		  if(idlistaRepresado<listaPedidosRepresados.size())
 		  {			
 			  pedido = listaPedidosRepresados.get(idlistaRepresado);
-			  new enviarPedido().execute("");
-			  pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
+			  if (pedido.getTipoPedido().equals("E"))
+			  {
+				  new enviarPedidoInventario().execute("");
+				  pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
+			  }
+			  else {
+				  new enviarPedido().execute("");
+				  pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
+			  }
+			 // new enviarPedido().execute("");
+			 // pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Pedidos "+(idlistaRepresado+1)+" de "+represados), true,false);
 		  }
 		  else
 		  {

@@ -1846,6 +1846,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 				pedido.setEnvio(0);
 
 				//Asigna estado de pedido
+				pedido.setTipoPedido("N");
 				pedido.setEstado("0");
 
 				if(npedido>0)
@@ -1895,6 +1896,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 				long npedido=putPedidoSys.setPedidoInventario(getXmlPedido(), pedidoEnviarSys.getXmlArticulos());
 				pedido.setEnvio(0);
 				pedido.setEstado("1");
+				pedido.setTipoPedido("E");
 				if(npedido>0)
 				{
 					pedido.idCodigoExterno=npedido;
