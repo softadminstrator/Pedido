@@ -290,7 +290,7 @@ public class PrintDigitaPos {
             for (int i = 0; i < listaFacturas.size(); i++) {
                 Factura_in f =listaFacturas.get(i);
                 if(f.getPagada().equals("SI")) {
-                    asignaValor("" + getFillText(ALIGN_LEFT, 7, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 18, "" + f.nombreCliente) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                    asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.nombreCliente) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                 }
             }
             //Total facturas contado
@@ -302,7 +302,7 @@ public class PrintDigitaPos {
             for (int i = 0; i < listaFacturas.size(); i++) {
                 Factura_in f =listaFacturas.get(i);
                 if(f.getPagada().equals("NO")) {
-                    asignaValor("" + getFillText(ALIGN_LEFT, 7, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 18, "" + f.nombreCliente) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                    asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.nombreCliente) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                 }
             }
             //Total facturas credito
@@ -324,7 +324,7 @@ public class PrintDigitaPos {
             asignaValor(" No.          CLIENTE    FECHA Y HORA    TOTAL");
             for (int i = 0; i < listaRemisiones.size(); i++) {
                 Remision_in f =listaRemisiones.get(i);
-                asignaValor(""+getFillText(ALIGN_LEFT, 4, ""+f.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 20, ""+f.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, f.getFecha()+" "+f.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                asignaValor(""+getFillText(ALIGN_LEFT, 5, ""+f.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 19, ""+f.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, f.getFecha()+" "+f.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
 
             }
         }
@@ -333,7 +333,7 @@ public class PrintDigitaPos {
             asignaValor(" No.          CLIENTE    FECHA Y HORA    TOTAL ");
             for (int i = 0; i < listaPedidos.size(); i++) {
                 Pedido_in p =listaPedidos.get(i);
-                asignaValor(""+getFillText(ALIGN_LEFT, 4, ""+p.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 20, ""+p.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, p.getFecha()+" "+p.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(p.valor)));
+                asignaValor(""+getFillText(ALIGN_LEFT, 5, ""+p.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 19, ""+p.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, p.getFecha()+" "+p.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(p.valor)));
 
 
             }
