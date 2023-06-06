@@ -1921,11 +1921,11 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
             		 etapa="4";
                 	if(parametrosPos.isValue(parametrosPos.getFacturaOnLine()))
          			{
-                		 PrintDocument(obtenerDatos.getLong("idCodigoExterno"));
+                	//	 PrintDocument(obtenerDatos.getLong("idCodigoExterno"));
          			}
                 	else
                 	{
-                		PrintDocumentNFactura(obtenerDatos.getLong("NFactura"));
+                	//	PrintDocumentNFactura(obtenerDatos.getLong("NFactura"));
                 	} 
             	  
              }
@@ -1934,11 +1934,11 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				etapa="4";
 				if(parametrosPos.isValue(parametrosPos.getFacturaOnLine()))
 				{
-					PrintDocument(obtenerDatos.getLong("idCodigoExterno"));
+					//PrintDocument(obtenerDatos.getLong("idCodigoExterno"));
 				}
 				else
 				{
-					PrintDocumentNRemision(obtenerDatos.getLong("NRemision"));
+					//PrintDocumentNRemision(obtenerDatos.getLong("NRemision"));
 				}
 
 			}
@@ -1947,7 +1947,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				etapa="4";
 				if(parametrosPos.isValue(parametrosPos.getImprimePedido()))
 				{
-					PrintDocumentNPedido(obtenerDatos.getLong("idCodigoInterno"));
+				//	PrintDocumentNPedido(obtenerDatos.getLong("idCodigoInterno"));
 				}
 
 
