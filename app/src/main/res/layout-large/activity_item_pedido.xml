@@ -95,7 +95,7 @@
 					android:layout_marginLeft="2dp"
 					android:text="CodExt"
 					android:gravity="center_vertical|center_horizontal"
-					android:textSize="13sp" />
+					 />
 
 				<TextView
 					android:id="@+id/tvNombreClienteP"
