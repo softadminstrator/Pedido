@@ -139,6 +139,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(R.layout.activity_item_pedido, null);
 		}
+		TextView tvCodigoInterno = (TextView) convertView.findViewById(R.id.tvCodigoInterno);
 		TextView tvCodigoExterno = (TextView) convertView.findViewById(R.id.tvCodigoExterno);
 		TextView tvNombreClientep = (TextView) convertView.findViewById(R.id.tvNombreClienteP);
 		TextView tvHora = (TextView) convertView.findViewById(R.id.tvHoraPedido);
@@ -173,16 +174,19 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 
 					linea.setBackgroundColor(intbkColor);
 					tvCodigoExterno.setBackgroundColor(intbkColor);
+					tvCodigoInterno.setBackgroundColor(intbkColor);
 					if(ped.getTipoPedido().equals("E"))
 					{
 						tvCodigoExterno.setBackgroundColor(0xFF2D8DDD);
+						tvCodigoInterno.setBackgroundColor(0xFF2D8DDD);
 					}
 
 
 
 
 
-					tvCodigoExterno.setText(Long.toString(ped.idCodigoInterno ));
+					tvCodigoInterno.setText(Long.toString(ped.idCodigoInterno ));
+					tvCodigoExterno.setText(Long.toString(ped.idCodigoExterno ));
 					tvTipoDocumento.setText(ped.getTipoDocumento());
 					tvFormaPagoPedido.setText(ped.getTipoFormaPago());
 
@@ -213,6 +217,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					}
 										//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
 					tvCodigoExterno.setText(Long.toString(fac.NFactura));
+					tvCodigoInterno.setText("");
 					tvNombreClientep.setText(fac.nombreCliente);
 					tvHora.setText(fac.hora);			
 		//-----------------------Valor Unitario----------------------------------------------
@@ -235,7 +240,8 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 				}
 				//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
 				//tvCodigoExterno.setText(Long.toString(fac.NRemision));
-				tvCodigoExterno.setText(Long.toString(fac.idCodigoInterno));
+				tvCodigoInterno.setText(Long.toString(fac.idCodigoInterno));
+				tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
 				tvNombreClientep.setText(fac.nombreCliente);
 				tvHora.setText(fac.hora);
 				//-----------------------Valor Unitario----------------------------------------------
@@ -257,6 +263,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					linea.setBackgroundColor(0x00000000);
 				}
 				//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
+				tvCodigoInterno.setText("");
 				tvCodigoExterno.setText(Long.toString(pago.getIdPago()));
 				tvNombreClientep.setText(pago.getNombreCliente());
 				tvHora.setText(pago.getFecha());
@@ -280,6 +287,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					linea.setBackgroundColor(0x00000000);
 				}
 				//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
+				tvCodigoInterno.setText("");
 				tvCodigoExterno.setText(prestamo.getIdPrestamo());
 				tvNombreClientep.setText(prestamo.getNombreCliente());
 				tvHora.setText(prestamo.getFecha());
@@ -303,6 +311,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					linea.setBackgroundColor(0x00000000);
 				}
 				//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
+				tvCodigoInterno.setText("");
 				tvCodigoExterno.setText(pagoPrestamo.getIdPagoPrestamo());
 				tvNombreClientep.setText(pagoPrestamo.getNombreCliente());
 				tvHora.setText(pagoPrestamo.getFecha());
@@ -326,6 +335,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					linea.setBackgroundColor(0x00000000);
 				}
 				//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
+				tvCodigoInterno.setText("");
 				tvCodigoExterno.setText(libro.getIdLibro());
 				tvNombreClientep.setText(libro.getNombreCliente());
 				tvHora.setText(libro.getFecha());
@@ -358,7 +368,8 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 				else
 				{
 					linea.setBackgroundColor(0x00000000);				
-				}		
+				}
+				tvCodigoInterno.setText("");
 				tvCodigoExterno.setText(Long.toString(tra.idCodigoExterno));
 				tvNombreClientep.setText("De "+tra.getBodegaOrigen().getBodega()+" a "+tra.getBodegaDestino().getBodega());
 				tvHora.setText(tra.hora);			
@@ -368,7 +379,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 			}
 	}
 
-		getEstilo(tvCodigoExterno);
+
 		getEstilo(tvNombreClientep);
 		getEstilo(tvHora);
 		getEstilo(tvPrecioTPedido);

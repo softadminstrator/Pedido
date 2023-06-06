@@ -1533,7 +1533,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("Observaciones", remisionin.observaciones);
 			valuesIn.put("idClienteSucursal", remisionin.idClienteSucursal);
 
-			if(getValidaFactura(remisionin.idCodigoInterno, remisionin.idCodigoExterno))
+			if(getValidaRemision(remisionin.idCodigoInterno, remisionin.idCodigoExterno))
 			{
 				this.getWritableDatabase().update("remision",valuesIn," idCodigoInterno = "+remisionin.idCodigoInterno,null);
 			}
@@ -3020,6 +3020,35 @@ public class creaBD extends SQLiteOpenHelper {
 				this.close();
 				return res;
 			}
+
+	public boolean getValidaRemision(long idCodigoInterno, long idCodigoExterno)
+	{
+		boolean res=false;
+		this.openDB();
+		SQLiteDatabase bds=this.getWritableDatabase();
+
+		String query = "SELECT COUNT(*) "+
+				"FROM Remision "+
+				"WHERE idCodigoInterno = '"+idCodigoInterno+"' " +
+				"AND idCodigoExterno = '"+idCodigoExterno+"' ";
+		Cursor c= bds.rawQuery(query,null);
+		try
+		{
+			if(c.moveToFirst())
+			{
+				if(c.getLong(0)>0)
+				{
+					res=true;
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			res=false;
+		}
+		this.close();
+		return res;
+	}
 			public boolean getValidaZFinanciera(long zFinanciera, long nCaja)
 			{
 				boolean res=false;
