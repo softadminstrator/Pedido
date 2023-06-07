@@ -20,14 +20,14 @@
 			  android:layout_marginTop="30dp"
 			  android:src="@drawable/logo4" />
 
-			                  <TextView
-			                      android:id="@+id/tvVersion"
-			                      android:layout_width="fill_parent"
-			                      android:layout_height="wrap_content"
-			                      android:layout_marginTop="30dp"
-			                      android:gravity="center_vertical|center_horizontal"
-			                      android:text="Versión 74"
-			                      android:textSize="16dp" />
+		  <TextView
+			  android:id="@+id/tvVersion"
+			  android:layout_width="fill_parent"
+			  android:layout_height="wrap_content"
+			  android:layout_marginTop="30dp"
+			  android:gravity="center_vertical|center_horizontal"
+			  android:text="Versión 76"
+			  android:textSize="16dp" />
 
 		  <TextView
 			  android:id="@+id/tvCajaAsignada"

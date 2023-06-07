@@ -686,7 +686,7 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 			etValorAPagar.selectAll();
 			etValorAPagar.requestFocus();
 		}
-		btGenerarPagoParcial.setEnabled(false);
+		btGenerarPagoParcial.setEnabled(true);
 		return false;			
 	}
 	@Override

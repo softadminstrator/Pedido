@@ -562,7 +562,7 @@ public class CarteraClienteActivity extends Activity implements OnClickListener 
 			else
 			{
 				mostrarMensaje("No Fue Posible enviar El Pago ","l");
-
+				btGenerarPago.setEnabled(true);
 			}
 		}
 		catch (Exception e) {
@@ -643,12 +643,14 @@ public class CarteraClienteActivity extends Activity implements OnClickListener 
 				mostrarMensaje("El valor del descuento no debe ser mayor al valor de las facturas a cancelar!!", "l");
 				etDescuento.selectAll();				
 				etDescuento.requestFocus();
+				btGenerarPago.setEnabled(true);
 			}
 			
 		}
 		else
 		{
 			mostrarMensaje("Debe Seleccionar al menos Una factura a Pagar!!.", "l");
+			btGenerarPago.setEnabled(true);
 		}
 		return false;			
 	}
