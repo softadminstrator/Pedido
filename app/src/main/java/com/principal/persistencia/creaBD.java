@@ -4453,7 +4453,7 @@ public class creaBD extends SQLiteOpenHelper {
 		if (!buscaxnit ) {
 			query = "SELECT idCliente, nombre, representante, nit, direccion, telefono, municipio, limiteCredito, barrio, tipoCanal, 0, fechaUltimoPedido, fechaUltimaVisita, PrecioDefecto, ubicado, fechaUltimaVenta ,IFNULL(deudaAntFac,0) deudaAntFac ,IFNULL(DiasGracia,30) DiasGracia, IFNULL(MotivoUltimaVisita,'-') MotivoUltimaVisita " +
 					"FROM clientes " +
-					"WHERE nombre LIKE '%" + nombre + "%' " +
+					"WHERE (nombre LIKE '%" + nombre + "%' OR representante LIKE '%" + nombre + "%' )" +
 					filtroMunicipio +
 					"AND activo = 1 " +
 					"AND cedulaVendedor ='"+cedulaVendedor+"' "+

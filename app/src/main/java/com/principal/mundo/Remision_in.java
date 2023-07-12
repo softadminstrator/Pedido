@@ -192,6 +192,10 @@ public class Remision_in
     }
 
     public String getNombreVendedor() {
+        if (NombreVendedor==null)
+        {
+            NombreVendedor="";
+        }
         return NombreVendedor;
     }
 

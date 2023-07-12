@@ -322,11 +322,35 @@ public class PrintDigitaPos {
         else if(operacion==REMISION &  !printArticulos)
         {
             asignaValor(" No.          CLIENTE    FECHA Y HORA    TOTAL");
+
+
+            // Remisiones de  contado
             for (int i = 0; i < listaRemisiones.size(); i++) {
                 Remision_in f =listaRemisiones.get(i);
-                asignaValor(""+getFillText(ALIGN_LEFT, 5, ""+f.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 19, ""+f.nombreCliente)+" "+getFillText(ALIGN_RIGHT, 10, f.getFecha()+" "+f.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
-
+                if(f.getPagada().equals("SI")) {
+                    asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.nombreCliente) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                }
             }
+            //Total Remisiones contado
+            if(getTotalRemisionesContado()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL COTIZACIONES CONTADO: " + getDecTxt(getTotalRemisionesContado())));
+            }
+
+            // Remisiones de  credito
+            for (int i = 0; i < listaRemisiones.size(); i++) {
+                Remision_in f =listaRemisiones.get(i);
+                if(f.getPagada().equals("NO")) {
+                    asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.nombreCliente) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                }
+            }
+            //Total Remisiones credito
+            if(getTotalRemisionesCredito()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL COTIZACIONES CREDITO: " + getDecTxt(getTotalRemisionesCredito())));
+            }
+
+
+
+
         }
         else if(operacion==PEDIDO & !printArticulos)
         {
@@ -793,6 +817,30 @@ public class PrintDigitaPos {
         return res;
     }
 
+    private long getTotalRemisionesContado()
+    {
+        long res=0;
+        for (int i = 0; i < listaRemisiones.size(); i++) {
+            Remision_in f=listaRemisiones.get(i);
+            if(f.getPagada().equals("SI")){
+                res+=f.getValor();
+            }
+        }
+        return res;
+    }
+
+    private long getTotalRemisionesCredito()
+    {
+        long res=0;
+        for (int i = 0; i < listaRemisiones.size(); i++) {
+            Remision_in f=listaRemisiones.get(i);
+            if(f.getPagada().equals("NO")){
+                res+=f.getValor();
+            }
+        }
+        return res;
+    }
+
 
 
 
@@ -843,7 +891,7 @@ public class PrintDigitaPos {
     private String getFillText(int align, int length,String text)
     {
         String res="";
-        text=nt(text);
+
         if(text.length()>=length)
         {
             res=text.substring(0, length);
@@ -882,10 +930,7 @@ public class PrintDigitaPos {
         DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
         return decimalFormat.format(value);
     }
-    private static String nt(String source){
-        source = Normalizer.normalize(source, Normalizer.Form.NFD);
-        return source.replaceAll("[^\\p{ASCII}]", "");
-    }
+
 
 
     public String getTotalPedido(ArrayList<ArticulosPedido> listaAPedido)
