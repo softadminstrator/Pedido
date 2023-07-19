@@ -348,7 +348,7 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 		}
 		ListAdapter listaMotivos = new OpcionesAdapter(CarteraPagosParcialesActivity.this, opciones);  				        		  		
         AlertDialog.Builder builderMotivo = new AlertDialog.Builder(CarteraPagosParcialesActivity.this);
-        builderMotivo.setTitle("Seleccione la Bodega");
+        builderMotivo.setTitle("Seleccione el medio de pago");
         builderMotivo.setSingleChoiceItems(listaMotivos, -1, new DialogInterface.OnClickListener() {
 //
   			    public void onClick(DialogInterface dialogMotivo, int itemMotivo) {	      			    

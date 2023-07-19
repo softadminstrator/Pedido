@@ -45,7 +45,7 @@
     <string name="title_activity_item_consulta_clientes" translatable="false">ItemConsultaClientes</string>
     <string name="title_activity_cartera_cliente" translatable="false">Cartera</string>
     <string name="title_activity_item_facturas_cartera" translatable="false">ItemFacturasCarteraActivity</string>
-    <string name="title_activity_cartera_pagos_parciales" translatable="false">CarteraPagosParcialesActivity</string>
+    <string name="title_activity_cartera_pagos_parciales" translatable="false">Pagos Parciales</string>
     <string name="title_activity_ver_cierre_turno" translatable="false">Cierre turno</string>
     <string-array name="spFormaPagoItems" translatable="false">
         <item>EFECTIVO</item>
