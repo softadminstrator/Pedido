@@ -111,6 +111,8 @@ public class Remision_in
 
     public long idClienteSucursal;
 
+    public String representanteCliente;
+
 
 
 
@@ -887,5 +889,24 @@ public class Remision_in
 
     public void setIdClienteSucursal(long idClienteSucursal) {
         this.idClienteSucursal = idClienteSucursal;
+    }
+
+    public String getRepresentanteCliente() {
+        return representanteCliente;
+    }
+
+    public void setRepresentanteCliente(String representanteCliente) {
+        this.representanteCliente = representanteCliente;
+    }
+
+    public String getDatoCliente(Parametros parametros)
+    {
+        if(parametros.getMuestraEstablecimientoCliente()==1)
+        {
+            return nombreCliente;
+        }
+        else {
+            return representanteCliente;
+        }
     }
 }

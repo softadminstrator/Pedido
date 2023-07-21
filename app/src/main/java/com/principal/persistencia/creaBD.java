@@ -5428,7 +5428,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			condicion= " AND Enviado = 0 ";	 
 		}
-		query = " SELECT   p.IdPago, p.Valor, p.fecha, p.fecha2, p.Descripcion, p.idCliente, p.Enviado, p.NPagosFacturaNoEnviados, c.nombre  " +
+		query = " SELECT   p.IdPago, p.Valor, p.fecha, p.fecha2, p.Descripcion, p.idCliente, p.Enviado, p.NPagosFacturaNoEnviados, c.nombre, c.representante  " +
     		       " FROM Pago p, clientes c " +
     		       " WHERE p.idCliente = c.idCliente " +
     		       " AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -5452,6 +5452,7 @@ public class creaBD extends SQLiteOpenHelper {
 					pag.setEnviado(c.getLong(6));
 					pag.setNPagosFacNoEnviados(c.getLong(7));
 					pag.setNombreCliente(c.getString(8));
+					pag.setRepresentanteCliente((validaCampoNullString(c,9)));
 					lista.add(pag);
 				}
 				bd.close();
@@ -5472,7 +5473,7 @@ public class creaBD extends SQLiteOpenHelper {
 		SQLiteDatabase bds=bd.getWritableDatabase();
 		String query="";
 		
-		query = " SELECT   p.IdPago, p.Valor, p.fecha, p.fecha2, p.Descripcion, p.idCliente, p.Enviado, p.NPagosFacturaNoEnviados, c.nombre  " +
+		query = " SELECT   p.IdPago, p.Valor, p.fecha, p.fecha2, p.Descripcion, p.idCliente, p.Enviado, p.NPagosFacturaNoEnviados, c.nombre , c.representante " +
     		       " FROM Pago p, clientes c " +
     		       " WHERE p.idCliente = c.idCliente "+
     		       " AND p.IdPago="+idPago;
@@ -5605,7 +5606,7 @@ public class creaBD extends SQLiteOpenHelper {
 		if(enviaRepresados)
 		{
 			query = " SELECT   p.idPagoPrestamo, p.fecha, p.fecha2, p.idCliente, p.hora," +
-					" p.valor,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre "+//, p.FormaPago  " +
+					" p.valor,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre, c.representante "+//, p.FormaPago  " +
 					" FROM PagoPrestamo p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -5615,7 +5616,7 @@ public class creaBD extends SQLiteOpenHelper {
 		else
 		{
 			query = " SELECT   p.idPagoPrestamo, p.fecha, p.fecha2, p.idCliente, p.hora," +
-					" p.valor,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre "+
+					" p.valor,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre, c.representante "+
 					" FROM PagoPrestamo p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -5660,7 +5661,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 
             query = " SELECT   p.idPagoPrestamo, p.fecha, p.fecha2, p.idCliente, p.hora," +
-                    " p.valor,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre "+
+                    " p.valor,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre, c.representante "+
                     " FROM PagoPrestamo p, clientes c " +
                     " WHERE p.idCliente = c.idCliente " +
                     " AND  p.idPagoPrestamo ="+idPagoPrestamo +
@@ -5706,7 +5707,7 @@ public class creaBD extends SQLiteOpenHelper {
 		if(enviaRepresados)
 		{
 			query = " SELECT   p.idPrestamo, p.fecha, p.fecha2, p.idCliente, p.hora," +
-					" p.valorPrestamo,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre,p.objeto "+
+					" p.valorPrestamo,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre,p.objeto, c.representante "+
 					" FROM Prestamo p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -5716,7 +5717,7 @@ public class creaBD extends SQLiteOpenHelper {
 		else
 		{
 			query = " SELECT   p.idPrestamo, p.fecha, p.fecha2, p.idCliente, p.hora," +
-					" p.valorPrestamo,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre ,p.objeto "+
+					" p.valorPrestamo,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre ,p.objeto, c.representante "+
 					" FROM Prestamo p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -5761,7 +5762,7 @@ public class creaBD extends SQLiteOpenHelper {
         String query="";
 
             query = " SELECT   p.idPrestamo, p.fecha, p.fecha2, p.idCliente, p.hora," +
-                    " p.valorPrestamo,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre ,p.objeto "+
+                    " p.valorPrestamo,p.saldoAnterior,p.nuevoSaldo,p.enviado, c.nombre ,p.objeto , c.representante"+
                     " FROM Prestamo p, clientes c " +
                     " WHERE p.idCliente = c.idCliente " +
                     " AND p.idPrestamo ="+idPrestamo+
@@ -5809,7 +5810,7 @@ public class creaBD extends SQLiteOpenHelper {
 		if(enviaRepresados)
 		{
 			query = " SELECT   p.idLibro, p.NLibro, p.IdCliente, p.MovCredito, p.MovDedito," +
-					" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre "+
+					" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre, c.representante "+
 					" FROM Libro p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -5819,7 +5820,7 @@ public class creaBD extends SQLiteOpenHelper {
 		else
 		{
 			query = " SELECT   p.idLibro, p.NLibro, p.IdCliente, p.MovCredito, p.MovDedito," +
-					" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre "+
+					" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre, c.representante "+
 					" FROM Libro p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -5867,7 +5868,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 
 			query = " SELECT   p.idLibro, p.NLibro, p.IdCliente, p.MovCredito, p.MovDedito," +
-					" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre "+
+					" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre, c.representante "+
 					" FROM Libro p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.idLibro="+idLibro+
@@ -5914,7 +5915,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 
 			query = " SELECT   p.idLibro, p.NLibro, p.IdCliente, p.MovCredito, p.MovDedito," +
-					" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre "+
+					" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre, c.representante "+
 					" FROM Libro p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -5963,7 +5964,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 
 		query = " SELECT   p.idLibro, p.NLibro, p.IdCliente, p.MovCredito, p.MovDedito," +
-				" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre "+
+				" p.Saldo,p.Enviado,p.Concepto,p.Fecha,p.Fecha2,p.hora,p.SaldoAnterior, c.nombre, c.representante "+
 				" FROM Libro p, clientes c " +
 				" WHERE p.idCliente = c.idCliente " +
 				" AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -6017,7 +6018,7 @@ public class creaBD extends SQLiteOpenHelper {
 		if(enviaRepresados)
 		{
 			 query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora," +
-					 " p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones, p.DescuentoTotal, p.SubTotal, p.Documento , p.FormaPago, p.idClienteSucursal, p.Estado, p.TipoPedido  " +
+					 " p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones, p.DescuentoTotal, p.SubTotal, p.Documento , p.FormaPago, p.idClienteSucursal, p.Estado, p.TipoPedido , c.representante " +
 	    		       " FROM pedidos p, clientes c " +
 	    		       " WHERE p.idCliente = c.idCliente " +
 	    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6028,7 +6029,7 @@ public class creaBD extends SQLiteOpenHelper {
 		else
 		{
 		    query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora," +
-					" p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones , p.DescuentoTotal, p.SubTotal, p.Documento ,p.FormaPago, p.idClienteSucursal, p.Estado, p.TipoPedido  " +
+					" p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones , p.DescuentoTotal, p.SubTotal, p.Documento ,p.FormaPago, p.idClienteSucursal, p.Estado, p.TipoPedido , c.representante  " +
 		    		       " FROM pedidos p, clientes c " +
 		    		       " WHERE p.idCliente = c.idCliente " +
 		    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6057,6 +6058,8 @@ public class creaBD extends SQLiteOpenHelper {
 					ped.idClienteSucursal = validaCampoNull(c,13);
 					ped.setEstado( ""+validaCampoNull(c,14));
 					ped.setTipoPedido(validaCampoNullString(c,15));
+					ped.setRepresentanteCliente((validaCampoNullString(c,16)));
+
 					lista.add(ped);
 				}
 				bd.close();
@@ -6099,7 +6102,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			 query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 			 		   ",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones,  p.idClienteSucursal, p.Anulada " +
+			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones,  p.idClienteSucursal, p.Anulada,  c.representante " +
 	    		       " FROM factura p, clientes c " +
 	    		       " WHERE p.idCliente = c.idCliente " +
 	    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6110,7 +6113,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 		    query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 			 		   ",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal, p.Anulada " +
+			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal, p.Anulada , c.representante" +
 	    		      " FROM factura p, clientes c " +
 		    		       " WHERE p.idCliente = c.idCliente " +
 		    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6164,6 +6167,7 @@ public class creaBD extends SQLiteOpenHelper {
 					//ped.idClienteSucursal=c.getLong(38);
 					ped.idClienteSucursal = validaCampoNull(c,38);
 					ped.setAnulada(""+validaCampoNull(c,39));
+					ped.setRepresentanteCliente((validaCampoNullString(c,40)));
 					lista.add(ped);					
 				}
 				bd.close();
@@ -6189,7 +6193,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal,  p.Anulada " +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal,  p.Anulada , c.representante" +
 					" FROM factura p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.NFactura>="+cierreTurno.getNFacturaInicial()+" AND p.NFactura<="+cierreTurno.getNFacturaFinal()+
@@ -6243,6 +6247,7 @@ public class creaBD extends SQLiteOpenHelper {
 				//ped.idClienteSucursal=c.getLong(38);
 				ped.idClienteSucursal = validaCampoNull(c,38);
 				ped.setAnulada(""+validaCampoNull(c,39));
+				ped.setRepresentanteCliente((validaCampoNullString(c,40)));
 				lista.add(ped);
 			}
 
@@ -6269,7 +6274,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones, p.idClienteSucursal " +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones, p.idClienteSucursal , c.representante" +
 					" FROM remision p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -6280,7 +6285,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones , p.idClienteSucursal " +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones , p.idClienteSucursal, c.representante " +
 					" FROM remision p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -6333,6 +6338,7 @@ public class creaBD extends SQLiteOpenHelper {
 				ped.observaciones=c.getString(37);
 				//ped.idClienteSucursal=c.getLong(38);
 				ped.idClienteSucursal = validaCampoNull(c,38);
+				ped.setRepresentanteCliente((validaCampoNullString(c,39)));
 				lista.add(ped);
 			}
 			bd.close();
@@ -6360,7 +6366,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 		query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 				",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-				",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado, p.base19, p.iva19, p.Observaciones " +
+				",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado, p.base19, p.iva19, p.Observaciones , c.representante" +
 				" FROM factura p, clientes c " +
 				" WHERE p.idCliente = c.idCliente " +
 				" AND p.idCliente =" + idCliente +
@@ -6411,6 +6417,7 @@ public class creaBD extends SQLiteOpenHelper {
 				ped.iva19 = c.getLong(36);
 				ped.observaciones = c.getString(37);
 				ped.TipoDoc = "FAC";
+				ped.setRepresentanteCliente((validaCampoNullString(c,38)));
 				listaF.add(ped);
 			}
 
@@ -6428,7 +6435,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit, p.Pagada, p.ValorPagado, p.base19, p.iva19, p.Observaciones " +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit, p.Pagada, p.ValorPagado, p.base19, p.iva19, p.Observaciones , c.representante" +
 					" FROM remision p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.idCliente =" + idCliente +
@@ -6485,6 +6492,7 @@ public class creaBD extends SQLiteOpenHelper {
 					ped.iva19 = c.getLong(36);
 					ped.observaciones = c.getString(37);
 					ped.TipoDoc = "REM";
+					ped.setRepresentanteCliente((validaCampoNullString(c,38)));
 					listaR.add(ped);
 				}
 

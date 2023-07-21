@@ -14,6 +14,8 @@ public class Pago {
 	private long Enviado;
 	private String nombreCliente;
 	private long deudaCliente;
+
+	private String representanteCliente;
 	
 	private ArrayList<PagosFactura> listaPagosFactura;
 
@@ -155,5 +157,12 @@ public long getValor() {
 	public void setDeudaCliente(long deudaCliente) {
 		this.deudaCliente = deudaCliente;
 	}
-	
+
+	public String getRepresentanteCliente() {
+		return representanteCliente;
+	}
+
+	public void setRepresentanteCliente(String representanteCliente) {
+		this.representanteCliente = representanteCliente;
+	}
 }

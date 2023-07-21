@@ -89,6 +89,8 @@ public class Pedido_in
 
 	private String TipoPedido;
 
+	public String representanteCliente;
+
 
 	/**
 	 * metodo que se encarga de asignar valores a los atributos del pedido
@@ -110,6 +112,7 @@ public class Pedido_in
 		Documento="FAC";
 		FormaPago="1";
 		idClienteSucursal=0;
+		representanteCliente="";
 
 	}
 
@@ -455,5 +458,23 @@ public class Pedido_in
 
 	public void setTipoPedido(String tipoPedido) {
 		TipoPedido = tipoPedido;
+	}
+
+	public String getRepresentanteCliente() {
+		return representanteCliente;
+	}
+
+	public void setRepresentanteCliente(String representanteCliente) {
+		this.representanteCliente = representanteCliente;
+	}
+	public String getDatoCliente(Parametros parametros)
+	{
+		if(parametros.getMuestraEstablecimientoCliente()==1)
+		{
+			return nombreCliente;
+		}
+		else {
+			return representanteCliente;
+		}
 	}
 }

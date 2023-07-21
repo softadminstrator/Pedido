@@ -110,6 +110,8 @@ public class Factura_in
 
 	public String Anulada;
 
+	public String representanteCliente;
+
 
 
 	
@@ -898,4 +900,24 @@ public void setProperty(int i, String data) {
 	public void setAnulada(String anulada) {
 		Anulada = anulada;
 	}
+
+	public String getRepresentanteCliente() {
+		return representanteCliente;
+	}
+
+	public void setRepresentanteCliente(String representanteCliente) {
+		this.representanteCliente = representanteCliente;
+	}
+
+	public String getDatoCliente(Parametros parametros)
+	{
+		if(parametros.getMuestraEstablecimientoCliente()==1)
+		{
+			return nombreCliente;
+		}
+		else {
+			return representanteCliente;
+		}
+	}
+
 }

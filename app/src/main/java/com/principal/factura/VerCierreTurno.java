@@ -185,7 +185,7 @@ public class VerCierreTurno extends Activity implements View.OnClickListener {
 
         listaArticulos=bd.getVentasCierreFacturasporArticulo(cierreTurno);
         listaFacturas=bd.getFacturasCierre(cierreTurno);
-        lvFacturasCierre.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,listaFacturas,null,null,null,null,null,null));
+        lvFacturasCierre.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,listaFacturas,null,null,null,null,null,null,parametros));
 
 
     }

@@ -2429,12 +2429,12 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 	public void cargarPagoPrestamos(String fechaDesde, String fechaHasta)
 	{
 		listaPagoPrestamos=bd.getPagosPrestamoXFecha(this, fechaDesde,fechaHasta, false);
-		listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,null,null,listaPagoPrestamos,null,null));
+		listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,null,null,listaPagoPrestamos,null,null,parametrosPos));
 	}
 	public void cargarMovimientos(String fechaDesde, String fechaHasta)
 	{
 		listaLibros=bd.getMovimientosXFecha(this, fechaDesde,fechaHasta, false);
-		listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,null,null,null,listaLibros,null));
+		listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,null,null,null,listaLibros,null,parametrosPos));
 	}
 
 	public void cargarMovimientosXCliente(String fechaDesde, String fechaHasta,Cliente cliente)
@@ -2446,36 +2446,36 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 	public void cargarPrestamos(String fechaDesde, String fechaHasta)
 	{
 		listaPrestamos=bd.getPrestamosXFecha(this, fechaDesde,fechaHasta, false);
-		listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,null,listaPrestamos,null,null,null));
+		listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,null,listaPrestamos,null,null,null,parametrosPos));
 	}
     
     public void cargarPagos(String fechaDesde, String fechaHasta)
   	{   	
   		  listaPagos=bd.getPagosPorFecha(this, fechaDesde,fechaHasta, false);
-          listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,listaPagos,null,null,null,null));
+          listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,listaPagos,null,null,null,null,parametrosPos));
   	}
       
     public void cargarPedidos(String fechaDesde, String fechaHasta)
 	{   	
 		listaPedidos=bd.getPedidosPorFecha(this, fechaDesde,fechaHasta, false);
-        listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,listaPedidos,null,null,null,null,null,null,null));
+        listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,listaPedidos,null,null,null,null,null,null,null,parametrosPos));
 	}
     
     public void cargarFacturas(String fechaDesde, String fechaHasta)
 	{   	
     	listaFacturas=bd.getFacturasPorFecha(this, fechaDesde,fechaHasta, false);
-        listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,listaFacturas,null,null,null,null,null,null));
+        listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,listaFacturas,null,null,null,null,null,null,parametrosPos));
 	}
 	public void cargarRemisiones(String fechaDesde, String fechaHasta)
 	{
 		listaRemisiones=bd.getRemisionesPorFecha(this, fechaDesde,fechaHasta, false) ;
-		listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,null,null,null,null,listaRemisiones));
+		listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,null,null,null,null,null,listaRemisiones,parametrosPos));
 	}
     
     public void cargarTraslados(String fechaDesde, String fechaHasta)
 	{   	
 		listaTraslados=bd.getTrasladosPorFecha(this, fechaDesde,fechaHasta,false,traslado.bodegaOrigen.getIdBodega(),traslado.bodegaDestino.getIdBodega());
-        listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,listaTraslados,null,null,null,null,null));
+        listView.setAdapter(new ListaDocumentosAdapterActivity(this,R.layout.activity_item_pedido,null,null,listaTraslados,null,null,null,null,null,parametrosPos));
 	}
     
     public boolean borrarPedido()
@@ -5169,7 +5169,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						}
 						else if (operacionDigitalPos.equals("documentos"))
 						{
-							printDigitaPos.printDocumentosRealizados(binder,operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null,listaLibros, listaRemisiones);
+							printDigitaPos.printDocumentosRealizados(binder,operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null,listaLibros, listaRemisiones, parametrosPos);
 						}
 						else if(operacionDigitalPos.equals("pagoPrestamo"))
 						{

@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.principal.mundo.Factura_in;
 import com.principal.mundo.Pago;
+import com.principal.mundo.Parametros;
 import com.principal.mundo.Pedido_in;
 import com.principal.mundo.Remision_in;
 import com.principal.mundo.Traslado_in;
@@ -57,13 +58,16 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 	 */
 	LetraEstilo letraEstilo;
 
+
+	Parametros parametros;
+
 	/**
 	 * metodo que se encarga de asignar valores a los atributos de la clase
 	 * @param context
 	 * @param pedidosNum
 	 * @param pedidos
 	 */
-	public ListaDocumentosAdapterActivity(Context context, int pedidosNum, ArrayList<Pedido_in> pedidos, ArrayList<Factura_in> facturas, ArrayList<Traslado_in> traslados, ArrayList<Pago> pagos, ArrayList<Prestamo> prestamos, ArrayList<PagoPrestamo> pagoPrestamos, ArrayList<Libro> libros, ArrayList<Remision_in> remisiones )
+	public ListaDocumentosAdapterActivity(Context context, int pedidosNum, ArrayList<Pedido_in> pedidos, ArrayList<Factura_in> facturas, ArrayList<Traslado_in> traslados, ArrayList<Pago> pagos, ArrayList<Prestamo> prestamos, ArrayList<PagoPrestamo> pagoPrestamos, ArrayList<Libro> libros, ArrayList<Remision_in> remisiones , Parametros parametros)
 	{
 		super(context, pedidosNum);
 		this.pedidos = pedidos;
@@ -76,6 +80,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 		this.remisiones=remisiones;
 	    this.context=context;
 	    letraEstilo=new LetraEstilo();
+		this.parametros=parametros;
 	  
 		
 	}
@@ -191,7 +196,9 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 					tvFormaPagoPedido.setText(ped.getTipoFormaPago());
 
 					//tvCodigoExterno.setText(Long.toString(ped.idCodigoInterno));
-					tvNombreClientep.setText(ped.nombreCliente);
+					tvNombreClientep.setText(ped.nombreCliente+" - "+ped.representanteCliente);
+
+
 					tvHora.setText(ped.hora);			
 		//-----------------------Valor Unitario----------------------------------------------
 					DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
