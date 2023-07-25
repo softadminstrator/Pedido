@@ -57,10 +57,12 @@ import com.principal.mundo.LlamarFecha;
 import com.principal.mundo.LlamarFechaSys;
 import com.principal.mundo.LlamarImgUrl;
 import com.principal.mundo.LlamarUsuario;
+import com.principal.mundo.Medios;
 import com.principal.mundo.Parametros;
 import com.principal.mundo.Usuario;
 import com.principal.mundo.sysws.EnviarUbicacionRuta;
 import com.principal.mundo.sysws.GetClientexVendedor;
+import com.principal.mundo.sysws.GetMedios;
 import com.principal.mundo.sysws.GetPedidoMesa;
 import com.principal.mundo.sysws.GetValidaVendedor;
 import com.principal.mundo.sysws.Pedido;
@@ -99,6 +101,8 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 		Location currentLocation = null;
 		private ArrayList<Cliente> lclientes;
 		private ArrayList<Articulo> larticulos;
+
+		private ArrayList<Medios> lMedios;
 		/**
 		 * Atributo btllamar referente al boton acceder  en el mometo del ingreso al sistema
 		 */
@@ -116,6 +120,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 		 */
 		LlamarClientes llamarClientes;
 		GetClientexVendedor clientexVendedor;
+		GetMedios getMedios;
 		
 		TextView tvRutaAsignada,tvCajaAsignada;	
 		ArrayList<Categoria> listaCategorias;
@@ -397,8 +402,19 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 				{
 					parametrosPos.setFechaSys2(parametrosPos.getFechaSys2System());					
 				}
-											
-			} catch (Exception e) {
+
+
+
+				//Obtiene Medios de Pago
+				getMedios=new GetMedios(parametrosSys.getIp(),parametrosSys.getWebidText());
+				lMedios=getMedios.GetMediosDePago();
+				 bd.openDB();
+				 bd.insertMedios(lMedios);
+				 bd.closeDB();
+
+
+
+			 } catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	

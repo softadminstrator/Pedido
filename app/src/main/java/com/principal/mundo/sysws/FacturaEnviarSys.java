@@ -18,6 +18,7 @@ private String Fecha2;
 private String Hora;
 private String xmlArticulos;
 private String IdClienteSucursal;
+private String MedioDePago;
 
 	public FacturaEnviarSys() {
 		// TODO Auto-generated constructor stub
@@ -55,6 +56,7 @@ private String IdClienteSucursal;
 		case 9: return Fecha2;
 		case 10: return Hora;
 		case 11: return IdClienteSucursal;
+		case 12: return MedioDePago;
 		}		
 		return null;
 	}
@@ -74,6 +76,7 @@ private String IdClienteSucursal;
 		case 9: return "Fecha2";
 		case 10: return "Hora";
 		case 11: return "IdClienteSucursal";
+		case 12: return "MedioDePago";
 		}
 		return null;
 	}
@@ -94,12 +97,13 @@ private String IdClienteSucursal;
 		case 9: Fecha2=data;break;
 		case 10: Hora=data;break;
 		case 11: IdClienteSucursal=data;break;
+		case 12: MedioDePago=data;break;
 		
 		}	
 }
 	public int getPropertyCount() {
 		// TODO Auto-generated method stub
-		return 12;
+		return 13;
 	}
 	
 
@@ -246,5 +250,13 @@ private String IdClienteSucursal;
 
 	public void setIdClienteSucursal(String idClienteSucursal) {
 		IdClienteSucursal = idClienteSucursal;
+	}
+
+	public String getMedioDePago() {
+		return MedioDePago;
+	}
+
+	public void setMedioDePago(String medioDePago) {
+		MedioDePago = medioDePago;
 	}
 }

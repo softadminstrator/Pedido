@@ -39,6 +39,7 @@ import com.epson.eposprint.Print;
 import com.epson.eposprint.StatusChangeEventListener;
 import com.principal.mundo.Articulo;
 import com.principal.mundo.Categoria;
+import com.principal.mundo.Medios;
 import com.principal.mundo.Parametros;
 import com.principal.mundo.Usuario;
 import com.principal.mundo.sysws.Libro;
@@ -117,6 +118,7 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 	
 	TabHost tabHost;
 	private Parametros parametros;
+	private ArrayList<Medios> listaMedios;
 	private ProgressDialog pdu;
 
 	public static IMyBinder binder;
@@ -167,6 +169,7 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 
 			bd = new creaBD(this);
 			parametros = bd.getParametros(this, "P");
+			listaMedios=bd.GetMedios();
 
 			textViews[0] = (TextView) findViewById(R.id.tvTotalClientesVR);
 			textViews[1] = (TextView) findViewById(R.id.tvEfectivosValorVR);
@@ -648,7 +651,7 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 					public void onsucess() {
 						ISCONNECT = true;
 						PrintDigitaPos printDigitaPos = new PrintDigitaPos();
-						printDigitaPos.printDocumentosRealizados(binder,operacion, true, datos, null, null, null, listaArticulos,null,null,parametros);
+						printDigitaPos.printDocumentosRealizados(binder,operacion, true, datos, null, null, null, listaArticulos,null,null,parametros,listaMedios);
 
 
 

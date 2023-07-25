@@ -112,6 +112,8 @@ public class Factura_in
 
 	public String representanteCliente;
 
+	public String MedioDePago;
+
 
 
 	
@@ -920,4 +922,11 @@ public void setProperty(int i, String data) {
 		}
 	}
 
+	public String getMedioDePago() {
+		return MedioDePago;
+	}
+
+	public void setMedioDePago(String medioDePago) {
+		MedioDePago = medioDePago;
+	}
 }

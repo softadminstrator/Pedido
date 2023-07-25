@@ -20,6 +20,7 @@ import com.principal.mundo.CierreTurno;
 import com.principal.mundo.Cliente;
 import com.principal.mundo.Factura_in;
 import com.principal.mundo.ItemPagoFac;
+import com.principal.mundo.Medios;
 import com.principal.mundo.MediosDePago;
 import com.principal.mundo.Municipio;
 import com.principal.mundo.Pago;
@@ -53,7 +54,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 34);
+		super(context, "BDPEDIDOSYS", null, 36);
 
 	}
 
@@ -354,7 +355,8 @@ public class creaBD extends SQLiteOpenHelper {
 				"  ValorPagado INTEGER," +
 				"  Observaciones TEXT," +
 				"  idClienteSucursal INGETER," +
-				"  Anulada TEXT" +
+				"  Anulada TEXT," +
+				"  MedioDePago TEXT" +
 				") ";
 		db.execSQL(query);
 
@@ -414,6 +416,7 @@ public class creaBD extends SQLiteOpenHelper {
 				"  ValorPagado INTEGER," +
 				"  Observaciones TEXT" +
 				" ,idClienteSucursal INGETER" +
+				" ,MedioDePago TEXT" +
 				") ";
 		db.execSQL(query);
 
@@ -636,6 +639,16 @@ public class creaBD extends SQLiteOpenHelper {
 				" ) ";
 		db.execSQL(query);
 
+
+		query = "CREATE TABLE Medios " +
+				"( IdMediosDePago INGETER PRIMARY KEY, " +
+				"  Nombre TEXT, " +
+				"  Borrado TEXT, " +
+				"  VisibleEnPantalla TEXT, " +
+				"  TeclaAccesoDirecto TEXT, " +
+				"  PermiteModificar  TEXT) ";
+		db.execSQL(query);
+
 	}
 
 	/* (non-Javadoc)
@@ -749,6 +762,20 @@ public class creaBD extends SQLiteOpenHelper {
 		upgradeQuery = "ALTER TABLE parametro ADD COLUMN MuestraEstablecimiendoCliente INGETER ";
 		Actualiza(db, upgradeQuery);
 
+
+		upgradeQuery = "CREATE TABLE Medios " +
+				"( IdMediosDePago INGETER PRIMARY KEY, " +
+				"  Nombre TEXT, " +
+				"  Borrado TEXT, " +
+				"  VisibleEnPantalla TEXT, " +
+				"  TeclaAccesoDirecto TEXT, " +
+				"  PermiteModificar  TEXT) ";
+		Actualiza(db, upgradeQuery);
+
+		upgradeQuery = "ALTER TABLE Factura ADD COLUMN MedioDePago TEXT ";
+		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE Remision ADD COLUMN MedioDePago TEXT ";
+		Actualiza(db, upgradeQuery);
 
 
 
@@ -891,6 +918,33 @@ public class creaBD extends SQLiteOpenHelper {
 					valuesIn.put("activo", categoria.getActivo());
 					valuesIn.put("habilitada", categoria.getHabilidada());
 					this.getWritableDatabase().insert("categoria", null, valuesIn);
+				}
+
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public boolean insertMedios(ArrayList<Medios> lista) {
+		try {
+			ContentValues valuesIn = new ContentValues();
+
+			for (int i = 0; i < lista.size(); i++) {
+				Medios medios = (Medios) lista.get(i);
+				valuesIn = new ContentValues();
+				valuesIn.put("IdMediosDePago", medios.getIdMediosDePago());
+				valuesIn.put("Nombre", medios.getNombre());
+				valuesIn.put("Borrado", medios.getBorrado());
+				valuesIn.put("VisibleEnPantalla", medios.getVisibleEnPantalla());
+				valuesIn.put("TeclaAccesoDirecto", medios.getTeclaAccesoDirecto());
+				valuesIn.put("PermiteModificar", medios.getPermiteModificar());
+				if (getValidaMedios(medios.getIdMediosDePago())) {
+					this.getWritableDatabase().update("Medios", valuesIn, " IdMediosDePago =" + medios.getIdMediosDePago(), null);
+				} else {
+
+					this.getWritableDatabase().insert("Medios", null, valuesIn);
 				}
 
 			}
@@ -1446,6 +1500,8 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("Observaciones", facturain.observaciones);
 			valuesIn.put("idClienteSucursal", facturain.idClienteSucursal);
 			valuesIn.put("Anulada", facturain.Anulada);
+			valuesIn.put("MedioDePago", facturain.MedioDePago);
+
 						
 			if(getValidaFactura(facturain.idCodigoInterno, facturain.idCodigoExterno))
 			{
@@ -1537,6 +1593,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("ValorPagado", remisionin.ValorPagado);
 			valuesIn.put("Observaciones", remisionin.observaciones);
 			valuesIn.put("idClienteSucursal", remisionin.idClienteSucursal);
+			valuesIn.put("MedioDePago", remisionin.MedioDePago);
 
 			if(getValidaRemision(remisionin.idCodigoInterno, remisionin.idCodigoExterno))
 			{
@@ -2690,6 +2747,34 @@ public class creaBD extends SQLiteOpenHelper {
 					   "FROM categoria "+
 					   "WHERE idCategoria = '"+idCategoria+"' ";
 		Cursor c= bds.rawQuery(query,null);	
+		try
+		{
+			if(c.moveToFirst())
+			{
+				if(c.getLong(0)==1)
+				{
+					res=true;
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			res=false;
+		}
+		this.close();
+		return res;
+	}
+
+	public boolean getValidaMedios(long IdMediosDePago)
+	{
+		boolean res=false;
+		this.openDB();
+		SQLiteDatabase bds=this.getWritableDatabase();
+
+		String query = "SELECT COUNT(*) "+
+				"FROM Medios "+
+				"WHERE IdMediosDePago = '"+IdMediosDePago+"' ";
+		Cursor c= bds.rawQuery(query,null);
 		try
 		{
 			if(c.moveToFirst())
@@ -4058,6 +4143,39 @@ public class creaBD extends SQLiteOpenHelper {
 		}
 		this.close();
 		return lista;
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
+
+
+	public ArrayList <Medios> GetMedios()
+	{
+		ArrayList<Medios> lista=new ArrayList<Medios>();
+		try
+		{
+			this.openDB();
+			SQLiteDatabase bds=this.getWritableDatabase();
+			String query = "SELECT IdMediosDePago, Nombre, Borrado, VisibleEnPantalla, TeclaAccesoDirecto, PermiteModificar "+
+					"FROM Medios "+
+					"WHERE VisibleEnPantalla='SI'";
+
+			Cursor c= bds.rawQuery(query,null);
+			for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
+			{
+				Medios medios=new Medios();
+				medios.setIdMediosDePago(Long.parseLong(c.getString(0)));
+				medios.setNombre(c.getString(1));
+				medios.setBorrado(c.getString(2));
+				medios.setVisibleEnPantalla(c.getString(3));
+				medios.setTeclaAccesoDirecto(c.getString(4));
+				medios.setPermiteModificar(c.getString(5));
+				lista.add(medios);
+			}
+			this.close();
+			return lista;
 		}
 		catch(Exception e)
 		{
@@ -6102,7 +6220,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			 query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 			 		   ",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones,  p.idClienteSucursal, p.Anulada,  c.representante " +
+			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones,  p.idClienteSucursal, p.Anulada,  c.representante, p.MedioDePago " +
 	    		       " FROM factura p, clientes c " +
 	    		       " WHERE p.idCliente = c.idCliente " +
 	    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6113,7 +6231,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 		    query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 			 		   ",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal, p.Anulada , c.representante" +
+			 		   ",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalFactura,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NFactura, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones ,  p.idClienteSucursal, p.Anulada , c.representante, p.MedioDePago " +
 	    		      " FROM factura p, clientes c " +
 		    		       " WHERE p.idCliente = c.idCliente " +
 		    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6168,6 +6286,7 @@ public class creaBD extends SQLiteOpenHelper {
 					ped.idClienteSucursal = validaCampoNull(c,38);
 					ped.setAnulada(""+validaCampoNull(c,39));
 					ped.setRepresentanteCliente((validaCampoNullString(c,40)));
+					ped.MedioDePago = validaCampoNullString(c,41);
 					lista.add(ped);					
 				}
 				bd.close();
@@ -6274,7 +6393,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones, p.idClienteSucursal , c.representante" +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones, p.idClienteSucursal , c.representante,  p.MedioDePago" +
 					" FROM remision p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -6285,7 +6404,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones , p.idClienteSucursal, c.representante " +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones , p.idClienteSucursal, c.representante , p.MedioDePago " +
 					" FROM remision p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -6339,6 +6458,7 @@ public class creaBD extends SQLiteOpenHelper {
 				//ped.idClienteSucursal=c.getLong(38);
 				ped.idClienteSucursal = validaCampoNull(c,38);
 				ped.setRepresentanteCliente((validaCampoNullString(c,39)));
+				ped.MedioDePago=validaCampoNullString(c,40);
 				lista.add(ped);
 			}
 			bd.close();

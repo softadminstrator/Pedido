@@ -67,6 +67,7 @@ import com.principal.mundo.Factura_in;
 import com.principal.mundo.ItemPagoFac;
 import com.principal.mundo.LlamarFecha;
 import com.principal.mundo.LlamarFechaSys;
+import com.principal.mundo.Medios;
 import com.principal.mundo.Opciones;
 import com.principal.mundo.Pago;
 import com.principal.mundo.PagosFactura;
@@ -322,6 +323,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 	 * Atributo parametros referente de la clase Parametros
 	 */
 	Parametros parametrosPos, parametrosSys;
+	ArrayList<Medios> listaMedios;
 	
 	private ProgressDialog pdu;
 	
@@ -395,7 +397,8 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
         btBodegas.setOnClickListener(this);
         bd=new creaBD(this);        
         parametrosPos=bd.getParametros(this,"P");
-        parametrosSys=bd.getParametros(this,"S");    
+        parametrosSys=bd.getParametros(this,"S");
+		listaMedios=bd.GetMedios();
       
         Calendar c = Calendar.getInstance();
         dia=c.get(Calendar.DAY_OF_MONTH);
@@ -3411,6 +3414,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 				facturaEnviarsys.setHora(factura.getHora());
 				facturaEnviarsys.setListaArticulos(listaAFactura);
 				facturaEnviarsys.setObservaciones(factura.observaciones);
+				facturaEnviarsys.setMedioDePago(factura.MedioDePago);
 				
 				if(parametrosPos.isValue(parametrosPos.getFacturaOnLine()))
 			 	{
@@ -3446,6 +3450,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 			remisionEnviarsys.setHora(remision.getHora());
 			remisionEnviarsys.setListaArticulos(listaARemision);
 			remisionEnviarsys.setObservaciones(remision.observaciones);
+			remisionEnviarsys.setMedioDePago(remision.MedioDePago);
 
 			if(parametrosPos.isValue(parametrosPos.getFacturaOnLine()))
 			{
@@ -5169,7 +5174,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						}
 						else if (operacionDigitalPos.equals("documentos"))
 						{
-							printDigitaPos.printDocumentosRealizados(binder,operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null,listaLibros, listaRemisiones, parametrosPos);
+							printDigitaPos.printDocumentosRealizados(binder,operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null,listaLibros, listaRemisiones, parametrosPos,listaMedios);
 						}
 						else if(operacionDigitalPos.equals("pagoPrestamo"))
 						{

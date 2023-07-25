@@ -12,6 +12,7 @@ import com.principal.mundo.ArticulosRemision;
 import com.principal.mundo.CierreTurno;
 import com.principal.mundo.Factura_in;
 import com.principal.mundo.ItemPagoFac;
+import com.principal.mundo.Medios;
 import com.principal.mundo.Pago;
 import com.principal.mundo.PagosFactura;
 import com.principal.mundo.Parametros;
@@ -239,7 +240,7 @@ public class PrintDigitaPos {
     }
 
 
-    public void printDocumentosRealizados(IMyBinder binder, int operacion, boolean printArticulos, ArrayList<String> datos, ArrayList<Pedido_in> listaPedidos, ArrayList<Factura_in> listaFacturas, ArrayList<Traslado_in> listaTraslados, ArrayList<Articulo> listaArticulos, ArrayList <Libro> listaLibros, ArrayList<Remision_in> listaRemisiones, Parametros parametrosPos)
+    public void printDocumentosRealizados(IMyBinder binder, int operacion, boolean printArticulos, ArrayList<String> datos, ArrayList<Pedido_in> listaPedidos, ArrayList<Factura_in> listaFacturas, ArrayList<Traslado_in> listaTraslados, ArrayList<Articulo> listaArticulos, ArrayList <Libro> listaLibros, ArrayList<Remision_in> listaRemisiones, Parametros parametrosPos, ArrayList<Medios> listaMedios)
     {
         this.operacion=operacion;
         this.printArticulos=printArticulos;
@@ -287,6 +288,32 @@ public class PrintDigitaPos {
             asignaValor(" No.      CLIENTE       FECHA Y HORA   TOTAL");
 
 
+
+            // Remisiones de  contado
+            // Detalla Remisiones x Medio de pago
+            for (int i = 0; i < listaMedios.size(); i++) {
+                Medios medio =listaMedios.get(i);
+                long temTotMedio=0;
+                for (int j = 0; j < listaFacturas.size(); j++) {
+                    Factura_in f =listaFacturas.get(j);
+                    if(f.getMedioDePago().equals("")) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                        temTotMedio=temTotMedio+f.valor;
+                    }
+                    else if(f.getMedioDePago().equals(medio.getNombre())) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                        temTotMedio=temTotMedio+f.valor;
+                    }
+                    if(temTotMedio>0)
+                    {
+                        asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
+                    }
+                }
+
+
+            }
+
+/*
             // Facturas de  contado
             for (int i = 0; i < listaFacturas.size(); i++) {
                 Factura_in f =listaFacturas.get(i);
@@ -294,6 +321,11 @@ public class PrintDigitaPos {
                     asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                 }
             }
+*/
+            asignaValor("____________________________________________");
+
+
+
             //Total facturas contado
             if(getTotalFacturasContado()>0) {
                 asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL FACTURAS CONTADO: " + getDecTxt(getTotalFacturasContado())));
@@ -326,12 +358,38 @@ public class PrintDigitaPos {
 
 
             // Remisiones de  contado
-            for (int i = 0; i < listaRemisiones.size(); i++) {
+            // Detalla Remisiones x Medio de pago
+            for (int i = 0; i < listaMedios.size(); i++) {
+                Medios medio =listaMedios.get(i);
+                long temTotMedio=0;
+                for (int j = 0; j < listaRemisiones.size(); j++) {
+                    Remision_in f =listaRemisiones.get(j);
+                    if(f.getMedioDePago().equals("")) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                        temTotMedio=temTotMedio+f.valor;
+                    }
+                    else if(f.getMedioDePago().equals(medio.getNombre())) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                        temTotMedio=temTotMedio+f.valor;
+                    }
+                    if(temTotMedio>0)
+                    {
+                        asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
+                    }
+                }
+
+
+            }
+
+
+           /* for (int i = 0; i < listaRemisiones.size(); i++) {
                 Remision_in f =listaRemisiones.get(i);
                 if(f.getPagada().equals("SI")) {
                     asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                 }
             }
+            */
+
             //Total Remisiones contado
             if(getTotalRemisionesContado()>0) {
                 asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL COTIZACIONES CONTADO: " + getDecTxt(getTotalRemisionesContado())));
@@ -956,4 +1014,5 @@ public class PrintDigitaPos {
         return decimalFormat.format(total);
 
     }
+
 }

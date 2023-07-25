@@ -112,7 +112,7 @@ public class Remision_in
     public long idClienteSucursal;
 
     public String representanteCliente;
-
+    public String MedioDePago;
 
 
 
@@ -908,5 +908,12 @@ public class Remision_in
         else {
             return representanteCliente;
         }
+    }
+    public String getMedioDePago() {
+        return MedioDePago;
+    }
+
+    public void setMedioDePago(String medioDePago) {
+        MedioDePago = medioDePago;
     }
 }

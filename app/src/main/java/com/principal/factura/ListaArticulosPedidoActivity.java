@@ -63,6 +63,7 @@ import com.principal.mundo.Factura;
 import com.principal.mundo.Factura_in;
 import com.principal.mundo.LlamarFecha;
 import com.principal.mundo.LlamarFechaSys;
+import com.principal.mundo.Medios;
 import com.principal.mundo.Opciones;
 import com.principal.mundo.Parametros;
 import com.principal.mundo.Pedido;
@@ -120,6 +121,9 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	ArrayList<ArticulosRemision> listaARemision;
 	
 	private boolean isCredito=false;
+	private String MedioDePago="";
+
+	private ArrayList<Medios> listaFormasPago;
 	
 	/**
 	 * Atributo textView que se encarga de guardar las etiquetas de la actividad
@@ -267,6 +271,11 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
         bd=new creaBD(this);
         parametrosPos=bd.getParametros(this,"P");
         parametrosSys=bd.getParametros(this,"S");
+
+		//Obtiene formas de pago
+		listaFormasPago=bd.GetMedios();
+
+
 
         if(!parametrosSys.isValue(parametrosSys.getModificaValorTotal())) {
 			opciones = new Opciones[3];
@@ -860,14 +869,11 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 				public void onClick(View v) {
 					test.cancel();
 					isCredito=false;
-					if(operacion==REMISION)
-					{
-						EnviarRemision();
-					}
-					else
-					{
-						EnviarFactura();
-					}
+
+					//Pide que seleccione el medio de pago
+					seleccionaMedioDePago();
+
+
 				}
 			});
 	        test.show();	
@@ -1014,6 +1020,40 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		test.show();
 	}
 
+
+	private void seleccionaMedioDePago()
+	{
+		opciones=new Opciones[listaFormasPago.size()];
+		for (int i = 0; i < listaFormasPago.size(); i++) {
+
+			opciones[i]=new Opciones(i,listaFormasPago.get(i).getNombre().toString() , getImg(R.drawable.pedidos), listaFormasPago.get(i).toString());
+		}
+		ListAdapter listaMotivos = new OpcionesAdapter(ListaArticulosPedidoActivity.this, opciones);
+		AlertDialog.Builder builderMotivo = new AlertDialog.Builder(ListaArticulosPedidoActivity.this);
+		builderMotivo.setTitle("Seleccione el medio de pago");
+		builderMotivo.setSingleChoiceItems(listaMotivos, -1, new DialogInterface.OnClickListener() {
+					//
+					public void onClick(DialogInterface dialogMotivo, int itemMotivo) {
+
+						MedioDePago=listaFormasPago.get(itemMotivo).getNombre();
+						dialogMotivo.cancel();
+
+						if(operacion==REMISION)
+						{
+							EnviarRemision();
+						}
+						else
+						{
+							EnviarFactura();
+						}
+
+					}
+				}
+		);
+		AlertDialog alert = builderMotivo.create();
+		alert.show();
+	}
+
 	private void selectDescuento()
 	{
 
@@ -1136,7 +1176,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		   }
 		   else
 		   {
-			   builder.setTitle("Forma de Pago");
+			   builder.setTitle("Forma de Pago " + MedioDePago);
 		        builder.setMessage("Valor a pagar "+factura.getFormatoDecimal(factura.valor)+"\n Ingrese el dinero recibido:");	 
 		   }
 	      					        
@@ -1231,6 +1271,8 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 			            			 	factura.setVentaCredito(0);
 			            			 	factura.setPagada("SI");
 			            			 	factura.setValorPagado(value);
+									 	factura.setMedioDePago(MedioDePago);
+
 			            			 	
 			            			 	//valida servidor de envio y factura onlien
 			            			 	if(parametrosPos.isValue(parametrosPos.getFacturaOnLine()))
@@ -1277,7 +1319,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		}
 		else
 		{
-			builder.setTitle("Forma de Pago");
+			builder.setTitle("Forma de Pago "+MedioDePago );
 			builder.setMessage("Valor a pagar "+remision.getFormatoDecimal(remision.valor)+"\n Ingrese el dinero recibido:");
 		}
 
@@ -1315,6 +1357,16 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		llVertical.addView(llHorizontal);
 
 		test.setView(llVertical);
+
+
+		//ingresa el valor que le pagan en el cuadro de texto
+		if(!isCredito) {
+			etAlertValor.setText("" + remision.valor);
+		}
+		//---------------------------------------------------
+
+
+
 //		        final AlertDialog test = builder.create();
 		btAlertCancelar.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -1365,6 +1417,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 							remision.setVentaCredito(0);
 							remision.setPagada("SI");
 							remision.setValorPagado(value);
+							remision.setMedioDePago(MedioDePago);
 
 							//valida servidor de envio y factura onlien
 							if(parametrosPos.isValue(parametrosPos.getFacturaOnLine()))
@@ -1603,6 +1656,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		facturaEnviarsys.setFecha2(parametrosPos.getFechaSys2System());
 		facturaEnviarsys.setHora(parametrosPos.getHora());
 		facturaEnviarsys.setListaArticulos(listaAFactura);
+		facturaEnviarsys.setMedioDePago(factura.MedioDePago);
 		try 
 		{	
 			if(etObservacion.getText().toString().length()>0)
@@ -1632,6 +1686,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		remisionEnviarsys.setFecha2(parametrosPos.getFechaSys2System());
 		remisionEnviarsys.setHora(parametrosPos.getHora());
 		remisionEnviarsys.setListaArticulos(listaARemision);
+		remisionEnviarsys.setMedioDePago(remision.MedioDePago);
 		try
 		{
 			if(etObservacion.getText().toString().length()>0)
