@@ -174,4 +174,17 @@ public long getValor() {
 	public void setMedioDePago(String medioDePago) {
 		MedioDePago = medioDePago;
 	}
+	public String getDatoCliente(Parametros parametros)
+	{
+		return representanteCliente;
+		/*if(parametros.getMuestraEstablecimientoCliente()==1)
+		{
+			return nombreCliente;
+		}
+		else {
+			return representanteCliente;
+		}
+
+		 */
+	}
 }

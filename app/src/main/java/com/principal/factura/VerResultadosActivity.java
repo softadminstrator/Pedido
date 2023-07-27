@@ -651,7 +651,7 @@ public class VerResultadosActivity extends Activity implements OnClickListener,S
 					public void onsucess() {
 						ISCONNECT = true;
 						PrintDigitaPos printDigitaPos = new PrintDigitaPos();
-						printDigitaPos.printDocumentosRealizados(binder,operacion, true, datos, null, null, null, listaArticulos,null,null,parametros,listaMedios);
+						printDigitaPos.printDocumentosRealizados(binder,operacion, true, datos, null, null, null, listaArticulos,null,null,parametros,listaMedios, null);
 
 
 

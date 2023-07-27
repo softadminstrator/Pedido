@@ -2027,7 +2027,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 			 MenuItem bedMenuItem2 = menu.findItem(R.id.menuResultado);
 			 MenuItem bedMenuItem3 = menu.findItem(R.id.menuPrintDocument);
 			 bedMenuItem2.setVisible(false);
-			 bedMenuItem3.setVisible(false);
+			 //bedMenuItem3.setVisible(false);
 			 bedMenuItem.setTitle("Enviar Pagos Represados");
 		}
         return true;
@@ -5174,7 +5174,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						}
 						else if (operacionDigitalPos.equals("documentos"))
 						{
-							printDigitaPos.printDocumentosRealizados(binder,operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null,listaLibros, listaRemisiones, parametrosPos,listaMedios);
+							printDigitaPos.printDocumentosRealizados(binder,operacion, false, datos, listaPedidos, listaFacturas, listaTraslados, null,listaLibros, listaRemisiones, parametrosPos,listaMedios,listaPagos);
 						}
 						else if(operacionDigitalPos.equals("pagoPrestamo"))
 						{

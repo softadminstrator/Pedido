@@ -913,13 +913,16 @@ public void setProperty(int i, String data) {
 
 	public String getDatoCliente(Parametros parametros)
 	{
-		if(parametros.getMuestraEstablecimientoCliente()==1)
+		return representanteCliente;
+		/*if(parametros.getMuestraEstablecimientoCliente()==1)
 		{
 			return nombreCliente;
 		}
 		else {
 			return representanteCliente;
 		}
+
+		 */
 	}
 
 	public String getMedioDePago() {

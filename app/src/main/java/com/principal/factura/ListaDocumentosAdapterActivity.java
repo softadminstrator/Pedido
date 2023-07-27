@@ -225,7 +225,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 										//tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
 					tvCodigoExterno.setText(Long.toString(fac.NFactura));
 					tvCodigoInterno.setText("");
-					tvNombreClientep.setText(fac.nombreCliente);
+					tvNombreClientep.setText(fac.nombreCliente+" - "+fac.representanteCliente);
 					tvHora.setText(fac.hora);			
 		//-----------------------Valor Unitario----------------------------------------------
 					DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
@@ -249,7 +249,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 				//tvCodigoExterno.setText(Long.toString(fac.NRemision));
 				tvCodigoInterno.setText(Long.toString(fac.idCodigoInterno));
 				tvCodigoExterno.setText(Long.toString(fac.idCodigoExterno));
-				tvNombreClientep.setText(fac.nombreCliente);
+				tvNombreClientep.setText(fac.nombreCliente+" - "+fac.representanteCliente);
 				tvHora.setText(fac.hora);
 				//-----------------------Valor Unitario----------------------------------------------
 				DecimalFormat decimalFormat=new DecimalFormat("###,###,###");

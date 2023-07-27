@@ -49,6 +49,7 @@ public class PrintDigitaPos {
     private final static int FACTURA = 1;
     private final static int PEDIDO = 2;
     private final static int TRANSLADO = 3;
+    private final static int CARTERA=7;
     private final static int PRESTAMOS=8;
     private final static int ABONOPRESTAMOS=9;
     private final static int VERLIBRO=10;
@@ -242,7 +243,7 @@ public class PrintDigitaPos {
     }
 
 
-    public void printDocumentosRealizados(IMyBinder binder, int operacion, boolean printArticulos, ArrayList<String> datos, ArrayList<Pedido_in> listaPedidos, ArrayList<Factura_in> listaFacturas, ArrayList<Traslado_in> listaTraslados, ArrayList<Articulo> listaArticulos, ArrayList <Libro> listaLibros, ArrayList<Remision_in> listaRemisiones, Parametros parametrosPos, ArrayList<Medios> listaMedios)
+    public void printDocumentosRealizados(IMyBinder binder, int operacion, boolean printArticulos, ArrayList<String> datos, ArrayList<Pedido_in> listaPedidos, ArrayList<Factura_in> listaFacturas, ArrayList<Traslado_in> listaTraslados, ArrayList<Articulo> listaArticulos, ArrayList <Libro> listaLibros, ArrayList<Remision_in> listaRemisiones, Parametros parametrosPos, ArrayList<Medios> listaMedios, ArrayList<Pago> listaPagos)
     {
         this.operacion=operacion;
         this.printArticulos=printArticulos;
@@ -254,6 +255,7 @@ public class PrintDigitaPos {
         this.listaLibros=listaLibros;
         this.listaRemisiones=listaRemisiones;
         this.parametrosPos=parametrosPos;
+        this.listaPagos=listaPagos;
         boolean res=false;
         this.binder=binder;
 
@@ -298,11 +300,12 @@ public class PrintDigitaPos {
                 long temTotMedio=0;
                 for (int j = 0; j < listaFacturas.size(); j++) {
                     Factura_in f =listaFacturas.get(j);
-                    if(f.getMedioDePago().equals("")) {
+                    /*if(f.getMedioDePago().equals("")) {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                         temTotMedio=temTotMedio+f.valor;
                     }
-                    else if(f.getMedioDePago().equals(medio.getNombre())) {
+                    else */
+                        if(f.getMedioDePago().equals(medio.getNombre())) {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                         temTotMedio=temTotMedio+f.valor;
                     }
@@ -367,11 +370,12 @@ public class PrintDigitaPos {
                 long temTotMedio=0;
                 for (int j = 0; j < listaRemisiones.size(); j++) {
                     Remision_in f =listaRemisiones.get(j);
-                    if(f.getMedioDePago().equals("")) {
+                    /*if(f.getMedioDePago().equals("")) {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                         temTotMedio=temTotMedio+f.valor;
                     }
-                    else if(f.getMedioDePago().equals(medio.getNombre())) {
+                    else */
+                        if(f.getMedioDePago().equals(medio.getNombre())) {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                         temTotMedio=temTotMedio+f.valor;
                     }
@@ -412,6 +416,39 @@ public class PrintDigitaPos {
 
 
 
+
+        }
+
+        else if(operacion==CARTERA)
+        {
+            asignaValor(" No.          CLIENTE    FECHA Y HORA    TOTAL");
+
+
+            // Remisiones de  contado
+            // Detalla Remisiones x Medio de pago
+            for (int i = 0; i < listaMedios.size(); i++) {
+                Medios medio =listaMedios.get(i);
+                long temTotMedio=0;
+                for (int j = 0; j < listaPagos.size(); j++) {
+                    Pago f =listaPagos.get(j);
+
+                    if(f.getMedioDePago().equals(medio.getNombre())) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.getIdPago()) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() ) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.getValor())));
+                        temTotMedio=temTotMedio+f.getValor();
+                    }
+
+                }
+                if(temTotMedio>0)
+                {
+                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
+                }
+
+            }
+
+            //Total Pagos
+            if(getTotalPagos()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL PAGOS: " + getDecTxt(getTotalPagos())));
+            }
 
         }
         else if(operacion==PEDIDO & !printArticulos)
@@ -899,6 +936,17 @@ public class PrintDigitaPos {
             if(f.getPagada().equals("NO")){
                 res+=f.getValor();
             }
+        }
+        return res;
+    }
+
+    private long getTotalPagos()
+    {
+        long res=0;
+        for (int i = 0; i < listaPagos.size(); i++) {
+            Pago f=listaPagos.get(i);
+                res+=f.getValor();
+
         }
         return res;
     }
