@@ -7,6 +7,7 @@ import com.principal.mundo.Bodega;
 import com.principal.mundo.Cliente;
 import com.principal.mundo.Factura_in;
 import com.principal.mundo.ItemPagoFac;
+import com.principal.mundo.Medios;
 import com.principal.mundo.Opciones;
 import com.principal.mundo.Pago;
 import com.principal.mundo.PagosFactura;
@@ -58,7 +59,7 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 	private Button btGenerarPagoParcial, btAgregarPago,btVolverCPP;
 	private ListView lvPagosFactura;
 	
-	private ArrayList<String> listaFormasPago;
+
 	Opciones [] opciones;
 	Opciones [] opcionesAbonos;
 	Context context;
@@ -68,6 +69,8 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 	Parametros parametrosPos, parametrosSys;
 	private long valorAPagar, descuento, nuevoSaldo;
 	private boolean keyback=false;
+
+	private ArrayList<Medios> listaFormasPago;
 	
 	
 	
@@ -90,16 +93,9 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
         parametrosSys=bd.getParametros(this,"S");
 		
 		opcionesAbonos=new Opciones[1];              
-		opcionesAbonos[0]=new Opciones("Eliminar", getImg(R.drawable.eliminar), "Eliminar");        
-	     
-		
-		
-		listaFormasPago=new ArrayList<String>();
-		listaFormasPago.add("EFECTIVO");
-		listaFormasPago.add("T CREDITO");
-		listaFormasPago.add("T DEBITO");
-		listaFormasPago.add("CHEQUE");
-		listaFormasPago.add("BONO");
+		opcionesAbonos[0]=new Opciones("Eliminar", getImg(R.drawable.eliminar), "Eliminar");
+
+		listaFormasPago=bd.GetMedios();
 		
 		tvNombreClientePP=(TextView)findViewById(R.id.tvNombreClientePP);
 		tvNFacturaC=(TextView)findViewById(R.id.tvNFacturaC);
@@ -343,8 +339,8 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 	{
 		opciones=new Opciones[listaFormasPago.size()];
 		for (int i = 0; i < listaFormasPago.size(); i++) {
-		
-			opciones[i]=new Opciones(i,listaFormasPago.get(i).toString() , getImg(R.drawable.pedidos), listaFormasPago.get(i).toString());
+
+			opciones[i]=new Opciones(i,listaFormasPago.get(i).getNombre().toString() , getImg(R.drawable.pedidos), listaFormasPago.get(i).toString());
 		}
 		ListAdapter listaMotivos = new OpcionesAdapter(CarteraPagosParcialesActivity.this, opciones);  				        		  		
         AlertDialog.Builder builderMotivo = new AlertDialog.Builder(CarteraPagosParcialesActivity.this);
@@ -353,7 +349,7 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 //
   			    public void onClick(DialogInterface dialogMotivo, int itemMotivo) {	      			    
   			    
-  			    	etFormaPago.setText(listaFormasPago.get(itemMotivo).toString());
+  			    	etFormaPago.setText(listaFormasPago.get(itemMotivo).getNombre());
   			    	dialogMotivo.cancel();
   			    }
   		}

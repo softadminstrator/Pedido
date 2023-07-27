@@ -5546,12 +5546,14 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			condicion= " AND Enviado = 0 ";	 
 		}
-		query = " SELECT   p.IdPago, p.Valor, p.fecha, p.fecha2, p.Descripcion, p.idCliente, p.Enviado, p.NPagosFacturaNoEnviados, c.nombre, c.representante  " +
-    		       " FROM Pago p, clientes c " +
-    		       " WHERE p.idCliente = c.idCliente " +
-    		       " AND p.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
+		query = " SELECT ItemPagoFac.idPagosFactura,ItemPagoFac.Valor,PAGO.fecha,PAGO.fecha2,Pago.Descripcion\n" +
+				",clientes.IdCliente, Pago.Enviado,Pago.NPagosFacturaNoEnviados, clientes.nombre, clientes.representante, ItemPagoFac.FormaPago   " +
+    		       " FROM ItemPagoFac\n" +
+					" INNER JOIN Pago ON ItemPagoFac.idPagosFactura = PAGO.IdPago\n" +
+					" INNER JOIN clientes ON clientes.idCliente=PAGO.idCliente " +
+    		       " WHERE Pago.fecha2  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
     		       condicion+   		       
-    		       " ORDER BY p.IdPago ASC ";
+    		       " ORDER BY Pago.IdPago ASC ";
 		
 	    Cursor c= bds.rawQuery(query,null);
 		
@@ -5571,6 +5573,7 @@ public class creaBD extends SQLiteOpenHelper {
 					pag.setNPagosFacNoEnviados(c.getLong(7));
 					pag.setNombreCliente(c.getString(8));
 					pag.setRepresentanteCliente((validaCampoNullString(c,9)));
+					pag.setMedioDePago(validaCampoNullString(c,10));
 					lista.add(pag);
 				}
 				bd.close();

@@ -74,6 +74,8 @@ public class PrintDigitaPos {
     ArrayList<Libro> listaLibros;
     ArrayList<Remision_in> listaRemisiones;
 
+    ArrayList<Pago> listaPagos;
+
     private CierreTurno cierreTurno;
 
 
@@ -304,10 +306,11 @@ public class PrintDigitaPos {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                         temTotMedio=temTotMedio+f.valor;
                     }
-                    if(temTotMedio>0)
-                    {
-                        asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
-                    }
+
+                }
+                if(temTotMedio>0)
+                {
+                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
                 }
 
 
@@ -372,12 +375,12 @@ public class PrintDigitaPos {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                         temTotMedio=temTotMedio+f.valor;
                     }
-                    if(temTotMedio>0)
-                    {
-                        asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
-                    }
-                }
 
+                }
+                if(temTotMedio>0)
+                {
+                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
+                }
 
             }
 

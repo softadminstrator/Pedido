@@ -18,6 +18,7 @@ public class Pago {
 	private String representanteCliente;
 	
 	private ArrayList<PagosFactura> listaPagosFactura;
+	private String MedioDePago;
 
 	public Pago(long idPago, long valor, String descripcion, long idCliente,
 			long nPagosFacNoEnviados, String fecha, String fecha2,
@@ -164,5 +165,13 @@ public long getValor() {
 
 	public void setRepresentanteCliente(String representanteCliente) {
 		this.representanteCliente = representanteCliente;
+	}
+
+	public String getMedioDePago() {
+		return MedioDePago;
+	}
+
+	public void setMedioDePago(String medioDePago) {
+		MedioDePago = medioDePago;
 	}
 }
