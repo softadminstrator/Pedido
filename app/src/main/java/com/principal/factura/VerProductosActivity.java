@@ -855,11 +855,11 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 		@Override
 			protected Integer doInBackground(String... params) 
 			{	
-			if(parametrosPos.isValue(parametrosPos.getUsaWSCash()))
+			if(parametrosPos.isValue(parametrosPos.getUsaStarlapWS()))
 			{
 			
-				llamarStock=new LlamarStock(parametrosPos.getIp());
-				listaArt=llamarStock.getLlamarStock("", nombreArticulo, bodegaOmision.getIdBodega());
+				llamarStock=new LlamarStock(parametrosSys.getIp(),parametrosSys);
+				listaArt=llamarStock.getLlamarStock("nom", nombreArticulo, bodegaOmision.getIdBodega());
 				res=llamarStock.getRes();
 				return 1;	
 			}

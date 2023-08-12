@@ -4813,6 +4813,10 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 					{
 						datos.add("INFORME DE MOVIMIENTOS");
 					}
+					else if (operacion==CARTERA)
+					{
+						datos.add("INFORME DE PAGOS");
+					}
 		  			Date fecha=new Date();
 		            SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy"); 
 		            datos.add(sdf.format(fecha));            

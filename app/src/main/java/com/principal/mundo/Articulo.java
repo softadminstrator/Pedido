@@ -573,7 +573,7 @@ public class Articulo implements Comparator<Articulo>, Parcelable
 		case 12:setBorradoXml(text);break;
 		case 13: break;
 		case 14: codigo=text;break;
-		case 15: stock=Double.parseDouble(text);break;
+		case 15: stock=Double.parseDouble(text.replace(",","."));break;
 		case 16: break;
 		case 17:costo=Long.parseLong(text);break;
 		case 18: gramaje=text;break;

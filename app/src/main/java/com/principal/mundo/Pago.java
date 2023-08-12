@@ -12,7 +12,7 @@ public class Pago {
 	private String fecha;
 	private String fecha2;
 	private long Enviado;
-	private String nombreCliente;
+	public String nombreCliente;
 	private long deudaCliente;
 
 	private String representanteCliente;

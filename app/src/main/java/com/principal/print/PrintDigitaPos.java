@@ -305,7 +305,7 @@ public class PrintDigitaPos {
                         temTotMedio=temTotMedio+f.valor;
                     }
                     else */
-                        if(f.getMedioDePago().equals(medio.getNombre())) {
+                        if(f.getMedioDePago().toUpperCase().equals(medio.getNombre().toUpperCase())) {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                         temTotMedio=temTotMedio+f.valor;
                     }
@@ -313,7 +313,7 @@ public class PrintDigitaPos {
                 }
                 if(temTotMedio>0)
                 {
-                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
+                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre().toUpperCase()+": " + getDecTxt(temTotMedio)));
                 }
 
 
@@ -375,7 +375,7 @@ public class PrintDigitaPos {
                         temTotMedio=temTotMedio+f.valor;
                     }
                     else */
-                        if(f.getMedioDePago().equals(medio.getNombre())) {
+                        if(f.getMedioDePago().toUpperCase().equals(medio.getNombre().toUpperCase())) {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
                         temTotMedio=temTotMedio+f.valor;
                     }
@@ -383,7 +383,7 @@ public class PrintDigitaPos {
                 }
                 if(temTotMedio>0)
                 {
-                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
+                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre().toUpperCase()+": " + getDecTxt(temTotMedio)));
                 }
 
             }
@@ -432,7 +432,7 @@ public class PrintDigitaPos {
                 for (int j = 0; j < listaPagos.size(); j++) {
                     Pago f =listaPagos.get(j);
 
-                    if(f.getMedioDePago().equals(medio.getNombre())) {
+                    if(f.getMedioDePago().toUpperCase().equals(medio.getNombre().toUpperCase())) {
                         asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.getIdPago()) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() ) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.getValor())));
                         temTotMedio=temTotMedio+f.getValor();
                     }
@@ -440,7 +440,7 @@ public class PrintDigitaPos {
                 }
                 if(temTotMedio>0)
                 {
-                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre()+": " + getDecTxt(temTotMedio)));
+                    asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre().toUpperCase()+": " + getDecTxt(temTotMedio)));
                 }
 
             }

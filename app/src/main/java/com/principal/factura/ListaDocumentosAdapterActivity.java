@@ -273,6 +273,7 @@ public class ListaDocumentosAdapterActivity extends ArrayAdapter<Pedido_in>
 				tvCodigoInterno.setText("");
 				tvCodigoExterno.setText(Long.toString(pago.getIdPago()));
 				tvNombreClientep.setText(pago.getNombreCliente());
+				tvNombreClientep.setText(pago.nombreCliente+" - "+pago.getRepresentanteCliente());
 				tvHora.setText(pago.getFecha());
 //					tvHora.setText("r " +pago.getEnviado());
 				//-----------------------Valor Unitario----------------------------------------------

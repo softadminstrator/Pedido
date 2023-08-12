@@ -657,7 +657,22 @@
 				android:text="Consulta Costo"
 				android:textSize="20sp" />
 		</LinearLayout>
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			>
 
+			<CheckBox
+				android:id="@+id/cbUsaStarlapWS"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="10dp"
+				android:layout_gravity="center_horizontal"
+				android:layout_marginLeft="10dp"
+				android:text="Usa StarlapWS Articulo"
+				android:textSize="20sp" />
+		</LinearLayout>
 		<LinearLayout
 			android:orientation="horizontal"
 			android:layout_width="match_parent"
@@ -674,6 +689,8 @@
 				android:text="Consulta Articulo en linea"
 				android:textSize="20sp" />
 		</LinearLayout>
+
+
 	   <LinearLayout 
 	    android:id="@+id/llFechaActualizacion"
 	    android:orientation="horizontal"

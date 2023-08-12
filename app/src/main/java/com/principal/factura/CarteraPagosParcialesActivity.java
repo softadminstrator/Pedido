@@ -111,6 +111,7 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 		etFormaPago.setOnClickListener(this);
 		etFormaPago.setFocusable(false);
 		etFormaPago.setFocusableInTouchMode(false);
+		etFormaPago.setText("Efectivo");
 		
 		etValorAPagar.setOnClickListener(this);
 
@@ -274,7 +275,7 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 	{
 		if(getValorAbono()>0)
 		{
-			if(getValorAbono()<nuevoSaldo)
+			if(getValorAbono()<=nuevoSaldo)
 			{
 				ItemPagoFac itemPagoFac=new ItemPagoFac();
 				itemPagoFac.setValor(getValorAbono());
@@ -299,7 +300,7 @@ public class CarteraPagosParcialesActivity extends Activity implements OnClickLi
 	}
 	private void ClearCamposAbono()
 	{
-		etFormaPago.setText("EFECTIVO");
+		etFormaPago.setText("Efectivo");
 		etValorAPagar.setText("");
 		etValorAPagar.requestFocus();		
 	}
