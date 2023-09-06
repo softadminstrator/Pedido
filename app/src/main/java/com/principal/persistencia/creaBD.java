@@ -7089,8 +7089,8 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 		this.openDB();
 		SQLiteDatabase bds=this.getWritableDatabase();
-		String query = "SELECT a.nombre,a.gramaje,a.unidadDeMedida, SUM(fa.cantidad),SUM(fa.valor)  "+
-				   "FROM factura f, factura_articulos fa, articulos a "+
+		String query = "SELECT a.nombre,a.gramaje,a.unidadDeMedida, SUM(fa.cantidad),SUM(fa.valor), MIN(IFNULL(articulo_codigo.codigo,'Sin codigo'))  "+
+				   "FROM factura f, factura_articulos fa, articulos a LEFT OUTER JOIN articulo_codigo ON a.idArticulo=articulo_codigo.idArticulo  "+
 				   "WHERE f.idCodigoInterno=fa.idFactura "+
     			   "AND fa.idArticulo = a.idArticulo "+    		
     			   "AND f.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' AND (f.Anulada='NO' OR f.Anulada is null) "+
@@ -7108,7 +7108,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 			articulo.setCantidadVentas((long)Double.parseDouble(c.getString(3)));
 			articulo.setValorVentas(Long.parseLong(c.getString(4)));
-
+			articulo.setCodigo(c.getString(5));
 			lista.add(articulo);
 		}
 		this.close();
@@ -7169,8 +7169,8 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			this.openDB();
 			SQLiteDatabase bds=this.getWritableDatabase();
-			String query = "SELECT a.nombre,a.gramaje,a.unidadDeMedida, SUM(fa.cantidad),SUM(fa.valor)  "+
-					"FROM remision f, remision_articulos fa, articulos a "+
+			String query = "SELECT a.nombre,a.gramaje,a.unidadDeMedida, SUM(fa.cantidad),SUM(fa.valor) , MIN(IFNULL(articulo_codigo.codigo,'Sin codigo')) "+
+					"FROM remision f, remision_articulos fa, articulos a LEFT OUTER JOIN articulo_codigo ON a.idArticulo=articulo_codigo.idArticulo  "+
 					"WHERE f.idCodigoInterno=fa.idRemision "+
 					"AND fa.idArticulo = a.idArticulo "+
 					"AND f.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -7190,6 +7190,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 				articulo.setCantidadVentas((long)Double.parseDouble(c.getString(3)));
 				articulo.setValorVentas(Long.parseLong(c.getString(4)));
+				articulo.setCodigo(c.getString(5));
 				lista.add(articulo);
 			}
 			this.close();

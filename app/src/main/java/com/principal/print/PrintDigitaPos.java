@@ -203,7 +203,7 @@ public class PrintDigitaPos {
             asignaValor(getFillText(ALIGN_CENTER, 48, remision_in.getRepresentante()));
             // asignaValor(getFillText(ALIGN_CENTER, 46, remision_in.getRegimenNit()));
             // asignaValor( getFillText(ALIGN_CENTER, 46, remision_in.getDireccionTel()));
-            asignaValor( " Cotización: " + getFillText(ALIGN_LEFT, 3, remision_in.getPrefijo()) + " " + getFillText(ALIGN_CENTER, 8, "" + remision_in.NRemision) );
+            asignaValor( " Orden de compra: " + getFillText(ALIGN_LEFT, 3, remision_in.getPrefijo()) + " " + getFillText(ALIGN_CENTER, 8, "" + remision_in.NRemision) );
             asignaValor( "   Fecha: " + getFillText(ALIGN_LEFT, 10, remision_in.getFecha()) + "     Hora: " + getFillText(ALIGN_LEFT, 5, remision_in.getHora()));
             asignaValor( " Cliente: " + getFillText(ALIGN_LEFT, 35, remision_in.getNombreCliente()));
             asignaValor( "C.C./Nit: " + getFillText(ALIGN_LEFT, 35, remision_in.getNitCliente()));
@@ -276,10 +276,10 @@ public class PrintDigitaPos {
             }
             else
             {
-                asignaValor(getFillText(ALIGN_CENTER, 48,"CANT        ARTICULO                 TOTAL "));
+                asignaValor(getFillText(ALIGN_CENTER, 48,"CANT    CODIGO  ARTICULO                 TOTAL "));
                 for (int i = 0; i < listaArticulos.size(); i++) {
                     Articulo a=listaArticulos.get(i);
-                    asignaValor(""+getFillText(ALIGN_LEFT, 6, ""+a.getCantidadVentas())+" "+getFillText(ALIGN_LEFT, 28, ""+a.getNombre())+" "+getFillText(ALIGN_RIGHT, 12, getDecTxt(a.getValorVentas())));
+                    asignaValor(""+getFillText(ALIGN_LEFT, 6, ""+a.getCantidadVentas())+getFillText(ALIGN_LEFT, 6, ""+a.getCodigo())+" "+getFillText(ALIGN_LEFT, 22, ""+a.getNombre())+" "+getFillText(ALIGN_RIGHT, 12, getDecTxt(a.getValorVentas())));
 
                 }
             }
@@ -399,7 +399,7 @@ public class PrintDigitaPos {
 
             //Total Remisiones contado
             if(getTotalRemisionesContado()>0) {
-                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL COTIZACIONES CONTADO: " + getDecTxt(getTotalRemisionesContado())));
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL ORDENES DE COMPRA CONTADO: " + getDecTxt(getTotalRemisionesContado())));
             }
 
             // Remisiones de  credito
@@ -411,7 +411,7 @@ public class PrintDigitaPos {
             }
             //Total Remisiones credito
             if(getTotalRemisionesCredito()>0) {
-                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL COTIZACIONES CREDITO: " + getDecTxt(getTotalRemisionesCredito())));
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL ORDENES DE COMPRA CREDITO: " + getDecTxt(getTotalRemisionesCredito())));
             }
 
 
