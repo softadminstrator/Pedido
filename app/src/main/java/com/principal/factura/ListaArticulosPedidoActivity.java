@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -670,6 +671,8 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 				if(operacion==PEDIDO)
 				{
 					try {
+						comenzarLocalizacion();
+
 
 
 						if (pedido.valor > 0) {
@@ -1639,6 +1642,8 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		pedidoEnviarSys.setFormaPago(pedido.getFormaPago());
 		pedidoEnviarSys.setFecha(parametrosPos.getFecha());
 		pedidoEnviarSys.setHora(parametrosPos.getHora());
+		pedidoEnviarSys.setLatitud(pedido.getLatitud());
+		pedidoEnviarSys.setLongitud(pedido.getLongitud());
 
 	}
 	
@@ -2630,49 +2635,48 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	  private void comenzarLocalizacion()
 	    {
 	    	//Obtenemos una referencia al LocationManager
-	    	locManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-	    	
-	    	//Obtenemos la �ltima posici�n conocida
-	    	//Location loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-	    	
-	    	//Mostramos la �ltima posici�n conocida
-	    	//mostrarPosicion(loc);
-	    	
-	    	//Nos registramos para recibir actualizaciones de la posici�n
-	    	locListener = new LocationListener() {
-		    	public void onLocationChanged(Location location) {
-		    		mostrarPosicion(location);
-		    	}
-		    	public void onProviderDisabled(String provider){
-		    		
-		    	}
-		    	public void onProviderEnabled(String provider){
-		    		
-		    	}
-		    	public void onStatusChanged(String provider, int status, Bundle extras){
-		    		Log.i("", "Provider Status: " + status);
-		    		
-		    	}
-	    	};
-	    	
-	    	//locManager.requestLocationUpdates(
-	    	//		LocationManager.GPS_PROVIDER, 30000, 0, locListener);
+			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			Criteria criteria = new Criteria();
+			criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+			criteria.setCostAllowed(false);
+
+			String provider = locationManager.getBestProvider(criteria, false);
+			Location location = null;
+			try {
+				location = locationManager.getLastKnownLocation(provider);
+
+				if (location != null) {
+					// add location to the location listener for location changes
+					mostrarPosicion(location);
+					//mylistener.onLocationChanged(location);
+				} else {
+
+				}
+
+				// location updates: at least 1 meter and 500 milli seconds change
+				//locationManager.requestLocationUpdates(provider, 500, 1, mylistener);
+			} catch (SecurityException e) {
+				Log.e("SecurityException", e.getMessage());
+			}
+
 	    }
+
+
 	  
 	  /**
 	   * metodo que se encarga de asignar la localizacion del telefono al 
 	   * @param loc
 	   */
-	  private void mostrarPosicion(Location loc) {
+	  private final void mostrarPosicion(Location loc) {
 	    	if(loc != null)
 	    	{
-	    		pedidoEnviar.Latitud= String.valueOf(loc.getLatitude());
-				pedidoEnviar.Longitud= String.valueOf(loc.getLongitude());
+	    		pedido.latitud= String.valueOf(loc.getLatitude());
+				pedido.longitud= String.valueOf(loc.getLongitude());
 	    	}
 	    	else
 	    	{
-	    		pedidoEnviar.Latitud = "sin_datos";
-	    		pedidoEnviar.Longitud = "sin_datos";
+				pedido.latitud = "sin_datos";
+				pedido.longitud = "sin_datos";
 	    		
 	    	}
 	  }
@@ -2775,25 +2779,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		 * @author user
 		 *
 		 */
-		 private class MyLocationListener implements LocationListener 
-		    {
-		        public void onLocationChanged(Location loc) {
-		            if (loc != null) {            
-		            	 setCurrentLocation(loc);
-		                 handler.sendEmptyMessage(0);
-		            }
-		        }
-		        public void onProviderDisabled(String provider) {
-		        	  handler.sendEmptyMessage(1);		        	
-		        }
-		        public void onProviderEnabled(String provider) {
-		            // TODO Auto-generated method stub
-		        }
-		        public void onStatusChanged(String provider, int status, 
-		            Bundle extras) {
-		        	Log.i("", "Provider Status: " + status);
-		        }
-		    }
+
 		 /**
 		  * Clase en la que se envia el pedido al sistema de georeferenciacion en un proceso en segundo plano
 		  * @author Javier

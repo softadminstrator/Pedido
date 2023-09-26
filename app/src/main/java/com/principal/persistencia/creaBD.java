@@ -54,7 +54,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 37);
+		super(context, "BDPEDIDOSYS", null, 38);
 
 	}
 
@@ -298,6 +298,8 @@ public class creaBD extends SQLiteOpenHelper {
 				"  ,idClienteSucursal INGETER" +
 				"  ,Estado TEXT " +
 				"  ,TipoPedido TEXT " +
+				"  ,Latitud TEXT " +
+				"  ,Longitud TEXT " +
 				") ";
 		db.execSQL(query);
 
@@ -769,6 +771,7 @@ public class creaBD extends SQLiteOpenHelper {
 
 
 
+
 		upgradeQuery = "CREATE TABLE Medios " +
 				"( IdMediosDePago INGETER PRIMARY KEY, " +
 				"  Nombre TEXT, " +
@@ -782,6 +785,13 @@ public class creaBD extends SQLiteOpenHelper {
 		Actualiza(db, upgradeQuery);
 		upgradeQuery = "ALTER TABLE Remision ADD COLUMN MedioDePago TEXT ";
 		Actualiza(db, upgradeQuery);
+
+		upgradeQuery = "ALTER TABLE pedidos ADD COLUMN Latitud TEXT ";
+		Actualiza(db, upgradeQuery);
+
+		upgradeQuery = "ALTER TABLE pedidos ADD COLUMN Longitud TEXT ";
+		Actualiza(db, upgradeQuery);
+
 
 
 
@@ -1346,6 +1356,10 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("idClienteSucursal", pedidoin.idClienteSucursal);
 			valuesIn.put("Estado", pedidoin.getEstado());
 			valuesIn.put("TipoPedido", pedidoin.getTipoPedido());
+
+			valuesIn.put("Latitud", pedidoin.getLatitud());
+			valuesIn.put("Longitud", pedidoin.getLongitud());
+
 			
 			if(getValidaPedido( pedidoin.idCodigoInterno, pedidoin.idCodigoExterno))
 			{
@@ -6148,7 +6162,7 @@ public class creaBD extends SQLiteOpenHelper {
 		if(enviaRepresados)
 		{
 			 query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora," +
-					 " p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones, p.DescuentoTotal, p.SubTotal, p.Documento , p.FormaPago, p.idClienteSucursal, p.Estado, p.TipoPedido , c.representante " +
+					 " p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones, p.DescuentoTotal, p.SubTotal, p.Documento , p.FormaPago, p.idClienteSucursal, p.Estado, p.TipoPedido , c.representante, IFNULL(p.Latitud,0) Latitud, IFNULL(p.Longitud, 0) Longitud " +
 	    		       " FROM pedidos p, clientes c " +
 	    		       " WHERE p.idCliente = c.idCliente " +
 	    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6159,7 +6173,7 @@ public class creaBD extends SQLiteOpenHelper {
 		else
 		{
 		    query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora," +
-					" p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones , p.DescuentoTotal, p.SubTotal, p.Documento ,p.FormaPago, p.idClienteSucursal, p.Estado, p.TipoPedido , c.representante  " +
+					" p.valor, c.nombre, ifnull(p.envio,0) as envio, p.observaciones , p.DescuentoTotal, p.SubTotal, p.Documento ,p.FormaPago, p.idClienteSucursal, p.Estado, p.TipoPedido , c.representante , IFNULL(p.Latitud,0) Latitud, IFNULL(p.Longitud, 0) Longitud " +
 		    		       " FROM pedidos p, clientes c " +
 		    		       " WHERE p.idCliente = c.idCliente " +
 		    		       " AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+ 
@@ -6189,6 +6203,8 @@ public class creaBD extends SQLiteOpenHelper {
 					ped.setEstado( ""+validaCampoNull(c,14));
 					ped.setTipoPedido(validaCampoNullString(c,15));
 					ped.setRepresentanteCliente((validaCampoNullString(c,16)));
+					ped.setLatitud(validaCampoNullString(c,17));
+					ped.setLongitud(validaCampoNullString(c,18));
 
 					lista.add(ped);
 				}

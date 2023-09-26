@@ -2860,6 +2860,8 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 			pedidoEnviarSys.setFormaPago(pedido.getFormaPago());
 			pedidoEnviarSys.setFecha(pedido.getFecha());
 			pedidoEnviarSys.setHora(pedido.getHora());
+			pedidoEnviarSys.setLatitud(pedido.getLatitud());
+			pedidoEnviarSys.setLongitud(pedido.getLongitud());
 		}
 	  
 	  

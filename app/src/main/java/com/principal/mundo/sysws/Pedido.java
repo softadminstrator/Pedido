@@ -74,6 +74,9 @@ public class Pedido implements KvmSerializable,  Parcelable {
 	ArrayList<Articulo> listaCategoriasConsolidado;
 	ArrayList<ObservacionPedido> listaObservacionesPedido;
 
+	private String Latitud;
+	private String Longitud;
+
 	
 	/**
 	 * constructor vacio de la clase
@@ -183,6 +186,8 @@ public class Pedido implements KvmSerializable,  Parcelable {
 		case 13: return Documento;
 		case 14: return FormaPago;
 		case 15: return idClienteSucursal;
+		case 16: return Latitud;
+		case 17: return Longitud;
 		}
 		
 		return null;
@@ -208,6 +213,8 @@ public class Pedido implements KvmSerializable,  Parcelable {
 		case 13: return "Documento";
 		case 14: return "FormaPago";
 		case 15: return "idClienteSucursal";
+		case 16: return "Latitud";
+		case 17: return "Longitud";
 		}
 		return null;
 	}
@@ -232,6 +239,8 @@ public class Pedido implements KvmSerializable,  Parcelable {
 		case 13:  Documento =data;break;
 		case 14:  FormaPago =data;break;
 		case 15:  idClienteSucursal =data;break;
+		case 16:  Latitud =data;break;
+		case 17:  Longitud =data;break;
 	}
 }
 
@@ -259,7 +268,7 @@ public class Pedido implements KvmSerializable,  Parcelable {
 	}
 	public int getPropertyCount() {
 		// TODO Auto-generated method stub
-		return 16;
+		return 18;
 	}
 
 	public void getPropertyInfo(int i, Hashtable arg1, PropertyInfo propertyInfo) {
@@ -1155,4 +1164,19 @@ public String getResponsable()
 		this.idClienteSucursal = idClienteSucursal;
 	}
 
+	public String getLatitud() {
+		return Latitud;
+	}
+
+	public void setLatitud(String latitud) {
+		Latitud = latitud;
+	}
+
+	public String getLongitud() {
+		return Longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		Longitud = longitud;
+	}
 }
