@@ -913,8 +913,8 @@ public void setProperty(int i, String data) {
 
 	public String getDatoCliente(Parametros parametros)
 	{
-		return representanteCliente;
-		/*if(parametros.getMuestraEstablecimientoCliente()==1)
+		///return representanteCliente;
+		if(parametros.getMuestraEstablecimientoCliente()==0)
 		{
 			return nombreCliente;
 		}
@@ -922,7 +922,7 @@ public void setProperty(int i, String data) {
 			return representanteCliente;
 		}
 
-		 */
+
 	}
 
 	public String getMedioDePago() {

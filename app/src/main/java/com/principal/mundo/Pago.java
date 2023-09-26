@@ -176,8 +176,8 @@ public long getValor() {
 	}
 	public String getDatoCliente(Parametros parametros)
 	{
-		return representanteCliente;
-		/*if(parametros.getMuestraEstablecimientoCliente()==1)
+		//return representanteCliente;
+		if(parametros.getMuestraEstablecimientoCliente()==0)
 		{
 			return nombreCliente;
 		}
@@ -185,6 +185,6 @@ public long getValor() {
 			return representanteCliente;
 		}
 
-		 */
+
 	}
 }

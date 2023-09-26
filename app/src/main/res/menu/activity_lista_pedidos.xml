@@ -11,4 +11,8 @@
           android:title="Imprimir Informe"
           android:icon="@drawable/pedidos" >        
     </item>
+    <item android:id="@+id/menuPrintArqueo"
+        android:title="Imprimir Arqueo (P,F,C,AC)"
+        android:icon="@drawable/pedidos" >
+    </item>
 </menu>

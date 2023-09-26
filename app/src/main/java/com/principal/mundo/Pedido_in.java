@@ -469,7 +469,7 @@ public class Pedido_in
 	}
 	public String getDatoCliente(Parametros parametros)
 	{
-		if(parametros.getMuestraEstablecimientoCliente()==1)
+		if(parametros.getMuestraEstablecimientoCliente()==0)
 		{
 			return nombreCliente;
 		}

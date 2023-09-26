@@ -2000,6 +2000,9 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
     public boolean onCreateOptionsMenu(Menu menu) {    
         getMenuInflater().inflate(R.menu.activity_lista_pedidos, menu);
         MenuItem bedMenuItem = menu.findItem(R.id.menuEnviarRepresados);
+		MenuItem bedMenuItemArqueo = menu.findItem(R.id.menuPrintArqueo);
+		bedMenuItemArqueo.setVisible(false);
+
         if(operacion==TRANSLADO)
 		{
         	bedMenuItem.setTitle("Enviar Traslados Represadas");
@@ -2028,6 +2031,7 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 			 MenuItem bedMenuItem3 = menu.findItem(R.id.menuPrintDocument);
 			 bedMenuItem2.setVisible(false);
 			 //bedMenuItem3.setVisible(false);
+			 bedMenuItemArqueo.setVisible(true);
 			 bedMenuItem.setTitle("Enviar Pagos Represados");
 		}
         return true;
@@ -2083,7 +2087,10 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 			{
 				enviarTrasladosRepresados();
 			}		
-			return true;  
+			return true;
+		case R.id.menuPrintArqueo:
+			printInformeArqueo();
+			return true;
 		default:return super.onOptionsItemSelected(item);    	
     	}  	  
     }  
@@ -4947,6 +4954,46 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 		             	mostrarMensaje("Imp "+e.toString(), "l");
 					}//	
 			}
+	private void printInformeArqueo()
+	{
+
+		try
+		{
+			PrintZebra pz=new PrintZebra(parametrosPos.getMacAdd());
+			pdu=ProgressDialog.show(ListaPedidosActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Imprimiendo.."), true,false);
+			datos=new ArrayList<String>();
+			boolean resPrint=false;
+			datos.add("ARQUEO DE VENTAS");
+
+			Date fecha=new Date();
+			SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+			datos.add(sdf.format(fecha));
+			SimpleDateFormat hora=new SimpleDateFormat("HH:mm");
+			datos.add(hora.format(fecha));
+			datos.add(fechaBotonDesde);
+			datos.add(fechaBotonHasta);
+
+			//UNICAMENTE HABILITADO PARA IMPRESORAS DIGITALPOS
+				if(parametrosPos.getUsaImpresoraZebra()==0 & parametrosPos.getUsaPrintEpson()==0& parametrosPos.getUsaPrintBixolon()==0& parametrosPos.getUsaPrintDigitalPos()==1)
+			{
+				try
+				{
+					pdu.dismiss();
+					operacionDigitalPos="Arqueo";
+					printDigitalPos810();
+				}catch(Exception e){
+					mostrarMensaje("No fue posible Enviar la impresion", "l");
+					mostrarMensaje("Verifique que la impresora este encendida y el bluetooth del telefono este activo", "l");
+				}
+			}
+
+
+		}
+		catch (Exception e) {
+			pdu.dismiss();
+			mostrarMensaje("Imp "+e.toString(), "l");
+		}//
+	}
 		public void onClick(View v) {
 			if(v.equals(btBodegas))
 			{
@@ -5194,6 +5241,16 @@ public class ListaPedidosActivity extends  Activity implements OnClickListener,S
 						{
 							printDigitaPos.printPrestamo(binder,prestamo, parametrosPos);
 						}
+						 else if (operacionDigitalPos.equals("Arqueo"))
+						 {
+							 //Obtiene datos de las listas
+							 listaPedidos=bd.getPedidosPorFecha(getBaseContext(), fechaDesde,fechaHasta, false);
+							 listaFacturas=bd.getFacturasPorFecha(getBaseContext(), fechaDesde,fechaHasta, false);
+							 listaRemisiones=bd.getRemisionesPorFecha(getBaseContext(), fechaDesde,fechaHasta, false);
+							 listaMedios=bd.GetMedios();
+							 listaPagos=bd.getPagosPorFecha(getBaseContext(), fechaDesde,fechaHasta, false);
+							 printDigitaPos.printArqueo(binder,datos,listaPedidos,listaFacturas,listaRemisiones,parametrosPos,listaMedios,listaPagos);
+						 }
 
 
 

@@ -75,6 +75,8 @@ public class PrintDigitaPos {
     ArrayList<Libro> listaLibros;
     ArrayList<Remision_in> listaRemisiones;
 
+
+
     ArrayList<Pago> listaPagos;
 
     private CierreTurno cierreTurno;
@@ -522,6 +524,204 @@ public class PrintDigitaPos {
         asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
 
         
+    }
+
+    public void printArqueo(IMyBinder binder,  ArrayList<String> datos, ArrayList<Pedido_in> listaPedidos, ArrayList<Factura_in> listaFacturas, ArrayList<Remision_in> listaRemisiones, Parametros parametrosPos, ArrayList<Medios> listaMedios, ArrayList<Pago> listaPagos)
+    {
+
+        this.datos=datos;
+        this.listaFacturas=listaFacturas;
+        listaPedidos=getListaPedidos(listaPedidos);
+        this.listaRemisiones=listaRemisiones;
+        this.parametrosPos=parametrosPos;
+        this.listaPagos=listaPagos;
+        boolean res=false;
+        this.binder=binder;
+
+        this.listaPedidos=listaPedidos;
+
+
+        asignaValor(getFillText(ALIGN_CENTER, 30, datos.get(0)));
+        asignaValor(" Generado: "+getFillText(ALIGN_LEFT, 5, datos.get(1))+"  Hora: "+getFillText(ALIGN_LEFT, 5, datos.get(2)));
+        asignaValor(" Desde: "+getFillText(ALIGN_LEFT, 5, datos.get(3))+"  Hasta: "+getFillText(ALIGN_LEFT, 5, datos.get(4)));
+        asignaValor(" No.      CLIENTE       FECHA Y HORA   TOTAL");
+       if(listaFacturas.size()>0)
+        {
+            //Divide facturas de credito y contado
+            asignaValor("--------------------Facturas--------------------");
+
+
+
+
+            // Remisiones de  contado
+            // Detalla Remisiones x Medio de pago
+            for (int i = 0; i < listaMedios.size(); i++) {
+                Medios medio =listaMedios.get(i);
+                long temTotMedio=0;
+                for (int j = 0; j < listaFacturas.size(); j++) {
+                    Factura_in f =listaFacturas.get(j);
+                    /*if(f.getMedioDePago().equals("")) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                        temTotMedio=temTotMedio+f.valor;
+                    }
+                    else */
+                    if(f.getMedioDePago().toUpperCase().equals(medio.getNombre().toUpperCase())) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                        temTotMedio=temTotMedio+f.valor;
+                    }
+
+                }
+                if(temTotMedio>0)
+                {
+                   // asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre().toUpperCase()+": " + getDecTxt(temTotMedio)));
+                }
+
+
+            }
+
+/*
+            // Facturas de  contado
+            for (int i = 0; i < listaFacturas.size(); i++) {
+                Factura_in f =listaFacturas.get(i);
+                if(f.getPagada().equals("SI")) {
+                    asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                }
+            }
+*/
+
+
+
+
+            //Total facturas contado
+            if(getTotalFacturasContado()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL FACTURAS CONTADO: " + getDecTxt(getTotalFacturasContado())));
+            }
+
+            // Facturas de  credito
+            for (int i = 0; i < listaFacturas.size(); i++) {
+                Factura_in f =listaFacturas.get(i);
+                if(f.getPagada().equals("NO")) {
+                    asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                }
+            }
+            //Total facturas credito
+            if(getTotalFacturasCredito()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL FACTURAS CREDITO: " + getDecTxt(getTotalFacturasCredito())));
+            }
+        }
+         if(listaRemisiones.size()>0)
+        {
+            asignaValor("--------------------Cotizaciones--------------------");
+
+
+
+            // Remisiones de  contado
+            // Detalla Remisiones x Medio de pago
+            for (int i = 0; i < listaMedios.size(); i++) {
+                Medios medio =listaMedios.get(i);
+                long temTotMedio=0;
+                for (int j = 0; j < listaRemisiones.size(); j++) {
+                    Remision_in f =listaRemisiones.get(j);
+                    /*if(f.getMedioDePago().equals("")) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                        temTotMedio=temTotMedio+f.valor;
+                    }
+                    else */
+                    if(f.getMedioDePago().toUpperCase().equals(medio.getNombre().toUpperCase())) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                        temTotMedio=temTotMedio+f.valor;
+                    }
+
+                }
+                if(temTotMedio>0)
+                {
+                  //  asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre().toUpperCase()+": " + getDecTxt(temTotMedio)));
+                }
+
+            }
+
+
+           /* for (int i = 0; i < listaRemisiones.size(); i++) {
+                Remision_in f =listaRemisiones.get(i);
+                if(f.getPagada().equals("SI")) {
+                    asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                }
+            }
+            */
+
+            //Total Remisiones contado
+            if(getTotalRemisionesContado()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL ORDENES DE COMPRA CONTADO: " + getDecTxt(getTotalRemisionesContado())));
+            }
+
+            // Remisiones de  credito
+            for (int i = 0; i < listaRemisiones.size(); i++) {
+                Remision_in f =listaRemisiones.get(i);
+                if(f.getPagada().equals("NO")) {
+                    asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.idCodigoExterno) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() + " " + f.hora) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.valor)));
+                }
+            }
+            //Total Remisiones credito
+            if(getTotalRemisionesCredito()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL ORDENES DE COMPRA CREDITO: " + getDecTxt(getTotalRemisionesCredito())));
+            }
+
+
+
+
+        }
+
+         if(listaPagos.size()>0)
+        {
+            asignaValor("--------------------Pagos--------------------");
+
+
+
+            // Remisiones de  contado
+            // Detalla Remisiones x Medio de pago
+            for (int i = 0; i < listaMedios.size(); i++) {
+                Medios medio =listaMedios.get(i);
+                long temTotMedio=0;
+                for (int j = 0; j < listaPagos.size(); j++) {
+                    Pago f =listaPagos.get(j);
+
+                    if(f.getMedioDePago().toUpperCase().equals(medio.getNombre().toUpperCase())) {
+                        asignaValor("" + getFillText(ALIGN_LEFT, 8, "" + f.getIdPago()) + " " + getFillText(ALIGN_LEFT, 17, "" + f.getDatoCliente(parametrosPos)) + " " + getFillText(ALIGN_RIGHT, 10, f.getFecha() ) + " " + getFillText(ALIGN_RIGHT, 10, getDecTxt(f.getValor())));
+                        temTotMedio=temTotMedio+f.getValor();
+                    }
+
+                }
+                if(temTotMedio>0)
+                {
+                 //   asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "Total "+medio.getNombre().toUpperCase()+": " + getDecTxt(temTotMedio)));
+                }
+
+            }
+
+            //Total Pagos
+            if(getTotalPagos()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL PAGOS: " + getDecTxt(getTotalPagos())));
+            }
+
+        }
+         if(listaPedidos.size()>0)
+        {
+            asignaValor("--------------------Pedidos--------------------");
+
+            for (int i = 0; i < listaPedidos.size(); i++) {
+                Pedido_in p =listaPedidos.get(i);
+                asignaValor(""+getFillText(ALIGN_LEFT, 5, ""+p.idCodigoExterno)+" "+getFillText(ALIGN_LEFT, 19, ""+p.getDatoCliente(parametrosPos))+" "+getFillText(ALIGN_RIGHT, 10, p.getFecha()+" "+p.hora)+" "+getFillText(ALIGN_RIGHT, 10, getDecTxt(p.valor)));
+            }
+            if(getTotalPedidos()>0) {
+                asignaValor(" " + getFillText(ALIGN_RIGHT, 47, "TOTAL PEDIDOS: " + getDecTxt(getTotalPedidos())));
+            }
+        }
+        asignaValor(" "+getFillText(ALIGN_RIGHT, 47, "Gran Total: "+getDecTxt(getTotalFacturas()+getTotalPedidos()+getTotalPagos())) );//+getTotalRemisiones()
+        asignaValor(" "+getFillText(ALIGN_CENTER, 64, " "));
+        asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
+        asignaValor(" "+getFillText(ALIGN_CENTER, 48, " "));
+
+
     }
 
     public void printInventario(IMyBinder binder, ArrayList<Articulo> listaArticulos, Parametros parametrosPos)
@@ -1064,6 +1264,18 @@ public class PrintDigitaPos {
         DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
         return decimalFormat.format(total);
 
+    }
+    private ArrayList<Pedido_in> getListaPedidos(ArrayList<Pedido_in> lista)
+    {
+        ArrayList<Pedido_in> newList =new  ArrayList<Pedido_in>();
+        for (int i=0; i<lista.size();i++)
+        {
+            if((!lista.get(i).nombreCliente.equals("CARGUE")) && lista.get(i).getTipoPedido().equals("E"))
+            {
+                newList.add(lista.get(i));
+            }
+        }
+        return newList;
     }
 
 }
