@@ -729,14 +729,14 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 		 		{		 			
 							if(validaPrecio(precio) )
 							{
-								if (operacion==PEDIDO & parametrosPos.getPermiteStocken0EnPedido() == 0 & cantidad > articulo.stock)
+								if ( parametrosPos.getPermiteStocken0EnPedido() == 0 & cantidad > articulo.stock)
 								{
 									etCodigo.selectAll();
 									etCodigo.requestFocus();
 									existe = false;
 									mostrarMensaje("El Articulo seleccionado esta Agotado","l");
 								}
-								else if(parametrosPos.getConsultaArticuloEnLinea()==1 &parametrosPos.getPermiteStocken0()==0& cantidad>articulo.stock & operacion!=PEDIDO)
+								else if(parametrosPos.getConsultaArticuloEnLinea()==1 &parametrosPos.getPermiteStocken0()==0& cantidad>articulo.stock )
 				              	  {
 									 etCodigo.selectAll();
 					        		 etCodigo.requestFocus();	
@@ -1068,7 +1068,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 		        pedido.idCodigoInterno=bd.obtenerUltimoIdPedido(this);
 		        if(pedido.idCodigoInterno==0)
 		        {
-		        	pedido.idCodigoInterno=12000;
+		        	pedido.idCodigoInterno=18000;
 		        }
 		        else
 		        {

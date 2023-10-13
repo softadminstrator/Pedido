@@ -132,7 +132,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			,cbModificaStock, cbUsaPrintCebra,cbRealizaTranslados,cbConsultaZ, cbGeneraCierre, cbWs, cbRealizaPedidosMesa, cbUsaTodasLasCategorias
 			,cbStocken0,cbFacturaOnline,cbUsaObservMasMenos,cbDescuentoPedido,cbImprimePedido,cbConsultaCosto,cbUsaPrintEpson,cbUsaPrintBixolon,cbUsaPrintDigitalPos
 			, cbUsaCantDecimal , cbUsaSelecMultipleArt,cbCarteraOnline ,cbControlaPrecioLibre, cbSelectDocumentoPedido,cbRealizaAlistamiento,cbSelectFormaPagoPedido,cbUsaPrestamos
-			,cbRealizaRemision, cbModificaValorTotal , cbDescuentaStockEnPedido, cbUsaTipoPedido, cbPermiteStockEn0Pedido , cbMuestraEstablecimiendoCliente,cbUsaStarlapWS;
+			,cbRealizaRemision, cbModificaValorTotal , cbDescuentaStockEnPedido, cbUsaTipoPedido, cbPermiteStockEn0Pedido , cbMuestraEstablecimiendoCliente,cbUsaStarlapWS, cbEnviaUbicacionPedido;
 	String res ="";
 	private ArrayList<DiscoveredPrinter> printerItems;
     private ArrayList<Map<String, String>> printerSettings;
@@ -334,6 +334,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		cbPermiteStockEn0Pedido=(CheckBox)findViewById(R.id.cbPermiteStockEn0Pedido);
 		cbMuestraEstablecimiendoCliente=(CheckBox)findViewById(R.id.cbMuestraEstablecimiendoCliente);
 		cbUsaStarlapWS=(CheckBox)findViewById(R.id.cbUsaStarlapWS);
+		cbEnviaUbicacionPedido=(CheckBox)findViewById(R.id.cbEnviaUbicacionPedido);
 
 
 		cbConsultaCosto=(CheckBox)findViewById(R.id.cbConsultaCosto);
@@ -391,6 +392,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		cbPermiteStockEn0Pedido.setChecked(false);
 		cbMuestraEstablecimiendoCliente.setChecked(false);
 		cbUsaStarlapWS.setChecked(false);
+		cbEnviaUbicacionPedido.setChecked(false);
 
 		cbConsultaCosto.setChecked(false);
 		cbCarteraOnline.setChecked(false);
@@ -931,6 +933,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		cbPermiteStockEn0Pedido.setChecked(parametrosPos.isValue(parametrosPos.getPermiteStocken0EnPedido()));
 		cbMuestraEstablecimiendoCliente.setChecked(parametrosPos.isValue(parametrosPos.getMuestraEstablecimientoCliente()));
 		cbUsaStarlapWS.setChecked(parametrosPos.isValue(parametrosPos.getUsaStarlapWS()));
+		cbEnviaUbicacionPedido.setChecked(parametrosPos.isValue(parametrosPos.getEnviaUbicacionPedido()));
 
 		cbConsultaCosto.setChecked(parametrosPos.isValue(parametrosPos.getConsultaCosto()));
 
@@ -1158,6 +1161,8 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			parametrosPos.setPermiteStocken0EnPedido(getValueCheck(cbPermiteStockEn0Pedido));
 			parametrosPos.setMuestraEstablecimientoCliente(getValueCheck(cbMuestraEstablecimiendoCliente));
 			parametrosPos.setUsaStarlapWS(getValueCheck(cbUsaStarlapWS));
+			parametrosPos.setEnviaUbicacionPedido(getValueCheck(cbEnviaUbicacionPedido));
+
 
 
 
@@ -1245,6 +1250,8 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 			parametrosSys.setPermiteStocken0EnPedido(getValueCheck(cbPermiteStockEn0Pedido));
 			parametrosSys.setMuestraEstablecimientoCliente(getValueCheck(cbMuestraEstablecimiendoCliente));
 			parametrosSys.setUsaStarlapWS(getValueCheck(cbUsaStarlapWS));
+			parametrosSys.setEnviaUbicacionPedido(getValueCheck(cbEnviaUbicacionPedido));
+
 
 
 			parametrosSys.setConsultaCosto(getValueCheck(cbConsultaCosto));

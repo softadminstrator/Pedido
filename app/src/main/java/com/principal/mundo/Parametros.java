@@ -141,6 +141,8 @@ public class Parametros {
 
 	private long UsaStarlapWS;
 
+	private long EnviaUbicacionPedido;
+
 
 	/**
 	 * metodo que asigna valores predeterminados a los atributos del sistema
@@ -189,7 +191,7 @@ public class Parametros {
 			String rango, String nombreVendedor, String prefijo, long UsaObservMasMenos,long DescuentoPedido, long ImprimePedido ,long ConsultaCosto
 			, long usaPrintEpson ,String macAddEpson, long usaCantDecimal, long usaSelecMultipleArt, long precioMinimo,long usaPrintBixolon,String macAddBixolon, long CarteraOnLine, long ControlaPrecioLibre
 	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos, long descuentaStockEnPedido, long usaTipoPedido ,
-					  long permiteStocken0EnPedido, long MuestraEstablecimientoCliente, long UsaStarlapWS) {
+					  long permiteStocken0EnPedido, long MuestraEstablecimientoCliente, long UsaStarlapWS, long EnviaUbicacionPedido) {
 		super();
 		this.ws = ws;
 		this.ip = ip;
@@ -258,6 +260,7 @@ public class Parametros {
 		this.permiteStocken0EnPedido=permiteStocken0EnPedido;
 		this.MuestraEstablecimientoCliente = MuestraEstablecimientoCliente;
 		this.UsaStarlapWS=UsaStarlapWS;
+		this.EnviaUbicacionPedido=EnviaUbicacionPedido;
 	}
 
 
@@ -1079,5 +1082,14 @@ public class Parametros {
 
 	public void setUsaStarlapWS(long usaStarlapWS) {
 		UsaStarlapWS = usaStarlapWS;
+	}
+
+
+	public long getEnviaUbicacionPedido() {
+		return EnviaUbicacionPedido;
+	}
+
+	public void setEnviaUbicacionPedido(long enviaUbicacionPedido) {
+		EnviaUbicacionPedido = enviaUbicacionPedido;
 	}
 }

@@ -461,11 +461,11 @@ public class VerProductosActivity extends Activity implements OnClickListener, O
 						//if (value >= 0) {
 						test.cancel();
 
-						if (operacion==PEDIDO & parametrosPos.getPermiteStocken0EnPedido() == 0 & value > articulo.stock)
+						if (parametrosPos.getPermiteStocken0EnPedido() == 0 & value > articulo.stock)
 						{
 							mostrarMensaje("El Articulo seleccionado esta Agotado", "l");
 						}
-						else if (parametrosPos.getConsultaArticuloEnLinea() == 1 & parametrosPos.getPermiteStocken0() == 0 & value > articulo.stock & operacion!=PEDIDO						) {
+						else if (parametrosPos.getConsultaArticuloEnLinea() == 1 & parametrosPos.getPermiteStocken0() == 0 & value > articulo.stock ) {
 							mostrarMensaje("El Articulo seleccionado esta Agotado", "l");
 						}
 						else

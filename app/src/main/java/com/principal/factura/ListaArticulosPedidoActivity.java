@@ -91,6 +91,13 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	//--------------------------------------------------------
 	protected static final int SUB_ACTIVITY_VER_PEDIDOS = 200;
 	protected static final int SUB_ACTIVITY_TERMINAR = 300;
+
+	//Minimo tiempo para updates en Milisegundos
+	//Minimo tiempo para updates en Milisegundos
+	private static final long MIN_CAMBIO_DISTANCIA_PARA_UPDATES = 10; // 10 metros
+	//Minimo tiempo para updates en Milisegundos
+	private static final long MIN_TIEMPO_ENTRE_UPDATES = 1000 * 60 * 1; // 1 minuto
+
 	private final static int FACTURA = 1;
 	private final static int PEDIDO = 2;
 	private final static int TRANSLADO = 3;
@@ -122,6 +129,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	ArrayList<ArticulosRemision> listaARemision;
 	
 	private boolean isCredito=false;
+	private boolean Tembol=false;
 	private String MedioDePago="";
 
 	private ArrayList<Medios> listaFormasPago;
@@ -217,7 +225,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	/**
 	 * Atributo locListener referencia de la clase LocationListener	
 	 */
-	private LocationListener locListener;
+
 	/**
 	 * Atributo locManagerSys referencia de la clase LocationManager	
 	 */
@@ -640,10 +648,21 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		}		
 		else if(v.equals(btEnviar))
 		{
-			enviarDatos();	
+			Tembol=(parametrosPos.getEnviaUbicacionPedido()==1);
+			if (Tembol) {
+				pdu = ProgressDialog.show(ListaArticulosPedidoActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo Ubicacion"), true, false);
+				Thread thread = new Thread(ListaArticulosPedidoActivity.this);
+				thread.start();
+
+			}
+			else
+			{
+				enviarDatos();
+			}
 		}
 		else if(v.equals(etObservacion))
 		{
+
 			intFocus=0;
 			etObservacion.setInputType(InputType.TYPE_CLASS_TEXT);
 			etObservacion.requestFocus();
@@ -671,8 +690,11 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 				if(operacion==PEDIDO)
 				{
 					try {
-						comenzarLocalizacion();
-
+						Tembol=(parametrosPos.getEnviaUbicacionPedido()==1);
+						if (Tembol) {
+							mostrarPosicion(currentLocation);
+							comenzarLocalizacion();
+						}
 
 
 						if (pedido.valor > 0) {
@@ -2635,11 +2657,18 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	  private void comenzarLocalizacion()
 	    {
 	    	//Obtenemos una referencia al LocationManager
+
+
+
+
+
 			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			Criteria criteria = new Criteria();
 			criteria.setAccuracy(Criteria.ACCURACY_COARSE);
 			criteria.setCostAllowed(false);
 
+			locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, MIN_TIEMPO_ENTRE_UPDATES, MIN_CAMBIO_DISTANCIA_PARA_UPDATES, locListener, Looper.getMainLooper());
+/*
 			String provider = locationManager.getBestProvider(criteria, false);
 			Location location = null;
 			try {
@@ -2655,11 +2684,34 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 
 				// location updates: at least 1 meter and 500 milli seconds change
 				//locationManager.requestLocationUpdates(provider, 500, 1, mylistener);
+
+
+
+
 			} catch (SecurityException e) {
 				Log.e("SecurityException", e.getMessage());
 			}
-
+*/
 	    }
+
+
+	public LocationListener locListener = new LocationListener() {
+		public void onLocationChanged(Location location) {
+			mostrarPosicion(location);
+		}
+
+		public void onProviderDisabled(String provider) {
+
+		}
+
+		public void onProviderEnabled(String provider) {
+
+		}
+
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+
+		}
+	};
 
 
 	  
@@ -2711,13 +2763,15 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 					{
 						locManagerSys.removeUpdates(locListenerSys);
 				    	if (currentLocation!=null) {
-				    		clientesys.setLatitud(String.valueOf(currentLocation.getLatitude()));
+				    		/**clientesys.setLatitud(String.valueOf(currentLocation.getLatitude()));
 				    		clientesys.setLongitud( String.valueOf(currentLocation.getLongitude()));
 				    		clientesys.setAltitud(String.valueOf(currentLocation.getAltitude()));
 				    		clientesys.setObservacionVisita("Visita Efectiva");
 //				    		generarPedidoSys();
 				    		new setPedidoSys().execute("");
 				        	pdu=ProgressDialog.show(ListaArticulosPedidoActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Guardando Datos"), true,false);
+							 **/
+							enviarDatos();
 						}
 					}
 					else
@@ -2760,8 +2814,8 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	    		Looper.prepare();
 	    		//Nos registramos para recibir actualizaciones de la posici�n
 	    		locListenerSys = new MyLocationListener();        	
-	        	//locManagerSys.requestLocationUpdates(
-	        	//		LocationManager.GPS_PROVIDER,30000, 50, locListenerSys);
+	        	locManagerSys.requestLocationUpdates(
+	        			LocationManager.GPS_PROVIDER,MIN_TIEMPO_ENTRE_UPDATES, MIN_CAMBIO_DISTANCIA_PARA_UPDATES, locListenerSys);
 				Looper.loop(); 
 				Looper.myLooper().quit(); 
 	    	}
@@ -2774,6 +2828,9 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	    	
 			
 		}
+
+
+
 		/**
 		 * Clase en la que se obtiene la nueva localizacion del telefono
 		 * @author user
