@@ -263,8 +263,19 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 //			Intent intent = new Intent(this, SelecMesaActivity.class );
 //			intent.putExtra("cedula", usuario.cedula);
 //			startActivity(intent);
+
+
+
 			try
 				{
+/**
+					pdu=ProgressDialog.show(PrincipalActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Validando Datos Ruta"), true,false);
+					Thread thread = new Thread(PrincipalActivity.this);
+					thread.start();
+**/
+
+
+
 				usuario.cedula = parametrosPos.ruta;				
 				if(!txtclave.getText().toString().equals(""))
 				{
@@ -292,6 +303,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 				{
 					mostrarMensaje("Debe ingresar la clave de usuario","l");					
 				}
+
 				
 				}
 			catch(Exception e)
@@ -1035,9 +1047,9 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
     		Looper.prepare();
     		//Nos registramos para recibir actualizaciones de la posici�n
         	locListener = new MyLocationListener();        	
-        	//locManager.requestLocationUpdates(
+        	locManager.requestLocationUpdates(
 
-        			//LocationManager.GPS_PROVIDER, 30000, 50, locListener);
+        			LocationManager.GPS_PROVIDER, 30000, 50, locListener);
 			Looper.loop(); 
 			Looper.myLooper().quit(); 
     	}

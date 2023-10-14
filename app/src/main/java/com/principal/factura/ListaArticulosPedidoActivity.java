@@ -94,9 +94,9 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 
 	//Minimo tiempo para updates en Milisegundos
 	//Minimo tiempo para updates en Milisegundos
-	private static final long MIN_CAMBIO_DISTANCIA_PARA_UPDATES = 10; // 10 metros
+	private static final long MIN_CAMBIO_DISTANCIA_PARA_UPDATES = 0; // 10 metros
 	//Minimo tiempo para updates en Milisegundos
-	private static final long MIN_TIEMPO_ENTRE_UPDATES = 1000 * 60 * 1; // 1 minuto
+	private static final long MIN_TIEMPO_ENTRE_UPDATES = 1000 * 0; // 1 minuto
 
 	private final static int FACTURA = 1;
 	private final static int PEDIDO = 2;
@@ -649,7 +649,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		else if(v.equals(btEnviar))
 		{
 			Tembol=(parametrosPos.getEnviaUbicacionPedido()==1);
-			if (Tembol) {
+			if (false) {
 				pdu = ProgressDialog.show(ListaArticulosPedidoActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo Ubicacion"), true, false);
 				Thread thread = new Thread(ListaArticulosPedidoActivity.this);
 				thread.start();
@@ -692,7 +692,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 					try {
 						Tembol=(parametrosPos.getEnviaUbicacionPedido()==1);
 						if (Tembol) {
-							mostrarPosicion(currentLocation);
+							//mostrarPosicion(currentLocation);
 							comenzarLocalizacion();
 						}
 
@@ -2668,7 +2668,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 			criteria.setCostAllowed(false);
 
 			locationManager.requestLocationUpdates(locationManager.GPS_PROVIDER, MIN_TIEMPO_ENTRE_UPDATES, MIN_CAMBIO_DISTANCIA_PARA_UPDATES, locListener, Looper.getMainLooper());
-/*
+
 			String provider = locationManager.getBestProvider(criteria, false);
 			Location location = null;
 			try {
@@ -2691,7 +2691,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 			} catch (SecurityException e) {
 				Log.e("SecurityException", e.getMessage());
 			}
-*/
+
 	    }
 
 
@@ -2778,7 +2778,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 					{
 						AlertDialog.Builder builder = new AlertDialog.Builder(ListaArticulosPedidoActivity.this);
 	  		    		builder.setMessage("Debe Activar el GPS del Telefono para poder Continuar.")
-	  		    		        .setTitle("Informaci�n!!")
+	  		    		        .setTitle("Información!!")
 	  		    		        .setCancelable(false)
 	  		    		        .setIcon(R.drawable.error)
 	  		    		        .setNeutralButton("Aceptar",
@@ -2807,7 +2807,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 			
 			//Obtenemos una referencia al LocationManager
 			locManagerSys = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-	    	
+
 	    	//Obtenemos la �ltima posici�n conocida
 	    	if(locManagerSys.isProviderEnabled(LocationManager.GPS_PROVIDER))
 	    	{
@@ -2815,9 +2815,11 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	    		//Nos registramos para recibir actualizaciones de la posici�n
 	    		locListenerSys = new MyLocationListener();        	
 	        	locManagerSys.requestLocationUpdates(
-	        			LocationManager.GPS_PROVIDER,MIN_TIEMPO_ENTRE_UPDATES, MIN_CAMBIO_DISTANCIA_PARA_UPDATES, locListenerSys);
-				Looper.loop(); 
-				Looper.myLooper().quit(); 
+						LocationManager.GPS_PROVIDER,MIN_TIEMPO_ENTRE_UPDATES, MIN_CAMBIO_DISTANCIA_PARA_UPDATES, locListenerSys,Looper.getMainLooper());
+				currentLocation=locManager.getLastKnownLocation()
+				//locManagerSys.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, locListenerSys, Looper.myLooper());
+				//Looper.loop();
+				//Looper.myLooper().quit();
 	    	}
 	    	else
 	    	{
@@ -2836,8 +2838,34 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 		 * @author user
 		 *
 		 */
+		private class MyLocationListener implements LocationListener
+		{
+			public void onLocationChanged(Location loc) {
+				if (loc != null) {
 
-		 /**
+					setCurrentLocation(loc);
+					handler.sendEmptyMessage(0);
+				}
+			}
+
+			public void onProviderDisabled(String provider) {
+				startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+			}
+
+			public void onProviderEnabled(String provider) {
+				// TODO Auto-generated method stub
+			}
+
+			public void onStatusChanged(String provider, int status,
+										Bundle extras) {
+				Log.i("", "Provider Status: " + status);
+			}
+
+		}
+
+
+
+	/**
 		  * Clase en la que se envia el pedido al sistema de georeferenciacion en un proceso en segundo plano
 		  * @author Javier
 		  *
