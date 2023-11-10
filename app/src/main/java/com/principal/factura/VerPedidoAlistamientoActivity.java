@@ -123,6 +123,7 @@ public class VerPedidoAlistamientoActivity extends Activity implements  OnClickL
 
         //linea para pruebas
         //rutaMunicipios.setTipo("4");
+        //vendedor.setTipo("4");
 
 
         bd=new creaBD(this);

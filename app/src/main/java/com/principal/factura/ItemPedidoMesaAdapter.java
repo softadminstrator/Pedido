@@ -50,6 +50,8 @@ public class ItemPedidoMesaAdapter extends ArrayAdapter<ItemPedido>{
 		final TextView tvPrecioT = (TextView) convertView.findViewById(R.id.tvPrecioTPM);
 		final ImageView ivPrint = (ImageView) convertView.findViewById(R.id.ivPrint);
 		final TextView tvObserArticulo = (TextView) convertView.findViewById(R.id.tvObserArticulo);
+		final TextView tvObserArticuloItem = (TextView) convertView.findViewById(R.id.tvObserArticuloItem);
+
 		
 		
 		//LinearLayout llItemPedidoMesa=(LinearLayout)convertView.findViewById(R.id.llItemPedidoMesa);
@@ -62,6 +64,8 @@ public class ItemPedidoMesaAdapter extends ArrayAdapter<ItemPedido>{
 				tvNombre.setText(itemPedido.getNombreArticulo());
 	//-----------------------Observaciones Articulo-------------------------------------
 				tvObserArticulo.setText(itemPedido.getObservacionesArticulo());
+	//-----------------------Observaciones Articulo-------------------------------------
+				tvObserArticuloItem.setText(itemPedido.getObservacionAls());
 	//-----------------------Valor Unitario----------------------------------------------
 				DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
 				tvPrecioU.setText(decimalFormat.format(itemPedido.getValorUnitario()));

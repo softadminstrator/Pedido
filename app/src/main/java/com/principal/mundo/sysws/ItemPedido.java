@@ -112,11 +112,12 @@ public class ItemPedido {
 	    listaObservaciones=new ArrayList<Observacion>();
 	    Observacion=articulosPedido.getObservacion();
 		TipoPrecio=articulosPedido.getTipoPrecio();
+		ObservacionAls="";
  }
 
 	public int getPropertyCount() {
 		// TODO Auto-generated method stub
-		return 20;
+		return 21;
 	}
 	public Object getProperty(int i) {
 		switch(i)
@@ -141,6 +142,7 @@ public class ItemPedido {
 			case 17: return NObserArt;
 			case 18: return Observacion;
 			case 19: return TipoPrecio;
+			case 20: return ObservacionAls;
 		}
 		return null;
 	}
@@ -168,6 +170,7 @@ public class ItemPedido {
 			case 17: return "NObserArt";
 			case 18: return "Observacion";
 			case 19: return "TipoPrecio";
+			case 20: return "ObservacionAls";
 		}
 		return null;
 	}
@@ -195,6 +198,7 @@ public class ItemPedido {
 			case 17:  NObserArt=Long.parseLong(data);break;
 			case 18:  Observacion=data;break;
 			case 19:  TipoPrecio=Long.parseLong(data);break;
+			case 20:  ObservacionAls=data;break;
 		}
 	}
 

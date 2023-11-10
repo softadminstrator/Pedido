@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.ScaleAnimation;
@@ -97,9 +98,10 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
         usuario.cedula=obtenerDatos.getString("cedula");
         NombreMesa=obtenerDatos.getString("NombreMesa");
 		//	opciones=new Opciones[1];
-        opciones=new Opciones[2];
+        opciones=new Opciones[3];
         opciones[0]=new Opciones("Modificar", getImg(R.drawable.modificar), "Modificar");
         opciones[1]=new Opciones("Eliminar", getImg(R.drawable.eliminar), "Eliminar");
+		opciones[2]=new Opciones("Agregar Observacion", getImg(R.drawable.consultar), "Agregar Observacion");
        
         
         tvTotalPedido=(TextView)findViewById(R.id.tvTotalPedido);
@@ -135,6 +137,8 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
        	  */
 	   	  public boolean onItemLongClick(AdapterView parent, View view,  final int position, long id) 
 	   	  {
+
+			  		final View viewIn = view;
 	   		  		ListAdapter listaOpciones = new OpcionesAdapter(CrearPedioMesaActivity.this, opciones);
 	  	                AlertDialog.Builder builder = new AlertDialog.Builder(CrearPedioMesaActivity.this);	   	                
 	   		   	    builder.setTitle(letraEstilo.getEstiloTitulo("Opciones"));
@@ -172,8 +176,22 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 									{
 										mostrarMensaje("No se puede eliminar el articulo, Ya fue Impreso", "l");
 									}
-		      			    	}		      			    	
-		      			    	dialog.cancel();			        
+		      			    	}
+								else if(item==2)
+								{
+
+									final ItemPedido itemPedido=pedidoMesaIn.getListaArticulos().get(position);
+									if(itemPedido.getEnCocina().equals("NO"))
+									{
+										modificarObservacionArticulo(itemPedido, viewIn);
+									}
+									else
+									{
+										mostrarMensaje("No se puede eliminar el articulo, Ya fue Impreso", "l");
+									}
+								}
+
+								dialog.cancel();
 		      			    }
 		      			});
 		      			AlertDialog alert = builder.create();
@@ -718,7 +736,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 	        btAlertOk.setOnClickListener(new OnClickListener() {					
 				@SuppressLint("NewApi")
 				public void onClick(View v) {
-					if(!etAlertValor.getText().toString().isEmpty())
+					if(etAlertValor.getText().length()>0)
 		            	{long value =0;
 							try {
 								value = Long.parseLong(etAlertValor.getText().toString());
@@ -1068,4 +1086,93 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 	        	return false;
 	        }
 	}
+
+	private final void modificarObservacionArticulo(final ItemPedido itemPedido, final View view2)
+	{
+		final AlertDialog.Builder  builder2 = new AlertDialog.Builder(this);
+		builder2.setTitle("NOTA");
+		builder2.setMessage("Ingrese la observacion para  \n "+itemPedido.getNombreArticulo() );
+
+//		         // Use an EditText view to get user input.
+		final AlertDialog test = builder2.create();
+		final LinearLayout llVertical=new LinearLayout(this);
+		llVertical.setOrientation(LinearLayout.VERTICAL);
+		final EditText  etAlertValor = new EditText(this);
+		etAlertValor.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+		llVertical.addView(etAlertValor);
+		final LinearLayout llHorizontal=new LinearLayout(this);
+		llHorizontal.setOrientation(LinearLayout.HORIZONTAL);
+		etAlertValor.setText(""+itemPedido.getObservacionAls());
+		etAlertValor.selectAll();
+		etAlertValor.setTextSize(16);
+
+
+
+		etAlertValor.setInputType(InputType.TYPE_CLASS_TEXT);
+
+
+		final Button btAlertCancelar=new Button(this);
+		//btAlertCancelar=(Button)findViewById(R.id.btAgregar);
+		btAlertCancelar.setText("Cancelar");
+		btAlertCancelar.setWidth(300);
+		btAlertCancelar.setHeight(50);
+		btAlertCancelar.setTextSize(15);
+		final Button btAlertOk=new Button(this);
+		//btAlertOk=(Button)findViewById(R.id.btVer);
+//		        btAlertOk=new Button(this,null,R.style.btAlertaOk);
+		btAlertOk.setText("Ok");
+		btAlertOk.setWidth(300);
+		btAlertOk.setHeight(50);
+		btAlertOk.setTextSize(15);
+		llHorizontal.addView(btAlertOk);
+		llHorizontal.addView(btAlertCancelar);
+
+		llVertical.addView(llHorizontal);
+
+		test.setView(llVertical);
+//		        final AlertDialog test = builder.create();
+		btAlertCancelar.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				test.cancel();
+			}
+		});
+		btAlertOk.setOnClickListener(new OnClickListener() {
+			@SuppressLint("NewApi")
+			public void onClick(View v) {
+				if(etAlertValor.getText().toString().length()>0)
+				{
+					try {
+						String value = etAlertValor.getText().toString();
+						//if (value >= 0) {
+						test.cancel();
+						itemPedido.setObservacionAls(value);
+						cargarPedioMesa();
+					} catch (Exception e)
+					{
+						mostrarMensaje("Formato texto incorrecto", "l");
+						etAlertValor.selectAll();
+						etAlertValor.setFocusable(true);
+					}
+
+				}
+				else
+				{
+					mostrarMensaje("Debe ingresar la nueva observacion del articulo","l" );
+					etAlertValor.selectAll();
+					etAlertValor.setFocusable(true);
+
+				}
+			}
+		});
+		test.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+		final InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.showSoftInput(etAlertValor, InputMethodManager.SHOW_IMPLICIT);
+		etAlertValor.requestFocus();
+		test.show();
+
+
+
+
+	}
+
 }

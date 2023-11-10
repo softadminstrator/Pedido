@@ -55,6 +55,15 @@
 			android:text="Observaciones Articulo"
 			style="@style/list_item_pedido_mesa_text_Observ"
 			/>
+		<TextView
+			android:id="@+id/tvObserArticuloItem"
+			android:layout_width="240dp"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="2dp"
+			android:layout_marginTop="2dp"
+			android:text="Observaciones Articulo Item"
+			style="@style/list_item_pedido_mesa_text_Observ"
+			/>
 	</LinearLayout>
 		     <TextView
 		         android:id="@+id/tvPrecioUPM"

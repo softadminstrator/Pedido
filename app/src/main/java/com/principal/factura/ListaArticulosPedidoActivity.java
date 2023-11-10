@@ -2816,7 +2816,7 @@ public class ListaArticulosPedidoActivity extends Activity implements OnClickLis
 	    		locListenerSys = new MyLocationListener();        	
 	        	locManagerSys.requestLocationUpdates(
 						LocationManager.GPS_PROVIDER,MIN_TIEMPO_ENTRE_UPDATES, MIN_CAMBIO_DISTANCIA_PARA_UPDATES, locListenerSys,Looper.getMainLooper());
-				currentLocation=locManager.getLastKnownLocation()
+				//currentLocation=locManager.getLastKnownLocation()
 				//locManagerSys.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, locListenerSys, Looper.myLooper());
 				//Looper.loop();
 				//Looper.myLooper().quit();
