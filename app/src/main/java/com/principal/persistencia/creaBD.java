@@ -54,7 +54,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 39);
+		super(context, "BDPEDIDOSYS", null, 40);
 
 	}
 
@@ -199,7 +199,13 @@ public class creaBD extends SQLiteOpenHelper {
 				"  fechaUltimoPago TEXT," +
 				"  MotivoUltimaVisita TEXT," +
 				"  deudaAntFac INTEGER," +
-				"  DiasGracia INTEGER) ";
+				"  DiasGracia INTEGER," +
+				"  TipoPersona TEXT," +
+				"  PrimerApellido TEXT," +
+				"  SegundoApellido TEXT," +
+				"  PrimerNombre TEXT," +
+				"  SegundoNombre TEXT," +
+				"  RazonSocial TEXT ) ";
 		db.execSQL(query);
 
 		//Crea tabla para guardar sucursales del cliente 2020-09-29
@@ -799,6 +805,26 @@ public class creaBD extends SQLiteOpenHelper {
 		Actualiza(db, upgradeQuery);
 
 
+		//Agrega datos del cliente en la base de datos para modificar
+		upgradeQuery = "ALTER TABLE clientes ADD COLUMN TipoPersona TEXT ";
+		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE clientes ADD COLUMN PrimerApellido TEXT ";
+		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE clientes ADD COLUMN SegundoApellido TEXT ";
+		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE clientes ADD COLUMN PrimerNombre TEXT ";
+		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE clientes ADD COLUMN SegundoNombre TEXT ";
+		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE clientes ADD COLUMN RazonSocial TEXT ";
+		Actualiza(db, upgradeQuery);
+		//-------------------------------------------------------------------------------
+
+
+
+
+
+
 
 
 
@@ -1054,6 +1080,15 @@ public class creaBD extends SQLiteOpenHelper {
 						valuesIn.put("PrecioDefecto", cli.PrecioDefecto);
 						valuesIn.put("activo", cli.activo);
 						valuesIn.put("DiasGracia", cli.DiasGracia);
+
+
+						valuesIn.put("TipoPersona", cli.TipoPersona);
+						valuesIn.put("PrimerApellido", cli.PrimerApellido);
+						valuesIn.put("SegundoApellido", cli.SegundoApellido);
+						valuesIn.put("PrimerNombre", cli.PrimerNombre);
+						valuesIn.put("SegundoNombre", cli.SegundoNombre);
+						valuesIn.put("RazonSocial", cli.RazonSocial);
+						valuesIn.put("tipoCanal", cli.tipoCanal);
 
 
 						if (getValidaCliente(cli.idCliente)) {

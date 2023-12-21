@@ -53,6 +53,8 @@ public class DatosClienteActivity extends Activity
         cliente.direccion=obtenerDatos.getString("direccion");
         cliente.telefono=obtenerDatos.getString("telefono");
         cliente.barrio=obtenerDatos.getString("barrio");
+
+        //Obtiene todos los datos del cliente de la base de datos
         
         
         textViews[0]=(TextView)findViewById(R.id.tvClienteInfoN);

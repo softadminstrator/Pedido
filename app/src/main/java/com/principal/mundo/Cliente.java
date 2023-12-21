@@ -190,6 +190,15 @@ public class Cliente
 	public long idClienteSucursal;
 
 
+	public String TipoPersona;
+	public String PrimerApellido;
+	public String SegundoApellido;
+	public String PrimerNombre;
+	public String SegundoNombre;
+	public String RazonSocial;
+
+
+
 	/**
 	 *metodo que se encarga de asignar valores predeterminados a los atributos de la clase
 	 */
@@ -228,6 +237,13 @@ public class Cliente
 		ubicado="";
 		deudaAntFac="0";
 		deudaTotal="";
+
+		TipoPersona="";
+		PrimerApellido="";
+		SegundoApellido="";
+		PrimerNombre="";
+		SegundoNombre="";
+		RazonSocial="";
 
 	}
 
@@ -963,5 +979,53 @@ public class Cliente
 
 	public void setIdClienteSucursal(long idClienteSucursal) {
 		this.idClienteSucursal = idClienteSucursal;
+	}
+
+	public String getTipoPersona() {
+		return TipoPersona;
+	}
+
+	public void setTipoPersona(String tipoPersona) {
+		TipoPersona = tipoPersona;
+	}
+
+	public String getPrimerApellido() {
+		return PrimerApellido;
+	}
+
+	public void setPrimerApellido(String primerApellido) {
+		PrimerApellido = primerApellido;
+	}
+
+	public String getSegundoApellido() {
+		return SegundoApellido;
+	}
+
+	public void setSegundoApellido(String segundoApellido) {
+		SegundoApellido = segundoApellido;
+	}
+
+	public String getPrimerNombre() {
+		return PrimerNombre;
+	}
+
+	public void setPrimerNombre(String primerNombre) {
+		PrimerNombre = primerNombre;
+	}
+
+	public String getSegundoNombre() {
+		return SegundoNombre;
+	}
+
+	public void setSegundoNombre(String segundoNombre) {
+		SegundoNombre = segundoNombre;
+	}
+
+	public String getRazonSocial() {
+		return RazonSocial;
+	}
+
+	public void setRazonSocial(String razonSocial) {
+		RazonSocial = razonSocial;
 	}
 }
