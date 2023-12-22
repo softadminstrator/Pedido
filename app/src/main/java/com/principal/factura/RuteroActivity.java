@@ -487,14 +487,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 									} else if (item == 1) {
 
 										Intent intent = new Intent(RuteroActivity.this, DatosClienteActivity.class);
-										intent.putExtra("nombre", cliente.nombre);
-										intent.putExtra("ordenVisita", cliente.ordenVisita);
-										intent.putExtra("idCliente", cliente.idCliente);
-										intent.putExtra("representante", cliente.representante);
-										intent.putExtra("direccion", cliente.direccion);
-										intent.putExtra("telefono", cliente.telefono);
-										intent.putExtra("barrio", cliente.barrio);
-										intent.putExtra("idClienteSucursal", cliente.idClienteSucursal);
+										intent.putExtra("idCliente", ""+cliente.idCliente);
 										startActivity(intent);
 
 									} else if (item == 2) {
@@ -933,6 +926,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 							
 			}			
 	}
+
 
 	public String getXmlVisitas()
 	{

@@ -205,7 +205,8 @@ public class creaBD extends SQLiteOpenHelper {
 				"  SegundoApellido TEXT," +
 				"  PrimerNombre TEXT," +
 				"  SegundoNombre TEXT," +
-				"  RazonSocial TEXT ) ";
+				"  RazonSocial TEXT," +
+				"  Mail TEXT ) ";
 		db.execSQL(query);
 
 		//Crea tabla para guardar sucursales del cliente 2020-09-29
@@ -818,6 +819,8 @@ public class creaBD extends SQLiteOpenHelper {
 		Actualiza(db, upgradeQuery);
 		upgradeQuery = "ALTER TABLE clientes ADD COLUMN RazonSocial TEXT ";
 		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE clientes ADD COLUMN Mail TEXT ";
+		Actualiza(db, upgradeQuery);
 		//-------------------------------------------------------------------------------
 
 
@@ -1089,6 +1092,7 @@ public class creaBD extends SQLiteOpenHelper {
 						valuesIn.put("SegundoNombre", cli.SegundoNombre);
 						valuesIn.put("RazonSocial", cli.RazonSocial);
 						valuesIn.put("tipoCanal", cli.tipoCanal);
+						valuesIn.put("Mail", cli.Mail);
 
 
 						if (getValidaCliente(cli.idCliente)) {
@@ -4414,8 +4418,55 @@ public class creaBD extends SQLiteOpenHelper {
 	    	return 0;
 	    }
 	}
-	
-	
+
+	/**
+	 *
+	 * @param cont
+	 * @param IdCliente
+	 * @return
+	 */
+	public Cliente getCliente(Context cont,String IdCliente)
+	{
+
+		String filtroMunicipio ="";
+
+		Cliente cliente =new Cliente();
+		try
+		{
+			this.openDB();
+			SQLiteDatabase bds=this.getWritableDatabase();
+			String query = "SELECT idCliente, nombre, representante, nit, direccion, telefono, tipoCanal, IFNULL(TipoPersona,''),IFNULL(PrimerApellido,''),IFNULL(SegundoApellido,''),IFNULL(PrimerNombre,''),IFNULL(SegundoNombre,''),IFNULL(RazonSocial,''), IFNULL(Mail,'')"+
+					" FROM clientes "+
+					"WHERE idCliente = "+IdCliente;
+			Cursor c= bds.rawQuery(query,null);
+			for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
+			{
+
+				cliente.idCliente=Long.parseLong(c.getString(0));
+				cliente.nombre=c.getString(1);
+				cliente.representante=c.getString(2);
+				cliente.nit=c.getString(3);
+				cliente.direccion=c.getString(4);
+				cliente.telefono=c.getString(5);
+				cliente.tipoCanal=c.getString(6);
+				cliente.TipoPersona=c.getString(7);
+				cliente.PrimerApellido=c.getString(8);
+				cliente.SegundoApellido=c.getString(9);
+				cliente.PrimerNombre=c.getString(10);
+				cliente.SegundoNombre=c.getString(11);
+				cliente.RazonSocial=c.getString(12);
+				cliente.Mail=c.getString(13);
+			}
+			this.close();
+
+		}
+		catch(Exception e)
+		{
+			String err=e.toString();
+			return null;
+		}
+		return cliente;
+	}
 	
 	
 	

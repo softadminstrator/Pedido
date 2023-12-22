@@ -113,7 +113,18 @@ public class GetClientexVendedor {
 					cliente.OrdenVisitaDOM = Long.parseLong(ic.getProperty("ordenVisitaDOM").toString());j++;	
 					cliente.PrecioDefecto = ic.getProperty("precioDefecto").toString().trim();j++;
                     cliente.DiasGracia=  ic.getProperty("diasGracia").toString().trim();j++;
-					try {
+
+					cliente.PrimerApellido= ic.getProperty("primerApellido").toString().trim();j++;
+					cliente.SegundoApellido= ic.getProperty("segundoApellido").toString().trim();j++;
+					cliente.PrimerNombre= ic.getProperty("primerNombre").toString().trim();j++;
+					cliente.SegundoNombre= ic.getProperty("segundoNombre").toString().trim();j++;
+					cliente.RazonSocial= ic.getProperty("razonSocial").toString().trim();j++;
+					cliente.TipoPersona= ic.getProperty("tipoPersona").toString().trim();j++;
+					cliente.Mail= ic.getProperty("mail").toString().trim();j++;
+
+
+
+						try {
 						cliente.deudaAntFac = ic.getProperty("deudaAntFac").toString().trim();
 						j++;
 					} catch (Exception e)
@@ -131,6 +142,8 @@ public class GetClientexVendedor {
 						{
 							cliente.setXmlClientesSucursales("");
 						}
+
+
 
 
 

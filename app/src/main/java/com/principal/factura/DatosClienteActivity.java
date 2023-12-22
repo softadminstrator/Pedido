@@ -1,21 +1,38 @@
 package com.principal.factura;
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.principal.mundo.Cliente;
+import com.principal.mundo.Parametros;
+import com.principal.mundo.sysws.PutCliente;
+import com.principal.mundo.sysws.PutVisitasCliente;
+import com.principal.mundo.sysws.VisitaCliente;
+import com.principal.persistencia.creaBD;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 /**
  * Clase en la que se puede visualizar la imformacion completa del cliente
  * como el nombre, representante, direccion, relefono, barrio. 
  * @author Javier
  *
  */
-public class DatosClienteActivity extends Activity 
-
-{
+public class DatosClienteActivity extends Activity implements OnClickListener, AdapterView.OnItemSelectedListener {
 	/**
 	 * Atributo cliente hace referencia a la clase Cliente
 	 */
@@ -23,7 +40,7 @@ public class DatosClienteActivity extends Activity
 	/**
 	 * Atributo textViews arreglo que contendra las etiquetas de la actividad
 	 */
-	TextView [] textViews;
+
 	/**
 	 * Atributo letraEstilo referencia a la clase LetraEstilo
 	 */
@@ -31,7 +48,19 @@ public class DatosClienteActivity extends Activity
 	/**
 	 * Atributo btvolver referente al boton volver para regresar al rutero de clientes
 	 */
-	Button btvolver;
+	Button btVolver, btGuardar;
+
+	EditText etPrimerApellido, etSegundoApellido,etPrimerNombre,etSegundoNombre,etRazonSocial,etDireccion,etTelefono,etEMail, etRepresentante;
+
+	TextView tvPrimerApellido, tvSegundoApellido,tvPrimerNombre,tvSegundoNombre,tvRazonSocial,tvDireccion,tvTelefono,tvEMail, tvRepresentante, tvNit, tvNombreData;
+
+	Spinner spTipoPersona;
+
+    creaBD bd;
+	Parametros parametrosPos, parametrosSys;
+	private ArrayAdapter<String> dataAdapter;
+
+	private ProgressDialog pdu;
 	
 	/**
 	 * metodo que se asigna valores a los atributos de la actividad
@@ -40,61 +69,124 @@ public class DatosClienteActivity extends Activity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datos_cliente);
-        cliente=new Cliente();
-        textViews=new TextView[10];
-        letraEstilo=new LetraEstilo();
-        
-        Bundle obtenerDatos=new Bundle();
-        obtenerDatos = this.getIntent().getExtras();     
-        cliente.nombre=obtenerDatos.getString("nombre");
-        cliente.ordenVisita=obtenerDatos.getLong("ordenVisita");
-        cliente.idCliente=obtenerDatos.getLong("idCliente");
-        cliente.representante=obtenerDatos.getString("representante");
-        cliente.direccion=obtenerDatos.getString("direccion");
-        cliente.telefono=obtenerDatos.getString("telefono");
-        cliente.barrio=obtenerDatos.getString("barrio");
 
-        //Obtiene todos los datos del cliente de la base de datos
-        
-        
-        textViews[0]=(TextView)findViewById(R.id.tvClienteInfoN);
-        textViews[1]=(TextView)findViewById(R.id.tvNegocioInfoN);
-        textViews[2]=(TextView)findViewById(R.id.tvDireccionInfoN);
-        textViews[3]=(TextView)findViewById(R.id.tvTelefonoInfoN);
-        textViews[4]=(TextView)findViewById(R.id.tvBarrioInfoN);
-        
-        textViews[5]=(TextView)findViewById(R.id.tvClienteInfo);
-        textViews[6]=(TextView)findViewById(R.id.tvNegocioInfo);
-        textViews[7]=(TextView)findViewById(R.id.tvDireccionInfo);
-        textViews[8]=(TextView)findViewById(R.id.tvTelefonoInfo);
-        textViews[9]=(TextView)findViewById(R.id.tvBarrioInfo);
-        
-        btvolver=(Button)findViewById(R.id.btVolverInfo);
-        
-        btvolver.setOnClickListener(new OnClickListener() {
-    		
-        	public void onClick(View v) {       	
-    			finish(); 			
-			}
-			
-		});
- 
-        cargarDatos();
-        getEstilo(textViews);
-        getEstilo(btvolver);       
+		etPrimerApellido=(EditText)findViewById(R.id.etPrimerApellido);
+		etSegundoApellido=(EditText)findViewById(R.id.etSegundoApellido);
+		etPrimerNombre=(EditText)findViewById(R.id.etPrimerNombre);
+		etSegundoNombre=(EditText)findViewById(R.id.etSegundoNombre);
+		etRazonSocial=(EditText)findViewById(R.id.etRazonSocial);
+		etDireccion=(EditText)findViewById(R.id.etDireccion);
+		etTelefono=(EditText)findViewById(R.id.etTelefono);
+		etEMail=(EditText)findViewById(R.id.etEMail);
+		etRepresentante=(EditText)findViewById(R.id.etRepresentante);
+
+		tvPrimerApellido=(TextView) findViewById(R.id.tvPrimerApellido);
+		tvSegundoApellido=(TextView) findViewById(R.id.tvSegundoApellido);
+		tvPrimerNombre=(TextView) findViewById(R.id.tvPrimerNombre);
+		tvSegundoNombre=(TextView) findViewById(R.id.tvSegundoNombre);
+		tvRazonSocial=(TextView) findViewById(R.id.tvRazonSocial);
+		tvDireccion=(TextView) findViewById(R.id.tvDireccion);
+		tvTelefono=(TextView) findViewById(R.id.tvTelefono);
+		tvEMail=(TextView) findViewById(R.id.tvEMail);
+		tvRepresentante=(TextView) findViewById(R.id.tvRepresentante);
+		tvNit=(TextView) findViewById(R.id.tvNit);
+		tvNombreData=(TextView) findViewById(R.id.tvNombreData);
+
+		spTipoPersona=(Spinner) findViewById(R.id.spTipoPersona);
+
+		btVolver=(Button)findViewById(R.id.btVolver);
+		btVolver.setOnClickListener(this);
+		btGuardar=(Button)findViewById(R.id.btGuardar);
+		btGuardar.setOnClickListener(this);
+
+		spTipoPersona.setOnItemSelectedListener(this);
+
+		// Spinner Drop down elements
+		List<String> listaprecios = new ArrayList<String>();
+		listaprecios.add("NATURAL");
+		listaprecios.add("JURIDICA");
+
+
+		// Creating adapter for spinner
+		dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaprecios);
+
+		// Drop down layout style - list view with radio button
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+		// attaching data adapter to spinner
+		spTipoPersona.setAdapter(dataAdapter);
+
+
+
+
+        cliente=new Cliente();
+
+        letraEstilo=new LetraEstilo();
+        bd=new creaBD(this);
+
+		parametrosPos=bd.getParametros(this,"P");
+		parametrosSys=bd.getParametros(this,"S");
+
+        Bundle obtenerDatos=new Bundle();
+        obtenerDatos = this.getIntent().getExtras();
+		//Obtiene todos los datos del cliente de la base de datos
+        cliente=bd.getCliente(this,""+obtenerDatos.getString("idCliente"));
+		 cargarDatos();
+
+
     }
     /**
      * metodo encargado de asignar valores a las etiquetas de la actividad
      */
     public void cargarDatos()
     {
-    	textViews[0].setText(cliente.nombre);
-    	textViews[1].setText(cliente.getRepresentante());
-    	textViews[2].setText(cliente.getDireccion());
-    	textViews[3].setText(cliente.getTelefono());
-    	textViews[4].setText(cliente.getBarrio());	
-     
+
+		validaTipoPersona(cliente.TipoPersona);
+		etPrimerApellido.setText(cliente.getPrimerApellido());
+		etSegundoApellido.setText(cliente.getSegundoApellido());
+		etPrimerNombre.setText(cliente.getPrimerNombre());
+		etSegundoNombre.setText(cliente.getSegundoNombre());
+		etRazonSocial.setText(cliente.getRazonSocial());
+		etDireccion.setText(cliente.getDireccion());
+		etTelefono.setText(cliente.getTelefono());
+		etEMail.setText(cliente.getMail());
+		tvNit.setText(cliente.getNit());
+		tvNombreData.setText(cliente.getNombre());
+		etRepresentante.setText(cliente.getRepresentante());
+
     }
+	private void validaTipoPersona(String tipoPersona)
+	{
+		boolean isNatural=tipoPersona.toUpperCase().equals("NATURAL");
+		if(tipoPersona.toUpperCase().equals("NATURAL"))
+		{
+			etPrimerApellido.setVisibility(View.VISIBLE);
+			etSegundoApellido.setVisibility(View.VISIBLE);
+			etPrimerNombre.setVisibility(View.VISIBLE);
+			etSegundoNombre.setVisibility(View.VISIBLE);
+			etRazonSocial.setVisibility(View.GONE);
+
+			tvPrimerApellido.setVisibility(View.VISIBLE);
+			tvSegundoApellido.setVisibility(View.VISIBLE);
+			tvPrimerNombre.setVisibility(View.VISIBLE);
+			tvSegundoNombre.setVisibility(View.VISIBLE);
+			tvRazonSocial.setVisibility(View.GONE);
+		}
+		else {
+			etPrimerApellido.setVisibility(View.GONE);
+			etSegundoApellido.setVisibility(View.GONE);
+			etPrimerNombre.setVisibility(View.GONE);
+			etSegundoNombre.setVisibility(View.GONE);
+			etRazonSocial.setVisibility(View.VISIBLE);
+
+			tvPrimerApellido.setVisibility(View.GONE);
+			tvSegundoApellido.setVisibility(View.GONE);
+			tvPrimerNombre.setVisibility(View.GONE);
+			tvSegundoNombre.setVisibility(View.GONE);
+			tvRazonSocial.setVisibility(View.VISIBLE);
+
+		}
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -127,5 +219,126 @@ public class DatosClienteActivity extends Activity
     public void getEstilo(Button tv)
 	{
 		tv.setText(letraEstilo.getEstiloNegrilla(tv.getText().toString()));
+	}
+
+	public void onClick(View v) {
+		if(v.equals(btVolver))
+		{
+			finish();
+		}
+		if(v.equals(btGuardar))
+		{
+			if(validaDatos())
+			{
+				new getPutClienteSys().execute("");
+				pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
+
+			}
+		}
+	}
+
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		validaTipoPersona(spTipoPersona.getSelectedItem().toString());
+	}
+
+	public void onNothingSelected(AdapterView<?> parent) {
+
+	}
+
+	private class getPutClienteSys extends AsyncTask<String, Void, Object>
+	{
+		String  res ="";
+		@Override
+		protected Integer doInBackground(String... params)
+		{
+
+			PutCliente putCliente=new PutCliente(parametrosSys.getIp(),parametrosSys.getWebidText());
+			res =putCliente.setDatosClienteCliente(getXmlDatosCliente());
+			return 1;
+		}
+
+
+		protected void onPostExecute(Object result)
+		{
+			pdu.dismiss();
+			if(res.equals("OK"))
+			{
+				mostrarMensaje("Cliente Actualizado Correctamente.","l");
+			}
+			else
+			{
+				mostrarMensaje("No Fue Posible establecer la conexion con el servidor.","l");
+
+			}
+
+		}
+	}
+	public String getXmlDatosCliente()
+	{
+		String fecha;
+		Date fechaActual=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+		fecha = sdf.format(fechaActual);
+		String xml="";
+		xml="<DatosCliente>\n";
+		xml +="<Datos>\n";
+		xml +="<IdCliente>\n"+cliente.getIdCliente()+"</IdCliente>\n";
+		xml +="<TipoPersona>\n"+cliente.getTipoPersona()+"</TipoPersona>\n";
+		xml +="<PrimerApellido>\n"+cliente.getPrimerApellido()+"</PrimerApellido>\n";
+		xml +="<SegundoApellido>\n"+cliente.getSegundoApellido()+"</SegundoApellido>\n";
+		xml +="<PrimerNombre>\n"+cliente.getPrimerNombre()+"</PrimerNombre>\n";
+		xml +="<SegundoNombre>\n"+cliente.getSegundoNombre()+"</SegundoNombre>\n";
+		xml +="<RazonSocial>\n"+cliente.getRazonSocial()+"</RazonSocial>\n";
+		xml +="<NombreCliente>\n"+cliente.getNombre()+"</NombreCliente>\n";
+		xml +="<Mail>\n"+cliente.getMail()+"</Mail>\n";
+		xml +="<Direccion>\n"+cliente.getDireccion()+"</Direccion>\n";
+		xml +="<Telefono>\n"+cliente.getTelefono()+"</Telefono>\n";
+		xml +="<Representante>\n"+cliente.getRepresentante()+"</Representante>\n";
+		xml +="<TipoCanal>\n"+cliente.getTipoCanal()+"</TipoCanal>\n";
+
+		xml +="</Datos>\n";
+		xml +="</DatosCliente>";
+
+		return xml;
+
+	}
+
+	public void mostrarMensaje(String mensaje, String tipo)
+	{
+		if(mensaje=="l")
+		{
+			Toast.makeText(getBaseContext(),mensaje,Toast.LENGTH_LONG).show();
+		}
+		else
+		{
+			Toast.makeText(getBaseContext(),mensaje,Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	private Boolean validaDatos()
+	{
+
+		cliente.setPrimerApellido(etPrimerApellido.getText().toString());
+		cliente.setSegundoApellido(etSegundoApellido.getText().toString());
+		cliente.setPrimerNombre(etPrimerNombre.getText().toString());
+		cliente.setSegundoNombre(etSegundoNombre.getText().toString());
+		cliente.setRazonSocial(etRazonSocial.getText().toString());
+		cliente.setDireccion(etDireccion.getText().toString());
+		cliente.setTelefono(etTelefono.getText().toString());
+		cliente.setRepresentante(etRepresentante.getText().toString());
+		cliente.setMail(etEMail.getText().toString());
+		cliente.setTipoPersona(spTipoPersona.getSelectedItem().toString());
+
+
+		if(spTipoPersona.getSelectedItem().toString().equals("NATURAL"))
+		{
+			cliente.setNombre(cliente.getPrimerApellido()+" "+cliente.getSegundoApellido()+" "+cliente.getPrimerNombre()+" "+cliente.getSegundoNombre());
+		}
+		else
+		{
+			cliente.setNombre( cliente.getRazonSocial());
+		}
+
+		return true;
 	}
 }

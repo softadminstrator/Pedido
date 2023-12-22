@@ -2,142 +2,286 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
     
      <ImageView
          android:id="@+id/ivtienda"
-         android:layout_width="150dp"
+         android:layout_width="fill_parent"
          android:layout_height="70dp"
          android:layout_alignParentLeft="true"
          android:layout_alignParentRight="true"
          android:layout_marginTop="10dp"
+         android:gravity="center"
          android:src="@drawable/tienda" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
 
+        >
      <TextView
-        android:id="@+id/tvClienteInfo"
-        android:layout_width="85dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="100dp"
-        android:text="Cliente"
-        android:textSize="20sp"
-        android:gravity="left|center_vertical"
+        android:id="@+id/tvDatosCliente"
+        android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+        android:text="Datos del cliente"
+         android:gravity="center"
+         android:textAlignment="center"
+        android:textSize="24sp"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-     
-     <TextView
-        android:id="@+id/tvClienteInfoN"
-        android:layout_width="260dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="130dp"
-        android:ems="10"
-        android:textSize="15sp"
-        android:text="Texto del nombre del cliente"
-        android:gravity="left|center_vertical"
-        />
-     
-     <TextView
-        android:id="@+id/tvNegocioInfo"
-        android:layout_width="240dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="160dp"
-        android:text="Nombre del Negocio"
-        android:textSize="20sp"
-        android:gravity="left|center_vertical"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-     
-     <TextView
-        android:id="@+id/tvNegocioInfoN"
-        android:layout_width="260dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="190dp"
-        android:ems="10"
-        android:textSize="15sp"
-        android:text="Texto del nombre del Negocio"
-        android:gravity="left|center_vertical"
-        />
-     
-     <TextView
-        android:id="@+id/tvDireccionInfo"
-        android:layout_width="195dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="220dp"
-        android:text="Direccion"
-        android:textSize="20sp"
-        android:gravity="left|center_vertical"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-     
-     <TextView
-        android:id="@+id/tvDireccionInfoN"
-        android:layout_width="260dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="250dp"
-        android:ems="10"
-        android:textSize="15sp"
-        android:text="Texto del nombre del Direccion"
-        android:gravity="left|center_vertical"
-        />
-     
-     
-      <TextView
-        android:id="@+id/tvTelefonoInfo"
-        android:layout_width="195dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="280dp"
-        android:text="Telefono"
-        android:textSize="20sp"
-        android:gravity="left|center_vertical"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-     
-     <TextView
-        android:id="@+id/tvTelefonoInfoN"
-        android:layout_width="260dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="310dp"
-        android:ems="10"
-        android:textSize="15sp"
-        android:text="Texto del nombre del Telefono"
-        android:gravity="left|center_vertical"
-        />
-     
-     <TextView
-        android:id="@+id/tvBarrioInfo"
-        android:layout_width="85dp"
-	    android:layout_height="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="340dp"
-        android:text="Barrio"
-        android:textSize="20sp"
-        android:gravity="left|center_vertical"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
         <TextView
-        android:id="@+id/tvBarrioInfoN"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="370dp"
-        android:layout_width="190dp"
-	    android:layout_height="50dp"
-        android:ems="10"
-        android:textSize="15sp"
-        android:text="Texto del nombre del Barrio"
-        android:gravity="left|center_vertical"
-        />
-        
-        <Button
-         android:id="@+id/btVolverInfo"
-         android:layout_marginLeft="210dp"
-         android:layout_marginTop="370dp"
-         android:layout_width="120dp"
-	     android:layout_height="40dp"
-	     android:drawableRight="@drawable/volver"
-	     style="@style/button_layout"
-			android:background="@drawable/blue_button"
-         android:text="Volver" />
-     
-    
+            android:id="@+id/tvNombre"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Nombre completo"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/tvNombreData"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Nombre completo"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <TextView
+            android:id="@+id/tvNitLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Nit"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/tvNit"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Nit cliente"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/tvTipoPersona"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Tipo Presona"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <Spinner
+            android:id="@+id/spTipoPersona"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:textSize="20sp"
+            android:gravity="center_vertical|center_horizontal"
+          />
+
+        <TextView
+            android:id="@+id/tvPrimerApellido"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Primer apellido"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etPrimerApellido"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="50"
+            android:text="Datos primer apellido"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvSegundoApellido"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Segundo apellido"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etSegundoApellido"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="50"
+            android:text="Datos segundo apellido"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvPrimerNombre"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Primer nombre"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etPrimerNombre"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="50"
+            android:text="Datos primer nombre"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvSegundoNombre"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="segundo nombre"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etSegundoNombre"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="50"
+            android:text="Datos segundo nombre"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvRazonSocial"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Razon social"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etRazonSocial"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="200"
+            android:text="Datos Razon Social"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvDireccion"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Dirección"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etDireccion"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="50"
+            android:text="Datos Direccion"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvTelefono"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Telefono"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etTelefono"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="50"
+            android:text="Datos telefono"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tvEMail"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="E-Mail"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etEMail"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="textEmailAddress"
+            android:maxLength="100"
+            android:text="Datos Email"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvRepresentante"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Nombre del negocio"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etRepresentante"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="50"
+            android:text="Datos Nombre del negocio"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+            <Button
+                android:id="@+id/btVolver"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/blue_button"
+                style="@style/button_layout"
+                android:text="Volver"
+                android:textSize="18sp"/>
+            <Button
+                android:id="@+id/btGuardar"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:background="@drawable/blue_button"
+                style="@style/button_layout"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Guardar"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

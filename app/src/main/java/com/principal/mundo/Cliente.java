@@ -197,6 +197,8 @@ public class Cliente
 	public String SegundoNombre;
 	public String RazonSocial;
 
+	public String Mail;
+
 
 
 	/**
@@ -244,6 +246,7 @@ public class Cliente
 		PrimerNombre="";
 		SegundoNombre="";
 		RazonSocial="";
+		Mail="";
 
 	}
 
@@ -1027,5 +1030,13 @@ public class Cliente
 
 	public void setRazonSocial(String razonSocial) {
 		RazonSocial = razonSocial;
+	}
+
+	public String getMail() {
+		return Mail;
+	}
+
+	public void setMail(String mail) {
+		Mail = mail;
 	}
 }
