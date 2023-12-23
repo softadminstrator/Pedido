@@ -50,7 +50,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 	 */
 	Button btVolver, btGuardar;
 
-	EditText etPrimerApellido, etSegundoApellido,etPrimerNombre,etSegundoNombre,etRazonSocial,etDireccion,etTelefono,etEMail, etRepresentante;
+	EditText etPrimerApellido, etSegundoApellido,etPrimerNombre,etSegundoNombre,etRazonSocial,etDireccion,etTelefono,etEMail, etRepresentante,etTipoCanal;
 
 	TextView tvPrimerApellido, tvSegundoApellido,tvPrimerNombre,tvSegundoNombre,tvRazonSocial,tvDireccion,tvTelefono,tvEMail, tvRepresentante, tvNit, tvNombreData;
 
@@ -79,6 +79,8 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		etTelefono=(EditText)findViewById(R.id.etTelefono);
 		etEMail=(EditText)findViewById(R.id.etEMail);
 		etRepresentante=(EditText)findViewById(R.id.etRepresentante);
+		etTipoCanal=(EditText)findViewById(R.id.etTipoCanal);
+
 
 		tvPrimerApellido=(TextView) findViewById(R.id.tvPrimerApellido);
 		tvSegundoApellido=(TextView) findViewById(R.id.tvSegundoApellido);
@@ -153,6 +155,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		tvNit.setText(cliente.getNit());
 		tvNombreData.setText(cliente.getNombre());
 		etRepresentante.setText(cliente.getRepresentante());
+		etTipoCanal.setText(cliente.getTipoCanal());
 
     }
 	private void validaTipoPersona(String tipoPersona)
@@ -234,6 +237,10 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 				pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
 
 			}
+			else {
+				mostrarMensaje("Debe ingresar todos los datos de cliente.","l");
+			}
+
 		}
 	}
 
@@ -264,6 +271,8 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 			if(res.equals("OK"))
 			{
 				mostrarMensaje("Cliente Actualizado Correctamente.","l");
+				//Actualizar datos cliente
+				finish();
 			}
 			else
 			{
@@ -318,27 +327,50 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 	private Boolean validaDatos()
 	{
 
-		cliente.setPrimerApellido(etPrimerApellido.getText().toString());
-		cliente.setSegundoApellido(etSegundoApellido.getText().toString());
-		cliente.setPrimerNombre(etPrimerNombre.getText().toString());
-		cliente.setSegundoNombre(etSegundoNombre.getText().toString());
-		cliente.setRazonSocial(etRazonSocial.getText().toString());
-		cliente.setDireccion(etDireccion.getText().toString());
-		cliente.setTelefono(etTelefono.getText().toString());
-		cliente.setRepresentante(etRepresentante.getText().toString());
-		cliente.setMail(etEMail.getText().toString());
-		cliente.setTipoPersona(spTipoPersona.getSelectedItem().toString());
 
+		if(valText(etPrimerApellido.getText().toString())
+		&& valText(etSegundoApellido.getText().toString())
+				&& valText(etPrimerNombre.getText().toString())
+				&& valText(etSegundoNombre.getText().toString())
+				&& valText(etRazonSocial.getText().toString())
+				&& valText(etDireccion.getText().toString())
+				&& valText(etTelefono.getText().toString())
+				&& valText(etRepresentante.getText().toString())
+				&& valText(etEMail.getText().toString())
+				&& valText(etTipoCanal.getText().toString())
+				) {
 
-		if(spTipoPersona.getSelectedItem().toString().equals("NATURAL"))
-		{
-			cliente.setNombre(cliente.getPrimerApellido()+" "+cliente.getSegundoApellido()+" "+cliente.getPrimerNombre()+" "+cliente.getSegundoNombre());
+			cliente.setPrimerApellido(etPrimerApellido.getText().toString());
+			cliente.setSegundoApellido(etSegundoApellido.getText().toString());
+			cliente.setPrimerNombre(etPrimerNombre.getText().toString());
+			cliente.setSegundoNombre(etSegundoNombre.getText().toString());
+			cliente.setRazonSocial(etRazonSocial.getText().toString());
+			cliente.setDireccion(etDireccion.getText().toString());
+			cliente.setTelefono(etTelefono.getText().toString());
+			cliente.setRepresentante(etRepresentante.getText().toString());
+			cliente.setMail(etEMail.getText().toString());
+			cliente.setTipoPersona(spTipoPersona.getSelectedItem().toString());
+			cliente.setTipoCanal(etTipoCanal.getText().toString());
+
+			if (spTipoPersona.getSelectedItem().toString().equals("NATURAL")) {
+				cliente.setNombre(cliente.getPrimerApellido() + " " + cliente.getSegundoApellido() + " " + cliente.getPrimerNombre() + " " + cliente.getSegundoNombre());
+			} else {
+				cliente.setNombre(cliente.getRazonSocial());
+			}
+
+			return true;
 		}
 		else
 		{
-			cliente.setNombre( cliente.getRazonSocial());
+			return false;
 		}
-
-		return true;
+	}
+	private boolean valText (String text)
+	{
+		if (text.length()>0)
+		{
+			return true;
+		}
+		return false;
 	}
 }

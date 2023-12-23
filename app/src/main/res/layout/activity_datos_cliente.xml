@@ -252,6 +252,25 @@
             android:text="Datos Nombre del negocio"
             android:textSize="18sp" />
 
+        <TextView
+            android:id="@+id/tvTipoCanal"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp"
+            android:text="Nombre del negocio"
+            android:textSize="20sp"
+            android:gravity="left"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <EditText
+            android:id="@+id/etTipoCanal"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical|center_horizontal"
+            android:inputType="text"
+            android:maxLength="50"
+            android:text="Tipo canal"
+            android:textSize="18sp" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
