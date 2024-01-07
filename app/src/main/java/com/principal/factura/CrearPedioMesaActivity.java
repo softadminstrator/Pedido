@@ -267,7 +267,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 			itemPedido.setMesero(""+usuario.getCedula());
 			itemPedido.setIdCategoria(0);
 			itemPedido.setListaObservaciones(articulo.getListaObservacionesSelec());
-
+		    itemPedido.setObservacionAls("");
 
 			pedidoMesaIn.getListaArticulos().add(itemPedido);			
 			cargarPedioMesa();		
