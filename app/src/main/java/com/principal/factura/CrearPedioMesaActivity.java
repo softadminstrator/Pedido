@@ -300,10 +300,10 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				}
 			});			
 			btCategoria.setText(listaCategorias.get(i).getNombre());
-			btCategoria.setBackgroundResource(R.drawable.red_button);
+			//btCategoria.setBackgroundResource(R.drawable.red_button);
 			btCategoria.setTextColor(Color.WHITE);
 			btCategoria.setTypeface(null, Typeface.BOLD);
-             btCategoria.setTextSize(16);
+             btCategoria.setTextSize(14);
 			 col++;
 			 btCategoria.setBackgroundColor(getNextColor(col));
 			// btCategoria.setBackgroundColor(0xFFF00D21);
@@ -319,7 +319,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 
 		     layoutParams.setMargins(10, 5, 0, 0);
 		     layoutParams.height=100-30;
-		     layoutParams.width=140-30;
+		     layoutParams.width=150-30;
 		     ll.addView(btCategoria, layoutParams);		    
 
 
@@ -340,6 +340,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 		 bd.openDB();
 		 listaArtCategoria=bd.getArticuloPorCategoria(this,categoria);  	        
 		 bd.closeDB();
+		 int colmax=llArticulosCategoira.getMeasuredWidth() /120;
 		 int col=0;
 		 int numcolBt=0;
 		 LinearLayout llinea =null;
@@ -370,11 +371,11 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 					 btArticulo.setBackgroundResource(R.drawable.red_button);
 					 btArticulo.setTextColor(Color.WHITE);
 					 btArticulo.setTypeface(null, Typeface.BOLD);
-					 btArticulo.setTextSize(12);
+					 btArticulo.setTextSize(13);
 					 col++;
 					 btArticulo.setBackgroundColor(getNextColorArticulo(col));
 					 //btArticulo.setBackgroundColor(0xFF000000);
-				     if(col==4)
+				     if(col==5)
 					 {
 						 col=0; 
 					 }
@@ -383,8 +384,8 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				          LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);		
 				     layoutParams.setMargins(10, 5, 0, 0);
-				     layoutParams.height=90-20;
-				     layoutParams.width=120-20;
+				     layoutParams.height=120-20;
+				     layoutParams.width=130-20;
 				     ll.addView(btArticulo, layoutParams);
 				     
 				     if(numcolBt==0)
@@ -398,7 +399,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				     numcolBt++;				     
 				     llinea.addView(ll);
 				     
-				     if(numcolBt==5)
+				     if(numcolBt==colmax)
 				     {
 				    	 llArticulosCategoira.addView(llinea);
 				    	 numcolBt=0;
@@ -421,21 +422,21 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 	private int getNextColor(int id)
 	{
 		switch (id) {
-		case 1:return 0xFFF4EC00;
-		case 2: return 0xFFF00D21;	
-		case 3: return 0xFFF4DD33;	
-		default: return 0xFFEF283C;	
+		case 1:return 0xFF019694;
+		case 2: return 0xFFEDA211;
+		case 3: return 0xFFA8A28C;
+		default: return 0xFFADADAD;
 		}
 	}
 	
 	private int getNextColorArticulo(int id)
 	{
 		switch (id) {
-		case 1:return 0xFF347BE5;
-		case 2: return 0xFF019213;	
-		case 3: return 0xFF5691EA;	
-		case 4: return 0xFF22912F;	
-		default: return 0xFF019213;	
+		case 1:return 0xFF017DB0;
+		case 2: return 0xFF2DD655;
+		case 3: return 0xFF707F86;
+		case 4: return 0xFFAEA88E;
+		default: return 0xFF1DB141;
 		}
 	}
 	
