@@ -151,7 +151,9 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 		{
 		  llMesas.removeAllViews();
 			try
-			{			
+			{
+			final int sizellMesas=llMesas.getMeasuredWidth();
+			 int colmax=sizellMesas/150;
 			 int col=0;
 			 int numcolBt=0;
 			 final Animation anim_scale_mesa = AnimationUtils.loadAnimation(this, R.anim.anim_scale_mesa);
@@ -188,19 +190,20 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 						 
 						 if( buscaMesaOcupada(NMesa))
 						 {
-							 btMesa.setBackgroundResource(R.drawable.blue_button);
+							 btMesa.setBackgroundResource(R.drawable.red_button);
+
 //							 btMesa.setBackgroundColor(0xFF347BE5);//Ocupada 
 						 }
 						 else
 						 {
-							 btMesa.setBackgroundResource(R.drawable.red_button);
+							 btMesa.setBackgroundResource(R.drawable.blue_button);
 //							 btMesa.setBackgroundColor(0xFFF4EC00);//Disponible
 						 }
 						 Drawable img =SelecMesaActivity.this.getResources().getDrawable( R.drawable.mesa2 );
 						 img.setBounds( 0, 0, 40, 40 );
 						 btMesa.setCompoundDrawables( img, null, null, null );
 					
-					     if(col==4)
+					     if(col==colmax)
 						 {
 							 col=0; 
 						 }
@@ -224,7 +227,7 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
 					     numcolBt++;				     
 					     llinea.addView(ll);
 					     
-					     if(numcolBt==4)
+					     if(numcolBt==colmax)
 					     {
 					    	 llMesas.addView(llinea);
 					    	 numcolBt=0;
