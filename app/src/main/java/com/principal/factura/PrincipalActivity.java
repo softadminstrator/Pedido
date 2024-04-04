@@ -113,7 +113,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 		EditText txtclave;	
 		int identificador=0;
 		private Categoria categoria;
-		private boolean isAll=false;
+
 		/**
 		 * Atributos tvRuta,tvClave,tvVersion, tvRutaAsignada que hacen referencia a las etiquetas 
 		 * que se muestran en la actividad
@@ -443,6 +443,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 				{
 					if(parametrosPos.isValue(parametrosPos.getUsaTodasLasCategorias()))
 					{
+						identificador=0;
 						new getCategorias().execute("");
 						pdu=ProgressDialog.show(PrincipalActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo Datos.."), true,false);
 					}
@@ -450,7 +451,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 					{
 						if(listaCategorias.size()>0)
 						{
-							isAll=false;
+
 							identificador=0;
 							if(parametrosPos.isValue(parametrosPos.getUsaWSCash()))
 							{
@@ -544,8 +545,8 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
    				pdu.dismiss();
    				if(res.equals("true"))
    				{   
-   					isAll=true;
-					listaCategorias=new ArrayList<Categoria>();
+
+					//listaCategorias=new ArrayList<Categoria>();
 					
 					if(parametrosPos.isValue(parametrosPos.getUsaWSCash()))
 					{
@@ -578,10 +579,10 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 	   			larticulos= new ArrayList<Articulo>();
 				categoria=new Categoria();
 				categoria.setNombre(" ");
-				if(!isAll)
-				{
+				//if(!isAll)
+				//{
 					categoria=listaCategorias.get(identificador);
-				}		
+				//}
 				GetArticulosSize getArticulosSize=new GetArticulosSize(parametrosSys.getIp(),parametrosSys.getWebidText());
 				res=getArticulosSize.GetArticulosSize(categoria.getNombre(),  categoria.getFechaAct());
 				operacion=getArticulosSize.getOperacion();
@@ -605,7 +606,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 	   				else 
 	   				{		
 	   					identificador++;
-						if(identificador < listaCategorias.size() & !isAll)
+						if(identificador < listaCategorias.size() )
 						{					
 							new getSizeConsultaArticulos().execute("");
 							pdu=ProgressDialog.show(PrincipalActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo Datos "+(identificador+1)+" de "+listaCategorias.size()+" "+"0%"), true,false);
@@ -642,15 +643,15 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 			larticulos= new ArrayList<Articulo>();
 			categoria=new Categoria();
 			categoria.setNombre(" ");
-			if(!isAll)
-			{
+			//if(!isAll)
+			//{
 				categoria=listaCategorias.get(identificador);
-			}		
+			//}
 			
 			if(parametrosPos.isValue(parametrosPos.getUsaWSCash()))
 			{
 				LlamarArticulos llamarArticulos=new LlamarArticulos(parametrosPos);						
-				larticulos = llamarArticulos.getArticulos(isAll,categoria.getNombre(),  categoria.getFechaAct(),larticulos);
+				larticulos = llamarArticulos.getArticulos(categoria.getNombre(),  categoria.getFechaAct(),larticulos);
 			}
 						
 			if(larticulos!=null)
@@ -674,7 +675,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 			if(larticulos!=null)
 			{
 				identificador++;
-				if(identificador < listaCategorias.size() & !isAll)
+				if(identificador < listaCategorias.size() )
 				{					
 					new getArticulosCategoria().execute("");
 					pdu=ProgressDialog.show(PrincipalActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo Datos "+(identificador+1)+" de "+listaCategorias.size()), true,false);
@@ -729,7 +730,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 				
 			larticulos= new ArrayList<Articulo>();
 			LlamarArticulosSys llamarArticulosSys=new LlamarArticulosSys(parametrosSys);						
-			larticulos = llamarArticulosSys.getArticulos(isAll,rangIn,rangOut,categoria.getNombre(),  categoria.getFechaAct(),larticulos, ""+parametrosSys.getBodegaPedidosOmision());
+			larticulos = llamarArticulosSys.getArticulos(rangIn,rangOut,categoria.getNombre(),  categoria.getFechaAct(),larticulos, ""+parametrosSys.getBodegaPedidosOmision());
 					
 			if(larticulos!=null)
 			{
@@ -779,7 +780,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 					categoria.setFechaAct(parametrosPos.getFechaSys2());
 					bd.ActualizarCategoria(categoria);
 					identificador++;
-					if(identificador < listaCategorias.size() & !isAll)
+					if(identificador < listaCategorias.size())
 					{					
 						new getSizeConsultaArticulos().execute("");
 						pdu=ProgressDialog.show(PrincipalActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo Datos "+(identificador+1)+" de "+listaCategorias.size()+" "+"0%"), true,false);

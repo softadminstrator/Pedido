@@ -79,6 +79,7 @@ public class GetCategoriasSys {
 					categoria.setIdCategoria(Integer.parseInt(ic.getPropertyAsString("idCategoria")));
 					categoria.setNombre(categoria.valspace(ic.getProperty("categoria").toString()));
 					categoria.setFechaAct(ic.getProperty("fechaAct").toString());
+					categoria.setVisibleEnPantalla(ic.getProperty("visibleEnPantalla").toString());
 					categoria.setActivo(1);
 					categoria.setHabilidada(0);
 					listaCategorias.add(categoria);

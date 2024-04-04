@@ -1758,7 +1758,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 				if(parametrosPos.isValue(parametrosPos.getUsaWSCash()))
 				{
 					LlamarArticulos llamarArticulos=new LlamarArticulos(parametrosPos);						
-					larticulos = llamarArticulos.getArticulos(isAll,categoria.getNombre(),  categoria.getFechaAct(),larticulos);
+					larticulos = llamarArticulos.getArticulos(categoria.getNombre(),  categoria.getFechaAct(),larticulos);
 				}				
 				if(larticulos!=null & larticulos.size()>0)
 				{
@@ -1815,7 +1815,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
 					
 				larticulos= new ArrayList<Articulo>();
 				LlamarArticulosSys llamarArticulosSys=new LlamarArticulosSys(parametrosSys);						
-				larticulos = llamarArticulosSys.getArticulos(isAll,rangIn,rangOut,categoria.getNombre(),  categoria.getFechaAct(),larticulos,""+parametrosSys.getBodegaPedidosOmision());
+				larticulos = llamarArticulosSys.getArticulos(rangIn,rangOut,categoria.getNombre(),  categoria.getFechaAct(),larticulos,""+parametrosSys.getBodegaPedidosOmision());
 						
 				if(larticulos!=null)
 				{

@@ -9,6 +9,7 @@ public class Categoria {
 	private long valor;
 	private long unidades;
 	private String cantidad;
+	private String VisibleEnPantalla;
 	
 	
 	public Categoria(long idCategoria, String nombre, String fechaAct,
@@ -174,5 +175,13 @@ public class Categoria {
 
 	public void setCantidad(String cantidad) {
 		this.cantidad = cantidad;
+	}
+
+	public String getVisibleEnPantalla() {
+		return VisibleEnPantalla;
+	}
+
+	public void setVisibleEnPantalla(String visibleEnPantalla) {
+		VisibleEnPantalla = visibleEnPantalla;
 	}
 }

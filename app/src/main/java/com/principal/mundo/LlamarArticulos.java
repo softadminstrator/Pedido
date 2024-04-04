@@ -53,24 +53,18 @@ public class LlamarArticulos {
 	 * @param listaArticulos
 	 * @return
 	 */
-	public ArrayList<Articulo> getArticulos(boolean isAll, String categoria,String fecha, ArrayList<Articulo> listaArticulos)
+	public ArrayList<Articulo> getArticulos( String categoria,String fecha, ArrayList<Articulo> listaArticulos)
 	{
 		
 		ArrayList<Articulo> l = listaArticulos;
 		try
 		 {
 		SoapObject request=null;
-		 if(!isAll)
-		 {	 
-			 request = new SoapObject(NAMESPACE, METHOD_NAME2);
-			 request.addProperty("FechaA",fecha);			
-		 }
-		 else
-		 {
+
 			 request = new SoapObject(NAMESPACE, METHOD_NAME);	
 			 request.addProperty("Categoria",categoria);
 			 request.addProperty("FechaAct",fecha);
-		 }
+
 		 
 //		 request.addProperty("Categoria","ABARROTES");
 //		 request.addProperty("FechaAct","201309160600");	

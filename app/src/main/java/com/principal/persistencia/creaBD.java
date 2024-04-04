@@ -54,7 +54,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 40);
+		super(context, "BDPEDIDOSYS", null, 41);
 
 	}
 
@@ -508,7 +508,8 @@ public class creaBD extends SQLiteOpenHelper {
 				"  nombre TEXT, " +
 				"  fechaact TEXT, " +
 				"  activo INGETER, " +
-				"  habilitada INGETER ) ";
+				"  habilitada INGETER," +
+				"  visibleEnPantalla TEXT) ";
 		db.execSQL(query);
 
 		query = "CREATE TABLE catalogo " +
@@ -823,6 +824,10 @@ public class creaBD extends SQLiteOpenHelper {
 		Actualiza(db, upgradeQuery);
 		//-------------------------------------------------------------------------------
 
+		//Se agrega columna visible en pantalla para sincronizar categorias con sistema de escritorio
+		upgradeQuery = "ALTER TABLE categoria ADD COLUMN visibleEnPantalla TEXT ";
+		Actualiza(db, upgradeQuery);
+
 
 
 
@@ -965,7 +970,7 @@ public class creaBD extends SQLiteOpenHelper {
 				valuesIn = new ContentValues();
 				valuesIn.put("idCategoria", categoria.getIdCategoria());
 				valuesIn.put("nombre", categoria.getNombre());
-
+				valuesIn.put("visibleEnPantalla", categoria.getVisibleEnPantalla());
 				if (getValidaCategoria(categoria.getIdCategoria())) {
 					this.getWritableDatabase().update("categoria", valuesIn, " idcategoria =" + categoria.getIdCategoria(), null);
 				} else {

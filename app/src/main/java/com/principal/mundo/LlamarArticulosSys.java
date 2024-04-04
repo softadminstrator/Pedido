@@ -43,7 +43,7 @@ public class LlamarArticulosSys {
 		 * nombre del metodo del servicio que sera llamado
 		 */
 		private static final String METHOD_NAME = "GetArtxCategoriaFecha";
-		private static final String METHOD_NAME2 = "GetArticulos";
+
 		
 		
 		private Parametros parametros;
@@ -72,43 +72,14 @@ public class LlamarArticulosSys {
 	 * @param listaArticulos
 	 * @return
 	 */
-	public ArrayList<Articulo> getArticulos(boolean isAll,long rangin, long rangout, String categoria,String fecha, ArrayList<Articulo> listaArticulos, String idBodega)
+	public ArrayList<Articulo> getArticulos(long rangin, long rangout, String categoria,String fecha, ArrayList<Articulo> listaArticulos, String idBodega)
 	{
 		
 		ArrayList<Articulo> l = listaArticulos;
 		try
 		 {
 		SoapObject request=null;
-		 if(isAll)
-		 {	 
-			 request = new SoapObject(NAMESPACE, METHOD_NAME2);
-			 
-			 PropertyInfo prRangIn = new PropertyInfo();
-			 prRangIn.name="rangin";
-			 prRangIn.type=String.class;
-			 prRangIn.setValue(rangin);
-			 request.addProperty(prRangIn);	
-			 
-			 PropertyInfo prRangOut = new PropertyInfo();
-			 prRangOut.name="rangout";
-			 prRangOut.type=String.class;
-			 prRangOut.setValue(rangout);
-			 request.addProperty(prRangOut);	
-			 
-			 PropertyInfo prfecha = new PropertyInfo();
-			 prfecha.name="FechaA";
-			 prfecha.type=String.class;
-			 prfecha.setValue(fecha);
-			 request.addProperty(prfecha);
 
-			 PropertyInfo pridBodega = new PropertyInfo();
-			 pridBodega.name="idBodega";
-			 pridBodega.type=String.class;
-			 pridBodega.setValue(idBodega);
-			 request.addProperty(pridBodega);
-		 }
-		 else
-		 {
 			 request = new SoapObject(NAMESPACE, METHOD_NAME);
 			 
 			 PropertyInfo prRangIn = new PropertyInfo();
@@ -140,7 +111,7 @@ public class LlamarArticulosSys {
 			 pridBodega.type=String.class;
 			 pridBodega.setValue(idBodega);
 			 request.addProperty(pridBodega);
-		 }
+
 		 
 //		 request.addProperty("Categoria","ABARROTES");
 //		 request.addProperty("FechaAct","201309160600");	
@@ -153,14 +124,9 @@ public class LlamarArticulosSys {
 		 HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
 		 androidHttpTransport.debug = true; //nos aseguramos as� de que funcione siempre		
 		
-		 if(isAll)
-		 {
-		 	androidHttpTransport.call(NAMESPACE+METHOD_NAME2, envelope);
-		 }
-		 else
-		 {
+
 			 androidHttpTransport.call(NAMESPACE+METHOD_NAME, envelope);
-		 }
+
 		 	
 	    	SoapPrimitive res =(SoapPrimitive)envelope.getResponse();
 //		 	SoapObject res = (SoapObject) envelope.getResponse();
