@@ -238,7 +238,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
     	 parametrosPos=bd.getParametros(this, "P");
     	 parametrosSys=bd.getParametros(this, "S");
     	 tvRutaAsignada.setText("Ruta Asignada "+parametrosPos.ruta);    	 
-    	 listaCategorias=bd.getCategorias(true);
+    	 listaCategorias=bd.getCategorias(true,false);
     	 if(parametrosPos.getRealizaFactura()==1)
     	 {
     		 tvCajaAsignada.setText("Caja "+parametrosPos.getCaja());

@@ -293,7 +293,7 @@ public class CrearPedidoActivity extends Activity implements OnClickListener , O
          bd=new creaBD(this);
          parametrosPos=bd.getParametros(this,"P"); 
          parametrosSys=bd.getParametros(this,"S");        
-     	 listaCategorias=bd.getCategorias(true);
+     	 listaCategorias=bd.getCategorias(true, false);
      	
      	 rlCrearPedido=(RelativeLayout)findViewById(R.id.rlCrearPedido);     	
          textView[0]=(TextView)findViewById(R.id.tvReferenciaTR2);

@@ -54,7 +54,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 41);
+		super(context, "BDPEDIDOSYS", null, 42);
 
 	}
 
@@ -509,7 +509,8 @@ public class creaBD extends SQLiteOpenHelper {
 				"  fechaact TEXT, " +
 				"  activo INGETER, " +
 				"  habilitada INGETER," +
-				"  visibleEnPantalla TEXT) ";
+				"  visibleEnPantalla TEXT," +
+				"  comision INGETER) ";
 		db.execSQL(query);
 
 		query = "CREATE TABLE catalogo " +
@@ -827,6 +828,8 @@ public class creaBD extends SQLiteOpenHelper {
 		//Se agrega columna visible en pantalla para sincronizar categorias con sistema de escritorio
 		upgradeQuery = "ALTER TABLE categoria ADD COLUMN visibleEnPantalla TEXT ";
 		Actualiza(db, upgradeQuery);
+		upgradeQuery = "ALTER TABLE categoria ADD COLUMN Comision INGETER ";
+		Actualiza(db, upgradeQuery);
 
 
 
@@ -971,6 +974,7 @@ public class creaBD extends SQLiteOpenHelper {
 				valuesIn.put("idCategoria", categoria.getIdCategoria());
 				valuesIn.put("nombre", categoria.getNombre());
 				valuesIn.put("visibleEnPantalla", categoria.getVisibleEnPantalla());
+				valuesIn.put("comision", categoria.getComision());
 				if (getValidaCategoria(categoria.getIdCategoria())) {
 					this.getWritableDatabase().update("categoria", valuesIn, " idcategoria =" + categoria.getIdCategoria(), null);
 				} else {
@@ -4195,7 +4199,7 @@ public class creaBD extends SQLiteOpenHelper {
 	    }
 	}
 	
-	public ArrayList <Categoria> getCategorias(boolean habilitadas)
+	public ArrayList <Categoria> getCategorias(boolean habilitadas,boolean ismesas)
 	{
 		ArrayList<Categoria> lista=new ArrayList<Categoria>();
 		try
@@ -4205,12 +4209,20 @@ public class creaBD extends SQLiteOpenHelper {
 		String query = "SELECT idcategoria, nombre, fechaact, activo, habilitada "+
 				   "FROM categoria "+
 				   "ORDER BY nombre";
-		if (habilitadas) {
+		if (ismesas)
+		{
+			query = "SELECT idcategoria, nombre, fechaact, activo, habilitada "+
+					"FROM categoria "+
+					"WHERE visibleEnPantalla='SI' "+
+					"ORDER BY Comision";
+		}
+		else if (habilitadas) {
 	    query = "SELECT idcategoria, nombre, fechaact, activo, habilitada "+
 					   "FROM categoria "+
 					   "WHERE habilitada=1 "+
 					   "ORDER BY nombre";
-		}	
+		}
+
 		Cursor c= bds.rawQuery(query,null);
 		for(c.moveToFirst();!c.isAfterLast();c.moveToNext())
 		{

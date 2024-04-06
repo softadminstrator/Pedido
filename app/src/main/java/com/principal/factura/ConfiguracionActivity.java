@@ -857,7 +857,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
    				       
    				        
    				        bd.openDB();
-   						listaCategorias=bd.getCategorias(false);									
+   						listaCategorias=bd.getCategorias(false,false);
    						bd.closeDB();
    				        context = getApplicationContext();
    				        listView.setAdapter(new CategoriasAdapter(context,R.layout.activity_item_categoria,listaCategorias));
@@ -869,7 +869,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 							     listaCategorias.get(position).setHabilidada();
 								 bd.openDB();
 								 bd.ActualizarCategoria(listaCategorias.get(position));
-								 listaCategorias=bd.getCategorias(false);	
+								 listaCategorias=bd.getCategorias(false,false);
 								 bd.closeDB();
 								 listView.setAdapter(new CategoriasAdapter(context,R.layout.activity_item_categoria,listaCategorias));
 																						  
@@ -1099,7 +1099,7 @@ public class ConfiguracionActivity extends Activity implements OnClickListener, 
 		{
 			String fecha=editTexts[8].getText().toString();
 			bd.openDB();
-			listaCategorias=bd.getCategorias(true);
+			listaCategorias=bd.getCategorias(true, false);
 			
 			for (int i = 0; i < listaCategorias.size(); i++) {
 				categoria=listaCategorias.get(i);

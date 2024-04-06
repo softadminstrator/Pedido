@@ -10,6 +10,8 @@ public class Categoria {
 	private long unidades;
 	private String cantidad;
 	private String VisibleEnPantalla;
+
+	private long Comision;
 	
 	
 	public Categoria(long idCategoria, String nombre, String fechaAct,
@@ -183,5 +185,13 @@ public class Categoria {
 
 	public void setVisibleEnPantalla(String visibleEnPantalla) {
 		VisibleEnPantalla = visibleEnPantalla;
+	}
+
+	public long getComision() {
+		return Comision;
+	}
+
+	public void setComision(long comision) {
+		Comision = comision;
 	}
 }

@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.principal.mundo.Articulo;
 import com.principal.mundo.Categoria;
+import com.principal.mundo.GetCategoriasSys;
 import com.principal.mundo.Opciones;
 import com.principal.mundo.Parametros;
 import com.principal.mundo.Pedido_in;
@@ -281,8 +282,10 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 	private void cargarCategorias()
 	{    	
 		 bd.openDB();
-		 listaCategorias=bd.getCategorias(parametrosSys.getUsaCategorias());  	        
+		 listaCategorias=bd.getCategorias(parametrosSys.getUsaCategorias(), true);
 		 bd.closeDB();
+		 llCategorias1.removeAllViews();
+		llCategorias2.removeAllViews();
  
 		 
 		 int mit = listaCategorias.size()/2;
@@ -404,7 +407,7 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				    	 llArticulosCategoira.addView(llinea);
 				    	 numcolBt=0;
 				     }
-				     if((i+1) == listaArtCategoria.size() & numcolBt > 0 & numcolBt < 5)
+				     if((i+1) == listaArtCategoria.size() & numcolBt > 0 & numcolBt < colmax)
 				     {
 				    	 llArticulosCategoira.addView(llinea); 
 				     }
@@ -450,6 +453,24 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 				GetPedidoMesa pedidoMesa=new GetPedidoMesa(parametrosSys.getIp(),parametrosSys.getWebidText());
 				pedidoPos=pedidoMesa.GetPedidoM(""+pedido.getMesa());
 				mensaje=pedidoMesa.getMensaje();
+
+
+				//se agrega opcion de actualizar todas las categorias al momento de ingresar a la mesa
+				GetCategoriasSys getCategoriasSys=new GetCategoriasSys(parametrosSys.getIp(),parametrosSys.getWebidText());
+				getCategoriasSys.getCategorias();
+				listaCategorias=getCategoriasSys.getListaCategorias();
+				if(listaCategorias.size()>0)
+				{
+				bd.openDB();
+				bd.insertCategorias(listaCategorias);
+				bd.closeDB();
+
+				}
+
+
+
+
+
 			return 1;	
 			}
 		
@@ -484,6 +505,8 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 					etObservacion.setText(pedidoPos.getObservaciones());
 					cargarPedioMesa();
 				}
+				//Carga categorias nuevamente
+					cargarCategorias();
 //			
 				}
 				catch (Exception e) {
@@ -900,12 +923,12 @@ public class CrearPedioMesaActivity extends Activity implements OnClickListener 
 							LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 					layoutParams.setMargins(10, 5, 0, 0);
 					if(parametrosSys.isValue(parametrosSys.getUsaObservMasMenos())) {
-						layoutParams.height = 40;
+						layoutParams.height = 100;
 						layoutParams.width = 250;
 					}
 					else
 					{
-						layoutParams.height = 60-10;
+						layoutParams.height = 80;
 						layoutParams.width = 150-30;
 					}
 					ll.addView(btObservacion, layoutParams);
