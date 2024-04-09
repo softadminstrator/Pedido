@@ -58,7 +58,12 @@ public class SelecMesaActivity extends Activity implements OnClickListener {
         llMesas=(LinearLayout)findViewById(R.id.llMesas);	
         btActualizarMesas=(Button)findViewById(R.id.btActualizarMesas);
         btActualizarMesas.setOnClickListener(this);
-        
+
+
+		//Obtiene parametro usa salones, en caso de que use salones obtiene salones disponibles
+
+
+        //muestra las mesas disponibles
 		new getMesas().execute("");								
 		pdu=ProgressDialog.show(this,letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Consultando Mesa.."), true,false);
 			
