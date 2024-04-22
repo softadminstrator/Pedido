@@ -3543,7 +3543,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 */
 	public int obtenerUltimoIdPedido(Context cont)
 	{
-		int id=12000;
+		int id=22000;
 		creaBD bd= new creaBD(cont);
 		bd.openDB();
 		SQLiteDatabase bds=bd.getWritableDatabase();		
@@ -3731,7 +3731,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 */
 	public long obtenerUltimoPedidoArticulo(Context cont, long idPedido)
 	{
-		long id=12000;
+		long id=22000;
 		creaBD bd= new creaBD(cont);
 		bd.openDB();
 		try
@@ -7222,8 +7222,8 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 		this.openDB();
 		SQLiteDatabase bds=this.getWritableDatabase();
-		String query = "SELECT a.nombre,a.gramaje,a.unidadDeMedida, SUM(fa.cantidad),SUM(fa.valor), MIN(IFNULL(articulo_codigo.codigo,'Sin codigo'))  "+
-				   "FROM factura f, factura_articulos fa, articulos a LEFT OUTER JOIN articulo_codigo ON a.idArticulo=articulo_codigo.idArticulo  "+
+		String query = "SELECT a.nombre,a.gramaje,a.unidadDeMedida, SUM(fa.cantidad),SUM(fa.valor), IFNULL((select min(codigo) codigo from articulo_codigo where idArticulo=a.idArticulo),'Sin codigo') codigo  "+
+				   "FROM factura f, factura_articulos fa, articulos a  "+
 				   "WHERE f.idCodigoInterno=fa.idFactura "+
     			   "AND fa.idArticulo = a.idArticulo "+    		
     			   "AND f.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' AND (f.Anulada='NO' OR f.Anulada is null) "+
@@ -7302,8 +7302,8 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			this.openDB();
 			SQLiteDatabase bds=this.getWritableDatabase();
-			String query = "SELECT a.nombre,a.gramaje,a.unidadDeMedida, SUM(fa.cantidad),SUM(fa.valor) , MIN(IFNULL(articulo_codigo.codigo,'Sin codigo')) "+
-					"FROM remision f, remision_articulos fa, articulos a LEFT OUTER JOIN articulo_codigo ON a.idArticulo=articulo_codigo.idArticulo  "+
+			String query = "SELECT a.nombre,a.gramaje,a.unidadDeMedida, SUM(fa.cantidad),SUM(fa.valor) , IFNULL((select min(codigo) codigo from articulo_codigo where idArticulo=a.idArticulo),'Sin codigo') codigo "+
+					"FROM remision f, remision_articulos fa, articulos a  "+
 					"WHERE f.idCodigoInterno=fa.idRemision "+
 					"AND fa.idArticulo = a.idArticulo "+
 					"AND f.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
