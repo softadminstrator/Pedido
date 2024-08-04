@@ -15,7 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.principal.mundo.Cliente;
+import com.principal.mundo.Departamento;
 import com.principal.mundo.Parametros;
+import com.principal.mundo.sysws.GetCliente;
+import com.principal.mundo.sysws.GetDepartamento;
 import com.principal.mundo.sysws.PutCliente;
 import com.principal.mundo.sysws.PutVisitasCliente;
 import com.principal.mundo.sysws.VisitaCliente;
@@ -37,6 +40,8 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 	 * Atributo cliente hace referencia a la clase Cliente
 	 */
 	Cliente cliente;
+
+	ArrayList<Departamento> listaDepartamentos;
 	/**
 	 * Atributo textViews arreglo que contendra las etiquetas de la actividad
 	 */
@@ -122,6 +127,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 
 
         cliente=new Cliente();
+		listaDepartamentos=new ArrayList<Departamento>();
 
         letraEstilo=new LetraEstilo();
         bd=new creaBD(this);
@@ -133,10 +139,14 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
         obtenerDatos = this.getIntent().getExtras();
 		//Obtiene todos los datos del cliente de la base de datos
         cliente=bd.getCliente(this,""+obtenerDatos.getString("idCliente"));
-		 cargarDatos();
+
+		new getDatosSys().execute("");
+		pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
 
 
-    }
+
+
+	}
     /**
      * metodo encargado de asignar valores a las etiquetas de la actividad
      */
@@ -144,20 +154,28 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
     {
 
 		validaTipoPersona(cliente.TipoPersona);
-		etPrimerApellido.setText(cliente.getPrimerApellido());
-		etSegundoApellido.setText(cliente.getSegundoApellido());
-		etPrimerNombre.setText(cliente.getPrimerNombre());
-		etSegundoNombre.setText(cliente.getSegundoNombre());
-		etRazonSocial.setText(cliente.getRazonSocial());
-		etDireccion.setText(cliente.getDireccion());
-		etTelefono.setText(cliente.getTelefono());
-		etEMail.setText(cliente.getMail());
+		etPrimerApellido.setText(vt(cliente.getPrimerApellido()));
+		etSegundoApellido.setText(vt(cliente.getSegundoApellido()));
+		etPrimerNombre.setText(vt(cliente.getPrimerNombre()));
+		etSegundoNombre.setText(vt(cliente.getSegundoNombre()));
+		etRazonSocial.setText(vt(cliente.getRazonSocial()));
+		etDireccion.setText(vt(cliente.getDireccion()));
+		etTelefono.setText(vt(cliente.getTelefono()));
+		etEMail.setText(vt(cliente.getMail()));
 		tvNit.setText(cliente.getNit());
-		tvNombreData.setText(cliente.getNombre());
-		etRepresentante.setText(cliente.getRepresentante());
-		etTipoCanal.setText(cliente.getTipoCanal());
+		tvNombreData.setText(vt(cliente.getNombre()));
+		etRepresentante.setText(vt(cliente.getRepresentante()));
+		etTipoCanal.setText(vt(cliente.getTipoCanal()));
 
     }
+	private String vt(String text)
+	{
+		if (text.equals("anyType{}"))
+		{
+			return "";
+		}
+		return text;
+	}
 	private void validaTipoPersona(String tipoPersona)
 	{
 		boolean isNatural=tipoPersona.toUpperCase().equals("NATURAL");
@@ -272,6 +290,44 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 			{
 				mostrarMensaje("Cliente Actualizado Correctamente.","l");
 				//Actualizar datos cliente
+				finish();
+			}
+			else
+			{
+				mostrarMensaje("No Fue Posible establecer la conexion con el servidor.","l");
+
+			}
+
+		}
+	}
+
+	private class getDatosSys extends AsyncTask<String, Void, Object>
+	{
+		String  res ="";
+		@Override
+		protected Integer doInBackground(String... params)
+		{
+
+			GetCliente getCliente=new GetCliente(parametrosSys.getIp(),parametrosSys.getWebidText());
+			cliente=getCliente.GetDatosCliente(cliente.getIdCliente()+"");
+
+			GetDepartamento getDepartamento=new GetDepartamento(parametrosSys.getIp(),parametrosSys.getWebidText());
+			listaDepartamentos=getDepartamento.GetDepartamentos();
+			return 1;
+		}
+
+
+		protected void onPostExecute(Object result)
+		{
+			pdu.dismiss();
+			if(res.equals("OK"))
+			{
+				//mostrarMensaje("Cliente Actualizado Correctamente.","l");
+				//Actualizar datos cliente
+				if (cliente!=null & listaDepartamentos!=null)
+				{
+					cargarDatos();
+				}
 				finish();
 			}
 			else

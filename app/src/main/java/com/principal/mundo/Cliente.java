@@ -199,6 +199,9 @@ public class Cliente
 
 	public String Mail;
 
+	public String IdDpto;
+	public String IdMpio;
+	public String IdVendedor;
 
 
 	/**
@@ -1038,5 +1041,29 @@ public class Cliente
 
 	public void setMail(String mail) {
 		Mail = mail;
+	}
+
+	public String getIdDpto() {
+		return IdDpto;
+	}
+
+	public void setIdDpto(String idDpto) {
+		IdDpto = idDpto;
+	}
+
+	public String getIdMpio() {
+		return IdMpio;
+	}
+
+	public void setIdMpio(String idMpio) {
+		IdMpio = idMpio;
+	}
+
+	public String getIdVendedor() {
+		return IdVendedor;
+	}
+
+	public void setIdVendedor(String idVendedor) {
+		IdVendedor = idVendedor;
 	}
 }

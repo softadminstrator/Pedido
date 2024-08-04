@@ -730,7 +730,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 				
 			larticulos= new ArrayList<Articulo>();
 			LlamarArticulosSys llamarArticulosSys=new LlamarArticulosSys(parametrosSys);						
-			larticulos = llamarArticulosSys.getArticulos(rangIn,rangOut,categoria.getNombre(),  categoria.getFechaAct(),larticulos, ""+parametrosSys.getBodegaPedidosOmision());
+			larticulos = llamarArticulosSys.getArticulos(rangIn,rangOut,categoria.getNombre(),  parametrosSys.getFechaSys2(),larticulos, ""+parametrosSys.getBodegaPedidosOmision());
 					
 			if(larticulos!=null)
 			{

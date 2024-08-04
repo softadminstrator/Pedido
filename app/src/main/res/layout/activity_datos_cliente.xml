@@ -7,300 +7,349 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         >
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-    
-     <ImageView
-         android:id="@+id/ivtienda"
-         android:layout_width="fill_parent"
-         android:layout_height="70dp"
-         android:layout_alignParentLeft="true"
-         android:layout_alignParentRight="true"
-         android:layout_marginTop="10dp"
-         android:gravity="center"
-         android:src="@drawable/tienda" />
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-
-        >
-     <TextView
-        android:id="@+id/tvDatosCliente"
-        android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-        android:text="Datos del cliente"
-         android:gravity="center"
-         android:textAlignment="center"
-        android:textSize="24sp"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    </LinearLayout>
-        <TextView
-            android:id="@+id/tvNombre"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Nombre completo"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <TextView
-            android:id="@+id/tvNombreData"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Nombre completo"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/tvNitLabel"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Nit"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <TextView
-            android:id="@+id/tvNit"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Nit cliente"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <TextView
-            android:id="@+id/tvTipoPersona"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Tipo Presona"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <Spinner
-            android:id="@+id/spTipoPersona"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:textSize="20sp"
-            android:gravity="center_vertical|center_horizontal"
-          />
-
-        <TextView
-            android:id="@+id/tvPrimerApellido"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Primer apellido"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etPrimerApellido"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="50"
-            android:text="Datos primer apellido"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/tvSegundoApellido"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Segundo apellido"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etSegundoApellido"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="50"
-            android:text="Datos segundo apellido"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/tvPrimerNombre"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Primer nombre"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etPrimerNombre"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="50"
-            android:text="Datos primer nombre"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/tvSegundoNombre"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="segundo nombre"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etSegundoNombre"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="50"
-            android:text="Datos segundo nombre"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/tvRazonSocial"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Razon social"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etRazonSocial"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="200"
-            android:text="Datos Razon Social"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/tvDireccion"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Dirección"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etDireccion"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="50"
-            android:text="Datos Direccion"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/tvTelefono"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Telefono"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etTelefono"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="50"
-            android:text="Datos telefono"
-            android:textSize="18sp" />
-        <TextView
-            android:id="@+id/tvEMail"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="E-Mail"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etEMail"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="textEmailAddress"
-            android:maxLength="100"
-            android:text="Datos Email"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tvRepresentante"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Nombre del negocio"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etRepresentante"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="50"
-            android:text="Datos Nombre del negocio"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tvTipoCanal"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
-            android:text="Nombre del negocio"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <EditText
-            android:id="@+id/etTipoCanal"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:inputType="text"
-            android:maxLength="50"
-            android:text="Tipo canal"
-            android:textSize="18sp" />
-
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:orientation="vertical"
             >
-            <Button
-                android:id="@+id/btVolver"
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/blue_button"
-                style="@style/button_layout"
-                android:text="Volver"
-                android:textSize="18sp"/>
-            <Button
-                android:id="@+id/btGuardar"
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                android:background="@drawable/blue_button"
-                style="@style/button_layout"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="20dp"
-                android:layout_gravity="center_horizontal"
-                android:text="Guardar"
-                android:textSize="18sp" />
-        </LinearLayout>
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/ivtienda"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:src="@drawable/tienda" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                >
+                <TextView
+                    android:id="@+id/tvDatosCliente"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Datos del cliente"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Nombre completo"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView
+                android:id="@+id/tvNombreData"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Nombre completo"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+            <TextView
+                android:id="@+id/tvTipoPersona"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Tipo Presona"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <Spinner
+                android:id="@+id/spTipoPersona"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:textSize="20sp"
+                android:gravity="center_vertical|center_horizontal"
+                />
+
+            <TextView
+                android:id="@+id/tvPrimerApellido"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Primer apellido"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etPrimerApellido"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Datos primer apellido"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvSegundoApellido"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Segundo apellido"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etSegundoApellido"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Datos segundo apellido"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvPrimerNombre"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Primer nombre"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etPrimerNombre"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Datos primer nombre"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvSegundoNombre"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="segundo nombre"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etSegundoNombre"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Datos segundo nombre"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvRazonSocial"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Razon social"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etRazonSocial"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="200"
+                android:text="Datos Razon Social"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvNoTipoDocumento"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Tipo documento identidad"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <Spinner
+                android:id="@+id/spNoTipoDocumento"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:textSize="20sp"
+                android:gravity="center_vertical|center_horizontal"
+                />
+            <TextView
+                android:id="@+id/tvNit"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="No. de Documento"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etNit"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Numero de documento"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvDepartamento"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Departamento"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <Spinner
+                android:id="@+id/spDepartamento"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:textSize="20sp"
+                android:gravity="center_vertical|center_horizontal"
+                />
+            <TextView
+                android:id="@+id/tvMunicipio"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Municipio"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <Spinner
+                android:id="@+id/spMunicipio"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:textSize="20sp"
+                android:gravity="center_vertical|center_horizontal"
+                />
+            <TextView
+                android:id="@+id/tvDireccion"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Dirección"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etDireccion"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Datos Direccion"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvTelefono"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Telefono"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etTelefono"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Datos telefono"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvEMail"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="E-Mail"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etEMail"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="textEmailAddress"
+                android:maxLength="100"
+                android:text="Datos Email"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvRepresentante"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Nombre del negocio"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etRepresentante"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Datos Nombre del negocio"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvTipoCanal"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Nombre del negocio"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etTipoCanal"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="text"
+                android:maxLength="50"
+                android:text="Tipo canal"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                >
+                <Button
+                    android:id="@+id/btVolver"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/blue_button"
+                    style="@style/button_layout"
+                    android:text="Volver"
+                    android:textSize="18sp"/>
+                <Button
+                    android:id="@+id/btGuardar"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/blue_button"
+                    style="@style/button_layout"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Guardar"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
     </ScrollView>
 </RelativeLayout>

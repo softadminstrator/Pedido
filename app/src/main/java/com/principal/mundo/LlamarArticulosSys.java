@@ -114,7 +114,12 @@ public class LlamarArticulosSys {
 
 		 
 //		 request.addProperty("Categoria","ABARROTES");
-//		 request.addProperty("FechaAct","201309160600");	
+//		 request.addProperty("FechaAct","201309160600");
+
+		if(categoria.equals("MILHOJERIA"))
+		{
+			categoria="MILHOJERIA";
+		}
 		 
    	     SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 		 envelope.dotNet = true; //indicamos que utilizaremos servicios .NET
