@@ -202,6 +202,10 @@ public class Cliente
 	public String IdDpto;
 	public String IdMpio;
 	public String IdVendedor;
+	public String GranRetenedor ;
+	public String Regimen;
+	public String FechaAct;
+	private String NoTipoDocumento;
 
 
 	/**
@@ -243,13 +247,17 @@ public class Cliente
 		deudaAntFac="0";
 		deudaTotal="";
 
-		TipoPersona="";
+		TipoPersona="NATURAL";
 		PrimerApellido="";
 		SegundoApellido="";
 		PrimerNombre="";
 		SegundoNombre="";
 		RazonSocial="";
 		Mail="";
+		IdDpto="0";
+		IdMpio="0";
+		NoTipoDocumento="31";
+
 
 	}
 
@@ -1065,5 +1073,149 @@ public class Cliente
 
 	public void setIdVendedor(String idVendedor) {
 		IdVendedor = idVendedor;
+	}
+
+	public String getGranRetenedor() {
+		return GranRetenedor;
+	}
+
+	public void setGranRetenedor(String granRetenedor) {
+		GranRetenedor = granRetenedor;
+	}
+
+	public String getRegimen() {
+		return Regimen;
+	}
+
+	public void setRegimen(String regimen) {
+		Regimen = regimen;
+	}
+
+	public String getFechaAct() {
+		return FechaAct;
+	}
+
+	public void setFechaAct(String fechaAct) {
+		FechaAct = fechaAct;
+	}
+
+	public String getNoTipoDocumento() {
+		return NoTipoDocumento;
+	}
+
+	public void setNoTipoDocumento(String noTipoDocumento) {
+		NoTipoDocumento = noTipoDocumento;
+	}
+
+	public Object getPropertyCliente(int i) {
+		switch(i)
+		{
+			case 0: return idCliente;
+			case 1: return nombre;
+			case 2: return representante;
+			case 3: return Mail;
+			case 4: return nit;
+			case 5: return direccion;
+			case 6: return telefono;
+			case 7: return municipio;
+			case 8: return GranRetenedor;
+			case 9: return Regimen;
+			case 10: return FechaAct;
+			case 11: return barrio;
+			case 12: return tipoCanal;
+			case 13: return TipoPersona;
+			case 14: return PrimerApellido;
+			case 15: return SegundoApellido;
+			case 16: return PrimerNombre;
+			case 17: return SegundoNombre;
+			case 18: return RazonSocial;
+			case 19: return IdMpio;
+			case 20: return IdDpto;
+			case 21: return IdVendedor;
+			case 22: return NoTipoDocumento;
+
+		}
+
+		return null;
+	}
+
+	public String getPropertyNameCliente(int i) {
+		switch(i)
+		{
+			case 0: return "IdCliente";
+			case 1: return "NombreCliente";
+			case 2: return "Representante";
+			case 3: return "Mail";
+			case 4: return "Nit";
+			case 5: return "Direccion";
+			case 6: return "Telefono";
+			case 7: return "Municipio";
+			case 8: return "GranRetenedor";
+			case 9: return "Regimen";
+			case 10: return "FechaAct";
+			case 11: return "Barrio";
+			case 12: return "TipoCanal";
+			case 13: return "TipoPersona";
+			case 14: return "PrimerApellido";
+			case 15: return "SegundoApellido";
+			case 16: return "PrimerNombre";
+			case 17: return "SegundoNombre";
+			case 18: return "RazonSocial";
+			case 19: return "IdMpio";
+			case 20: return "IdDpto";
+			case 21: return "IdVendedor";
+			case 22: return "NoTipoDocumento";
+		}
+		return null;
+	}
+	public void setPropertyCliente(int i, String data) {
+
+		switch(i)
+		{
+			case 0: idCliente =Long.parseLong(data);break;
+			case 1: nombre =data;break;
+			case 2: representante =data;break;
+			case 3: Mail =data;break;
+			case 4: nit =data;break;
+			case 5: direccion =data;break;
+			case 6: telefono =data;break;
+			case 7: municipio =data;break;
+			case 8: GranRetenedor =data;break;
+			case 9: Regimen =data;break;
+			case 10: FechaAct =data;break;
+			case 11: barrio =data;break;
+			case 12: tipoCanal =data;break;
+			case 13: TipoPersona =data;break;
+			case 14: PrimerApellido =data;break;
+			case 15: SegundoApellido =data;break;
+			case 16: PrimerNombre =data;break;
+			case 17: SegundoNombre =data;break;
+			case 18: RazonSocial =data;break;
+			case 19: IdMpio =data;break;
+			case 20: IdDpto =data;break;
+			case 21: IdVendedor =data;break;
+			case 22: NoTipoDocumento =data;break;
+
+		}
+	}
+
+
+	public int getPropertyCountCliente() {
+		// TODO Auto-generated method stub
+		return 23;
+
+	}
+	public String getXml()
+	{
+		String xml="";
+		xml="<Cliente>\n";
+		xml +="<Datos>\n";
+		for (int j = 0; j < getPropertyCountCliente(); j++) {
+			xml +="		<"+getPropertyNameCliente(j)+">"+getPropertyCliente(j)+"</"+getPropertyNameCliente(j)+">\n";
+		}
+		xml +="</Datos>\n";
+
+		xml +="</Cliente>";
+		return xml;
 	}
 }

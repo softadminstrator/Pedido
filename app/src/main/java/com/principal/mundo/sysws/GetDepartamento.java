@@ -76,8 +76,8 @@ public class GetDepartamento {
                 for (int i = 0;i < ta ; i++) {
                     Departamento departamento=new Departamento();
                     SoapObject ic = (SoapObject)res.get(i);
-                    departamento.setIdDpto(ic.getProperty("IdDpto").toString().trim());
-                    departamento.setDepartamento(ic.getProperty("Departamento").toString().trim());
+                    departamento.setIdDpto(ic.getProperty("idDpto").toString().trim());
+                    departamento.setDepartamento(ic.getProperty("departamento").toString().trim());
                     listaDepartamento.add(departamento);
 
                 }

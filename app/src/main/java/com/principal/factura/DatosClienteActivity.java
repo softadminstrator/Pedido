@@ -1,6 +1,9 @@
 package com.principal.factura;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,15 +13,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.principal.mundo.Bodega;
 import com.principal.mundo.Cliente;
 import com.principal.mundo.Departamento;
+import com.principal.mundo.Municipio;
+import com.principal.mundo.Opciones;
 import com.principal.mundo.Parametros;
+import com.principal.mundo.Usuario;
 import com.principal.mundo.sysws.GetCliente;
 import com.principal.mundo.sysws.GetDepartamento;
+import com.principal.mundo.sysws.GetMunicipio;
 import com.principal.mundo.sysws.PutCliente;
 import com.principal.mundo.sysws.PutVisitasCliente;
 import com.principal.mundo.sysws.VisitaCliente;
@@ -40,8 +49,12 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 	 * Atributo cliente hace referencia a la clase Cliente
 	 */
 	Cliente cliente;
+	Usuario usuario;
+	Opciones[] opcionesDep,opcionesMun ;
+	int IdDptoSelec, IdMpioSelec;
 
 	ArrayList<Departamento> listaDepartamentos;
+	ArrayList<Municipio> listaMunicipio;
 	/**
 	 * Atributo textViews arreglo que contendra las etiquetas de la actividad
 	 */
@@ -55,15 +68,15 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 	 */
 	Button btVolver, btGuardar;
 
-	EditText etPrimerApellido, etSegundoApellido,etPrimerNombre,etSegundoNombre,etRazonSocial,etDireccion,etTelefono,etEMail, etRepresentante,etTipoCanal;
+	EditText etPrimerApellido, etSegundoApellido,etPrimerNombre,etSegundoNombre,etRazonSocial,etDireccion,etTelefono,etEMail, etRepresentante,etTipoCanal,etNit;
 
 	TextView tvPrimerApellido, tvSegundoApellido,tvPrimerNombre,tvSegundoNombre,tvRazonSocial,tvDireccion,tvTelefono,tvEMail, tvRepresentante, tvNit, tvNombreData;
 
-	Spinner spTipoPersona;
+	Spinner spTipoPersona,spNoTipoDocumento,spDepartamento, spMunicipio;
 
     creaBD bd;
 	Parametros parametrosPos, parametrosSys;
-	private ArrayAdapter<String> dataAdapter;
+	private ArrayAdapter<String> dataAdapter, dataAdapterTipoDoc;
 
 	private ProgressDialog pdu;
 	
@@ -85,6 +98,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		etEMail=(EditText)findViewById(R.id.etEMail);
 		etRepresentante=(EditText)findViewById(R.id.etRepresentante);
 		etTipoCanal=(EditText)findViewById(R.id.etTipoCanal);
+		etNit=(EditText)findViewById(R.id.etNit);
 
 
 		tvPrimerApellido=(TextView) findViewById(R.id.tvPrimerApellido);
@@ -100,6 +114,9 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		tvNombreData=(TextView) findViewById(R.id.tvNombreData);
 
 		spTipoPersona=(Spinner) findViewById(R.id.spTipoPersona);
+		spNoTipoDocumento=(Spinner) findViewById(R.id.spNoTipoDocumento);
+		spDepartamento=(Spinner) findViewById(R.id.spDepartamento);
+		spMunicipio=(Spinner) findViewById(R.id.spMunicipio);
 
 		btVolver=(Button)findViewById(R.id.btVolver);
 		btVolver.setOnClickListener(this);
@@ -113,6 +130,15 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		listaprecios.add("NATURAL");
 		listaprecios.add("JURIDICA");
 
+		// Spinner Drop down elements
+		List<String> listaTipoDocumento = new ArrayList<String>();
+		listaTipoDocumento.add("NIT");
+		listaTipoDocumento.add("Cedula de Ciudadania");
+
+
+
+
+
 
 		// Creating adapter for spinner
 		dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaprecios);
@@ -123,11 +149,48 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		// attaching data adapter to spinner
 		spTipoPersona.setAdapter(dataAdapter);
 
+		spDepartamento.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				if(IdDptoSelec!=position)
+				{
+					IdDptoSelec=position;
+					new getMunicipiosSys().execute("");
+					pdu = ProgressDialog.show(DatosClienteActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
 
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+
+		spMunicipio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				if(IdMpioSelec!=position)
+				{
+					IdMpioSelec=position;
+
+				}
+			}
+
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
+
+
+
+
+		dataAdapterTipoDoc= new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listaTipoDocumento);
+		dataAdapterTipoDoc.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spNoTipoDocumento.setAdapter(dataAdapterTipoDoc);
 
 
         cliente=new Cliente();
+		usuario=new Usuario();
 		listaDepartamentos=new ArrayList<Departamento>();
+		listaMunicipio=new ArrayList<Municipio>();
 
         letraEstilo=new LetraEstilo();
         bd=new creaBD(this);
@@ -138,10 +201,11 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
         Bundle obtenerDatos=new Bundle();
         obtenerDatos = this.getIntent().getExtras();
 		//Obtiene todos los datos del cliente de la base de datos
-        cliente=bd.getCliente(this,""+obtenerDatos.getString("idCliente"));
+		cliente.setIdCliente(Long.parseLong(obtenerDatos.getString("idCliente")));
+		usuario.cedula=obtenerDatos.getString("cedula");
 
-		new getDatosSys().execute("");
-		pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
+			new getDatosSys().execute("");
+			pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
 
 
 
@@ -162,12 +226,84 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		etDireccion.setText(vt(cliente.getDireccion()));
 		etTelefono.setText(vt(cliente.getTelefono()));
 		etEMail.setText(vt(cliente.getMail()));
-		tvNit.setText(cliente.getNit());
+		etNit.setText(cliente.getNit());
 		tvNombreData.setText(vt(cliente.getNombre()));
 		etRepresentante.setText(vt(cliente.getRepresentante()));
 		etTipoCanal.setText(vt(cliente.getTipoCanal()));
+		spNoTipoDocumento.setSelection(0);
+		if(cliente.getNoTipoDocumento().equals("13"))
+		{
+			spNoTipoDocumento.setSelection(1);
+		}
+
+
+		cargaDepartamentos();
+		cargaMunicipios();
+
+		//Asigna valor departamento
+			int pos=0;
+			for (int i=0;i<opcionesDep.length; i++)
+			{
+				if(opcionesDep[i].get_identificador()==Integer.parseInt(cliente.getIdDpto()))
+				{
+					pos=i;
+				}
+			}
+			spDepartamento.setSelection(pos);
+		IdDptoSelec=pos;
+		//Asigna valor Municipio
+		int posmun=0;
+		for (int i=0;i<opcionesMun.length; i++)
+		{
+			if(opcionesMun[i].get_identificador()==Integer.parseInt(cliente.getIdMpio()))
+			{
+				posmun=i;
+			}
+		}
+		spMunicipio.setSelection(posmun);
+		IdMpioSelec=posmun;
+
+
 
     }
+	public void cargaDepartamentos()
+	{
+
+		opcionesDep = new Opciones[listaDepartamentos.size()+1];
+		opcionesDep[0] = new Opciones(0, "Selec..", getImg(R.drawable.pedidos),"Selec..");
+		for (int i = 0; i < listaDepartamentos.size(); i++) {
+			Departamento dp = listaDepartamentos.get(i);
+			opcionesDep[i+1] = new Opciones(Integer.parseInt(dp.getIdDpto()), dp.getDepartamento(), getImg(R.drawable.pedidos),dp.getDepartamento());
+		}
+		OpcionesAdapter op=new OpcionesAdapter(DatosClienteActivity.this, opcionesDep);
+		op.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spDepartamento.setAdapter(op);
+
+	}
+	private Drawable getImg(int res )
+	{
+		Drawable img = getResources().getDrawable( res );
+		img.setBounds( 0, 0, 45, 45 );
+		return img;
+	}
+	public void cargaMunicipios()
+	{
+		try {
+			opcionesMun = new Opciones[listaMunicipio.size() + 1];
+			opcionesMun[0] = new Opciones(0, "Selec..", getImg(R.drawable.pedidos), "Selec..");
+			for (int i = 0; i < listaMunicipio.size(); i++) {
+				Municipio dp = listaMunicipio.get(i);
+				opcionesMun[i + 1] = new Opciones(Integer.parseInt(dp.getIdMpio()), dp.getMunicipio(), getImg(R.drawable.pedidos), dp.getMunicipio());
+			}
+			OpcionesAdapter op = new OpcionesAdapter(DatosClienteActivity.this, opcionesMun);
+			op.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			spMunicipio.setAdapter(op);
+		}
+		catch (Exception e )
+		{
+			e.toString();
+		}
+	}
 	private String vt(String text)
 	{
 		if (text.equals("anyType{}"))
@@ -278,7 +414,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		{
 
 			PutCliente putCliente=new PutCliente(parametrosSys.getIp(),parametrosSys.getWebidText());
-			res =putCliente.setDatosClienteCliente(getXmlDatosCliente());
+			res =putCliente.setDatosClienteCliente(cliente.getXml());
 			return 1;
 		}
 
@@ -307,12 +443,22 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		@Override
 		protected Integer doInBackground(String... params)
 		{
+			if(cliente.getIdCliente()>0) {
+				GetCliente getCliente = new GetCliente(parametrosSys.getIp(), parametrosSys.getWebidText());
+				cliente = getCliente.GetDatosCliente(cliente.getIdCliente() + "");
+			}
 
-			GetCliente getCliente=new GetCliente(parametrosSys.getIp(),parametrosSys.getWebidText());
-			cliente=getCliente.GetDatosCliente(cliente.getIdCliente()+"");
 
 			GetDepartamento getDepartamento=new GetDepartamento(parametrosSys.getIp(),parametrosSys.getWebidText());
 			listaDepartamentos=getDepartamento.GetDepartamentos();
+
+
+			if(cliente!=null)
+			{
+				GetMunicipio getMunicipio=new GetMunicipio(parametrosSys.getIp(),parametrosSys.getWebidText());
+				listaMunicipio=getMunicipio.GetMunicipios(cliente.getIdDpto());
+			}
+			res="OK";
 			return 1;
 		}
 
@@ -328,7 +474,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 				{
 					cargarDatos();
 				}
-				finish();
+
 			}
 			else
 			{
@@ -338,35 +484,40 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 
 		}
 	}
-	public String getXmlDatosCliente()
+
+	private class getMunicipiosSys extends AsyncTask<String, Void, Object>
 	{
-		String fecha;
-		Date fechaActual=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-		fecha = sdf.format(fechaActual);
-		String xml="";
-		xml="<DatosCliente>\n";
-		xml +="<Datos>\n";
-		xml +="<IdCliente>\n"+cliente.getIdCliente()+"</IdCliente>\n";
-		xml +="<TipoPersona>\n"+cliente.getTipoPersona()+"</TipoPersona>\n";
-		xml +="<PrimerApellido>\n"+cliente.getPrimerApellido()+"</PrimerApellido>\n";
-		xml +="<SegundoApellido>\n"+cliente.getSegundoApellido()+"</SegundoApellido>\n";
-		xml +="<PrimerNombre>\n"+cliente.getPrimerNombre()+"</PrimerNombre>\n";
-		xml +="<SegundoNombre>\n"+cliente.getSegundoNombre()+"</SegundoNombre>\n";
-		xml +="<RazonSocial>\n"+cliente.getRazonSocial()+"</RazonSocial>\n";
-		xml +="<NombreCliente>\n"+cliente.getNombre()+"</NombreCliente>\n";
-		xml +="<Mail>\n"+cliente.getMail()+"</Mail>\n";
-		xml +="<Direccion>\n"+cliente.getDireccion()+"</Direccion>\n";
-		xml +="<Telefono>\n"+cliente.getTelefono()+"</Telefono>\n";
-		xml +="<Representante>\n"+cliente.getRepresentante()+"</Representante>\n";
-		xml +="<TipoCanal>\n"+cliente.getTipoCanal()+"</TipoCanal>\n";
+		String  res ="";
+		@Override
+		protected Integer doInBackground(String... params)
+		{
 
-		xml +="</Datos>\n";
-		xml +="</DatosCliente>";
 
-		return xml;
+				GetMunicipio getMunicipio=new GetMunicipio(parametrosSys.getIp(),parametrosSys.getWebidText());
+				listaMunicipio=getMunicipio.GetMunicipios(""+opcionesDep[IdDptoSelec].get_identificador());
 
+			res="OK";
+			return 1;
+		}
+
+
+		protected void onPostExecute(Object result)
+		{
+			pdu.dismiss();
+			if(res.equals("OK"))
+			{
+				cargaMunicipios();
+
+			}
+			else
+			{
+				mostrarMensaje("No Fue Posible establecer la conexion con el servidor.","l");
+
+			}
+
+		}
 	}
+
 
 	public void mostrarMensaje(String mensaje, String tipo)
 	{
@@ -382,20 +533,33 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 
 	private Boolean validaDatos()
 	{
+	boolean valNombre =false;
 
+		if(spTipoPersona.getSelectedItem().toString().equals("NATURAL"))
+		{
+			if(valText(etPrimerApellido.getText().toString()+etSegundoApellido.getText().toString()+etPrimerNombre.getText().toString()+(etSegundoNombre.getText().toString())))
+			{
+				valNombre=true;
+			}
+		}
+		else {
+			if(valText(etRazonSocial.getText().toString()))
+			{
+				valNombre=true;
+			}
+		}
 
-		if(valText(etPrimerApellido.getText().toString())
-		&& valText(etSegundoApellido.getText().toString())
-				&& valText(etPrimerNombre.getText().toString())
-				&& valText(etSegundoNombre.getText().toString())
-				&& valText(etRazonSocial.getText().toString())
+		if(valNombre
+				&& valText(etNit.getText().toString())
 				&& valText(etDireccion.getText().toString())
 				&& valText(etTelefono.getText().toString())
 				&& valText(etRepresentante.getText().toString())
 				&& valText(etEMail.getText().toString())
 				&& valText(etTipoCanal.getText().toString())
+				&& IdDptoSelec>0
+				&& IdMpioSelec>0
 				) {
-
+			cliente.setNit(etNit.getText().toString());
 			cliente.setPrimerApellido(etPrimerApellido.getText().toString());
 			cliente.setSegundoApellido(etSegundoApellido.getText().toString());
 			cliente.setPrimerNombre(etPrimerNombre.getText().toString());
@@ -407,12 +571,21 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 			cliente.setMail(etEMail.getText().toString());
 			cliente.setTipoPersona(spTipoPersona.getSelectedItem().toString());
 			cliente.setTipoCanal(etTipoCanal.getText().toString());
+			cliente.setFechaAct("");
+			cliente.setIdVendedor(usuario.cedula);
 
 			if (spTipoPersona.getSelectedItem().toString().equals("NATURAL")) {
 				cliente.setNombre(cliente.getPrimerApellido() + " " + cliente.getSegundoApellido() + " " + cliente.getPrimerNombre() + " " + cliente.getSegundoNombre());
 			} else {
 				cliente.setNombre(cliente.getRazonSocial());
 			}
+			cliente.setNoTipoDocumento("31");
+			if (!spNoTipoDocumento.getSelectedItem().toString().equals("NIT"))
+			{
+				cliente.setNoTipoDocumento("13");
+			}
+			cliente.setIdDpto(opcionesDep[IdDptoSelec].get_identificador()+"");
+			cliente.setIdMpio(opcionesMun[IdMpioSelec].get_identificador()+"");
 
 			return true;
 		}
@@ -429,4 +602,6 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		}
 		return false;
 	}
+
+
 }

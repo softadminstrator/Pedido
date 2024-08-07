@@ -74,5 +74,8 @@ public class Opciones {
 		return _val;
 	}
 
-
+	@Override
+	public String toString() {
+		return _name;
+	}
 }

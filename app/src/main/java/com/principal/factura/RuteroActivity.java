@@ -336,11 +336,12 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 				// opcionesCliente[3]=new Opciones("Registrar Autoventa", getImg(R.drawable.caja), "Ingresar Autoventa");
 
 			} else {
-				opcionesCliente = new Opciones[3];
+				opcionesCliente = new Opciones[4];
 				opcionesCliente[0] = new Opciones("Crear Pedido", getImg(R.drawable.pedidos), "Crear Pedido");
 				// opcionesCliente[1]=new Opciones("Registrar Visita", getImg(R.drawable.bandera), "Ingresar Visita");
 				opcionesCliente[1] = new Opciones("Ver Informacion", getImg(R.drawable.consultar), "Ver Informacion");
 				opcionesCliente[2] = new Opciones("Registrar Autoventa", getImg(R.drawable.caja), "Ingresar Autoventa");
+				opcionesCliente[3] = new Opciones("Crear Cliente", getImg(R.drawable.agregar), "Crear Cliente");
 
 			}
 
@@ -488,6 +489,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 
 										Intent intent = new Intent(RuteroActivity.this, DatosClienteActivity.class);
 										intent.putExtra("idCliente", ""+cliente.idCliente);
+										intent.putExtra("cedula", usuario.cedula);
 										startActivity(intent);
 
 									} else if (item == 2) {
@@ -539,6 +541,13 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 										AlertDialog alert = builderMotivo.create();
 										alert.show();
 									}
+									else if (item == 3) {
+										Intent intent = new Intent(RuteroActivity.this, DatosClienteActivity.class);
+										intent.putExtra("idCliente", ""+0 );
+										intent.putExtra("cedula", usuario.cedula);
+										startActivity(intent);
+									}
+
 									dialog.cancel();
 								}
 
@@ -603,6 +612,12 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 				new getEnviarVisitasClienteSys().execute("");
 				pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
 				return true;
+			case R.id.menuCrearCliente:
+				Intent intent = new Intent(RuteroActivity.this, DatosClienteActivity.class);
+				intent.putExtra("idCliente", ""+0 );
+				startActivity(intent);
+				return true;
+
 		}
 	    return true;     
     }

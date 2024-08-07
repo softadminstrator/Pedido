@@ -58,7 +58,7 @@ public class GetMunicipio {
                 request.addProperty(prPedido);
 
                 PropertyInfo prIdDpto = new PropertyInfo();
-                prIdDpto.name="IdDpto";
+                prIdDpto.name="idDpto";
                 prIdDpto.type=String.class;
                 prIdDpto.setValue(IdDpto);
                 request.addProperty(prIdDpto);
@@ -83,9 +83,9 @@ public class GetMunicipio {
                     for (int i = 0;i < ta ; i++) {
                         Municipio municipio=new Municipio();
                         SoapObject ic = (SoapObject)res.get(i);
-                        municipio.setIdMpio(ic.getProperty("IdMpio").toString().trim());
-                        municipio.setIdDpto(ic.getProperty("IdDpto").toString().trim());
-                        municipio.setMunicipio(ic.getProperty("Municipio").toString().trim());
+                        municipio.setIdMpio(ic.getProperty("idMpio").toString().trim());
+                        municipio.setIdDpto(ic.getProperty("idDpto").toString().trim());
+                        municipio.setMunicipio(ic.getProperty("municipio").toString().trim());
                         listaMunicipio.add(municipio);
 
                     }

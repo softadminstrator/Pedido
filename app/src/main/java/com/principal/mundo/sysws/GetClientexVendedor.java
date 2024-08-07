@@ -68,7 +68,8 @@ public class GetClientexVendedor {
 		 SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 	     envelope.setOutputSoapObject(request);
 	     
-	     HttpTransportSE ht = new HttpTransportSE(URL);	     
+	     HttpTransportSE ht = new HttpTransportSE(URL,1200000);
+
 	     ht.call(NAMESPACE + METHOD_NAME, envelope);
 		 	
 	    	//SoapPrimitive res =(SoapPrimitive)envelope.getResponse();

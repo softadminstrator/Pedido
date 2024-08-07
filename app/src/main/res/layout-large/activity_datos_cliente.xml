@@ -208,7 +208,7 @@
 			<Spinner
 				android:id="@+id/spDepartamento"
 				android:layout_width="fill_parent"
-				android:layout_height="40dp"
+				android:layout_height="wrap_content"
 				android:textSize="20sp"
 				android:gravity="center_vertical|center_horizontal"
 				/>
@@ -223,7 +223,7 @@
 			<Spinner
 				android:id="@+id/spMunicipio"
 				android:layout_width="fill_parent"
-				android:layout_height="40dp"
+				android:layout_height="wrap_content"
 				android:textSize="20sp"
 				android:gravity="center_vertical|center_horizontal"
 				/>
@@ -305,7 +305,7 @@
 				android:id="@+id/tvTipoCanal"
 				android:layout_width="fill_parent"
 				android:layout_height="30dp"
-				android:text="Nombre del negocio"
+				android:text="Tipo de Canal"
 				android:textSize="20sp"
 				android:gravity="left"
 				android:textAppearance="?android:attr/textAppearanceLarge" />
