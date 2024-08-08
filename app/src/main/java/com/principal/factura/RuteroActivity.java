@@ -89,6 +89,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 	private final static int PRESTAMOS=8;
 	private final static int ABONOPRESTAMOS=9;
 	private final static int REMISION=12;
+	protected static final int SUB_ACTIVITY_DATO_CLIENTE = 1001;
 
 
 	public static IMyBinder binder;
@@ -490,7 +491,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 										Intent intent = new Intent(RuteroActivity.this, DatosClienteActivity.class);
 										intent.putExtra("idCliente", ""+cliente.idCliente);
 										intent.putExtra("cedula", usuario.cedula);
-										startActivity(intent);
+										startActivityForResult(intent,SUB_ACTIVITY_DATO_CLIENTE);
 
 									} else if (item == 2) {
 										ListAdapter listaMotivos = new OpcionesAdapter(RuteroActivity.this, opcionesVisita);
@@ -545,7 +546,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 										Intent intent = new Intent(RuteroActivity.this, DatosClienteActivity.class);
 										intent.putExtra("idCliente", ""+0 );
 										intent.putExtra("cedula", usuario.cedula);
-										startActivity(intent);
+										startActivityForResult(intent,SUB_ACTIVITY_DATO_CLIENTE);
 									}
 
 									dialog.cancel();
@@ -1110,6 +1111,12 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 			{
 				//mostrarMensaje("No Selecciono ningun producto", "l");
 			}
+		}
+		else if(requestCode ==SUB_ACTIVITY_DATO_CLIENTE)
+		{
+			new getActualizaClientes().execute("");
+			pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Actualizando Clientes"), true, false);
+
 		}
 	}
 

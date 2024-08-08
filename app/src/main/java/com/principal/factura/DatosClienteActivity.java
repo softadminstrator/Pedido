@@ -155,7 +155,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 				{
 					IdDptoSelec=position;
 					new getMunicipiosSys().execute("");
-					pdu = ProgressDialog.show(DatosClienteActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
+					pdu = ProgressDialog.show(DatosClienteActivity.this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo datos.."), true, false);
 
 				}
 			}
@@ -205,7 +205,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		usuario.cedula=obtenerDatos.getString("cedula");
 
 			new getDatosSys().execute("");
-			pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
+			pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Obteniendo datos.."), true, false);
 
 
 
@@ -388,7 +388,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 			if(validaDatos())
 			{
 				new getPutClienteSys().execute("");
-				pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando Visitas"), true, false);
+				pdu = ProgressDialog.show(this, letraEstilo.getEstiloTitulo("Por Favor Espere"), letraEstilo.getEstiloTitulo("Enviando datos.."), true, false);
 
 			}
 			else {
@@ -427,6 +427,10 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 				mostrarMensaje("Cliente Actualizado Correctamente.","l");
 				//Actualizar datos cliente
 				finish();
+			}
+			else if(res.equals("NE"))
+			{
+				mostrarMensaje("El numero de documento ya existe, pruebe con otro!!","l");
 			}
 			else
 			{
@@ -476,6 +480,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 				}
 
 			}
+
 			else
 			{
 				mostrarMensaje("No Fue Posible establecer la conexion con el servidor.","l");
