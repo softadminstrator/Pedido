@@ -209,6 +209,7 @@ public class PrintDigitaPos {
             asignaValor( "   Fecha: " + getFillText(ALIGN_LEFT, 10, remision_in.getFecha()) + "     Hora: " + getFillText(ALIGN_LEFT, 5, remision_in.getHora()));
             asignaValor( " Cliente: " + getFillText(ALIGN_LEFT, 35, remision_in.getNombreCliente()));
             asignaValor( "C.C./Nit: " + getFillText(ALIGN_LEFT, 35, remision_in.getNitCliente()));
+            asignaValor( "Telefono: " + getFillText(ALIGN_LEFT, 35, remision_in.telefonoCliente));
 
             // BODY
             asignaValor(""+getFillText(ALIGN_LEFT, 48,"CANT ARTICULO                   VR-UNT     TOTAL"));

@@ -150,6 +150,7 @@ public class PrintBixolon {
             asignaValorBixolon( "   Fecha: " + getFillText(ALIGN_LEFT, 10, remision_in.getFecha()) + "     Hora: " + getFillText(ALIGN_LEFT, 5, remision_in.getHora()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, Builder.FALSE,BixolonPrinter.ALIGNMENT_LEFT);
             asignaValorBixolon( " Cliente: " + getFillText(ALIGN_LEFT, 35, remision_in.getNombreCliente()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, Builder.FALSE,BixolonPrinter.ALIGNMENT_LEFT);
             asignaValorBixolon( "C.C./Nit: " + getFillText(ALIGN_LEFT, 35, remision_in.getNitCliente()),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, Builder.FALSE,BixolonPrinter.ALIGNMENT_LEFT);
+            asignaValorBixolon( "Telefono: " + getFillText(ALIGN_LEFT, 35, remision_in.telefonoCliente),BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, Builder.FALSE,BixolonPrinter.ALIGNMENT_LEFT);
 
             // BODY
             asignaValorBixolon("CANT          ARTICULO                  IVA    VR-UNT     TOTAL",BixolonPrinter.TEXT_ATTRIBUTE_FONT_B, BixolonPrinter.TEXT_ATTRIBUTE_EMPHASIZED,BixolonPrinter.ALIGNMENT_LEFT);

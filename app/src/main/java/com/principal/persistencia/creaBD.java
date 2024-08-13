@@ -6538,7 +6538,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones, p.idClienteSucursal , c.representante,  p.MedioDePago" +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit , p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones, p.idClienteSucursal , c.representante,  p.MedioDePago, c.telefono " +
 					" FROM remision p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -6549,7 +6549,7 @@ public class creaBD extends SQLiteOpenHelper {
 		{
 			query = " SELECT   p.idCodigoInterno, p.idCodigoExterno, p.idCliente, p.fecha, p.hora, p.valor, c.nombre " +
 					",p.razonSocial,p.representante ,p.regimenNit,p.direccionTel,p.NCaja,p.prefijo,p.base0,p.base5,p.base10,p.base14,p.base16" +
-					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones , p.idClienteSucursal, c.representante , p.MedioDePago " +
+					",p.iva5,p.iva10,p.iva14,p.iva16,p.impoCmo,p.totalRemision,p.resDian,p.rango,p.idBodega, p.dineroRecibido, p.nombrevendedor, p.telefonovendedor, p.VentaCredito, p.NRemision, c.nit, p.Pagada, p.ValorPagado,p.base19,p.iva19, p.Observaciones , p.idClienteSucursal, c.representante , p.MedioDePago, c.telefono " +
 					" FROM remision p, clientes c " +
 					" WHERE p.idCliente = c.idCliente " +
 					" AND p.fecha  BETWEEN '"+fechaDesde+"' AND '"+fechaHasta+"' "+
@@ -6604,6 +6604,7 @@ public class creaBD extends SQLiteOpenHelper {
 				ped.idClienteSucursal = validaCampoNull(c,38);
 				ped.setRepresentanteCliente((validaCampoNullString(c,39)));
 				ped.MedioDePago=validaCampoNullString(c,40);
+				ped.telefonoCliente=validaCampoNullString(c,41);
 				lista.add(ped);
 			}
 			bd.close();

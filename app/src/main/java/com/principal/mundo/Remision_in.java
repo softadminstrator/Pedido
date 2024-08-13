@@ -36,6 +36,7 @@ public class Remision_in
 
     public String nitCliente;
     public String dvCliente;
+    public String telefonoCliente;
     /**
      * fecha en la que se realizo el pedido
      */

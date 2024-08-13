@@ -285,7 +285,7 @@ public class PagosFactura {
 
 
 	public long getSaldoAnterior() {
-		return SaldoAnterior;
+		return Saldo+Total;
 	}
 
 

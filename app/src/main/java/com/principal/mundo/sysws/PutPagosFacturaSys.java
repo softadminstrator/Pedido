@@ -88,8 +88,11 @@ public class PutPagosFacturaSys {
          SoapPrimitive response = (SoapPrimitive)envelope.getResponse();         
          String resp= response.toString();
          if(resp!=null)
-		 	{		 		
-        	 pagosFactura.setNPagoFac(Long.parseLong(resp.toString()));		 		
+		 	{
+				 //obtiene Nuevo saldo
+				String[] parts = resp.split(";");
+        	 pagosFactura.setNPagoFac(Long.parseLong(parts[0]));
+			 pagosFactura.setSaldo(Long.parseLong(parts[1]));
 		  	}	
          else
          {
