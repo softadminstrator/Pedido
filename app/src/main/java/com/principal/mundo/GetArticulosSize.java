@@ -69,7 +69,7 @@ public class GetArticulosSize {
 	   	     SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 			 envelope.dotNet = true; //indicamos que utilizaremos servicios .NET
 			 envelope.setOutputSoapObject(request); //añadimos a la conexión el objeto SoapObject anteriormente creado
-			 HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+			 HttpTransportSE androidHttpTransport = new HttpTransportSE(URL,1200000);
 			 androidHttpTransport.debug = true; //nos aseguramos así de que funcione siempre			
 			 	androidHttpTransport.call(NAMESPACE+METHOD_NAME, envelope);
 		    	SoapPrimitive res =(SoapPrimitive)envelope.getResponse();

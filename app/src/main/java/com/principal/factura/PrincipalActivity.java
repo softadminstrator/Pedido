@@ -18,7 +18,6 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,14 +32,10 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 
 import com.principal.mundo.Articulo;
@@ -63,11 +58,8 @@ import com.principal.mundo.Usuario;
 import com.principal.mundo.sysws.EnviarUbicacionRuta;
 import com.principal.mundo.sysws.GetClientexVendedor;
 import com.principal.mundo.sysws.GetMedios;
-import com.principal.mundo.sysws.GetPedidoMesa;
 import com.principal.mundo.sysws.GetValidaVendedor;
-import com.principal.mundo.sysws.Pedido;
 import com.principal.mundo.sysws.Ruta;
-import com.principal.mundo.wsstarlap.LLamarVendedores;
 import com.principal.persistencia.creaBD;
 /**
  * Clase principal de la aplicacion en la cual se muestra la actividad inicial
@@ -832,8 +824,8 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 			{
 
 			//Se realizan pruebas para obtener datos de la api
-				//LLamarVendedores lLamarVendedores=new LLamarVendedores();
-				//res=lLamarVendedores.GetVendedores();
+			//	LLamarVendedores lLamarVendedores=new LLamarVendedores();
+			//	res=lLamarVendedores.GetVendedores();
 
 
 
