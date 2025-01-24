@@ -61,6 +61,8 @@ import com.principal.mundo.sysws.GetMedios;
 import com.principal.mundo.sysws.GetValidaVendedor;
 import com.principal.mundo.sysws.Ruta;
 import com.principal.persistencia.creaBD;
+import com.principal.services.dataAccess.Operaciones;
+
 /**
  * Clase principal de la aplicacion en la cual se muestra la actividad inicial
  * y en donde el usuario se identifica para el acceso al sistema
@@ -826,7 +828,8 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 			//Se realizan pruebas para obtener datos de la api
 			//	LLamarVendedores lLamarVendedores=new LLamarVendedores();
 			//	res=lLamarVendedores.GetVendedores();
-
+			//	Operaciones o=new Operaciones();
+			//	o.llamarApi();
 
 
 
