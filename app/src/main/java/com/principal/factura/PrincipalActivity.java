@@ -828,9 +828,13 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 			//Se realizan pruebas para obtener datos de la api
 			//	LLamarVendedores lLamarVendedores=new LLamarVendedores();
 			//	res=lLamarVendedores.GetVendedores();
-			//	Operaciones o=new Operaciones();
-			//	o.llamarApi();
+				Operaciones o=new Operaciones();
+				try {
+					o.getUsuario();
+				} catch (Exception e )
+				{
 
+				}
 
 
 			if(parametrosPos.isValue(parametrosPos.getUsaWSCash()))

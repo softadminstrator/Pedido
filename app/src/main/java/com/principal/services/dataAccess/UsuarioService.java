@@ -3,45 +3,32 @@ package com.principal.services.dataAccess;
 
 
 public class UsuarioService {
-/**
-    @SerializedName("id")
-    @Expose
+
+
     public String id ;
-    @SerializedName("_IdUsuario")
-    @Expose
+
     public String _IdUsuario ;
-    @SerializedName("_Nombre")
-    @Expose
+
     public String _Nombre ;
-    @SerializedName("_Email")
-    @Expose
+
     public String _Email ;
-    @SerializedName("_Clave")
-    @Expose
+
     public String _Clave ;
-    @SerializedName("_Estado")
-    @Expose
+
     public String _Estado ;
-    @SerializedName("_IdEmpresa")
-    @Expose
+
     public String _IdEmpresa ;
-    @SerializedName("_NombreEmpresa")
-    @Expose
+
     public String _NombreEmpresa ;
-    @SerializedName("_TipoUsuario")
-    @Expose
+
     public String _TipoUsuario ;
-    @SerializedName("_Tipo")
-    @Expose
+
     public String _Tipo ;
-    @SerializedName("_UrlLogo2")
-    @Expose
+
     public String _UrlLogo2 ;
-    @SerializedName("_token")
-    @Expose
+
     public String _token ;
-    @SerializedName("_Nit")
-    @Expose
+
     public String _Nit ;
 
     public String getId() {
@@ -147,5 +134,5 @@ public class UsuarioService {
     public void set_Nit(String _Nit) {
         this._Nit = _Nit;
     }
-    **/
+
 }
