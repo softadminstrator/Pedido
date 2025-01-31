@@ -32,6 +32,8 @@
     <orderEntry type="library" scope="TEST" name="Gradle: Z./Repositorios/Pedido/app/libs/java-json.jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okhttp3:okhttp:3.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: com.squareup.okio:okio:1.6.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.code.gson:gson:2.11.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Gradle: com.google.errorprone:error_prone_annotations:2.27.0" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="Pedido.app.main" />
 </module>
