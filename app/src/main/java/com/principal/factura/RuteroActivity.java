@@ -616,6 +616,7 @@ public class RuteroActivity extends Activity implements OnClickListener, OnItemS
 			case R.id.menuCrearCliente:
 				Intent intent = new Intent(RuteroActivity.this, DatosClienteActivity.class);
 				intent.putExtra("idCliente", ""+0 );
+				intent.putExtra("cedula", usuario.cedula);
 				startActivity(intent);
 				return true;
 

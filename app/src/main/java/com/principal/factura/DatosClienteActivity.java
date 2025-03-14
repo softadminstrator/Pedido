@@ -68,7 +68,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 	 */
 	Button btVolver, btGuardar;
 
-	EditText etPrimerApellido, etSegundoApellido,etPrimerNombre,etSegundoNombre,etRazonSocial,etDireccion,etTelefono,etEMail, etRepresentante,etTipoCanal,etNit;
+	EditText etPrimerApellido, etSegundoApellido,etPrimerNombre,etSegundoNombre,etRazonSocial,etDireccion,etTelefono,etEMail, etRepresentante,etTipoCanal,etNit, etTipoPrecio;
 
 	TextView tvPrimerApellido, tvSegundoApellido,tvPrimerNombre,tvSegundoNombre,tvRazonSocial,tvDireccion,tvTelefono,tvEMail, tvRepresentante, tvNit, tvNombreData;
 
@@ -99,6 +99,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		etRepresentante=(EditText)findViewById(R.id.etRepresentante);
 		etTipoCanal=(EditText)findViewById(R.id.etTipoCanal);
 		etNit=(EditText)findViewById(R.id.etNit);
+		etTipoPrecio=(EditText)findViewById(R.id.etTipoPrecio);
 
 
 		tvPrimerApellido=(TextView) findViewById(R.id.tvPrimerApellido);
@@ -230,6 +231,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 		tvNombreData.setText(vt(cliente.getNombre()));
 		etRepresentante.setText(vt(cliente.getRepresentante()));
 		etTipoCanal.setText(vt(cliente.getTipoCanal()));
+		etTipoPrecio.setText(vt(cliente.getPrecioDefecto()));
 		spNoTipoDocumento.setSelection(0);
 		if(cliente.getNoTipoDocumento().equals("13"))
 		{
@@ -576,6 +578,7 @@ public class DatosClienteActivity extends Activity implements OnClickListener, A
 			cliente.setMail(etEMail.getText().toString());
 			cliente.setTipoPersona(spTipoPersona.getSelectedItem().toString());
 			cliente.setTipoCanal(etTipoCanal.getText().toString());
+			cliente.setPrecioDefecto(etTipoPrecio.getText().toString());
 			cliente.setFechaAct("");
 			cliente.setIdVendedor(usuario.cedula);
 

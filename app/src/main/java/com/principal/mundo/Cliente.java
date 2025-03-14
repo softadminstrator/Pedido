@@ -242,7 +242,7 @@ public class Cliente
 		fechaUltimoPedido="";
 		fechaUltimaVisita="";
 		activo=0;
-		PrecioDefecto="";
+		PrecioDefecto="1";
 		ubicado="";
 		deudaAntFac="0";
 		deudaTotal="";

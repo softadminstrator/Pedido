@@ -319,6 +319,24 @@
                 android:maxLength="50"
                 android:text="Tipo canal"
                 android:textSize="18sp" />
+            <TextView
+                android:id="@+id/tvTipoPrecio"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:text="Tipo Precio"
+                android:textSize="20sp"
+                android:gravity="left"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <EditText
+                android:id="@+id/etTipoPrecio"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:inputType="number"
+                android:maxLength="50"
+                android:text="Tipo de precio"
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:orientation="horizontal"

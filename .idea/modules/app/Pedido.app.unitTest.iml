@@ -20,7 +20,7 @@
     <content url="file://$MODULE_DIR$/../../../app/build/generated/ap_generated_sources/debugUnitTest/out" />
     <content url="file://$MODULE_DIR$/../../../app/src/test" />
     <content url="file://$MODULE_DIR$/../../../app/src/testDebug" />
-    <orderEntry type="jdk" jdkName="Android API 30 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Gradle: Z./Repositorios/Pedido/app/libs/bxlprint.jar" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: Z./Repositorios/Pedido/app/libs/ksoap2-android-assembly-2.6.0-jar-with-dependencies.jar" level="project" />

@@ -3,7 +3,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 25
     buildToolsVersion '30.0.2'
 
     compileOptions {
@@ -20,7 +20,7 @@ android {
 
     defaultConfig {
         minSdkVersion 25
-        targetSdkVersion 30
+        targetSdkVersion 25
         applicationId "com.principal.factura"
         multiDexEnabled true
 
