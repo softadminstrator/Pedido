@@ -81,26 +81,29 @@ public class ItemConsolidadoArticulosAdapter extends ArrayAdapter<Articulo> {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.activity_item_consolidado_alistamiento, null);
         }
-        articulo= listaArticulos.get(position);
-        if (articulo != null) {
-            TextView tvArticuloAls = (TextView) convertView.findViewById(R.id.tvArticuloAls);
-            TextView tvCantidadAls = (TextView) convertView.findViewById(R.id.tvCantidadAls);
-            LinearLayout llCategoriaAls= (LinearLayout) convertView.findViewById(R.id.llCategoriaAls);
+        try {
+            articulo = listaArticulos.get(position);
+            if (articulo != null) {
+                TextView tvArticuloAls = (TextView) convertView.findViewById(R.id.tvArticuloAls);
+                TextView tvCantidadAls = (TextView) convertView.findViewById(R.id.tvCantidadAls);
+                LinearLayout llCategoriaAls = (LinearLayout) convertView.findViewById(R.id.llCategoriaAls);
 
-            tvArticuloAls.setText(getEstiloTexto(articulo.getNombre()));
-            DecimalFormat decimalFormat=new DecimalFormat("###,###,###");
-            tvCantidadAls.setText(getEstiloTexto(decimalFormat.format(articulo.getCantidadVentas())));
+                tvArticuloAls.setText(getEstiloTexto(articulo.nombre));
+                DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+                tvCantidadAls.setText(getEstiloTexto(decimalFormat.format(articulo.getCantidadVentas())));
 
-            if(articulo.getEstadoAls().equals("S"))
-            {
-                llCategoriaAls.setBackgroundColor(Color.parseColor("#C6CFFF"));
+                if (articulo.getEstadoAls().equals("S")) {
+                    llCategoriaAls.setBackgroundColor(Color.parseColor("#C6CFFF"));
+
+                } else {
+                    llCategoriaAls.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
 
             }
-            else
-            {
-                llCategoriaAls.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            }
-
+        }
+        catch (Exception e)
+        {
+            position=0;
         }
         return convertView;
     }

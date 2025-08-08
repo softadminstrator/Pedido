@@ -672,8 +672,8 @@ public String getResponsable()
 		dest.writeString(nitCliente);
         dest.writeString(FormaPago);
 		dest.writeString(Documento);
-
 		dest.writeString(idClienteSucursal);
+		dest.writeTypedList(listaArticulosConsolidado);
 
 
 	}

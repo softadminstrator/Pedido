@@ -582,29 +582,36 @@ public class ListaPedidosAlistamiento extends Activity implements OnClickListene
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuResultadoAls:
-                Intent intent = new Intent(ListaPedidosAlistamiento.this, VerConsolidadoAlistameinto.class);
-                intent.putExtra("operacion", "A");
-                intent.putExtra("xmlArticulos", listaPedidos.get(0).getXmlArticulosAlsConsolidado());
-                intent.putExtra("xmlCategorias", listaPedidos.get(0).getXmlCategoriaAlsConsolidado());
-                intent.putExtra("Items", getTotalItems());
-                intent.putExtra("NPedidos",  getNPedidos());
-                intent.putExtra("TotalPedidos",  getTotalListaPedidos());
+        try {
+            switch (item.getItemId()) {
+                case R.id.menuResultadoAls:
+                    Intent intent = new Intent(ListaPedidosAlistamiento.this, VerConsolidadoAlistameinto.class);
+                    intent.putExtra("operacionA", "A");
+                    intent.putExtra("PedidoB", listaPedidos.get(0));
+                    //intent.putExtra("xmlArticulos", listaPedidos.get(0).getXmlArticulosAlsConsolidado());
+                    intent.putExtra("xmlCategorias", listaPedidos.get(0).getXmlCategoriaAlsConsolidado());
+                    intent.putExtra("Items", getTotalItems());
+                    intent.putExtra("NPedidos", getNPedidos());
+                    intent.putExtra("TotalPedidos", getTotalListaPedidos());
 
-                startActivityForResult(intent,SUB_ACTIVITY_VER_CONSOLIDADO_ARTICULOS);
-                return true;
-            case R.id.menuResultadoCategoriasAls:
-                Intent intent2 = new Intent(ListaPedidosAlistamiento.this, VerConsolidadoAlistameinto.class);
-                intent2.putExtra("operacion", "C");
-                intent2.putExtra("xmlArticulos", listaPedidos.get(0).getXmlArticulosAlsConsolidado());
-                intent2.putExtra("xmlCategorias", listaPedidos.get(0).getXmlCategoriaAlsConsolidado());
-                intent2.putExtra("Items", getTotalItems());
-                intent2.putExtra("NPedidos",  getNPedidos());
-                intent2.putExtra("TotalPedidos",  getTotalListaPedidos());
+                    startActivityForResult(intent, SUB_ACTIVITY_VER_CONSOLIDADO_ARTICULOS);
+                    return true;
+                case R.id.menuResultadoCategoriasAls:
+                    Intent intent2 = new Intent(ListaPedidosAlistamiento.this, VerConsolidadoAlistameinto.class);
+                    intent2.putExtra("operacion", "C");
+                    intent2.putExtra("xmlArticulos", listaPedidos.get(0).getXmlArticulosAlsConsolidado());
+                    intent2.putExtra("xmlCategorias", listaPedidos.get(0).getXmlCategoriaAlsConsolidado());
+                    intent2.putExtra("Items", getTotalItems());
+                    intent2.putExtra("NPedidos", getNPedidos());
+                    intent2.putExtra("TotalPedidos", getTotalListaPedidos());
 
-                startActivity(intent2);
-                return true;
+                    startActivity(intent2);
+                    return true;
+            }
+        }
+        catch (Exception e)
+        {
+            mostrarMensaje(e.toString(), "l");
         }
         return super.onOptionsItemSelected(item);
     }

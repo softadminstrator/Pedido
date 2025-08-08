@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.principal.mundo.Articulo;
 import com.principal.mundo.sysws.Pedido;
@@ -89,52 +90,63 @@ public class VerConsolidadoAlistameinto extends Activity implements OnClickListe
 
         btVolverConAls.setOnClickListener(this);
 
-
-        lvArticulosConAls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(operacion.equals("A"))
-                {
-                    articulo = listaArticulosConsolidado.get((int) position);
-                }
-                else
-                {
-                    articulo = listaCategoriasConsolidado.get((int) position);
-                }
-                if(articulo.getEstadoAls().equals("C"))
-                {
-                    articulo.setEstadoAls("S");
-                }
-                else
-                {
-                    articulo.setEstadoAls("C");
-                }
+        try {
+            lvArticulosConAls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (operacion.equals("A")) {
+                        articulo = listaArticulosConsolidado.get((int) position);
+                    } else {
+                        articulo = listaCategoriasConsolidado.get((int) position);
+                    }
+                    if (articulo.getEstadoAls().equals("C")) {
+                        articulo.setEstadoAls("S");
+                    } else {
+                        articulo.setEstadoAls("C");
+                    }
 
 
-                LinearLayout llCategoriaAls= (LinearLayout) view.findViewById(R.id.llCategoriaAls);
-                if(articulo.getEstadoAls().equals("S"))
-                {
-                    llCategoriaAls.setBackgroundColor(Color.parseColor("#7F92FF"));
+                    LinearLayout llCategoriaAls = (LinearLayout) view.findViewById(R.id.llCategoriaAls);
+                    if (articulo.getEstadoAls().equals("S")) {
+                        llCategoriaAls.setBackgroundColor(Color.parseColor("#7F92FF"));
+
+                    } else {
+                        llCategoriaAls.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    }
+
 
                 }
-                else
-                {
-                    llCategoriaAls.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                }
+            });
 
+            //clearCampos();
+            cargarDatos();
+        }
+        catch (Exception e )
+        {
+            mostrarMensaje(e.toString(), "l");
+        }
 
-            }
-        });
+    }
+    public void mostrarMensaje(String mensaje, String tipo)
+    {
+        if(tipo=="l")
+        {
+            Toast.makeText(getBaseContext(),mensaje,Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(),mensaje,Toast.LENGTH_SHORT).show();
+        }
 
-        //clearCampos();
-        cargarDatos();
 
     }
     private void cargarDatos()
     {
         Bundle obtenerDatos=new Bundle();
         obtenerDatos = this.getIntent().getExtras();
-        operacion=obtenerDatos.getString("operacion");
-        xmlArticulos=obtenerDatos.getString("xmlArticulos");
+        operacion=obtenerDatos.getString("operacionA");
+       // xmlArticulos=obtenerDatos.getString("xmlArticulos");
+        pedido=(Pedido) obtenerDatos.get("PedidoB");
+        xmlArticulos=pedido.getXmlArticulos();
         xmlCategorias=obtenerDatos.getString("xmlCategorias");
         NPedidos=obtenerDatos.getLong("NPedidos");
         Items=obtenerDatos.getLong("Items");
@@ -252,7 +264,8 @@ public class VerConsolidadoAlistameinto extends Activity implements OnClickListe
                     Element element = (Element) nodes.item(i);
 
                     Articulo articulo = new Articulo();
-                    for (int j = 0; j < articulo.getPropertyCountAlsConsolidado(); j++) {
+                    articulo.setEstadoAls("C");
+                    for (int j = 0; j < articulo.getPropertyCountAlsConsolidado()-1; j++) {
 
 
                         NodeList name = element.getElementsByTagName(articulo.getPropertyNameAlsConsolidado(j));
