@@ -143,6 +143,8 @@ public class Parametros {
 
 	private long EnviaUbicacionPedido;
 
+	private long permiteCambiarMeseroLogin;
+
 
 	/**
 	 * metodo que asigna valores predeterminados a los atributos del sistema
@@ -191,7 +193,7 @@ public class Parametros {
 			String rango, String nombreVendedor, String prefijo, long UsaObservMasMenos,long DescuentoPedido, long ImprimePedido ,long ConsultaCosto
 			, long usaPrintEpson ,String macAddEpson, long usaCantDecimal, long usaSelecMultipleArt, long precioMinimo,long usaPrintBixolon,String macAddBixolon, long CarteraOnLine, long ControlaPrecioLibre
 	, long SelectDocumentoPedido,long RealizaAlistamiento, long realizaRemision, long bodegaRemisionOmision, long ModificaValorTotal, long Webid,long usaPrintDigitalPos,String macAddDigitalPos, long descuentaStockEnPedido, long usaTipoPedido ,
-					  long permiteStocken0EnPedido, long MuestraEstablecimientoCliente, long UsaStarlapWS, long EnviaUbicacionPedido) {
+					  long permiteStocken0EnPedido, long MuestraEstablecimientoCliente, long UsaStarlapWS, long EnviaUbicacionPedido, long permiteCambiarMeseroLogin) {
 		super();
 		this.ws = ws;
 		this.ip = ip;
@@ -261,6 +263,7 @@ public class Parametros {
 		this.MuestraEstablecimientoCliente = MuestraEstablecimientoCliente;
 		this.UsaStarlapWS=UsaStarlapWS;
 		this.EnviaUbicacionPedido=EnviaUbicacionPedido;
+		this.permiteCambiarMeseroLogin=permiteCambiarMeseroLogin;
 	}
 
 
@@ -1091,5 +1094,13 @@ public class Parametros {
 
 	public void setEnviaUbicacionPedido(long enviaUbicacionPedido) {
 		EnviaUbicacionPedido = enviaUbicacionPedido;
+	}
+
+	public long getPermiteCambiarMeseroLogin() {
+		return permiteCambiarMeseroLogin;
+	}
+
+	public void setPermiteCambiarMeseroLogin(long permiteCambiarMeseroLogin) {
+		this.permiteCambiarMeseroLogin = permiteCambiarMeseroLogin;
 	}
 }

@@ -63,6 +63,7 @@ public class LlamarUsuario {
 		 	if(res!=null)
 		 	{
 		 		String resp =res.toString();
+				resultado="false";
 		 		if(resp.equals("true"))
 		 		{
 		 			resultado=resp;

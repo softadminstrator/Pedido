@@ -28,7 +28,7 @@
              android:layout_height="wrap_content"
              android:layout_gravity="center"
              android:layout_marginTop="20dp"
-             android:text="Versión 99"
+             android:text="Versión 100"
              android:textAppearance="?android:attr/textAppearanceLarge"
              android:textSize="12dp" />
 
@@ -52,6 +52,19 @@
              android:text="Ruta Asignada 0000"
              android:textAppearance="?android:attr/textAppearanceLarge" />
 
+         <EditText
+             android:id="@+id/txtUsuario"
+             android:layout_width="220dp"
+             android:layout_height="40dp"
+             android:layout_gravity="center"
+             android:layout_marginTop="20dp"
+             android:background="@drawable/edit_text_design"
+             android:ems="10"
+             android:hint="Usuario"
+             android:inputType="number"
+             >
+             <requestFocus />
+         </EditText>
          <EditText
              android:id="@+id/txtClave"
              android:layout_width="220dp"

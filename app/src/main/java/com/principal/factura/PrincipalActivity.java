@@ -104,8 +104,10 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 		/**
 		 * Atributo txtclave utilizado para digitar la clave de usuario
 		 */
-		EditText txtclave;	
-		int identificador=0;
+		EditText txtclave;
+
+		EditText txtUsuario;
+	int identificador=0;
 		private Categoria categoria;
 
 		/**
@@ -194,10 +196,15 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
          txtclave.setFocusable(true);        
          txtclave.setOnKeyListener(this);
          txtclave.setImeActionLabel("Acceder", KeyEvent.KEYCODE_ENTER);
-         txtclave.requestFocus();  
-         bodega=new Bodega(10, "Bodega Comboy", "Carr 11 No. 10-21", "7448724", "El Chispazo", "Tunja");
-         parametrosPos=new Parametros("P", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0,1,0,0,0);
-         parametrosSys=new Parametros("S", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0,1,0,0,0);
+         txtclave.requestFocus();
+
+		 txtUsuario=(EditText)findViewById(R.id.txtUsuario);
+
+
+
+			bodega=new Bodega(10, "Bodega Comboy", "Carr 11 No. 10-21", "7448724", "El Chispazo", "Tunja");
+         parametrosPos=new Parametros("P", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0,1,0,0,0,0);
+         parametrosSys=new Parametros("S", "", "190", "252", "30", "230", 3, 0, 0, "201202021200", 0, 0, bodega.getIdBodega(), 1, bodega.getIdBodega(), 0, bodega.getIdBodega(), 0, 0, "--", 0, bodega.getIdBodega(), "0000",0,0,1,0,0,0,0,1,"","","","","","","","",0,0,0,0, 0, "--",0,0,3,0, "--",0,0,0,0,0, bodega.getIdBodega(),0,0,0,"--",0,0,1,0,0,0,0);
                  
          if(!rota)
          {
@@ -238,6 +245,17 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
     		 tvCajaAsignada.setText("Caja "+parametrosPos.getCaja());
     		 tvCajaAsignada.setVisibility(View.VISIBLE);
     	 }
+		 txtUsuario.setVisibility(View.GONE);
+		tvRutaAsignada.setVisibility(View.VISIBLE);
+		 if(parametrosSys.getPermiteCambiarMeseroLogin()==1)
+		 {
+			 tvRutaAsignada.setVisibility(View.GONE);
+			 txtUsuario.setVisibility(View.VISIBLE);
+			 txtUsuario.setFocusable(true);
+			 txtUsuario.setOnKeyListener(this);
+			 txtUsuario.setImeActionLabel("Acceder", KeyEvent.KEYCODE_ENTER);
+			 txtUsuario.requestFocus();
+		 }
     }
 
     @Override
@@ -268,9 +286,18 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 					thread.start();
 **/
 
+				//Valida en caso de que este activo el permitir el cambio de usuario en login asigna el nuevo numer
+					//la cedula del usuario
+
+					if (parametrosPos.getPermiteCambiarMeseroLogin()==1)
+					{
+						usuario.cedula=txtUsuario.getText().toString();
+					}
+					else {
+						usuario.cedula = parametrosPos.ruta;
+					}
 
 
-				usuario.cedula = parametrosPos.ruta;				
 				if(!txtclave.getText().toString().equals(""))
 				{
 
@@ -856,6 +883,13 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 				pdu.dismiss();
 				if(res.equals("true"))
 				{
+					//Actualiza ruta en parametros
+					bd.openDB();
+					bd.ActualizarCedulaUsuario(usuario);
+					bd.closeDB();
+
+
+
 					new getDatos().execute("");
 					pdu=ProgressDialog.show(PrincipalActivity.this,letraEstilo.getEstiloTitulo("Por Favor Espere"),letraEstilo.getEstiloTitulo("Obteniendo Datos."), true,false);
 				}
@@ -866,7 +900,7 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 				//	mostrarMensaje("El Usuario o Clave son incorrectos!!!.","l");
 				//	mostrarMensaje("Verifique los datos","s");
 				//}
-				else //if(res.equals("desc"))
+				else if(res.equals("desc"))
 				{
 					//boolean  valida = bd.getValidaUsuario(PrincipalActivity.this, usuario.cedula, usuario.clave);
 					//if(valida)
@@ -884,16 +918,16 @@ public class PrincipalActivity extends Activity implements OnClickListener, OnKe
 //						Thread thread = new Thread(PrincipalActivity.this);
 //			    		thread.start();
 						
-				/**	}
+				}
 				 else
 				 { 
 					 	txtclave.selectAll();
 						txtclave.requestFocus();
-						mostrarMensaje(usuario.getCedula()+"-"+usuario.getClave()+"No Fue Posible establecer la conexion con el servidor.","l");
-						mostrarMensaje("Verifique que tenga se�al o servicio de internet.","l");
+						mostrarMensaje(" Clave incorrecta, Intente Nuevamente","l");
+						//mostrarMensaje("Verifique que tenga se�al o servicio de internet.","l");
 				 }
-				 **/
-			 }
+
+
 			}
 	}
 	/**

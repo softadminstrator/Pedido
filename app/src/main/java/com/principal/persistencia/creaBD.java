@@ -29,6 +29,7 @@ import com.principal.mundo.Parametros;
 import com.principal.mundo.Pedido_in;
 import com.principal.mundo.Remision_in;
 import com.principal.mundo.Traslado_in;
+import com.principal.mundo.Usuario;
 import com.principal.mundo.ZFinanciera;
 import com.principal.mundo.sysws.ClienteSucursal;
 import com.principal.mundo.sysws.Libro;
@@ -54,7 +55,7 @@ public class creaBD extends SQLiteOpenHelper {
 	 * @param context
 	 */
 	public creaBD(Context context) {
-		super(context, "BDPEDIDOSYS", null, 42);
+		super(context, "BDPEDIDOSYS", null, 43);
 
 	}
 
@@ -138,6 +139,7 @@ public class creaBD extends SQLiteOpenHelper {
 				",MuestraEstablecimiendoCliente INTEGER"+
 				",UsaStarlapWS INTEGER"+
 				",EnviaUbicacionPedido INTEGER"+
+				",permiteCambiarMeseroLogin INTEGER"+
 				" ) ";
 		db.execSQL(query);
 
@@ -751,6 +753,10 @@ public class creaBD extends SQLiteOpenHelper {
 		upgradeQuery = "ALTER TABLE parametro ADD COLUMN descuentaStockEnPedido INGETER ";
 		Actualiza(db, upgradeQuery);
 
+
+
+
+
 		upgradeQuery = "ALTER TABLE Factura ADD COLUMN Anulada TEXT ";
 		Actualiza(db, upgradeQuery);
 
@@ -781,7 +787,8 @@ public class creaBD extends SQLiteOpenHelper {
 		upgradeQuery = "ALTER TABLE parametro ADD COLUMN EnviaUbicacionPedido INGETER ";
 		Actualiza(db, upgradeQuery);
 
-
+		upgradeQuery = "ALTER TABLE parametro ADD COLUMN permiteCambiarMeseroLogin INGETER ";
+		Actualiza(db, upgradeQuery);
 
 
 
@@ -830,6 +837,8 @@ public class creaBD extends SQLiteOpenHelper {
 		Actualiza(db, upgradeQuery);
 		upgradeQuery = "ALTER TABLE categoria ADD COLUMN Comision INGETER ";
 		Actualiza(db, upgradeQuery);
+
+
 
 
 
@@ -928,6 +937,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("MuestraEstablecimiendoCliente", parametros.getMuestraEstablecimientoCliente());
 			valuesIn.put("UsaStarlapWS", parametros.getUsaStarlapWS());
 			valuesIn.put("EnviaUbicacionPedido", parametros.getEnviaUbicacionPedido());
+			valuesIn.put("permiteCambiarMeseroLogin", parametros.getPermiteCambiarMeseroLogin());
 
 
 
@@ -2594,7 +2604,7 @@ public class creaBD extends SQLiteOpenHelper {
 			valuesIn.put("MuestraEstablecimiendoCliente", parametros.getMuestraEstablecimientoCliente());
 			valuesIn.put("UsaStarlapWS", parametros.getUsaStarlapWS());
 			valuesIn.put("EnviaUbicacionPedido", parametros.getEnviaUbicacionPedido());
-
+			valuesIn.put("permiteCambiarMeseroLogin", parametros.getPermiteCambiarMeseroLogin());
 
             this.getWritableDatabase().update("parametro", valuesIn," ws ='"+parametros.ws+"'",null);
 			return true;
@@ -2604,6 +2614,21 @@ public class creaBD extends SQLiteOpenHelper {
 			return false;
 		}
 
+	}
+	public boolean ActualizarCedulaUsuario(Usuario usuario)
+	{
+		try
+		{
+			ContentValues valuesIn=new ContentValues();
+			valuesIn=new ContentValues();
+			valuesIn.put("ruta", usuario.cedula);
+			this.getWritableDatabase().update("parametro", valuesIn,"",null);
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
 	}
 	
 	
@@ -4103,7 +4128,7 @@ public class creaBD extends SQLiteOpenHelper {
 					   ",bodegaTransladosOmision ,ruta, generaCierre, consultaZ ,usaWSCash, realizaPedidosMesa, usaTodasLasCategorias, permiteStocken0, precioLibre" +
 					   ",FacturaOnLine ,RazonSocial ,Representante ,RegimenNit ,DireccionTel ,ResDian ,Rango ,NombreVendedor, Prefijo, UsaObservMasMenos, DescuentoPedido, ImprimePedido, ConsultaCosto" +
                        ",usaPrintEpson, macAddEpson, usaCantDecimal, usaSelecMultipleArt, precioMinimo, usaPrintBixolon, macAddBixolon, CarteraOnLine ,ControlaPrecioLibre, SelectDocumentoPedido  , RealizaAlistamiento, SelectFormaPagoPedido, UsaPrestamos, RealizaRemision, bodegaRemisionOmision "+
-				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos, descuentaStockEnPedido, usaTipoPedido, permiteStocken0EnPedido , MuestraEstablecimiendoCliente,UsaStarlapWS, EnviaUbicacionPedido "+
+				       ", ModificaValorTotal, Webid, usaPrintDigitalPos, macAddDigitalPos, descuentaStockEnPedido, usaTipoPedido, permiteStocken0EnPedido , MuestraEstablecimiendoCliente,UsaStarlapWS, EnviaUbicacionPedido, permiteCambiarMeseroLogin "+
 				       " FROM parametro " +
 				       " WHERE ws ='"+ws+"' ";
 
@@ -4183,7 +4208,7 @@ public class creaBD extends SQLiteOpenHelper {
 					parametros.setMuestraEstablecimientoCliente(c.getLong(64));
 					parametros.setUsaStarlapWS(c.getLong(65));
 					parametros.setEnviaUbicacionPedido(c.getLong(66));
-
+					parametros.setPermiteCambiarMeseroLogin(c.getLong(67));
 
 
 
